@@ -1,0 +1,180 @@
+# Best-effort Androguard DAD pseudocode; NOT original Kotlin and may be inaccurate.
+# Verify all control flow and constants against original DEX instructions.
+# APK SHA-256: 1fe8867aa04ee0fb2d0b4e7bdd5e0a502d1a4b264c93dc1f644e672192b1402b
+# Class: Lcom/workshop/ledger/data/LedgerRepository$replaceStore$2;
+
+## <init> (Ljava/lang/String; Lcom/workshop/ledger/data/LedgerRepository; LQ/d;)V
+
+    public LedgerRepository$replaceStore$2(String p1, com.workshop.ledger.data.LedgerRepository p2, Q.d p3)
+    {
+        this.$raw = p1;
+        this.this$0 = p2;
+        super(2, p3);
+        return;
+    }
+
+
+## create (Ljava/lang/Object; LQ/d;)LQ/d;
+
+    public final Q.d create(Object p3, Q.d p4)
+    {
+        return new com.workshop.ledger.data.LedgerRepository$replaceStore$2(this.$raw, this.this$0, p4);
+    }
+
+
+## invoke (Li0/v; LQ/d;)Ljava/lang/Object;
+
+    public final Object invoke(i0.v p1, Q.d p2)
+    {
+        return ((com.workshop.ledger.data.LedgerRepository$replaceStore$2) this.create(p1, p2)).invokeSuspend(N.h.a);
+    }
+
+
+## invoke (Ljava/lang/Object; Ljava/lang/Object;)Ljava/lang/Object;
+
+    public bridge synthetic Object invoke(Object p1, Object p2)
+    {
+        return this.invoke(((i0.v) p1), ((Q.d) p2));
+    }
+
+
+## invokeSuspend (Ljava/lang/Object;)Ljava/lang/Object;
+
+    public final Object invokeSuspend(Object p18)
+    {
+        String v13_1;
+        boolean v4_1;
+        String v2_2;
+        java.util.ArrayList v11_2;
+        int v12_2;
+        int v1_9;
+        java.util.ArrayList v0_3;
+        java.util.ArrayList v0_0 = R.a.b;
+        int v1_15 = this.label;
+        if (v1_15 == 0) {
+            a.a.P(p18);
+            int v1_7 = com.workshop.ledger.data.StateValidator.validate$default(com.workshop.ledger.data.StateValidator.INSTANCE, this.$raw, 0, 2, 0);
+            v4_1 = v1_7.getRoot();
+            if ((v1_7.getOk()) && (v4_1)) {
+                java.util.LinkedHashMap v5_9 = v4_1.getJSONArray("projects");
+                java.util.Set v6_6 = new java.util.ArrayList(v5_9.length());
+                String v7_13 = new java.util.ArrayList();
+                java.util.ArrayList v11_0 = v5_9.length();
+                int v12_1 = 0;
+                while (v12_1 < v11_0) {
+                    String v13_2 = v5_9.getJSONObject(v12_1);
+                    String v14_2 = v13_2.getString("id");
+                    v6_6.add(v14_2);
+                    String v15_3 = com.workshop.ledger.data.LedgerRepository.access$canonicalHash(this.this$0, v13_2);
+                    int v3_11 = ((Integer) com.workshop.ledger.data.LedgerRepository.access$getProjectHashes$p(this.this$0).get(v14_2));
+                    if ((v3_11 == 0) || (v3_11.intValue() != v15_3)) {
+                        kotlin.jvm.internal.i.b(v14_2);
+                        v7_13.add(new com.workshop.ledger.data.LedgerRepository$ChangedProject(v14_2, v13_2, v15_3));
+                    }
+                    v12_1++;
+                }
+                try {
+                    int v3_6 = com.workshop.ledger.data.LedgerRepository.access$getDatabase$p(this.this$0);
+                    java.util.LinkedHashMap v5_11 = new com.workshop.ledger.data.LedgerRepository$replaceStore$2$1(v7_13, this.this$0, v6_6, 0);
+                    this.L$0 = v1_7;
+                    this.L$1 = v4_1;
+                    this.L$2 = v6_6;
+                    this.L$3 = v7_13;
+                    this.label = 1;
+                } catch (java.util.ArrayList v0_4) {
+                    v2_2 = v1_7;
+                    com.workshop.ledger.data.LedgerRepository.access$getProjectHashes$p(this.this$0).clear();
+                    int v3_3 = v0_4.getMessage();
+                    if (v3_3 == 0) {
+                        v3_3 = v0_4.getClass().getSimpleName();
+                    }
+                    v1_7 = new com.workshop.ledger.data.StateValidator$Result(0, a.a.G("\u0630\u062e\u06cc\u0631\u0647\u200c\u0633\u0627\u0632\u06cc \u062f\u0631 \u067e\u0627\u06cc\u06af\u0627\u0647 \u062f\u0627\u062f\u0647 \u0646\u0627\u0645\u0648\u0641\u0642 \u0628\u0648\u062f: ".concat(v3_3)), v2_2.getWarnings(), 0);
+                    return v1_7;
+                }
+                if (androidx.room.RoomDatabaseKt.withTransaction(v3_6, v5_11, this) != v0_0) {
+                    v13_1 = v1_7;
+                    v12_2 = v6_6;
+                    v11_2 = v7_13;
+                    int v1_4 = com.workshop.ledger.data.StateValidatorKt.strOrNull(v4_1, "activeProjectId");
+                    if ((v1_4 == 0) || (!v12_2.contains(v1_4))) {
+                        kotlin.jvm.internal.i.e(v12_2, "<this>");
+                        if (v12_2.isEmpty()) {
+                            throw new java.util.NoSuchElementException("List is empty.");
+                        } else {
+                            v1_4 = ((String) v12_2.get(0));
+                        }
+                    }
+                    String v2_1 = v1_4;
+                    int v1_6 = com.workshop.ledger.data.LedgerRepository.access$getSettings$p(this.this$0);
+                    int v3_2 = v4_1.getJSONObject("onboarding").toString();
+                    boolean v4_0 = com.workshop.ledger.data.StateValidatorKt.boolOr(v4_1, "coachDismissed", 0);
+                    java.util.LinkedHashMap v5_2 = O.v.R(O.m.T(v11_2));
+                    if (v5_2 < 16) {
+                        v5_2 = 16;
+                    }
+                    java.util.Set v6_2 = new java.util.LinkedHashMap(v5_2);
+                    java.util.LinkedHashMap v5_3 = v11_2.iterator();
+                    while (v5_3.hasNext()) {
+                        String v7_4 = ((com.workshop.ledger.data.LedgerRepository$ChangedProject) v5_3.next());
+                        String v14_0 = v7_4.getId();
+                        String v7_6 = v7_4.getJson().optJSONObject("settings");
+                        if (v7_6 == null) {
+                            v7_6 = new org.json.JSONObject();
+                        }
+                        v6_2.put(v14_0, v7_6.toString());
+                    }
+                    String v7_1 = O.k.b0(v12_2);
+                    this.L$0 = v13_1;
+                    this.L$1 = v12_2;
+                    this.L$2 = v11_2;
+                    this.L$3 = 0;
+                    this.label = 2;
+                    if (v1_6.writeSnapshot(v2_1, v3_2, v4_0, v6_2, v7_1, this) != v0_0) {
+                        v0_3 = v11_2;
+                        v1_9 = v12_2;
+                        v2_2 = v13_1;
+                    } else {
+                        return v0_0;
+                    }
+                } else {
+                    return v0_0;
+                }
+            }
+        } else {
+            if (v1_15 == 1) {
+                int v1_18 = ((java.util.ArrayList) this.L$3);
+                String v2_8 = ((java.util.ArrayList) this.L$2);
+                v4_1 = ((org.json.JSONObject) this.L$1);
+                java.util.LinkedHashMap v5_13 = ((com.workshop.ledger.data.StateValidator$Result) this.L$0);
+                try {
+                    a.a.P(p18);
+                    v11_2 = v1_18;
+                    v12_2 = v2_8;
+                    v13_1 = v5_13;
+                } catch (java.util.ArrayList v0_4) {
+                    v2_2 = v5_13;
+                }
+            } else {
+                if (v1_15 != 2) {
+                    throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+                } else {
+                    v0_3 = ((java.util.ArrayList) this.L$2);
+                    v1_9 = ((java.util.ArrayList) this.L$1);
+                    v2_2 = ((com.workshop.ledger.data.StateValidator$Result) this.L$0);
+                    try {
+                        a.a.P(p18);
+                    } catch (java.util.ArrayList v0_4) {
+                    }
+                }
+            }
+        }
+        int v3_4 = this.this$0;
+        java.util.ArrayList v0_12 = v0_3.iterator();
+        while (v0_12.hasNext()) {
+            boolean v4_4 = ((com.workshop.ledger.data.LedgerRepository$ChangedProject) v0_12.next());
+            com.workshop.ledger.data.LedgerRepository.access$getProjectHashes$p(v3_4).put(v4_4.getId(), new Integer(v4_4.getHash()));
+        }
+        com.workshop.ledger.data.LedgerRepository.access$getProjectHashes$p(this.this$0).keySet().retainAll(O.k.b0(v1_9));
+        return v2_2;
+    }
+

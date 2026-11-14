@@ -1,0 +1,1013 @@
+# Best-effort Androguard DAD pseudocode; NOT original Kotlin and may be inaccurate.
+# Verify all control flow and constants against original DEX instructions.
+# APK SHA-256: 1fe8867aa04ee0fb2d0b4e7bdd5e0a502d1a4b264c93dc1f644e672192b1402b
+# Class: Lcom/workshop/ledger/data/StateValidator;
+
+## <clinit> ()V
+
+    static StateValidator()
+    {
+        com.workshop.ledger.data.StateValidator.INSTANCE = new com.workshop.ledger.data.StateValidator();
+        com.workshop.ledger.data.StateValidator.ID_REGEX = new g0.e("^[A-Za-z0-9_.-]{1,64}$");
+        com.workshop.ledger.data.StateValidator.JALALI_DATE_REGEX = new g0.e("^(\\d{4})/(0[1-9]|1[0-2])/(0[1-9]|[12]\\d|3[01])$");
+        com.workshop.ledger.data.StateValidator.USER_TYPES = O.j.W(new String[] {"master", "apprentice", "custom"}));
+        com.workshop.ledger.data.StateValidator.TRANSFER_KINDS = O.j.W(new String[] {"peer", "advance"}));
+        com.workshop.ledger.data.StateValidator.ADJUSTMENT_KINDS = O.j.W(new String[] {"bonus", "penalty", "assistance", "settle"}));
+        com.workshop.ledger.data.StateValidator.ONBOARDING_STATUSES = O.j.W(new String[] {"not_started", "in_quest", "completed", "skipped"}));
+        com.workshop.ledger.data.StateValidator.LEGACY_ONBOARDING_VALUES = O.j.W(new String[] {"completed", "skipped"}));
+        com.workshop.ledger.data.StateValidator.PROFIT_BASES = O.j.W(new String[] {"cash", "commitment"}));
+        com.workshop.ledger.data.StateValidator.THEMES = O.j.W(new String[] {"system", "light", "dark"}));
+        return;
+    }
+
+
+## <init> ()V
+
+    private StateValidator()
+    {
+        return;
+    }
+
+
+## checkAmount (Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+
+    private final void checkAmount(org.json.JSONObject p1, String p2, String p3, com.workshop.ledger.data.StateValidator$Issues p4)
+    {
+        if (!this.isValidAmount(p1.opt(p2))) {
+            String v1_5 = new StringBuilder();
+            v1_5.append(p3);
+            v1_5.append(": \u0645\u0628\u0644\u063a (");
+            v1_5.append(p2);
+            v1_5.append(") \u0646\u0628\u0627\u06cc\u062f \u0645\u0646\u0641\u06cc\u060c \u062a\u0647\u06cc \u06cc\u0627 \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u0628\u0627\u0634\u062f");
+            p4.error(v1_5.toString());
+        }
+        return;
+    }
+
+
+## checkDate (Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+
+    private final void checkDate(org.json.JSONObject p1, String p2, String p3, com.workshop.ledger.data.StateValidator$Issues p4)
+    {
+        if (!this.isJalaliDate(com.workshop.ledger.data.StateValidatorKt.strOrNull(p1, p2))) {
+            String v1_5 = new StringBuilder();
+            v1_5.append(p3);
+            v1_5.append(": \u062a\u0627\u0631\u06cc\u062e (");
+            v1_5.append(p2);
+            v1_5.append(") \u0628\u0627\u06cc\u062f \u0628\u0647 \u0634\u06a9\u0644 YYYY/MM/DD \u0645\u0639\u062a\u0628\u0631 \u0628\u0627\u0634\u062f");
+            p4.error(v1_5.toString());
+        }
+        return;
+    }
+
+
+## checkDescription (Lorg/json/JSONObject; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+
+    private final void checkDescription(org.json.JSONObject p2, String p3, com.workshop.ledger.data.StateValidator$Issues p4)
+    {
+        String v2_2 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p2, "description");
+        if ((v2_2 != null) && (v2_2.length() > 2000)) {
+            p4.error(A.d.e(p3, ": \u062a\u0648\u0636\u06cc\u062d\u0627\u062a \u0628\u06cc\u0634 \u0627\u0632 \u062d\u062f \u0637\u0648\u0644\u0627\u0646\u06cc \u0627\u0633\u062a"));
+        }
+        return;
+    }
+
+
+## checkRecordId (Lorg/json/JSONObject; Ljava/util/Set; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+
+    private final void checkRecordId(org.json.JSONObject p2, java.util.Set p3, String p4, com.workshop.ledger.data.StateValidator$Issues p5)
+    {
+        String v2_2 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p2, "id");
+        if (v2_2 == null) {
+            v2_2 = "";
+        }
+        if (com.workshop.ledger.data.StateValidator.ID_REGEX.a(v2_2)) {
+            if (!p3.add(v2_2)) {
+                StringBuilder v3_3 = new StringBuilder();
+                v3_3.append(p4);
+                v3_3.append(": \u0634\u0646\u0627\u0633\u0647 \u00ab");
+                v3_3.append(v2_2);
+                v3_3.append("\u00bb \u062a\u06a9\u0631\u0627\u0631\u06cc \u0627\u0633\u062a");
+                p5.error(v3_3.toString());
+            }
+        } else {
+            p5.error(A.d.e(p4, ": \u0634\u0646\u0627\u0633\u0647 \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u0627\u0633\u062a"));
+        }
+        return;
+    }
+
+
+## failure (Ljava/lang/String;)Lcom/workshop/ledger/data/StateValidator$Result;
+
+    private final com.workshop.ledger.data.StateValidator$Result failure(String p5)
+    {
+        return new com.workshop.ledger.data.StateValidator$Result(0, a.a.G(p5), O.s.b, 0);
+    }
+
+
+## forEachObject (Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues; LY/l;)V
+
+    private final void forEachObject(org.json.JSONObject p6, String p7, String p8, com.workshop.ledger.data.StateValidator$Issues p9, Y.l p10)
+    {
+        org.json.JSONArray v6_1 = p6.optJSONArray(p7);
+        if (v6_1 != null) {
+            int v0 = v6_1.length();
+            int v1 = 0;
+            while (v1 < v0) {
+                String v2_3 = v6_1.optJSONObject(v1);
+                if (v2_3 != null) {
+                    p10.invoke(v2_3);
+                } else {
+                    String v2_0 = (v1 + 1);
+                    StringBuilder v3_1 = new StringBuilder();
+                    v3_1.append(p8);
+                    v3_1.append("/");
+                    v3_1.append(p7);
+                    v3_1.append(": \u0639\u0646\u0635\u0631 ");
+                    v3_1.append(v2_0);
+                    v3_1.append(" \u0633\u0627\u062e\u062a\u0627\u0631 \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u062f\u0627\u0631\u062f");
+                    p9.error(v3_1.toString());
+                }
+                v1++;
+            }
+            return;
+        } else {
+            return;
+        }
+    }
+
+
+## isValidAttendanceValue (Ljava/lang/Object;)Z
+
+    private final boolean isValidAttendanceValue(Object p9)
+    {
+        int v1 = 1;
+        if (!(p9 instanceof Number)) {
+            if (!(p9 instanceof org.json.JSONObject)) {
+                v1 = 0;
+            } else {
+                long v5_1;
+                long v5_0 = ((org.json.JSONObject) p9).opt("h");
+                Double v7 = 0;
+                if (!(v5_0 instanceof Number)) {
+                    v5_1 = 0;
+                } else {
+                    v5_1 = ((Number) v5_0);
+                }
+                if (v5_1 != 0) {
+                    v7 = Double.valueOf(v5_1.doubleValue());
+                }
+                if ((!kotlin.jvm.internal.i.a(com.workshop.ledger.data.StateValidatorKt.strOrNull(((org.json.JSONObject) p9), "t"), "h")) || ((v7 == null) || ((Double.isNaN(v7.doubleValue())) || ((v7.doubleValue() < 0) || (v7.doubleValue() > 4627448617123184640))))) {
+                }
+            }
+        } else {
+            long v5_7 = ((Number) p9).doubleValue();
+            if ((v5_7 != 0) && ((v5_7 != 4602678819172646912) && (v5_7 != 4607182418800017408))) {
+            }
+        }
+        return v1;
+    }
+
+
+## onboardingState (Ljava/lang/String; I Ljava/lang/String;)Lorg/json/JSONObject;
+
+    private final org.json.JSONObject onboardingState(String p3, int p4, String p5)
+    {
+        org.json.JSONObject vtmp2 = new org.json.JSONObject().put("status", p3).put("questStep", p4);
+        if (p5 == null) {
+            p5 = org.json.JSONObject.NULL;
+        }
+        return vtmp2.put("sandboxProjectId", p5);
+    }
+
+
+## requireText (Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; I Lcom/workshop/ledger/data/StateValidator$Issues;)V
+
+    private final void requireText(org.json.JSONObject p3, String p4, String p5, int p6, com.workshop.ledger.data.StateValidator$Issues p7)
+    {
+        String v3_1 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p3, p4);
+        if ((v3_1 != null) && (!g0.m.Y(v3_1))) {
+            if (v3_1.length() > p6) {
+                String v3_3 = new StringBuilder();
+                v3_3.append(p5);
+                v3_3.append(": \u0641\u06cc\u0644\u062f ");
+                v3_3.append(p4);
+                v3_3.append(" \u0628\u06cc\u0634 \u0627\u0632 ");
+                v3_3.append(p6);
+                v3_3.append(" \u0646\u0648\u06cc\u0633\u0647 \u0627\u0633\u062a");
+                p7.error(v3_3.toString());
+            }
+        } else {
+            String v3_6 = new StringBuilder();
+            v3_6.append(p5);
+            v3_6.append(": \u0641\u06cc\u0644\u062f ");
+            v3_6.append(p4);
+            v3_6.append(" \u0627\u0644\u0632\u0627\u0645\u06cc \u0627\u0633\u062a");
+            p7.error(v3_6.toString());
+        }
+        return;
+    }
+
+
+## utf8Length (Ljava/lang/CharSequence; J)J
+
+    private final long utf8Length(CharSequence p8, long p9)
+    {
+        long v0 = 0;
+        int v2_0 = 0;
+        while (v2_0 < p8.length()) {
+            int v3_2;
+            int v3_6 = p8.charAt(v2_0);
+            if (v3_6 >= 128) {
+                if (v3_6 >= 2048) {
+                    if (Character.isHighSurrogate(v3_6)) {
+                        int v3_1 = (v2_0 + 1);
+                        if ((v3_1 < p8.length()) && (Character.isLowSurrogate(p8.charAt(v3_1)))) {
+                            v3_2 = 4;
+                            v2_0 = v3_1;
+                            v0 += ((long) v3_2);
+                            if (v0 <= p9) {
+                                v2_0++;
+                            } else {
+                                return v0;
+                            }
+                        }
+                    }
+                    v3_2 = 3;
+                } else {
+                    v3_2 = 2;
+                }
+            } else {
+                v3_2 = 1;
+            }
+        }
+        return v0;
+    }
+
+
+## validate$default (Lcom/workshop/ledger/data/StateValidator; Ljava/lang/String; J I Ljava/lang/Object;)Lcom/workshop/ledger/data/StateValidator$Result;
+
+    public static synthetic com.workshop.ledger.data.StateValidator$Result validate$default(com.workshop.ledger.data.StateValidator p0, String p1, long p2, int p4, Object p5)
+    {
+        if ((p4 & 2) != 0) {
+            p2 = 67108864;
+        }
+        return p0.validate(p1, p2);
+    }
+
+
+## validateAdjustments (Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+
+    private final void validateAdjustments(org.json.JSONObject p10, com.workshop.ledger.data.StateValidator$ProjectScope p11, com.workshop.ledger.data.StateValidator$Issues p12)
+    {
+        java.util.HashSet v0_1 = new java.util.HashSet();
+        String v1 = p11.getLabel();
+        String v10_1 = p10.optJSONArray("adjustments");
+        int v2_0 = 0;
+        if (v10_1 != null) {
+            int v3 = v10_1.length();
+            int v4 = 0;
+            while (v2_0 < v3) {
+                boolean v5_0 = v10_1.optJSONObject(v2_0);
+                if (v5_0) {
+                    java.util.Set v6_1 = A.d.e(p11.getLabel(), "/\u062a\u0639\u062f\u06cc\u0644");
+                    com.workshop.ledger.data.StateValidator.INSTANCE.checkRecordId(v5_0, v0_1, v6_1, p12).checkDate(v5_0, "date", v6_1, p12).checkAmount(v5_0, "amount", v6_1, p12).checkDescription(v5_0, v6_1, p12);
+                    if (!O.k.V(com.workshop.ledger.data.StateValidator.ADJUSTMENT_KINDS, com.workshop.ledger.data.StateValidatorKt.strOrNull(v5_0, "kind"))) {
+                        p12.error(A.d.e(v6_1, ": \u0646\u0648\u0639 \u0628\u0627\u06cc\u062f bonus\u060c penalty\u060c assistance \u06cc\u0627 settle \u0628\u0627\u0634\u062f"));
+                    }
+                    if (!O.k.V(p11.getUserIds(), com.workshop.ledger.data.StateValidatorKt.strOrNull(v5_0, "userId"))) {
+                        v4++;
+                    }
+                } else {
+                    boolean v5_3 = (v2_0 + 1);
+                    java.util.Set v6_5 = new StringBuilder();
+                    v6_5.append(v1);
+                    v6_5.append("/adjustments: \u0639\u0646\u0635\u0631 ");
+                    v6_5.append(v5_3);
+                    v6_5.append(" \u0633\u0627\u062e\u062a\u0627\u0631 \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u062f\u0627\u0631\u062f");
+                    p12.error(v6_5.toString());
+                }
+                v2_0++;
+            }
+            v2_0 = v4;
+        }
+        if (v2_0 > 0) {
+            String v10_2 = p11.getLabel();
+            StringBuilder v11_2 = new StringBuilder();
+            v11_2.append(v10_2);
+            v11_2.append(": ");
+            v11_2.append(v2_0);
+            v11_2.append(" \u062a\u0639\u062f\u06cc\u0644 \u06cc\u062a\u06cc\u0645 (\u06a9\u0627\u0631\u0628\u0631 \u0646\u0627\u0645\u0648\u062c\u0648\u062f)");
+            p12.warn(v11_2.toString());
+        }
+        return;
+    }
+
+
+## validateAttendance (Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+
+    private final void validateAttendance(org.json.JSONObject p10, com.workshop.ledger.data.StateValidator$ProjectScope p11, com.workshop.ledger.data.StateValidator$Issues p12)
+    {
+        String v10_4 = p10.optJSONObject("attendance");
+        if (v10_4 != null) {
+            java.util.Iterator v0_1 = v10_4.keys();
+            int v1 = 0;
+            while (v0_1.hasNext()) {
+                String v2_1 = ((String) v0_1.next());
+                if (this.isJalaliDate(v2_1)) {
+                    String v3_1 = v10_4.optJSONObject(v2_1);
+                    if (v3_1 != null) {
+                        java.util.Iterator v5_0 = v3_1.keys();
+                        while (v5_0.hasNext()) {
+                            boolean v6_2 = ((String) v5_0.next());
+                            if (!this.isValidAttendanceValue(v3_1.opt(v6_2))) {
+                                java.util.Set v7_2 = p11.getLabel();
+                                StringBuilder v8_1 = new StringBuilder();
+                                v8_1.append(v7_2);
+                                v8_1.append("/\u062d\u0636\u0648\u0631 ");
+                                v8_1.append(v2_1);
+                                v8_1.append(": \u0645\u0642\u062f\u0627\u0631 \u06a9\u0627\u0631\u06a9\u0631\u062f \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u06cc\u0627 \u062e\u0627\u0631\u062c \u0627\u0632 \u06f0 \u062a\u0627 \u06f2\u06f4 \u0633\u0627\u0639\u062a");
+                                p12.error(v8_1.toString());
+                            }
+                            if (!p11.getUserIds().contains(v6_2)) {
+                                v1++;
+                            }
+                        }
+                    } else {
+                        String v3_2 = p11.getLabel();
+                        java.util.Iterator v5_2 = new StringBuilder();
+                        v5_2.append(v3_2);
+                        v5_2.append("/\u062d\u0636\u0648\u0631 ");
+                        v5_2.append(v2_1);
+                        v5_2.append(": \u0633\u0627\u062e\u062a\u0627\u0631 \u0646\u0627\u0645\u0639\u062a\u0628\u0631");
+                        p12.error(v5_2.toString());
+                    }
+                } else {
+                    String v3_3 = p11.getLabel();
+                    String v4_2 = new StringBuilder();
+                    v4_2.append(v3_3);
+                    v4_2.append("/\u062d\u0636\u0648\u0631: \u062a\u0627\u0631\u06cc\u062e \u00ab");
+                    v4_2.append(v2_1);
+                    v4_2.append("\u00bb \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u0627\u0633\u062a");
+                    p12.error(v4_2.toString());
+                }
+            }
+            if (v1 > 0) {
+                String v10_1 = p11.getLabel();
+                StringBuilder v11_2 = new StringBuilder();
+                v11_2.append(v10_1);
+                v11_2.append(": ");
+                v11_2.append(v1);
+                v11_2.append(" \u0631\u06a9\u0648\u0631\u062f \u062d\u0636\u0648\u0631 \u06cc\u062a\u06cc\u0645 (\u06a9\u0627\u0631\u0628\u0631 \u0646\u0627\u0645\u0648\u062c\u0648\u062f)");
+                p12.warn(v11_2.toString());
+            }
+            return;
+        } else {
+            return;
+        }
+    }
+
+
+## validateExpenses (Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+
+    private final void validateExpenses(org.json.JSONObject p10, com.workshop.ledger.data.StateValidator$ProjectScope p11, com.workshop.ledger.data.StateValidator$Issues p12)
+    {
+        java.util.HashSet v0_1 = new java.util.HashSet();
+        String v1 = p11.getLabel();
+        String v10_1 = p10.optJSONArray("expenses");
+        int v2_0 = 0;
+        if (v10_1 != null) {
+            int v3 = v10_1.length();
+            int v4 = 0;
+            while (v2_0 < v3) {
+                boolean v5_0 = v10_1.optJSONObject(v2_0);
+                if (v5_0) {
+                    java.util.Set v6_1 = A.d.e(p11.getLabel(), "/\u0647\u0632\u06cc\u0646\u0647");
+                    com.workshop.ledger.data.StateValidator.INSTANCE.checkRecordId(v5_0, v0_1, v6_1, p12).checkDate(v5_0, "date", v6_1, p12).checkAmount(v5_0, "amount", v6_1, p12).checkDescription(v5_0, v6_1, p12);
+                    boolean v5_1 = com.workshop.ledger.data.StateValidatorKt.strOrNull(v5_0, "payerId");
+                    if ((v5_1) && ((v5_1.length() != 0) && ((!kotlin.jvm.internal.i.a(v5_1, "shared")) && (!p11.getUserIds().contains(v5_1))))) {
+                        v4++;
+                    }
+                } else {
+                    boolean v5_3 = (v2_0 + 1);
+                    java.util.Set v6_8 = new StringBuilder();
+                    v6_8.append(v1);
+                    v6_8.append("/expenses: \u0639\u0646\u0635\u0631 ");
+                    v6_8.append(v5_3);
+                    v6_8.append(" \u0633\u0627\u062e\u062a\u0627\u0631 \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u062f\u0627\u0631\u062f");
+                    p12.error(v6_8.toString());
+                }
+                v2_0++;
+            }
+            v2_0 = v4;
+        }
+        if (v2_0 > 0) {
+            String v10_2 = p11.getLabel();
+            StringBuilder v11_2 = new StringBuilder();
+            v11_2.append(v10_2);
+            v11_2.append(": ");
+            v11_2.append(v2_0);
+            v11_2.append(" \u0647\u0632\u06cc\u0646\u0647 \u0628\u0627 \u067e\u0631\u062f\u0627\u062e\u062a\u200c\u06a9\u0646\u0646\u062f\u0647 \u0646\u0627\u0645\u0648\u062c\u0648\u062f");
+            p12.warn(v11_2.toString());
+        }
+        return;
+    }
+
+
+## validateOnboarding (Lorg/json/JSONObject; Ljava/util/Set; Ljava/util/Set; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+
+    private final void validateOnboarding(org.json.JSONObject p10, java.util.Set p11, java.util.Set p12, com.workshop.ledger.data.StateValidator$Issues p13)
+    {
+        boolean v1_2 = p10.opt("onboarding");
+        String v3_0 = 0;
+        if (v1_2) {
+            Object v4 = org.json.JSONObject.NULL;
+            if (v1_2 != v4) {
+                if (!(v1_2 instanceof String)) {
+                    if ((v1_2 instanceof org.json.JSONObject)) {
+                        boolean v1_1 = ((org.json.JSONObject) v1_2);
+                        if (!v1_1.has("sandboxProjectId")) {
+                            v1_1.put("sandboxProjectId", v4);
+                        }
+                        String v0_3 = com.workshop.ledger.data.StateValidatorKt.strOrNull(v1_1, "status");
+                        if ((v0_3 == null) || (!com.workshop.ledger.data.StateValidator.ONBOARDING_STATUSES.contains(v0_3))) {
+                            p13.error("\u0648\u0636\u0639\u06cc\u062a onboarding \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u0627\u0633\u062a");
+                        }
+                        double v2_6;
+                        double v2_5 = v1_1.opt("questStep");
+                        if (!(v2_5 instanceof Number)) {
+                            v2_6 = 0;
+                        } else {
+                            v2_6 = ((Number) v2_5);
+                        }
+                        double v2_7;
+                        if (v2_6 == 0) {
+                            v2_7 = 0;
+                        } else {
+                            v2_7 = Double.valueOf(v2_6.doubleValue());
+                        }
+                        if (v2_7 == 0) {
+                            p13.error("\u06af\u0627\u0645 onboarding \u0628\u0627\u06cc\u062f \u0639\u062f\u062f \u0635\u062d\u06cc\u062d \u0628\u06cc\u0646 \u06f0 \u062a\u0627 \u06f4 \u0628\u0627\u0634\u062f");
+                        } else {
+                            double v5_2 = v2_7.doubleValue();
+                            if ((Double.isInfinite(v5_2)) || ((Double.isNaN(v5_2)) || ((v2_7.doubleValue() % 4607182418800017408) != 0))) {
+                            } else {
+                                double v5_7 = v2_7.doubleValue();
+                                if ((v5_7 < 0) || (v5_7 > 4616189618054758400)) {
+                                }
+                            }
+                        }
+                        String v10_7 = v1_1.opt("sandboxProjectId");
+                        if ((v10_7 != null) && ((v10_7 != v4) && ((v10_7 instanceof String)))) {
+                            v3_0 = ((String) v10_7);
+                        }
+                        if ((v10_7 != null) && ((v10_7 != v4) && ((v3_0 == null) || ((!com.workshop.ledger.data.StateValidator.ID_REGEX.a(v3_0)) || (!g0.m.d0(v3_0, "demo_quest_")))))) {
+                            p13.error("\u0634\u0646\u0627\u0633\u0647 \u06a9\u0627\u0631\u06af\u0627\u0647 \u062a\u0645\u0631\u06cc\u0646\u06cc \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u0627\u0633\u062a");
+                        }
+                        if ((v3_0 != null) && (!p11.contains(v3_0))) {
+                            p13.error("\u067e\u0631\u0648\u0698\u0647 \u06a9\u0627\u0631\u06af\u0627\u0647 \u062a\u0645\u0631\u06cc\u0646\u06cc \u062f\u0631 \u0641\u0647\u0631\u0633\u062a \u067e\u0631\u0648\u0698\u0647\u200c\u0647\u0627 \u0646\u06cc\u0633\u062a");
+                        }
+                        if ((v3_0 != null) && (!p12.contains(v3_0))) {
+                            p13.error("\u0634\u0646\u0627\u0633\u0647 \u067e\u0631\u0648\u0698\u0647 \u06a9\u0627\u0631\u06af\u0627\u0647 \u062a\u0645\u0631\u06cc\u0646\u06cc \u0645\u0639\u062a\u0628\u0631 \u0646\u06cc\u0633\u062a");
+                        }
+                        if ((kotlin.jvm.internal.i.a(v0_3, "in_quest")) && (v3_0 == null)) {
+                            p13.error("\u0628\u0631\u0627\u06cc \u0622\u0645\u0648\u0632\u0634 \u0641\u0639\u0627\u0644 \u0628\u0627\u06cc\u062f \u0634\u0646\u0627\u0633\u0647 \u06a9\u0627\u0631\u06af\u0627\u0647 \u062a\u0645\u0631\u06cc\u0646\u06cc \u062b\u0628\u062a \u0634\u0648\u062f");
+                        }
+                        return;
+                    } else {
+                        p13.error("\u0633\u0627\u062e\u062a\u0627\u0631 onboarding \u0628\u0627\u06cc\u062f \u06cc\u06a9 \u0634\u06cc\u0621 \u0628\u0627\u0634\u062f");
+                        return;
+                    }
+                } else {
+                    if (com.workshop.ledger.data.StateValidator.LEGACY_ONBOARDING_VALUES.contains(v1_2)) {
+                        p10.put("onboarding", this.onboardingState(((String) v1_2), 0, 0));
+                        return;
+                    } else {
+                        p13.error("\u0645\u0642\u062f\u0627\u0631 onboarding \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u0627\u0633\u062a");
+                        return;
+                    }
+                }
+            }
+        }
+        p10.put("onboarding", this.onboardingState("not_started", 0, 0));
+        return;
+    }
+
+
+## validatePayouts (Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+
+    private final void validatePayouts(org.json.JSONObject p10, com.workshop.ledger.data.StateValidator$ProjectScope p11, com.workshop.ledger.data.StateValidator$Issues p12)
+    {
+        java.util.HashSet v0_1 = new java.util.HashSet();
+        String v1 = p11.getLabel();
+        String v10_3 = p10.optJSONArray("payouts");
+        int v2_0 = 0;
+        if (v10_3 != null) {
+            int v3 = v10_3.length();
+            int v4 = 0;
+            while (v2_0 < v3) {
+                boolean v5_0 = v10_3.optJSONObject(v2_0);
+                if (v5_0) {
+                    java.util.Set v6_1 = A.d.e(p11.getLabel(), "/\u067e\u0631\u062f\u0627\u062e\u062a\u06cc");
+                    com.workshop.ledger.data.StateValidator.INSTANCE.checkRecordId(v5_0, v0_1, v6_1, p12).checkDate(v5_0, "date", v6_1, p12).checkAmount(v5_0, "amount", v6_1, p12).checkDescription(v5_0, v6_1, p12);
+                    if (!O.k.V(p11.getUserIds(), com.workshop.ledger.data.StateValidatorKt.strOrNull(v5_0, "userId"))) {
+                        v4++;
+                    }
+                } else {
+                    boolean v5_3 = (v2_0 + 1);
+                    java.util.Set v6_4 = new StringBuilder();
+                    v6_4.append(v1);
+                    v6_4.append("/payouts: \u0639\u0646\u0635\u0631 ");
+                    v6_4.append(v5_3);
+                    v6_4.append(" \u0633\u0627\u062e\u062a\u0627\u0631 \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u062f\u0627\u0631\u062f");
+                    p12.error(v6_4.toString());
+                }
+                v2_0++;
+            }
+            v2_0 = v4;
+        }
+        if (v2_0 > 0) {
+            String v10_1 = p11.getLabel();
+            StringBuilder v11_2 = new StringBuilder();
+            v11_2.append(v10_1);
+            v11_2.append(": ");
+            v11_2.append(v2_0);
+            v11_2.append(" \u067e\u0631\u062f\u0627\u062e\u062a\u06cc \u06cc\u062a\u06cc\u0645 (\u06a9\u0627\u0631\u0628\u0631 \u0646\u0627\u0645\u0648\u062c\u0648\u062f)");
+            p12.warn(v11_2.toString());
+        }
+        return;
+    }
+
+
+## validateProject (Lorg/json/JSONObject; I Ljava/util/Set; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+
+    private final void validateProject(org.json.JSONObject p19, int p20, java.util.Set p21, com.workshop.ledger.data.StateValidator$Issues p22)
+    {
+        org.json.JSONObject v7 = p19;
+        String v9 = A.d.d((p20 + 1), "\u067e\u0631\u0648\u0698\u0647 ");
+        void v0_5 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p19, "id");
+        if (v0_5 == 0) {
+            v0_5 = "";
+        }
+        if (com.workshop.ledger.data.StateValidator.ID_REGEX.a(v0_5)) {
+            if (p21.add(v0_5)) {
+                this.requireText(p19, "name", v9, 200, p22);
+                void v6_7 = this.validateSettings(p19.optJSONObject("settings"), v9, p22);
+                java.util.HashSet v13_1 = new java.util.HashSet();
+                void v0_18 = p19.optJSONArray("users");
+                if (v0_18 != 0) {
+                    String v2_7 = v0_18.length();
+                    String v3_2 = 0;
+                    while (v3_2 < v2_7) {
+                        int v4_3 = v0_18.optJSONObject(v3_2);
+                        if (v4_3 != 0) {
+                            com.workshop.ledger.data.StateValidator$Issues v5_3 = com.workshop.ledger.data.StateValidatorKt.strOrNull(v4_3, "id");
+                            if (v5_3 == null) {
+                                v5_3 = "";
+                            }
+                            if (com.workshop.ledger.data.StateValidator.ID_REGEX.a(v5_3)) {
+                                if (v13_1.add(v5_3)) {
+                                    com.workshop.ledger.data.StateValidator.INSTANCE.validateUser(v4_3, v9, p22);
+                                } else {
+                                    int v4_5 = new StringBuilder();
+                                    v4_5.append(v9);
+                                    v4_5.append(": \u0634\u0646\u0627\u0633\u0647 \u06a9\u0627\u0631\u0628\u0631 \u00ab");
+                                    v4_5.append(v5_3);
+                                    v4_5.append("\u00bb \u062a\u06a9\u0631\u0627\u0631\u06cc \u0627\u0633\u062a");
+                                    p22.error(v4_5.toString());
+                                }
+                            } else {
+                                p22.error(A.d.e(v9, ": \u0634\u0646\u0627\u0633\u0647 \u06a9\u0627\u0631\u0628\u0631 \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u0627\u0633\u062a"));
+                            }
+                        } else {
+                            int v4_9 = (v3_2 + 1);
+                            com.workshop.ledger.data.StateValidator$Issues v5_6 = new StringBuilder();
+                            v5_6.append(v9);
+                            v5_6.append("/users: \u0639\u0646\u0635\u0631 ");
+                            v5_6.append(v4_9);
+                            v5_6.append(" \u0633\u0627\u062e\u062a\u0627\u0631 \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u062f\u0627\u0631\u062f");
+                            p22.error(v5_6.toString());
+                        }
+                        v3_2++;
+                    }
+                }
+                java.util.HashSet v12_2 = new java.util.HashSet();
+                String v15_5 = p19.optJSONArray("categories");
+                if (v15_5 != null) {
+                    com.workshop.ledger.data.StateValidator$Issues v5_1 = v15_5.length();
+                    int v4_1 = 0;
+                    while (v4_1 < v5_1) {
+                        String v17;
+                        void v16_1;
+                        StringBuilder v1_11 = v15_5.optJSONObject(v4_1);
+                        if (v1_11 != null) {
+                            void v0_0 = com.workshop.ledger.data.StateValidatorKt.strOrNull(v1_11, "id");
+                            if (v0_0 == 0) {
+                                v0_0 = "";
+                            }
+                            if ((!com.workshop.ledger.data.StateValidator.ID_REGEX.a(v0_0)) || (!v12_2.add(v0_0))) {
+                                p22.error(A.d.e(v9, ": \u0634\u0646\u0627\u0633\u0647 \u062f\u0633\u062a\u0647\u200c\u0628\u0646\u062f\u06cc \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u06cc\u0627 \u062a\u06a9\u0631\u0627\u0631\u06cc \u0627\u0633\u062a"));
+                            }
+                            v17 = v4_1;
+                            v16_1 = v5_1;
+                            com.workshop.ledger.data.StateValidator.INSTANCE.requireText(v1_11, "name", A.d.e(v9, "/\u062f\u0633\u062a\u0647"), 200, p22);
+                        } else {
+                            void v0_6 = (v4_1 + 1);
+                            StringBuilder v1_1 = new StringBuilder();
+                            v1_1.append(v9);
+                            v1_1.append("/categories: \u0639\u0646\u0635\u0631 ");
+                            v1_1.append(v0_6);
+                            v1_1.append(" \u0633\u0627\u062e\u062a\u0627\u0631 \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u062f\u0627\u0631\u062f");
+                            p22.error(v1_1.toString());
+                            v17 = v4_1;
+                            v16_1 = v5_1;
+                        }
+                        v4_1 = (v17 + 1);
+                        v5_1 = v16_1;
+                    }
+                }
+                void v0_9 = new com.workshop.ledger.data.StateValidator$ProjectScope(v9, v13_1, v12_2);
+                v6_7.validateWages(v7, v0_9, com.workshop.ledger.data.StateValidator$Issues v8).validateAttendance(v7, v0_9, p22).validateExpenses(v7, v0_9, v8).validateReceipts(v7, v0_9, p22).validatePayouts(v7, v0_9, v8).validateTransfers(v7, v0_9, p22).validateAdjustments(v7, v0_9, p22);
+                return;
+            } else {
+                StringBuilder v1_5 = new StringBuilder();
+                v1_5.append(v9);
+                v1_5.append(": \u0634\u0646\u0627\u0633\u0647 \u00ab");
+                v1_5.append(v0_5);
+                v1_5.append("\u00bb \u062a\u06a9\u0631\u0627\u0631\u06cc \u0627\u0633\u062a");
+                p22.error(v1_5.toString());
+                return;
+            }
+        } else {
+            p22.error(A.d.e(v9, ": \u0634\u0646\u0627\u0633\u0647 \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u0627\u0633\u062a"));
+            return;
+        }
+    }
+
+
+## validateReceipts (Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+
+    private final void validateReceipts(org.json.JSONObject p11, com.workshop.ledger.data.StateValidator$ProjectScope p12, com.workshop.ledger.data.StateValidator$Issues p13)
+    {
+        java.util.HashSet v0_1 = new java.util.HashSet();
+        String v1 = p12.getLabel();
+        org.json.JSONArray v11_1 = p11.optJSONArray("receipts");
+        if (v11_1 != null) {
+            int v2_1 = v11_1.length();
+            int v3 = 0;
+            while (v3 < v2_1) {
+                String v4_0 = v11_1.optJSONObject(v3);
+                if (v4_0 != null) {
+                    String v5_1 = A.d.e(p12.getLabel(), "/\u0648\u0627\u0631\u06cc\u0632\u06cc");
+                    void v6_4 = com.workshop.ledger.data.StateValidator.INSTANCE.checkRecordId(v4_0, v0_1, v5_1, p13).checkDate(v4_0, "dateFrom", v5_1, p13).checkDate(v4_0, "dateTo", v5_1, p13);
+                    String v7_1 = com.workshop.ledger.data.StateValidatorKt.strOrNull(v4_0, "dateFrom");
+                    String v8_1 = com.workshop.ledger.data.StateValidatorKt.strOrNull(v4_0, "dateTo");
+                    if ((v7_1 != null) && ((v8_1 != null) && ((v6_4.isJalaliDate(v7_1)) && ((v6_4.isJalaliDate(v8_1)) && (v7_1.compareTo(v8_1) > 0))))) {
+                        p13.error(A.d.e(v5_1, ": \u062a\u0627\u0631\u06cc\u062e \u0634\u0631\u0648\u0639 \u0628\u0639\u062f \u0627\u0632 \u062a\u0627\u0631\u06cc\u062e \u067e\u0627\u06cc\u0627\u0646 \u0627\u0633\u062a"));
+                    }
+                    v6_4.checkAmount(v4_0, "amount", v5_1, p13).checkDescription(v4_0, v5_1, p13);
+                } else {
+                    String v4_1 = (v3 + 1);
+                    String v5_3 = new StringBuilder();
+                    v5_3.append(v1);
+                    v5_3.append("/receipts: \u0639\u0646\u0635\u0631 ");
+                    v5_3.append(v4_1);
+                    v5_3.append(" \u0633\u0627\u062e\u062a\u0627\u0631 \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u062f\u0627\u0631\u062f");
+                    p13.error(v5_3.toString());
+                }
+                v3++;
+            }
+        }
+        return;
+    }
+
+
+## validateSettings (Lorg/json/JSONObject; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+
+    private final void validateSettings(org.json.JSONObject p6, String p7, com.workshop.ledger.data.StateValidator$Issues p8)
+    {
+        if (p6 != null) {
+            String v0_20 = O.l.S(new String[] {"rangeFrom", "rangeTo"})).iterator();
+            while (v0_20.hasNext()) {
+                boolean v1_11 = ((String) v0_20.next());
+                long v2_1 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p6, v1_11);
+                if ((v2_1 != 0) && ((v2_1.length() != 0) && (!this.isJalaliDate(v2_1)))) {
+                    long v2_4 = new StringBuilder();
+                    v2_4.append(p7);
+                    v2_4.append(": \u062a\u0627\u0631\u06cc\u062e \u0628\u0627\u0632\u0647 (");
+                    v2_4.append(v1_11);
+                    v2_4.append(") \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u0627\u0633\u062a");
+                    p8.error(v2_4.toString());
+                }
+            }
+            if (!p6.isNull("overtimeFactor")) {
+                String v0_2 = com.workshop.ledger.data.StateValidatorKt.numOrNull(p6, "overtimeFactor");
+                if ((v0_2 == null) || ((v0_2.doubleValue() < 4607182418800017408) || (v0_2.doubleValue() > 4617315517961601024))) {
+                    p8.error(A.d.e(p7, ": \u0636\u0631\u06cc\u0628 \u0627\u0636\u0627\u0641\u0647\u200c\u06a9\u0627\u0631 \u0628\u0627\u06cc\u062f \u0628\u06cc\u0646 \u06f1 \u062a\u0627 \u06f5 \u0628\u0627\u0634\u062f"));
+                }
+            }
+            if ((!p6.isNull("profitBasis")) && (!O.k.V(com.workshop.ledger.data.StateValidator.PROFIT_BASES, com.workshop.ledger.data.StateValidatorKt.strOrNull(p6, "profitBasis")))) {
+                p8.error(A.d.e(p7, ": \u0645\u0628\u0646\u0627\u06cc \u0633\u0648\u062f \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u0627\u0633\u062a"));
+            }
+            if ((!p6.isNull("theme")) && (!O.k.V(com.workshop.ledger.data.StateValidator.THEMES, com.workshop.ledger.data.StateValidatorKt.strOrNull(p6, "theme")))) {
+                p8.error(A.d.e(p7, ": \u062a\u0645 \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u0627\u0633\u062a"));
+            }
+            if ((!p6.isNull("locked")) && (!(p6.opt("locked") instanceof Boolean))) {
+                p8.error(A.d.e(p7, ": \u0648\u0636\u0639\u06cc\u062a \u0642\u0641\u0644 \u0645\u0627\u0644\u06cc \u0628\u0627\u06cc\u062f \u0628\u0648\u0644\u06cc \u0628\u0627\u0634\u062f"));
+            }
+            return;
+        } else {
+            return;
+        }
+    }
+
+
+## validateTransfers (Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+
+    private final void validateTransfers(org.json.JSONObject p10, com.workshop.ledger.data.StateValidator$ProjectScope p11, com.workshop.ledger.data.StateValidator$Issues p12)
+    {
+        java.util.HashSet v0_1 = new java.util.HashSet();
+        String v1 = p11.getLabel();
+        String v10_1 = p10.optJSONArray("transfers");
+        int v2_0 = 0;
+        if (v10_1 != null) {
+            int v3 = v10_1.length();
+            int v4 = 0;
+            while (v2_0 < v3) {
+                boolean v5_0 = v10_1.optJSONObject(v2_0);
+                if (v5_0) {
+                    java.util.Set v6_1 = A.d.e(p11.getLabel(), "/\u0627\u0646\u062a\u0642\u0627\u0644");
+                    com.workshop.ledger.data.StateValidator.INSTANCE.checkRecordId(v5_0, v0_1, v6_1, p12).checkDate(v5_0, "date", v6_1, p12).checkAmount(v5_0, "amount", v6_1, p12).checkDescription(v5_0, v6_1, p12);
+                    if (!O.k.V(com.workshop.ledger.data.StateValidator.TRANSFER_KINDS, com.workshop.ledger.data.StateValidatorKt.strOrNull(v5_0, "kind"))) {
+                        p12.error(A.d.e(v6_1, ": \u0646\u0648\u0639 \u0627\u0646\u062a\u0642\u0627\u0644 \u0628\u0627\u06cc\u062f peer \u06cc\u0627 advance \u0628\u0627\u0634\u062f"));
+                    }
+                    java.util.Set v6_4 = com.workshop.ledger.data.StateValidatorKt.strOrNull(v5_0, "fromId");
+                    boolean v5_1 = com.workshop.ledger.data.StateValidatorKt.strOrNull(v5_0, "toId");
+                    if (((v6_4 != null) && ((v6_4.length() != 0) && (!p11.getUserIds().contains(v6_4)))) || ((v5_1) && ((v5_1.length() != 0) && (!p11.getUserIds().contains(v5_1))))) {
+                        v4++;
+                    }
+                } else {
+                    boolean v5_3 = (v2_0 + 1);
+                    java.util.Set v6_9 = new StringBuilder();
+                    v6_9.append(v1);
+                    v6_9.append("/transfers: \u0639\u0646\u0635\u0631 ");
+                    v6_9.append(v5_3);
+                    v6_9.append(" \u0633\u0627\u062e\u062a\u0627\u0631 \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u062f\u0627\u0631\u062f");
+                    p12.error(v6_9.toString());
+                }
+                v2_0++;
+            }
+            v2_0 = v4;
+        }
+        if (v2_0 > 0) {
+            String v10_2 = p11.getLabel();
+            StringBuilder v11_2 = new StringBuilder();
+            v11_2.append(v10_2);
+            v11_2.append(": ");
+            v11_2.append(v2_0);
+            v11_2.append(" \u0627\u0646\u062a\u0642\u0627\u0644 \u06cc\u062a\u06cc\u0645 (\u06a9\u0627\u0631\u0628\u0631 \u0646\u0627\u0645\u0648\u062c\u0648\u062f)");
+            p12.warn(v11_2.toString());
+        }
+        return;
+    }
+
+
+## validateUser (Lorg/json/JSONObject; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+
+    private final void validateUser(org.json.JSONObject p9, String p10, com.workshop.ledger.data.StateValidator$Issues p11)
+    {
+        this.requireText(p9, "name", A.d.e(p10, "/\u06a9\u0627\u0631\u0628\u0631"), 200, p11);
+        String v0_1 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p9, "role");
+        if ((v0_1 != null) && (v0_1.length() > 200)) {
+            p11.error(A.d.e(p10, "/\u06a9\u0627\u0631\u0628\u0631: \u0639\u0646\u0648\u0627\u0646 \u0646\u0642\u0634 \u0628\u06cc\u0634 \u0627\u0632 \u062d\u062f \u0637\u0648\u0644\u0627\u0646\u06cc \u0627\u0633\u062a"));
+        }
+        String v0_6 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p9, "type");
+        StringBuilder v2_0 = "";
+        if ((v0_6 == null) || (!com.workshop.ledger.data.StateValidator.USER_TYPES.contains(v0_6))) {
+            String v0_8 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p9, "name");
+            if (v0_8 == null) {
+                v0_8 = "";
+            }
+            double v4_3 = new StringBuilder();
+            v4_3.append(p10);
+            v4_3.append("/\u06a9\u0627\u0631\u0628\u0631 \u00ab");
+            v4_3.append(v0_8);
+            v4_3.append("\u00bb: \u0646\u0648\u0639 \u06a9\u0627\u0631\u0628\u0631 \u0628\u0627\u06cc\u062f master\u060c apprentice \u06cc\u0627 custom \u0628\u0627\u0634\u062f");
+            p11.error(v4_3.toString());
+        }
+        String v0_12 = com.workshop.ledger.data.StateValidatorKt.numOrNull(p9, "workFactor");
+        if ((v0_12 == null) || (v0_12.doubleValue() < 0)) {
+            String v0_14 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p9, "name");
+            if (v0_14 != null) {
+                v2_0 = v0_14;
+            }
+            String v0_16 = new StringBuilder();
+            v0_16.append(p10);
+            v0_16.append("/\u06a9\u0627\u0631\u0628\u0631 \u00ab");
+            v0_16.append(v2_0);
+            v0_16.append("\u00bb: \u0636\u0631\u06cc\u0628 \u06a9\u0627\u0631\u06a9\u0631\u062f (workFactor) \u0646\u0628\u0627\u06cc\u062f \u0645\u0646\u0641\u06cc \u06cc\u0627 \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u0628\u0627\u0634\u062f");
+            p11.error(v0_16.toString());
+        }
+        String v0_21 = O.l.S(new String[] {"active", "main"})).iterator();
+        while (v0_21.hasNext()) {
+            String v1_8 = ((String) v0_21.next());
+            if ((!p9.isNull(v1_8)) && (!(p9.opt(v1_8) instanceof Boolean))) {
+                StringBuilder v2_6 = new StringBuilder();
+                v2_6.append(p10);
+                v2_6.append("/\u06a9\u0627\u0631\u0628\u0631: \u0645\u0642\u062f\u0627\u0631 ");
+                v2_6.append(v1_8);
+                v2_6.append(" \u0628\u0627\u06cc\u062f \u0628\u0648\u0644\u06cc \u0628\u0627\u0634\u062f");
+                p11.error(v2_6.toString());
+            }
+        }
+        return;
+    }
+
+
+## validateWages (Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+
+    private final void validateWages(org.json.JSONObject p11, com.workshop.ledger.data.StateValidator$ProjectScope p12, com.workshop.ledger.data.StateValidator$Issues p13)
+    {
+        java.util.HashSet v0_1 = new java.util.HashSet();
+        String v1 = p12.getLabel();
+        String v11_1 = p11.optJSONArray("wages");
+        int v2_0 = 0;
+        if (v11_1 != null) {
+            int v3 = v11_1.length();
+            int v4 = 0;
+            while (v2_0 < v3) {
+                boolean v5_0 = v11_1.optJSONObject(v2_0);
+                if (v5_0) {
+                    com.workshop.ledger.data.StateValidator.INSTANCE.checkRecordId(v5_0, v0_1, A.d.e(p12.getLabel(), "/\u0646\u0631\u062e"), p13).checkAmount(v5_0, "rate", A.d.e(p12.getLabel(), "/\u0646\u0631\u062e"), p13).checkDate(v5_0, "effectiveDate", A.d.e(p12.getLabel(), "/\u0646\u0631\u062e"), p13);
+                    if (!O.k.V(p12.getUserIds(), com.workshop.ledger.data.StateValidatorKt.strOrNull(v5_0, "userId"))) {
+                        v4++;
+                    }
+                } else {
+                    boolean v5_3 = (v2_0 + 1);
+                    java.util.Set v6_5 = new StringBuilder();
+                    v6_5.append(v1);
+                    v6_5.append("/wages: \u0639\u0646\u0635\u0631 ");
+                    v6_5.append(v5_3);
+                    v6_5.append(" \u0633\u0627\u062e\u062a\u0627\u0631 \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u062f\u0627\u0631\u062f");
+                    p13.error(v6_5.toString());
+                }
+                v2_0++;
+            }
+            v2_0 = v4;
+        }
+        if (v2_0 > 0) {
+            String v11_2 = p12.getLabel();
+            StringBuilder v12_2 = new StringBuilder();
+            v12_2.append(v11_2);
+            v12_2.append(": ");
+            v12_2.append(v2_0);
+            v12_2.append(" \u0646\u0631\u062e \u062f\u0633\u062a\u0645\u0632\u062f \u06cc\u062a\u06cc\u0645 (\u06a9\u0627\u0631\u0628\u0631 \u0646\u0627\u0645\u0648\u062c\u0648\u062f)");
+            p13.warn(v12_2.toString());
+        }
+        return;
+    }
+
+
+## isJalaliDate (Ljava/lang/String;)Z
+
+    public final boolean isJalaliDate(String p6)
+    {
+        int v0 = 0;
+        if (p6 != 0) {
+            int v6_1;
+            int v1_2 = com.workshop.ledger.data.StateValidator.JALALI_DATE_REGEX;
+            v1_2.getClass();
+            int v1_9 = v1_2.b.matcher(p6);
+            kotlin.jvm.internal.i.d(v1_9, "matcher(...)");
+            if (v1_9.matches()) {
+                v6_1 = new C.a(v1_9, p6);
+            } else {
+                v6_1 = 0;
+            }
+            if (v6_1 != 0) {
+                int v1_5 = Integer.parseInt(((String) ((g0.d) v6_1.d()).get(1)));
+                int v3_4 = Integer.parseInt(((String) ((g0.d) v6_1.d()).get(2)));
+                int vtmp12 = Integer.parseInt(((String) ((g0.d) v6_1.d()).get(3)));
+                if ((v1_5 >= 1200) && (v1_5 <= 1700)) {
+                    int v1_8;
+                    if (v3_4 > 6) {
+                        v1_8 = 30;
+                    } else {
+                        v1_8 = 31;
+                    }
+                    if (vtmp12 <= v1_8) {
+                        v0 = 1;
+                    }
+                }
+                return v0;
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+
+## isValidAmount (Ljava/lang/Object;)Z
+
+    public final boolean isValidAmount(Object p6)
+    {
+        double v6_4;
+        if (!(p6 instanceof Number)) {
+            v6_4 = 0;
+        } else {
+            v6_4 = ((Number) p6);
+        }
+        int v0_1 = 0;
+        if (v6_4 != 0) {
+            double v1 = v6_4.doubleValue();
+            if ((!Double.isNaN(v1)) && ((!Double.isInfinite(v1)) && ((v1 >= 0) && (v1 <= 4786511204640088064)))) {
+                v0_1 = 1;
+            }
+            return v0_1;
+        } else {
+            return 0;
+        }
+    }
+
+
+## validate (Ljava/lang/String; J)Lcom/workshop/ledger/data/StateValidator$Result;
+
+    public final com.workshop.ledger.data.StateValidator$Result validate(String p8, long p9)
+    {
+        kotlin.jvm.internal.i.e(p8, "raw");
+        if (!g0.m.Y(p8)) {
+            if (this.utf8Length(p8, p9) <= p9) {
+                try {
+                    String v9_1 = new org.json.JSONObject(p8);
+                    boolean v8_9 = new com.workshop.ledger.data.StateValidator$Issues();
+                    String v10_1 = v9_1.optJSONArray("projects");
+                } catch (org.json.JSONException) {
+                    return this.failure("\u0633\u0627\u062e\u062a\u0627\u0631 JSON \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u0627\u0633\u062a");
+                }
+                if (v10_1 != null) {
+                    if ((v10_1.length() >= 1) && (v10_1.length() <= 100)) {
+                        boolean v0_7 = new java.util.HashSet();
+                        java.util.ArrayList v1_3 = new java.util.HashSet();
+                        java.util.ArrayList v2_0 = v10_1.length();
+                        int v3 = 0;
+                        while(true) {
+                            String v4_1 = 0;
+                            if (v3 >= v2_0) {
+                                break;
+                            }
+                            String v5_0 = v10_1.optJSONObject(v3);
+                            if (v5_0 != null) {
+                                this.validateProject(v5_0, v3, v0_7, v8_9);
+                                String v5_1 = com.workshop.ledger.data.StateValidatorKt.strOrNull(v5_0, "id");
+                                if (v5_1 != null) {
+                                    if (g0.m.d0(v5_1, "demo_quest_")) {
+                                        v4_1 = v5_1;
+                                    }
+                                    if (v4_1 != null) {
+                                        v1_3.add(v4_1);
+                                    }
+                                }
+                            } else {
+                                String v4_2 = (v3 + 1);
+                                String v5_3 = new StringBuilder("\u067e\u0631\u0648\u0698\u0647 ");
+                                v5_3.append(v4_2);
+                                v5_3.append(": \u0633\u0627\u062e\u062a\u0627\u0631 \u0646\u0627\u0645\u0639\u062a\u0628\u0631");
+                                v8_9.error(v5_3.toString());
+                            }
+                            v3++;
+                        }
+                        String v10_3 = com.workshop.ledger.data.StateValidatorKt.strOrNull(v9_1, "activeProjectId");
+                        if ((v10_3 != null) && ((!g0.m.Y(v10_3)) && (!v0_7.contains(v10_3)))) {
+                            v8_9.warn("\u067e\u0631\u0648\u0698\u0647 \u0641\u0639\u0627\u0644 \u062f\u0631 \u0641\u0647\u0631\u0633\u062a \u067e\u0631\u0648\u0698\u0647\u200c\u0647\u0627 \u0646\u06cc\u0633\u062a \u0648 \u0628\u0647 \u0627\u0648\u0644\u06cc\u0646 \u067e\u0631\u0648\u0698\u0647 \u0628\u0627\u0632\u0645\u06cc\u200c\u06af\u0631\u062f\u062f");
+                        }
+                        this.validateOnboarding(v9_1, v0_7, v1_3, v8_9);
+                        if ((!v9_1.isNull("coachDismissed")) && (!(v9_1.opt("coachDismissed") instanceof Boolean))) {
+                            v8_9.error("\u0645\u0642\u062f\u0627\u0631 coachDismissed \u0628\u0627\u06cc\u062f \u0628\u0648\u0644\u06cc \u0628\u0627\u0634\u062f");
+                        }
+                        boolean v0_11 = v8_9.getErrors().isEmpty();
+                        java.util.ArrayList v1_4 = v8_9.getErrors();
+                        java.util.ArrayList v2_2 = v8_9.getWarnings();
+                        if (!v8_9.getErrors().isEmpty()) {
+                            v9_1 = 0;
+                        }
+                        return new com.workshop.ledger.data.StateValidator$Result(v0_11, v1_4, v2_2, v9_1);
+                    } else {
+                        return this.failure("\u062a\u0639\u062f\u0627\u062f \u067e\u0631\u0648\u0698\u0647\u200c\u0647\u0627 \u0628\u0627\u06cc\u062f \u0628\u06cc\u0646 1 \u062a\u0627 100 \u0628\u0627\u0634\u062f");
+                    }
+                } else {
+                    return this.failure("\u0641\u0647\u0631\u0633\u062a \u067e\u0631\u0648\u0698\u0647\u200c\u0647\u0627 (projects) \u0648\u062c\u0648\u062f \u0646\u062f\u0627\u0631\u062f");
+                }
+            } else {
+                String v9_2 = (p9 / ((long) 1048576));
+                boolean v8_8 = new StringBuilder("\u062d\u062c\u0645 \u062f\u0627\u062f\u0647 \u0627\u0632 \u0633\u0642\u0641 \u0645\u062c\u0627\u0632 ");
+                v8_8.append(v9_2);
+                v8_8.append(" \u0645\u06af\u0627\u0628\u0627\u06cc\u062a \u0628\u06cc\u0634\u062a\u0631 \u0627\u0633\u062a");
+                return this.failure(v8_8.toString());
+            }
+        } else {
+            return this.failure("\u062f\u0627\u062f\u0647\u200c\u0627\u06cc \u0628\u0631\u0627\u06cc \u0630\u062e\u06cc\u0631\u0647 \u0627\u0631\u0633\u0627\u0644 \u0646\u0634\u062f\u0647 \u0627\u0633\u062a");
+        }
+    }
+

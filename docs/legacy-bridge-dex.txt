@@ -1,0 +1,564 @@
+# Original DEX instructions; control flow has not been decompiled.
+# APK sha256: 1fe8867aa04ee0fb2d0b4e7bdd5e0a502d1a4b264c93dc1f644e672192b1402b
+
+## Lcom/workshop/ledger/web/NativeBridge;-><clinit> ()V
+new-instance v0, LM/c;
+invoke-direct v0, Ljava/lang/Object;-><init>()V
+sput-object v0, Lcom/workshop/ledger/web/NativeBridge;->Companion LM/c;
+new-instance v1, LN/c;
+const-string v0, "application/json"
+const-string v2, "json"
+invoke-direct v1, v0, v2, LN/c;-><init>(Ljava/lang/Object; Ljava/lang/Object;)V
+new-instance v2, LN/c;
+const-string v0, "text/csv"
+const-string v3, "csv"
+invoke-direct v2, v0, v3, LN/c;-><init>(Ljava/lang/Object; Ljava/lang/Object;)V
+new-instance v3, LN/c;
+const-string v0, "application/pdf"
+const-string v4, "pdf"
+invoke-direct v3, v0, v4, LN/c;-><init>(Ljava/lang/Object; Ljava/lang/Object;)V
+new-instance v4, LN/c;
+const-string v0, "image/png"
+const-string v5, "png"
+invoke-direct v4, v0, v5, LN/c;-><init>(Ljava/lang/Object; Ljava/lang/Object;)V
+new-instance v5, LN/c;
+const-string v0, "image/svg+xml"
+const-string v6, "svg"
+invoke-direct v5, v0, v6, LN/c;-><init>(Ljava/lang/Object; Ljava/lang/Object;)V
+new-instance v6, LN/c;
+const-string v0, "text/html"
+const-string v7, "html"
+invoke-direct v6, v0, v7, LN/c;-><init>(Ljava/lang/Object; Ljava/lang/Object;)V
+filled-new-array/range v1 ... v6, [LN/c;
+move-result-object v0
+new-instance v1, Ljava/util/LinkedHashMap;
+const/4 v2, 6
+invoke-static v2, LO/v;->R(I)I
+move-result v2
+invoke-direct v1, v2, Ljava/util/LinkedHashMap;-><init>(I)V
+invoke-static v1, v0, LO/v;->S(Ljava/util/LinkedHashMap; [LN/c;)V
+sput-object v1, Lcom/workshop/ledger/web/NativeBridge;->ALLOWED_MIME_TYPES Ljava/util/Map;
+new-instance v0, Lg0/e;
+const-string v1, "[^A-Za-z0-9._-]"
+invoke-direct v0, v1, Lg0/e;-><init>(Ljava/lang/String;)V
+sput-object v0, Lcom/workshop/ledger/web/NativeBridge;->UNSAFE_CHARS Lg0/e;
+return-void 
+
+## Lcom/workshop/ledger/web/NativeBridge;-><init> (LM/e; Lcom/workshop/ledger/data/LedgerRepository; Lcom/workshop/ledger/data/SettingsRepository;)V
+const-string v0, "host"
+invoke-static v2, v0, Lkotlin/jvm/internal/i;->e(Ljava/lang/Object; Ljava/lang/String;)V
+const-string v0, "repository"
+invoke-static v3, v0, Lkotlin/jvm/internal/i;->e(Ljava/lang/Object; Ljava/lang/String;)V
+const-string v0, "settings"
+invoke-static v4, v0, Lkotlin/jvm/internal/i;->e(Ljava/lang/Object; Ljava/lang/String;)V
+invoke-direct v1, Ljava/lang/Object;-><init>()V
+iput-object v2, v1, Lcom/workshop/ledger/web/NativeBridge;->host LM/e;
+iput-object v3, v1, Lcom/workshop/ledger/web/NativeBridge;->repository Lcom/workshop/ledger/data/LedgerRepository;
+iput-object v4, v1, Lcom/workshop/ledger/web/NativeBridge;->settings Lcom/workshop/ledger/data/SettingsRepository;
+return-void 
+
+## Lcom/workshop/ledger/web/NativeBridge;->access$getUNSAFE_CHARS$cp ()Lg0/e;
+sget-object v0, Lcom/workshop/ledger/web/NativeBridge;->UNSAFE_CHARS Lg0/e;
+return-object v0
+
+## Lcom/workshop/ledger/web/NativeBridge;->prepareFile (Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)LM/d;
+move-object/from16 v0, v16
+move-object/from16 v1, v19
+const/4 v2, 2
+const-string v3, "substring(...)"
+const/4 v4, -1
+const/4 v5, 1
+const/4 v6, 0
+const-string v7, ""
+if-nez v18, +004h
+move-object v8, v7
+goto +3h
+move-object/from16 v8, v18
+sget-object v9, Ljava/util/Locale;->ROOT Ljava/util/Locale;
+invoke-virtual v8, v9, Ljava/lang/String;->toLowerCase(Ljava/util/Locale;)Ljava/lang/String;
+move-result-object v8
+const-string v9, "toLowerCase(...)"
+invoke-static v8, v9, Lkotlin/jvm/internal/i;->d(Ljava/lang/Object; Ljava/lang/String;)V
+const/16 v9, 59
+const/4 v10, 6
+invoke-static v8, v9, v6, v10, Lg0/m;->X(Ljava/lang/String; C Z I)I
+move-result v9
+if-ne v9, v4, +003h
+goto +8h
+invoke-virtual v8, v6, v9, Ljava/lang/String;->substring(I I)Ljava/lang/String;
+move-result-object v8
+invoke-static v8, v3, Lkotlin/jvm/internal/i;->d(Ljava/lang/Object; Ljava/lang/String;)V
+invoke-static v8, Lg0/m;->g0(Ljava/lang/String;)Ljava/lang/CharSequence;
+move-result-object v8
+invoke-virtual v8, Ljava/lang/Object;->toString()Ljava/lang/String;
+move-result-object v8
+sget-object v9, Lcom/workshop/ledger/web/NativeBridge;->ALLOWED_MIME_TYPES Ljava/util/Map;
+invoke-interface v9, v8, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
+move-result-object v9
+check-cast v9, Ljava/lang/String;
+const/4 v10, 0
+if-nez v9, +014h
+iget-object v1, v0, Lcom/workshop/ledger/web/NativeBridge;->host LM/e;
+check-cast v1, Lcom/workshop/ledger/MainActivity;
+invoke-virtual v1, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+new-instance v2, LK/g;
+const-string v3, "نوع فایل مجاز نیست"
+invoke-direct v2, v1, v6, v3, LK/g;-><init>(Ljava/lang/Object; I Ljava/lang/Object;)V
+invoke-virtual v1, v2, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
+return-object v10
+if-eqz v1, +0ffh
+invoke-virtual/range v19, Ljava/lang/String;->length()I
+move-result v11
+if-nez v11, +004h
+goto/16 +0f7h
+invoke-virtual/range v19, Ljava/lang/String;->length()I
+move-result v11
+const/high16 v12, 94371840
+if-le v11, v12, +004h
+goto/16 +0edh
+invoke-static v1, v6, Landroid/util/Base64;->decode(Ljava/lang/String; I)[B
+move-result-object v1
+new-instance v10, LM/d;
+sget-object v11, Lcom/workshop/ledger/web/NativeBridge;->Companion LM/c;
+invoke-virtual v11, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+if-nez v17, +004h
+move-object v11, v7
+goto +3h
+move-object/from16 v11, v17
+const/16 v12, 47
+invoke-static v11, v12, v11, Lg0/m;->f0(Ljava/lang/String; C Ljava/lang/String;)Ljava/lang/String;
+move-result-object v11
+const/16 v12, 92
+invoke-static v11, v12, v11, Lg0/m;->f0(Ljava/lang/String; C Ljava/lang/String;)Ljava/lang/String;
+move-result-object v11
+invoke-static Lcom/workshop/ledger/web/NativeBridge;->access$getUNSAFE_CHARS$cp()Lg0/e;
+move-result-object v12
+invoke-virtual v12, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+iget-object v12, v12, Lg0/e;->b Ljava/util/regex/Pattern;
+invoke-virtual v12, v11, Ljava/util/regex/Pattern;->matcher(Ljava/lang/CharSequence;)Ljava/util/regex/Matcher;
+move-result-object v11
+const-string v12, "_"
+invoke-virtual v11, v12, Ljava/util/regex/Matcher;->replaceAll(Ljava/lang/String;)Ljava/lang/String;
+move-result-object v11
+const-string v12, "replaceAll(...)"
+invoke-static v11, v12, Lkotlin/jvm/internal/i;->d(Ljava/lang/Object; Ljava/lang/String;)V
+const/16 v12, 46
+new-array v13, v2, [C
+fill-array-data v13, +00000c6h
+invoke-virtual v11, Ljava/lang/String;->length()I
+move-result v14
+move v15, v6
+if-ge v15, v14, +027h
+invoke-virtual v11, v15, Ljava/lang/String;->charAt(I)C
+move-result v6
+const/4 v4, 0
+if-ge v4, v2, +00ah
+aget-char v2, v13, v4
+if-ne v6, v2, +003h
+goto +5h
+add-int/2addr v4, v5
+const/4 v2, 2
+goto -9h
+const/4 v4, -1
+if-ltz v4, +004h
+move v2, v5
+goto +2h
+const/4 v2, 0
+if-nez v2, +00bh
+invoke-virtual v11, Ljava/lang/String;->length()I
+move-result v2
+invoke-virtual v11, v15, v2, Ljava/lang/String;->subSequence(I I)Ljava/lang/CharSequence;
+move-result-object v7
+goto +6h
+add-int/2addr v15, v5
+const/4 v2, 2
+const/4 v4, -1
+const/4 v6, 0
+goto -26h
+invoke-virtual v7, Ljava/lang/Object;->toString()Ljava/lang/String;
+move-result-object v2
+const-string v4, "<this>"
+invoke-static v2, v4, Lkotlin/jvm/internal/i;->e(Ljava/lang/Object; Ljava/lang/String;)V
+invoke-static v2, v12, Lg0/m;->Z(Ljava/lang/String; C)I
+move-result v4
+const/4 v5, -1
+if-ne v4, v5, +003h
+goto +9h
+const/4 v5, 0
+invoke-virtual v2, v5, v4, Ljava/lang/String;->substring(I I)Ljava/lang/String;
+move-result-object v2
+invoke-static v2, v3, Lkotlin/jvm/internal/i;->d(Ljava/lang/Object; Ljava/lang/String;)V
+invoke-virtual v9, Ljava/lang/String;->length()I
+move-result v4
+rsub-int/lit8 v4, v4, 79
+if-ltz v4, +034h
+invoke-virtual v2, Ljava/lang/String;->length()I
+move-result v5
+if-le v4, v5, +003h
+move v4, v5
+const/4 v5, 0
+invoke-virtual v2, v5, v4, Ljava/lang/String;->substring(I I)Ljava/lang/String;
+move-result-object v2
+invoke-static v2, v3, Lkotlin/jvm/internal/i;->d(Ljava/lang/Object; Ljava/lang/String;)V
+invoke-static v2, Lg0/m;->Y(Ljava/lang/String;)Z
+move-result v3
+if-eqz v3, +004h
+const-string v2, "export"
+new-instance v3, Ljava/lang/StringBuilder;
+invoke-direct v3, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v3, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v2, "."
+invoke-virtual v3, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v3, v9, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v3, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v2
+invoke-static v1, Lkotlin/jvm/internal/i;->b(Ljava/lang/Object;)V
+invoke-direct v10, v1, v2, v8, LM/d;-><init>([B Ljava/lang/String; Ljava/lang/String;)V
+return-object v10
+new-instance v1, Ljava/lang/StringBuilder;
+const-string v2, "Requested character count "
+invoke-direct v1, v2, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+invoke-virtual v1, v4, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+const-string v2, " is less than zero."
+invoke-virtual v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v1, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v1
+new-instance v2, Ljava/lang/IllegalArgumentException;
+invoke-virtual v1, Ljava/lang/Object;->toString()Ljava/lang/String;
+move-result-object v1
+invoke-direct v2, v1, Ljava/lang/IllegalArgumentException;-><init>(Ljava/lang/String;)V
+throw v2
+iget-object v1, v0, Lcom/workshop/ledger/web/NativeBridge;->host LM/e;
+check-cast v1, Lcom/workshop/ledger/MainActivity;
+invoke-virtual v1, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+new-instance v2, LK/g;
+const-string v3, "محتوای فایل نامعتبر است"
+const/4 v4, 0
+invoke-direct v2, v1, v4, v3, LK/g;-><init>(Ljava/lang/Object; I Ljava/lang/Object;)V
+invoke-virtual v1, v2, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
+return-object v10
+iget-object v1, v0, Lcom/workshop/ledger/web/NativeBridge;->host LM/e;
+check-cast v1, Lcom/workshop/ledger/MainActivity;
+invoke-virtual v1, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+new-instance v2, LK/g;
+const-string v3, "حجم فایل نامعتبر است"
+const/4 v4, 0
+invoke-direct v2, v1, v4, v3, LK/g;-><init>(Ljava/lang/Object; I Ljava/lang/Object;)V
+invoke-virtual v1, v2, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
+return-object v10
+nop 
+fill-array-data-payload b'.\x00_\x00' | \x2e\x00\x5f\x00
+
+## Lcom/workshop/ledger/web/NativeBridge;->getAutoBackup ()Ljava/lang/String;
+const-string v0, ""
+iget-object v1, v2, Lcom/workshop/ledger/web/NativeBridge;->settings Lcom/workshop/ledger/data/SettingsRepository;
+invoke-virtual v1, Lcom/workshop/ledger/data/SettingsRepository;->getAutoBackupEnvelopeBlocking()Ljava/lang/String;
+move-result-object v1
+if-nez v1, +003h
+goto +2h
+move-object v0, v1
+return-object v0
+
+## Lcom/workshop/ledger/web/NativeBridge;->getState ()Ljava/lang/String;
+iget-object v0, v3, Lcom/workshop/ledger/web/NativeBridge;->repository Lcom/workshop/ledger/data/LedgerRepository;
+invoke-virtual v0, Lcom/workshop/ledger/data/LedgerRepository;->readStoreBlocking()Ljava/lang/String;
+move-result-object v0
+if-nez v0, +023h
+const-string v0, ""
+goto +1fh
+move-exception v0
+new-instance v1, Lorg/json/JSONObject;
+invoke-direct v1, Lorg/json/JSONObject;-><init>()V
+invoke-virtual v0, Ljava/lang/Throwable;->getMessage()Ljava/lang/String;
+move-result-object v2
+if-nez v2, +00ah
+invoke-virtual v0, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+move-result-object v0
+invoke-virtual v0, Ljava/lang/Class;->getSimpleName()Ljava/lang/String;
+move-result-object v2
+const-string v0, "error"
+invoke-virtual v1, v0, v2, Lorg/json/JSONObject;->put(Ljava/lang/String; Ljava/lang/Object;)Lorg/json/JSONObject;
+move-result-object v0
+invoke-virtual v0, Lorg/json/JSONObject;->toString()Ljava/lang/String;
+move-result-object v0
+return-object v0
+
+## Lcom/workshop/ledger/web/NativeBridge;->pickJsonBackup (Z)V
+iget-object v0, v3, Lcom/workshop/ledger/web/NativeBridge;->host LM/e;
+check-cast v0, Lcom/workshop/ledger/MainActivity;
+invoke-virtual v0, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+new-instance v1, LK/d;
+const/4 v2, 1
+invoke-direct v1, v0, v4, v2, LK/d;-><init>(Lcom/workshop/ledger/MainActivity; Z I)V
+invoke-virtual v0, v1, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
+return-void 
+
+## Lcom/workshop/ledger/web/NativeBridge;->playPcm (Ljava/lang/String; I)V
+invoke-static v1, v2, Lcom/workshop/ledger/web/Snd;->play(Ljava/lang/String; I)V
+return-void 
+
+## Lcom/workshop/ledger/web/NativeBridge;->saveAutoBackup (Ljava/lang/String;)Z
+const-string v0, "snaps"
+const/4 v1, 0
+if-eqz v8, +050h
+invoke-interface v8, Ljava/lang/CharSequence;->length()I
+move-result v2
+if-nez v2, +003h
+goto +48h
+invoke-virtual v8, Ljava/lang/String;->length()I
+move-result v2
+const/high16 v3, 83886080
+if-le v2, v3, +003h
+goto +3fh
+new-instance v2, Lorg/json/JSONObject;
+invoke-direct v2, v8, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
+invoke-virtual v2, v0, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+move-result-object v8
+if-eqz v8, +026h
+invoke-virtual v8, Lorg/json/JSONArray;->length()I
+move-result v3
+const/4 v4, 3
+if-le v3, v4, +01fh
+new-instance v3, Lorg/json/JSONArray;
+invoke-direct v3, Lorg/json/JSONArray;-><init>()V
+invoke-virtual v8, Lorg/json/JSONArray;->length()I
+move-result v5
+sub-int/2addr v5, v4
+invoke-virtual v8, Lorg/json/JSONArray;->length()I
+move-result v4
+if-ge v5, v4, +00ch
+invoke-virtual v8, v5, Lorg/json/JSONArray;->get(I)Ljava/lang/Object;
+move-result-object v6
+invoke-virtual v3, v6, Lorg/json/JSONArray;->put(Ljava/lang/Object;)Lorg/json/JSONArray;
+add-int/lit8 v5, v5, 1
+goto -bh
+invoke-virtual v2, v0, v3, Lorg/json/JSONObject;->put(Ljava/lang/String; Ljava/lang/Object;)Lorg/json/JSONObject;
+iget-object v8, v7, Lcom/workshop/ledger/web/NativeBridge;->settings Lcom/workshop/ledger/data/SettingsRepository;
+invoke-virtual v2, Lorg/json/JSONObject;->toString()Ljava/lang/String;
+move-result-object v0
+const-string v2, "toString(...)"
+invoke-static v0, v2, Lkotlin/jvm/internal/i;->d(Ljava/lang/Object; Ljava/lang/String;)V
+invoke-virtual v8, v0, Lcom/workshop/ledger/data/SettingsRepository;->setAutoBackupEnvelopeBlocking(Ljava/lang/String;)V
+const/4 v1, 1
+return v1
+
+## Lcom/workshop/ledger/web/NativeBridge;->saveFile (Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)V
+invoke-direct v2, v3, v4, v5, Lcom/workshop/ledger/web/NativeBridge;->prepareFile(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)LM/d;
+move-result-object v3
+if-nez v3, +003h
+return-void 
+iget-object v4, v2, Lcom/workshop/ledger/web/NativeBridge;->host LM/e;
+check-cast v4, Lcom/workshop/ledger/MainActivity;
+invoke-virtual v4, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+iget-object v5, v3, LM/d;->a Ljava/lang/String;
+const-string v0, "fileName"
+invoke-static v5, v0, Lkotlin/jvm/internal/i;->e(Ljava/lang/Object; Ljava/lang/String;)V
+iget-object v0, v3, LM/d;->b Ljava/lang/String;
+const-string v1, "mimeType"
+invoke-static v0, v1, Lkotlin/jvm/internal/i;->e(Ljava/lang/Object; Ljava/lang/String;)V
+iget-object v3, v3, LM/d;->c [B
+new-instance v1, LK/e;
+invoke-direct v1, v4, v5, v0, v3, LK/e;-><init>(Lcom/workshop/ledger/MainActivity; Ljava/lang/String; Ljava/lang/String; [B)V
+invoke-virtual v4, v1, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
+return-void 
+
+## Lcom/workshop/ledger/web/NativeBridge;->saveState (Ljava/lang/String;)Ljava/lang/String;
+const/4 v0, 0
+if-eqz v9, +05ch
+invoke-virtual v9, Ljava/lang/String;->length()I
+move-result v1
+if-nez v1, +003h
+goto +54h
+invoke-virtual v9, Ljava/lang/String;->length()I
+move-result v1
+const/high16 v2, 83886080
+if-le v1, v2, +00bh
+sget-object v9, Lcom/workshop/ledger/web/NativeBridge;->Companion LM/c;
+const-string v1, "حجم داده از ۸۰ مگابایت بیشتر است"
+invoke-static v9, v0, v1, LM/c;->a(LM/c; Z Ljava/lang/String;)Ljava/lang/String;
+move-result-object v9
+return-object v9
+iget-object v1, v8, Lcom/workshop/ledger/web/NativeBridge;->repository Lcom/workshop/ledger/data/LedgerRepository;
+invoke-virtual v1, v9, Lcom/workshop/ledger/data/LedgerRepository;->replaceStoreBlocking(Ljava/lang/String;)Lcom/workshop/ledger/data/StateValidator$Result;
+move-result-object v9
+invoke-virtual v9, Lcom/workshop/ledger/data/StateValidator$Result;->getOk()Z
+move-result v1
+if-eqz v1, +00dh
+sget-object v9, Lcom/workshop/ledger/web/NativeBridge;->Companion LM/c;
+const/4 v1, 1
+const/4 v2, 0
+invoke-static v9, v1, v2, LM/c;->a(LM/c; Z Ljava/lang/String;)Ljava/lang/String;
+move-result-object v9
+goto +2dh
+move-exception v9
+goto +17h
+sget-object v1, Lcom/workshop/ledger/web/NativeBridge;->Companion LM/c;
+invoke-virtual v9, Lcom/workshop/ledger/data/StateValidator$Result;->getErrors()Ljava/util/List;
+move-result-object v2
+const-string v3, "؛ "
+const/16 v7, 62
+const/4 v4, 0
+const/4 v5, 0
+const/4 v6, 0
+invoke-static/range v2 ... v7, LO/k;->X(Ljava/util/Collection; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; LY/l; I)Ljava/lang/String;
+move-result-object v9
+invoke-static v1, v0, v9, LM/c;->a(LM/c; Z Ljava/lang/String;)Ljava/lang/String;
+move-result-object v9
+goto +15h
+sget-object v1, Lcom/workshop/ledger/web/NativeBridge;->Companion LM/c;
+invoke-virtual v9, Ljava/lang/Throwable;->getMessage()Ljava/lang/String;
+move-result-object v2
+if-nez v2, +00ah
+invoke-virtual v9, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+move-result-object v9
+invoke-virtual v9, Ljava/lang/Class;->getSimpleName()Ljava/lang/String;
+move-result-object v2
+invoke-static v1, v0, v2, LM/c;->a(LM/c; Z Ljava/lang/String;)Ljava/lang/String;
+move-result-object v9
+return-object v9
+sget-object v9, Lcom/workshop/ledger/web/NativeBridge;->Companion LM/c;
+const-string v1, "داده‌ای برای ذخیره ارسال نشد"
+invoke-static v9, v0, v1, LM/c;->a(LM/c; Z Ljava/lang/String;)Ljava/lang/String;
+move-result-object v9
+return-object v9
+
+## Lcom/workshop/ledger/web/NativeBridge;->setSystemTheme (Z)V
+iget-object v0, v3, Lcom/workshop/ledger/web/NativeBridge;->host LM/e;
+check-cast v0, Lcom/workshop/ledger/MainActivity;
+invoke-virtual v0, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+new-instance v1, LK/d;
+const/4 v2, 0
+invoke-direct v1, v0, v4, v2, LK/d;-><init>(Lcom/workshop/ledger/MainActivity; Z I)V
+invoke-virtual v0, v1, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
+return-void 
+
+## Lcom/workshop/ledger/web/NativeBridge;->shareFile (Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)V
+invoke-direct v2, v3, v4, v5, Lcom/workshop/ledger/web/NativeBridge;->prepareFile(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)LM/d;
+move-result-object v3
+if-nez v3, +003h
+return-void 
+iget-object v4, v2, Lcom/workshop/ledger/web/NativeBridge;->host LM/e;
+check-cast v4, Lcom/workshop/ledger/MainActivity;
+invoke-virtual v4, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+iget-object v5, v3, LM/d;->a Ljava/lang/String;
+const-string v0, "fileName"
+invoke-static v5, v0, Lkotlin/jvm/internal/i;->e(Ljava/lang/Object; Ljava/lang/String;)V
+iget-object v0, v3, LM/d;->b Ljava/lang/String;
+const-string v1, "mimeType"
+invoke-static v0, v1, Lkotlin/jvm/internal/i;->e(Ljava/lang/Object; Ljava/lang/String;)V
+iget-object v3, v3, LM/d;->c [B
+new-instance v1, LK/e;
+invoke-direct v1, v4, v5, v3, v0, LK/e;-><init>(Lcom/workshop/ledger/MainActivity; Ljava/lang/String; [B Ljava/lang/String;)V
+invoke-virtual v4, v1, Landroid/app/Activity;->runOnUiThread(Ljava/lang/Runnable;)V
+return-void 
+
+## Lcom/workshop/ledger/web/NativeBridge;->stopPcm ()V
+invoke-static Lcom/workshop/ledger/web/Snd;->stopAll()V
+return-void 
+
+## Lcom/workshop/ledger/web/NativeBridge;->validateState (Ljava/lang/String;)Ljava/lang/String;
+const/4 v0, 0
+if-eqz v11, +05bh
+invoke-virtual v11, Ljava/lang/String;->length()I
+move-result v1
+if-eqz v1, +055h
+const/high16 v2, 83886080
+if-le v1, v2, +00bh
+sget-object v1, Lcom/workshop/ledger/web/NativeBridge;->Companion LM/c;
+const-string v2, "حجم داده از ۸۰ مگابایت بیشتر است"
+invoke-static v1, v0, v2, LM/c;->a(LM/c; Z Ljava/lang/String;)Ljava/lang/String;
+move-result-object v1
+return-object v1
+sget-object v2, Lcom/workshop/ledger/data/StateValidator;->INSTANCE Lcom/workshop/ledger/data/StateValidator;
+move-object v3, v11
+const-wide/16 v4, 0
+const/4 v6, 2
+const/4 v7, 0
+invoke-static/range v2 ... v7, Lcom/workshop/ledger/data/StateValidator;->validate$default(Lcom/workshop/ledger/data/StateValidator; Ljava/lang/String; J I Ljava/lang/Object;)Lcom/workshop/ledger/data/StateValidator$Result;
+move-result-object v8
+invoke-virtual v8, Lcom/workshop/ledger/data/StateValidator$Result;->getOk()Z
+move-result v1
+if-eqz v1, +00bh
+sget-object v1, Lcom/workshop/ledger/web/NativeBridge;->Companion LM/c;
+const/4 v2, 1
+const/4 v3, 0
+invoke-static v1, v2, v3, LM/c;->a(LM/c; Z Ljava/lang/String;)Ljava/lang/String;
+move-result-object v9
+goto +16h
+sget-object v1, Lcom/workshop/ledger/web/NativeBridge;->Companion LM/c;
+invoke-virtual v8, Lcom/workshop/ledger/data/StateValidator$Result;->getErrors()Ljava/util/List;
+move-result-object v2
+const-string v3, "؛ "
+const/4 v4, 0
+const/4 v5, 0
+const/4 v6, 0
+const/16 v7, 62
+invoke-static/range v2 ... v7, LO/k;->X(Ljava/util/Collection; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; LY/l; I)Ljava/lang/String;
+move-result-object v2
+invoke-static v1, v0, v2, LM/c;->a(LM/c; Z Ljava/lang/String;)Ljava/lang/String;
+move-result-object v9
+return-object v9
+move-exception v1
+sget-object v2, Lcom/workshop/ledger/web/NativeBridge;->Companion LM/c;
+invoke-virtual v1, Ljava/lang/Throwable;->getMessage()Ljava/lang/String;
+move-result-object v3
+if-nez v3, +00ah
+invoke-virtual v1, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+move-result-object v1
+invoke-virtual v1, Ljava/lang/Class;->getSimpleName()Ljava/lang/String;
+move-result-object v3
+invoke-static v2, v0, v3, LM/c;->a(LM/c; Z Ljava/lang/String;)Ljava/lang/String;
+move-result-object v9
+goto -16h
+sget-object v1, Lcom/workshop/ledger/web/NativeBridge;->Companion LM/c;
+const-string v2, "داده‌ای برای ذخیره ارسال نشد"
+invoke-static v1, v0, v2, LM/c;->a(LM/c; Z Ljava/lang/String;)Ljava/lang/String;
+move-result-object v1
+return-object v1
+
+## Lcom/workshop/ledger/web/NativeBridge;->vibrate (I)V
+const/4 v0, 1
+const/16 v1, 500
+invoke-static v6, v0, v1, La/a;->s(I I I)I
+move-result v6
+int-to-long v0, v6
+iget-object v6, v5, Lcom/workshop/ledger/web/NativeBridge;->host LM/e;
+check-cast v6, Lcom/workshop/ledger/MainActivity;
+invoke-virtual v6, Landroid/content/Context;->getApplicationContext()Landroid/content/Context;
+move-result-object v6
+const-string v2, "getApplicationContext(...)"
+invoke-static v6, v2, Lkotlin/jvm/internal/i;->d(Ljava/lang/Object; Ljava/lang/String;)V
+sget v2, Landroid/os/Build$VERSION;->SDK_INT I
+const/16 v3, 31
+const/4 v4, 0
+if-lt v2, v3, +01bh
+const-string v2, "vibrator_manager"
+invoke-virtual v6, v2, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+move-result-object v6
+invoke-static v6, LM/b;->f(Ljava/lang/Object;)Z
+move-result v2
+if-eqz v2, +007h
+invoke-static v6, LM/b;->b(Ljava/lang/Object;)Landroid/os/VibratorManager;
+move-result-object v6
+goto +2h
+move-object v6, v4
+if-eqz v6, +014h
+invoke-static v6, LM/b;->a(Landroid/os/VibratorManager;)Landroid/os/Vibrator;
+move-result-object v4
+goto +eh
+const-string v2, "vibrator"
+invoke-virtual v6, v2, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+move-result-object v6
+instance-of v2, v6, Landroid/os/Vibrator;
+if-eqz v2, +005h
+move-object v4, v6
+check-cast v4, Landroid/os/Vibrator;
+if-eqz v4, +010h
+invoke-virtual v4, Landroid/os/Vibrator;->hasVibrator()Z
+move-result v6
+if-eqz v6, +00ah
+const/4 v6, -1
+invoke-static v0, v1, v6, Landroid/os/VibrationEffect;->createOneShot(J I)Landroid/os/VibrationEffect;
+move-result-object v6
+invoke-virtual v4, v6, Landroid/os/Vibrator;->vibrate(Landroid/os/VibrationEffect;)V
+return-void 

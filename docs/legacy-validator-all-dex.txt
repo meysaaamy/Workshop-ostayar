@@ -1,0 +1,1687 @@
+# Original DEX instructions; control flow has not been decompiled.
+# APK sha256: 1fe8867aa04ee0fb2d0b4e7bdd5e0a502d1a4b264c93dc1f644e672192b1402b
+
+## Lcom/workshop/ledger/data/StateValidator;-><clinit> ()V
+new-instance v0, Lcom/workshop/ledger/data/StateValidator;
+invoke-direct v0, Lcom/workshop/ledger/data/StateValidator;-><init>()V
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->INSTANCE Lcom/workshop/ledger/data/StateValidator;
+new-instance v0, Lg0/e;
+const-string v1, "^[A-Za-z0-9_.-]{1,64}$"
+invoke-direct v0, v1, Lg0/e;-><init>(Ljava/lang/String;)V
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->ID_REGEX Lg0/e;
+new-instance v0, Lg0/e;
+const-string v1, "^(\d{4})/(0[1-9]|1[0-2])/(0[1-9]|[12]\d|3[01])$"
+invoke-direct v0, v1, Lg0/e;-><init>(Ljava/lang/String;)V
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->JALALI_DATE_REGEX Lg0/e;
+const-string v0, "apprentice"
+const-string v1, "custom"
+const-string v2, "master"
+filled-new-array v2, v0, v1, [Ljava/lang/String;
+move-result-object v0
+invoke-static v0, LO/j;->W([Ljava/lang/Object;)Ljava/util/Set;
+move-result-object v0
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->USER_TYPES Ljava/util/Set;
+const-string v0, "peer"
+const-string v1, "advance"
+filled-new-array v0, v1, [Ljava/lang/String;
+move-result-object v0
+invoke-static v0, LO/j;->W([Ljava/lang/Object;)Ljava/util/Set;
+move-result-object v0
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->TRANSFER_KINDS Ljava/util/Set;
+const-string v0, "assistance"
+const-string v1, "settle"
+const-string v2, "bonus"
+const-string v3, "penalty"
+filled-new-array v2, v3, v0, v1, [Ljava/lang/String;
+move-result-object v0
+invoke-static v0, LO/j;->W([Ljava/lang/Object;)Ljava/util/Set;
+move-result-object v0
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->ADJUSTMENT_KINDS Ljava/util/Set;
+const-string v0, "not_started"
+const-string v1, "in_quest"
+const-string v2, "completed"
+const-string v3, "skipped"
+filled-new-array v0, v1, v2, v3, [Ljava/lang/String;
+move-result-object v0
+invoke-static v0, LO/j;->W([Ljava/lang/Object;)Ljava/util/Set;
+move-result-object v0
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->ONBOARDING_STATUSES Ljava/util/Set;
+filled-new-array v2, v3, [Ljava/lang/String;
+move-result-object v0
+invoke-static v0, LO/j;->W([Ljava/lang/Object;)Ljava/util/Set;
+move-result-object v0
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->LEGACY_ONBOARDING_VALUES Ljava/util/Set;
+const-string v0, "cash"
+const-string v1, "commitment"
+filled-new-array v0, v1, [Ljava/lang/String;
+move-result-object v0
+invoke-static v0, LO/j;->W([Ljava/lang/Object;)Ljava/util/Set;
+move-result-object v0
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->PROFIT_BASES Ljava/util/Set;
+const-string v0, "light"
+const-string v1, "dark"
+const-string v2, "system"
+filled-new-array v2, v0, v1, [Ljava/lang/String;
+move-result-object v0
+invoke-static v0, LO/j;->W([Ljava/lang/Object;)Ljava/util/Set;
+move-result-object v0
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->THEMES Ljava/util/Set;
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;-><init> ()V
+invoke-direct v0, Ljava/lang/Object;-><init>()V
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->checkAmount (Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-virtual v1, v2, Lorg/json/JSONObject;->opt(Ljava/lang/String;)Ljava/lang/Object;
+move-result-object v1
+invoke-virtual v0, v1, Lcom/workshop/ledger/data/StateValidator;->isValidAmount(Ljava/lang/Object;)Z
+move-result v1
+if-nez v1, +01eh
+new-instance v1, Ljava/lang/StringBuilder;
+invoke-direct v1, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v1, v3, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v3, ": مبلغ ("
+invoke-virtual v1, v3, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v2, ") نباید منفی، تهی یا نامعتبر باشد"
+invoke-virtual v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v1, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v1
+invoke-virtual v4, v1, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->checkDate (Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-static v1, v2, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v1
+invoke-virtual v0, v1, Lcom/workshop/ledger/data/StateValidator;->isJalaliDate(Ljava/lang/String;)Z
+move-result v1
+if-nez v1, +01eh
+new-instance v1, Ljava/lang/StringBuilder;
+invoke-direct v1, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v1, v3, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v3, ": تاریخ ("
+invoke-virtual v1, v3, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v2, ") باید به شکل YYYY/MM/DD معتبر باشد"
+invoke-virtual v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v1, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v1
+invoke-virtual v4, v1, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->checkDescription (Lorg/json/JSONObject; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v0, "description"
+invoke-static v2, v0, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v2
+if-eqz v2, +013h
+invoke-virtual v2, Ljava/lang/String;->length()I
+move-result v2
+const/16 v0, 2000
+if-le v2, v0, +00bh
+const-string v2, ": توضیحات بیش از حد طولانی است"
+invoke-static v3, v2, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v2
+invoke-virtual v4, v2, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->checkRecordId (Lorg/json/JSONObject; Ljava/util/Set; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v0, "id"
+invoke-static v2, v0, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v2
+if-nez v2, +004h
+const-string v2, ""
+sget-object v0, Lcom/workshop/ledger/data/StateValidator;->ID_REGEX Lg0/e;
+invoke-virtual v0, v2, Lg0/e;->a(Ljava/lang/String;)Z
+move-result v0
+if-nez v0, +00ch
+const-string v2, ": شناسه نامعتبر است"
+invoke-static v4, v2, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v2
+invoke-virtual v5, v2, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+goto +23h
+invoke-interface v3, v2, Ljava/util/Set;->add(Ljava/lang/Object;)Z
+move-result v3
+if-nez v3, +01eh
+new-instance v3, Ljava/lang/StringBuilder;
+invoke-direct v3, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v3, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v4, ": شناسه «"
+invoke-virtual v3, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v3, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v2, "» تکراری است"
+invoke-virtual v3, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v3, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v2
+invoke-virtual v5, v2, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->failure (Ljava/lang/String;)Lcom/workshop/ledger/data/StateValidator$Result;
+new-instance v0, Lcom/workshop/ledger/data/StateValidator$Result;
+invoke-static v5, La/a;->G(Ljava/lang/Object;)Ljava/util/List;
+move-result-object v5
+sget-object v1, LO/s;->b LO/s;
+const/4 v2, 0
+const/4 v3, 0
+invoke-direct v0, v3, v5, v1, v2, Lcom/workshop/ledger/data/StateValidator$Result;-><init>(Z Ljava/util/List; Ljava/util/List; Lorg/json/JSONObject;)V
+return-object v0
+
+## Lcom/workshop/ledger/data/StateValidator;->forEachObject (Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues; LY/l;)V
+invoke-virtual v6, v7, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+move-result-object v6
+if-nez v6, +003h
+return-void 
+invoke-virtual v6, Lorg/json/JSONArray;->length()I
+move-result v0
+const/4 v1, 0
+if-ge v1, v0, +035h
+invoke-virtual v6, v1, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
+move-result-object v2
+if-nez v2, +029h
+add-int/lit8 v2, v1, 1
+new-instance v3, Ljava/lang/StringBuilder;
+invoke-direct v3, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v3, v8, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v4, "/"
+invoke-virtual v3, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v3, v7, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v4, ": عنصر "
+invoke-virtual v3, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v3, v2, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+const-string v2, " ساختار نامعتبر دارد"
+invoke-virtual v3, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v3, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v2
+invoke-virtual v9, v2, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+goto +4h
+invoke-interface v10, v2, LY/l;->invoke(Ljava/lang/Object;)Ljava/lang/Object;
+add-int/lit8 v1, v1, 1
+goto -34h
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->isValidAttendanceValue (Ljava/lang/Object;)Z
+instance-of v0, v9, Ljava/lang/Number;
+const/4 v1, 1
+const-wide/16 v2, 0
+const/4 v4, 0
+if-eqz v0, +01dh
+check-cast v9, Ljava/lang/Number;
+invoke-virtual v9, Ljava/lang/Number;->doubleValue()D
+move-result-wide v5
+cmpg-double v9, v5, v2
+if-nez v9, +003h
+goto +5ah
+const-wide/high16 v2, 4602678819172646912
+cmpg-double v9, v5, v2
+if-nez v9, +003h
+goto +53h
+const-wide/high16 v2, 4607182418800017408
+cmpg-double v9, v5, v2
+if-nez v9, +003h
+goto +4ch
+move v1, v4
+goto +4ah
+instance-of v0, v9, Lorg/json/JSONObject;
+if-eqz v0, -004h
+check-cast v9, Lorg/json/JSONObject;
+const-string v0, "h"
+invoke-virtual v9, v0, Lorg/json/JSONObject;->opt(Ljava/lang/String;)Ljava/lang/Object;
+move-result-object v5
+instance-of v6, v5, Ljava/lang/Number;
+const/4 v7, 0
+if-eqz v6, +005h
+check-cast v5, Ljava/lang/Number;
+goto +2h
+move-object v5, v7
+if-eqz v5, +00ah
+invoke-virtual v5, Ljava/lang/Number;->doubleValue()D
+move-result-wide v5
+invoke-static v5, v6, Ljava/lang/Double;->valueOf(D)Ljava/lang/Double;
+move-result-object v7
+const-string v5, "t"
+invoke-static v9, v5, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v9
+invoke-static v9, v0, Lkotlin/jvm/internal/i;->a(Ljava/lang/Object; Ljava/lang/Object;)Z
+move-result v9
+if-eqz v9, -02bh
+if-eqz v7, -02dh
+invoke-virtual v7, Ljava/lang/Double;->doubleValue()D
+move-result-wide v5
+invoke-static v5, v6, Ljava/lang/Double;->isNaN(D)Z
+move-result v9
+if-nez v9, -037h
+invoke-virtual v7, Ljava/lang/Double;->doubleValue()D
+move-result-wide v5
+cmpl-double v9, v5, v2
+if-ltz v9, -03fh
+invoke-virtual v7, Ljava/lang/Double;->doubleValue()D
+move-result-wide v2
+const-wide/high16 v5, 4627448617123184640
+cmpg-double v9, v2, v5
+if-gtz v9, -049h
+return v1
+
+## Lcom/workshop/ledger/data/StateValidator;->onboardingState (Ljava/lang/String; I Ljava/lang/String;)Lorg/json/JSONObject;
+new-instance v0, Lorg/json/JSONObject;
+invoke-direct v0, Lorg/json/JSONObject;-><init>()V
+const-string v1, "status"
+invoke-virtual v0, v1, v3, Lorg/json/JSONObject;->put(Ljava/lang/String; Ljava/lang/Object;)Lorg/json/JSONObject;
+move-result-object v3
+const-string v0, "questStep"
+invoke-virtual v3, v0, v4, Lorg/json/JSONObject;->put(Ljava/lang/String; I)Lorg/json/JSONObject;
+move-result-object v3
+if-nez v5, +004h
+sget-object v5, Lorg/json/JSONObject;->NULL Ljava/lang/Object;
+const-string v4, "sandboxProjectId"
+invoke-virtual v3, v4, v5, Lorg/json/JSONObject;->put(Ljava/lang/String; Ljava/lang/Object;)Lorg/json/JSONObject;
+move-result-object v3
+return-object v3
+
+## Lcom/workshop/ledger/data/StateValidator;->requireText (Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; I Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-static v3, v4, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v3
+const-string v0, ": فیلد "
+if-eqz v3, +032h
+invoke-static v3, Lg0/m;->Y(Ljava/lang/String;)Z
+move-result v1
+if-eqz v1, +003h
+goto +2ah
+invoke-virtual v3, Ljava/lang/String;->length()I
+move-result v3
+if-le v3, v6, +03fh
+new-instance v3, Ljava/lang/StringBuilder;
+invoke-direct v3, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v3, v5, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v3, v0, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v3, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v4, " بیش از "
+invoke-virtual v3, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v3, v6, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+const-string v4, " نویسه است"
+invoke-virtual v3, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v3, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v3
+invoke-virtual v7, v3, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+goto +1bh
+new-instance v3, Ljava/lang/StringBuilder;
+invoke-direct v3, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v3, v5, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v3, v0, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v3, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v4, " الزامی است"
+invoke-virtual v3, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v3, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v3
+invoke-virtual v7, v3, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->utf8Length (Ljava/lang/CharSequence; J)J
+const-wide/16 v0, 0
+const/4 v2, 0
+invoke-interface v8, Ljava/lang/CharSequence;->length()I
+move-result v3
+if-ge v2, v3, +03ah
+invoke-interface v8, v2, Ljava/lang/CharSequence;->charAt(I)C
+move-result v3
+const/16 v4, 128
+const/4 v5, 1
+if-ge v3, v4, +004h
+move v3, v5
+goto +25h
+const/16 v4, 2048
+if-ge v3, v4, +004h
+const/4 v3, 2
+goto +1fh
+invoke-static v3, Ljava/lang/Character;->isHighSurrogate(C)Z
+move-result v3
+if-eqz v3, +019h
+add-int/lit8 v3, v2, 1
+invoke-interface v8, Ljava/lang/CharSequence;->length()I
+move-result v4
+if-ge v3, v4, +011h
+invoke-interface v8, v3, Ljava/lang/CharSequence;->charAt(I)C
+move-result v4
+invoke-static v4, Ljava/lang/Character;->isLowSurrogate(C)Z
+move-result v4
+if-eqz v4, +007h
+const/4 v2, 4
+move v6, v3
+move v3, v2
+move v2, v6
+goto +2h
+const/4 v3, 3
+int-to-long v3, v3
+add-long/2addr v0, v3
+cmp-long v3, v0, v9
+if-lez v3, +003h
+return-wide v0
+add-int/2addr v2, v5
+goto -3dh
+return-wide v0
+
+## Lcom/workshop/ledger/data/StateValidator;->validate$default (Lcom/workshop/ledger/data/StateValidator; Ljava/lang/String; J I Ljava/lang/Object;)Lcom/workshop/ledger/data/StateValidator$Result;
+and-int/lit8 v4, v4, 2
+if-eqz v4, +005h
+const-wide/32 v2, 67108864
+invoke-virtual v0, v1, v2, v3, Lcom/workshop/ledger/data/StateValidator;->validate(Ljava/lang/String; J)Lcom/workshop/ledger/data/StateValidator$Result;
+move-result-object v0
+return-object v0
+
+## Lcom/workshop/ledger/data/StateValidator;->validateAdjustments (Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+new-instance v0, Ljava/util/HashSet;
+invoke-direct v0, Ljava/util/HashSet;-><init>()V
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v1
+const-string v2, "adjustments"
+invoke-virtual v10, v2, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+move-result-object v10
+const/4 v2, 0
+if-nez v10, +004h
+goto/16 +077h
+invoke-virtual v10, Lorg/json/JSONArray;->length()I
+move-result v3
+move v4, v2
+if-ge v2, v3, +06fh
+invoke-virtual v10, v2, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
+move-result-object v5
+if-nez v5, +021h
+add-int/lit8 v5, v2, 1
+new-instance v6, Ljava/lang/StringBuilder;
+invoke-direct v6, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v6, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v7, "/adjustments: عنصر "
+invoke-virtual v6, v7, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v6, v5, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+const-string v5, " ساختار نامعتبر دارد"
+invoke-virtual v6, v5, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v6, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v5
+invoke-virtual v12, v5, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+goto +46h
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v6
+const-string v7, "/تعدیل"
+invoke-static v6, v7, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v6
+sget-object v7, Lcom/workshop/ledger/data/StateValidator;->INSTANCE Lcom/workshop/ledger/data/StateValidator;
+invoke-direct v7, v5, v0, v6, v12, Lcom/workshop/ledger/data/StateValidator;->checkRecordId(Lorg/json/JSONObject; Ljava/util/Set; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v8, "date"
+invoke-direct v7, v5, v8, v6, v12, Lcom/workshop/ledger/data/StateValidator;->checkDate(Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v8, "amount"
+invoke-direct v7, v5, v8, v6, v12, Lcom/workshop/ledger/data/StateValidator;->checkAmount(Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-direct v7, v5, v6, v12, Lcom/workshop/ledger/data/StateValidator;->checkDescription(Lorg/json/JSONObject; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+sget-object v7, Lcom/workshop/ledger/data/StateValidator;->ADJUSTMENT_KINDS Ljava/util/Set;
+const-string v8, "kind"
+invoke-static v5, v8, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v8
+invoke-static v7, v8, LO/k;->V(Ljava/util/Set; Ljava/lang/String;)Z
+move-result v7
+if-nez v7, +00bh
+const-string v7, ": نوع باید bonus، penalty، assistance یا settle باشد"
+invoke-static v6, v7, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v6
+invoke-virtual v12, v6, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getUserIds()Ljava/util/Set;
+move-result-object v6
+const-string v7, "userId"
+invoke-static v5, v7, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v5
+invoke-static v6, v5, LO/k;->V(Ljava/util/Set; Ljava/lang/String;)Z
+move-result v5
+if-nez v5, +004h
+add-int/lit8 v4, v4, 1
+add-int/lit8 v2, v2, 1
+goto -6eh
+move v2, v4
+if-lez v2, +022h
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v10
+new-instance v11, Ljava/lang/StringBuilder;
+invoke-direct v11, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v11, v10, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v10, ": "
+invoke-virtual v11, v10, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v11, v2, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+const-string v10, " تعدیل یتیم (کاربر ناموجود)"
+invoke-virtual v11, v10, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v11, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v10
+invoke-virtual v12, v10, Lcom/workshop/ledger/data/StateValidator$Issues;->warn(Ljava/lang/String;)V
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->validateAttendance (Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v0, "attendance"
+invoke-virtual v10, v0, Lorg/json/JSONObject;->optJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;
+move-result-object v10
+if-nez v10, +003h
+return-void 
+invoke-virtual v10, Lorg/json/JSONObject;->keys()Ljava/util/Iterator;
+move-result-object v0
+const/4 v1, 0
+invoke-interface v0, Ljava/util/Iterator;->hasNext()Z
+move-result v2
+if-eqz v2, +09bh
+invoke-interface v0, Ljava/util/Iterator;->next()Ljava/lang/Object;
+move-result-object v2
+check-cast v2, Ljava/lang/String;
+invoke-virtual v9, v2, Lcom/workshop/ledger/data/StateValidator;->isJalaliDate(Ljava/lang/String;)Z
+move-result v3
+if-nez v3, +023h
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v3
+new-instance v4, Ljava/lang/StringBuilder;
+invoke-direct v4, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v4, v3, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v3, "/حضور: تاریخ «"
+invoke-virtual v4, v3, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v4, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v2, "» نامعتبر است"
+invoke-virtual v4, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v4, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v2
+invoke-virtual v12, v2, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+goto -32h
+invoke-virtual v10, v2, Lorg/json/JSONObject;->optJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;
+move-result-object v3
+const-string v4, "/حضور "
+if-nez v3, +021h
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v3
+new-instance v5, Ljava/lang/StringBuilder;
+invoke-direct v5, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v5, v3, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v5, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v5, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v2, ": ساختار نامعتبر"
+invoke-virtual v5, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v5, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v2
+invoke-virtual v12, v2, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+goto -59h
+invoke-virtual v3, Lorg/json/JSONObject;->keys()Ljava/util/Iterator;
+move-result-object v5
+invoke-interface v5, Ljava/util/Iterator;->hasNext()Z
+move-result v6
+if-eqz v6, -062h
+invoke-interface v5, Ljava/util/Iterator;->next()Ljava/lang/Object;
+move-result-object v6
+check-cast v6, Ljava/lang/String;
+invoke-virtual v3, v6, Lorg/json/JSONObject;->opt(Ljava/lang/String;)Ljava/lang/Object;
+move-result-object v7
+invoke-direct v9, v7, Lcom/workshop/ledger/data/StateValidator;->isValidAttendanceValue(Ljava/lang/Object;)Z
+move-result v7
+if-nez v7, +020h
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v7
+new-instance v8, Ljava/lang/StringBuilder;
+invoke-direct v8, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v8, v7, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v8, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v8, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v7, ": مقدار کارکرد نامعتبر یا خارج از ۰ تا ۲۴ ساعت"
+invoke-virtual v8, v7, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v8, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v7
+invoke-virtual v12, v7, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getUserIds()Ljava/util/Set;
+move-result-object v7
+invoke-interface v7, v6, Ljava/util/Set;->contains(Ljava/lang/Object;)Z
+move-result v6
+if-nez v6, -03ch
+add-int/lit8 v1, v1, 1
+goto -40h
+if-lez v1, +022h
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v10
+new-instance v11, Ljava/lang/StringBuilder;
+invoke-direct v11, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v11, v10, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v10, ": "
+invoke-virtual v11, v10, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v11, v1, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+const-string v10, " رکورد حضور یتیم (کاربر ناموجود)"
+invoke-virtual v11, v10, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v11, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v10
+invoke-virtual v12, v10, Lcom/workshop/ledger/data/StateValidator$Issues;->warn(Ljava/lang/String;)V
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->validateExpenses (Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+new-instance v0, Ljava/util/HashSet;
+invoke-direct v0, Ljava/util/HashSet;-><init>()V
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v1
+const-string v2, "expenses"
+invoke-virtual v10, v2, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+move-result-object v10
+const/4 v2, 0
+if-nez v10, +004h
+goto/16 +071h
+invoke-virtual v10, Lorg/json/JSONArray;->length()I
+move-result v3
+move v4, v2
+if-ge v2, v3, +069h
+invoke-virtual v10, v2, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
+move-result-object v5
+if-nez v5, +021h
+add-int/lit8 v5, v2, 1
+new-instance v6, Ljava/lang/StringBuilder;
+invoke-direct v6, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v6, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v7, "/expenses: عنصر "
+invoke-virtual v6, v7, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v6, v5, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+const-string v5, " ساختار نامعتبر دارد"
+invoke-virtual v6, v5, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v6, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v5
+invoke-virtual v12, v5, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+goto +40h
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v6
+const-string v7, "/هزینه"
+invoke-static v6, v7, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v6
+sget-object v7, Lcom/workshop/ledger/data/StateValidator;->INSTANCE Lcom/workshop/ledger/data/StateValidator;
+invoke-direct v7, v5, v0, v6, v12, Lcom/workshop/ledger/data/StateValidator;->checkRecordId(Lorg/json/JSONObject; Ljava/util/Set; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v8, "date"
+invoke-direct v7, v5, v8, v6, v12, Lcom/workshop/ledger/data/StateValidator;->checkDate(Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v8, "amount"
+invoke-direct v7, v5, v8, v6, v12, Lcom/workshop/ledger/data/StateValidator;->checkAmount(Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-direct v7, v5, v6, v12, Lcom/workshop/ledger/data/StateValidator;->checkDescription(Lorg/json/JSONObject; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v6, "payerId"
+invoke-static v5, v6, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v5
+if-eqz v5, +01dh
+invoke-interface v5, Ljava/lang/CharSequence;->length()I
+move-result v6
+if-nez v6, +003h
+goto +15h
+const-string v6, "shared"
+invoke-static v5, v6, Lkotlin/jvm/internal/i;->a(Ljava/lang/Object; Ljava/lang/Object;)Z
+move-result v6
+if-nez v6, +00eh
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getUserIds()Ljava/util/Set;
+move-result-object v6
+invoke-interface v6, v5, Ljava/util/Set;->contains(Ljava/lang/Object;)Z
+move-result v5
+if-nez v5, +004h
+add-int/lit8 v4, v4, 1
+add-int/lit8 v2, v2, 1
+goto -68h
+move v2, v4
+if-lez v2, +022h
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v10
+new-instance v11, Ljava/lang/StringBuilder;
+invoke-direct v11, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v11, v10, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v10, ": "
+invoke-virtual v11, v10, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v11, v2, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+const-string v10, " هزینه با پرداخت‌کننده ناموجود"
+invoke-virtual v11, v10, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v11, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v10
+invoke-virtual v12, v10, Lcom/workshop/ledger/data/StateValidator$Issues;->warn(Ljava/lang/String;)V
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->validateOnboarding (Lorg/json/JSONObject; Ljava/util/Set; Ljava/util/Set; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v0, "onboarding"
+invoke-virtual v10, v0, Lorg/json/JSONObject;->opt(Ljava/lang/String;)Ljava/lang/Object;
+move-result-object v1
+const/4 v2, 0
+const/4 v3, 0
+if-eqz v1, +0f2h
+sget-object v4, Lorg/json/JSONObject;->NULL Ljava/lang/Object;
+if-ne v1, v4, +004h
+goto/16 +0ech
+instance-of v5, v1, Ljava/lang/String;
+if-eqz v5, +01ah
+sget-object v11, Lcom/workshop/ledger/data/StateValidator;->LEGACY_ONBOARDING_VALUES Ljava/util/Set;
+invoke-interface v11, v1, Ljava/util/Set;->contains(Ljava/lang/Object;)Z
+move-result v11
+if-nez v11, +008h
+const-string v10, "مقدار onboarding نامعتبر است"
+invoke-virtual v13, v10, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+return-void 
+check-cast v1, Ljava/lang/String;
+invoke-direct v9, v1, v2, v3, Lcom/workshop/ledger/data/StateValidator;->onboardingState(Ljava/lang/String; I Ljava/lang/String;)Lorg/json/JSONObject;
+move-result-object v11
+invoke-virtual v10, v0, v11, Lorg/json/JSONObject;->put(Ljava/lang/String; Ljava/lang/Object;)Lorg/json/JSONObject;
+return-void 
+instance-of v10, v1, Lorg/json/JSONObject;
+if-nez v10, +008h
+const-string v10, "ساختار onboarding باید یک شیء باشد"
+invoke-virtual v13, v10, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+return-void 
+check-cast v1, Lorg/json/JSONObject;
+const-string v10, "sandboxProjectId"
+invoke-virtual v1, v10, Lorg/json/JSONObject;->has(Ljava/lang/String;)Z
+move-result v0
+if-nez v0, +005h
+invoke-virtual v1, v10, v4, Lorg/json/JSONObject;->put(Ljava/lang/String; Ljava/lang/Object;)Lorg/json/JSONObject;
+const-string v0, "status"
+invoke-static v1, v0, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v0
+if-eqz v0, +00ah
+sget-object v2, Lcom/workshop/ledger/data/StateValidator;->ONBOARDING_STATUSES Ljava/util/Set;
+invoke-interface v2, v0, Ljava/util/Set;->contains(Ljava/lang/Object;)Z
+move-result v2
+if-nez v2, +007h
+const-string v2, "وضعیت onboarding نامعتبر است"
+invoke-virtual v13, v2, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+const-string v2, "questStep"
+invoke-virtual v1, v2, Lorg/json/JSONObject;->opt(Ljava/lang/String;)Ljava/lang/Object;
+move-result-object v2
+instance-of v5, v2, Ljava/lang/Number;
+if-eqz v5, +005h
+check-cast v2, Ljava/lang/Number;
+goto +2h
+move-object v2, v3
+if-eqz v2, +00bh
+invoke-virtual v2, Ljava/lang/Number;->doubleValue()D
+move-result-wide v5
+invoke-static v5, v6, Ljava/lang/Double;->valueOf(D)Ljava/lang/Double;
+move-result-object v2
+goto +2h
+move-object v2, v3
+if-eqz v2, +02eh
+invoke-virtual v2, Ljava/lang/Double;->doubleValue()D
+move-result-wide v5
+invoke-static v5, v6, Ljava/lang/Double;->isInfinite(D)Z
+move-result v7
+if-nez v7, +024h
+invoke-static v5, v6, Ljava/lang/Double;->isNaN(D)Z
+move-result v5
+if-nez v5, +01eh
+invoke-virtual v2, Ljava/lang/Double;->doubleValue()D
+move-result-wide v5
+const-wide/high16 v7, 4607182418800017408
+rem-double/2addr v5, v7
+const-wide/16 v7, 0
+cmpg-double v5, v5, v7
+if-nez v5, +011h
+invoke-virtual v2, Ljava/lang/Number;->doubleValue()D
+move-result-wide v5
+cmpl-double v2, v5, v7
+if-ltz v2, +009h
+const-wide/high16 v7, 4616189618054758400
+cmpg-double v2, v5, v7
+if-gtz v2, +003h
+goto +6h
+const-string v2, "گام onboarding باید عدد صحیح بین ۰ تا ۴ باشد"
+invoke-virtual v13, v2, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+invoke-virtual v1, v10, Lorg/json/JSONObject;->opt(Ljava/lang/String;)Ljava/lang/Object;
+move-result-object v10
+if-eqz v10, +00ch
+if-ne v10, v4, +003h
+goto +8h
+instance-of v1, v10, Ljava/lang/String;
+if-eqz v1, +005h
+move-object v3, v10
+check-cast v3, Ljava/lang/String;
+if-eqz v10, +01bh
+if-eq v10, v4, +019h
+if-eqz v3, +012h
+sget-object v10, Lcom/workshop/ledger/data/StateValidator;->ID_REGEX Lg0/e;
+invoke-virtual v10, v3, Lg0/e;->a(Ljava/lang/String;)Z
+move-result v10
+if-eqz v10, +00ah
+const-string v10, "demo_quest_"
+invoke-static v3, v10, Lg0/m;->d0(Ljava/lang/String; Ljava/lang/String;)Z
+move-result v10
+if-nez v10, +007h
+const-string v10, "شناسه کارگاه تمرینی نامعتبر است"
+invoke-virtual v13, v10, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+if-eqz v3, +00dh
+invoke-interface v11, v3, Ljava/util/Set;->contains(Ljava/lang/Object;)Z
+move-result v10
+if-nez v10, +007h
+const-string v10, "پروژه کارگاه تمرینی در فهرست پروژه‌ها نیست"
+invoke-virtual v13, v10, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+if-eqz v3, +00dh
+invoke-interface v12, v3, Ljava/util/Set;->contains(Ljava/lang/Object;)Z
+move-result v10
+if-nez v10, +007h
+const-string v10, "شناسه پروژه کارگاه تمرینی معتبر نیست"
+invoke-virtual v13, v10, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+const-string v10, "in_quest"
+invoke-static v0, v10, Lkotlin/jvm/internal/i;->a(Ljava/lang/Object; Ljava/lang/Object;)Z
+move-result v10
+if-eqz v10, +009h
+if-nez v3, +007h
+const-string v10, "برای آموزش فعال باید شناسه کارگاه تمرینی ثبت شود"
+invoke-virtual v13, v10, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+return-void 
+const-string v11, "not_started"
+invoke-direct v9, v11, v2, v3, Lcom/workshop/ledger/data/StateValidator;->onboardingState(Ljava/lang/String; I Ljava/lang/String;)Lorg/json/JSONObject;
+move-result-object v11
+invoke-virtual v10, v0, v11, Lorg/json/JSONObject;->put(Ljava/lang/String; Ljava/lang/Object;)Lorg/json/JSONObject;
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->validatePayouts (Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+new-instance v0, Ljava/util/HashSet;
+invoke-direct v0, Ljava/util/HashSet;-><init>()V
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v1
+const-string v2, "payouts"
+invoke-virtual v10, v2, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+move-result-object v10
+const/4 v2, 0
+if-nez v10, +003h
+goto +5fh
+invoke-virtual v10, Lorg/json/JSONArray;->length()I
+move-result v3
+move v4, v2
+if-ge v2, v3, +058h
+invoke-virtual v10, v2, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
+move-result-object v5
+if-nez v5, +021h
+add-int/lit8 v5, v2, 1
+new-instance v6, Ljava/lang/StringBuilder;
+invoke-direct v6, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v6, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v7, "/payouts: عنصر "
+invoke-virtual v6, v7, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v6, v5, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+const-string v5, " ساختار نامعتبر دارد"
+invoke-virtual v6, v5, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v6, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v5
+invoke-virtual v12, v5, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+goto +2fh
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v6
+const-string v7, "/پرداختی"
+invoke-static v6, v7, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v6
+sget-object v7, Lcom/workshop/ledger/data/StateValidator;->INSTANCE Lcom/workshop/ledger/data/StateValidator;
+invoke-direct v7, v5, v0, v6, v12, Lcom/workshop/ledger/data/StateValidator;->checkRecordId(Lorg/json/JSONObject; Ljava/util/Set; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v8, "date"
+invoke-direct v7, v5, v8, v6, v12, Lcom/workshop/ledger/data/StateValidator;->checkDate(Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v8, "amount"
+invoke-direct v7, v5, v8, v6, v12, Lcom/workshop/ledger/data/StateValidator;->checkAmount(Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-direct v7, v5, v6, v12, Lcom/workshop/ledger/data/StateValidator;->checkDescription(Lorg/json/JSONObject; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getUserIds()Ljava/util/Set;
+move-result-object v6
+const-string v7, "userId"
+invoke-static v5, v7, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v5
+invoke-static v6, v5, LO/k;->V(Ljava/util/Set; Ljava/lang/String;)Z
+move-result v5
+if-nez v5, +004h
+add-int/lit8 v4, v4, 1
+add-int/lit8 v2, v2, 1
+goto -57h
+move v2, v4
+if-lez v2, +022h
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v10
+new-instance v11, Ljava/lang/StringBuilder;
+invoke-direct v11, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v11, v10, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v10, ": "
+invoke-virtual v11, v10, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v11, v2, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+const-string v10, " پرداختی یتیم (کاربر ناموجود)"
+invoke-virtual v11, v10, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v11, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v10
+invoke-virtual v12, v10, Lcom/workshop/ledger/data/StateValidator$Issues;->warn(Ljava/lang/String;)V
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->validateProject (Lorg/json/JSONObject; I Ljava/util/Set; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+move-object/from16 v6, v18
+move-object/from16 v7, v19
+move-object/from16 v8, v22
+add-int/lit8 v0, v20, 1
+const-string v1, "پروژه "
+invoke-static v0, v1, LA/d;->d(I Ljava/lang/String;)Ljava/lang/String;
+move-result-object v9
+const-string v10, "id"
+invoke-static v7, v10, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v0
+const-string v11, ""
+if-nez v0, +003h
+move-object v0, v11
+sget-object v1, Lcom/workshop/ledger/data/StateValidator;->ID_REGEX Lg0/e;
+invoke-virtual v1, v0, Lg0/e;->a(Ljava/lang/String;)Z
+move-result v1
+if-nez v1, +00ch
+const-string v0, ": شناسه نامعتبر است"
+invoke-static v9, v0, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v0
+invoke-virtual v8, v0, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+return-void 
+move-object/from16 v1, v21
+invoke-interface v1, v0, Ljava/util/Set;->add(Ljava/lang/Object;)Z
+move-result v1
+const-string v12, "» تکراری است"
+if-nez v1, +01dh
+new-instance v1, Ljava/lang/StringBuilder;
+invoke-direct v1, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v1, v9, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v2, ": شناسه «"
+invoke-virtual v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v1, v0, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v1, v12, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v1, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v0
+invoke-virtual v8, v0, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+return-void 
+const-string v2, "name"
+const/16 v4, 200
+move-object/from16 v0, v18
+move-object/from16 v1, v19
+move-object v3, v9
+move-object/from16 v5, v22
+invoke-direct/range v0 ... v5, Lcom/workshop/ledger/data/StateValidator;->requireText(Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; I Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v0, "settings"
+invoke-virtual v7, v0, Lorg/json/JSONObject;->optJSONObject(Ljava/lang/String;)Lorg/json/JSONObject;
+move-result-object v0
+invoke-direct v6, v0, v9, v8, Lcom/workshop/ledger/data/StateValidator;->validateSettings(Lorg/json/JSONObject; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+new-instance v13, Ljava/util/HashSet;
+invoke-direct v13, Ljava/util/HashSet;-><init>()V
+const-string v0, "users"
+invoke-virtual v7, v0, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+move-result-object v0
+const-string v14, " ساختار نامعتبر دارد"
+const/4 v1, 0
+if-nez v0, +004h
+goto/16 +06eh
+invoke-virtual v0, Lorg/json/JSONArray;->length()I
+move-result v2
+move v3, v1
+if-ge v3, v2, +067h
+invoke-virtual v0, v3, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
+move-result-object v4
+if-nez v4, +01fh
+add-int/lit8 v4, v3, 1
+new-instance v5, Ljava/lang/StringBuilder;
+invoke-direct v5, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v5, v9, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v15, "/users: عنصر "
+invoke-virtual v5, v15, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v5, v4, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+invoke-virtual v5, v14, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v5, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v4
+invoke-virtual v8, v4, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+goto +40h
+invoke-static v4, v10, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v5
+if-nez v5, +003h
+move-object v5, v11
+sget-object v15, Lcom/workshop/ledger/data/StateValidator;->ID_REGEX Lg0/e;
+invoke-virtual v15, v5, Lg0/e;->a(Ljava/lang/String;)Z
+move-result v15
+if-nez v15, +00ch
+const-string v4, ": شناسه کاربر نامعتبر است"
+invoke-static v9, v4, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v4
+invoke-virtual v8, v4, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+goto +27h
+invoke-virtual v13, v5, Ljava/util/HashSet;->add(Ljava/lang/Object;)Z
+move-result v15
+if-nez v15, +01dh
+new-instance v4, Ljava/lang/StringBuilder;
+invoke-direct v4, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v4, v9, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v15, ": شناسه کاربر «"
+invoke-virtual v4, v15, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v4, v5, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v4, v12, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v4, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v4
+invoke-virtual v8, v4, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+goto +6h
+sget-object v5, Lcom/workshop/ledger/data/StateValidator;->INSTANCE Lcom/workshop/ledger/data/StateValidator;
+invoke-direct v5, v4, v9, v8, Lcom/workshop/ledger/data/StateValidator;->validateUser(Lorg/json/JSONObject; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+add-int/lit8 v3, v3, 1
+goto -66h
+new-instance v12, Ljava/util/HashSet;
+invoke-direct v12, Ljava/util/HashSet;-><init>()V
+const-string v0, "categories"
+invoke-virtual v7, v0, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+move-result-object v15
+if-nez v15, +003h
+goto +69h
+invoke-virtual v15, Lorg/json/JSONArray;->length()I
+move-result v5
+move v4, v1
+if-ge v4, v5, +063h
+invoke-virtual v15, v4, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
+move-result-object v1
+if-nez v1, +023h
+add-int/lit8 v0, v4, 1
+new-instance v1, Ljava/lang/StringBuilder;
+invoke-direct v1, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v1, v9, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v2, "/categories: عنصر "
+invoke-virtual v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v1, v0, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+invoke-virtual v1, v14, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v1, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v0
+invoke-virtual v8, v0, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+move/from16 v17, v4
+move/from16 v16, v5
+goto +36h
+invoke-static v1, v10, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v0
+if-nez v0, +003h
+move-object v0, v11
+sget-object v2, Lcom/workshop/ledger/data/StateValidator;->ID_REGEX Lg0/e;
+invoke-virtual v2, v0, Lg0/e;->a(Ljava/lang/String;)Z
+move-result v2
+if-eqz v2, +008h
+invoke-virtual v12, v0, Ljava/util/HashSet;->add(Ljava/lang/Object;)Z
+move-result v0
+if-nez v0, +00bh
+const-string v0, ": شناسه دسته‌بندی نامعتبر یا تکراری است"
+invoke-static v9, v0, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v0
+invoke-virtual v8, v0, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+sget-object v0, Lcom/workshop/ledger/data/StateValidator;->INSTANCE Lcom/workshop/ledger/data/StateValidator;
+const-string v2, "/دسته"
+invoke-static v9, v2, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v3
+const/16 v16, 200
+const-string v2, "name"
+move/from16 v17, v4
+move/from16 v4, v16
+move/from16 v16, v5
+move-object/from16 v5, v22
+invoke-direct/range v0 ... v5, Lcom/workshop/ledger/data/StateValidator;->requireText(Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; I Lcom/workshop/ledger/data/StateValidator$Issues;)V
+add-int/lit8 v4, v17, 1
+move/from16 v5, v16
+goto -62h
+new-instance v0, Lcom/workshop/ledger/data/StateValidator$ProjectScope;
+invoke-direct v0, v9, v13, v12, Lcom/workshop/ledger/data/StateValidator$ProjectScope;-><init>(Ljava/lang/String; Ljava/util/Set; Ljava/util/Set;)V
+invoke-direct v6, v7, v0, v8, Lcom/workshop/ledger/data/StateValidator;->validateWages(Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-direct v6, v7, v0, v8, Lcom/workshop/ledger/data/StateValidator;->validateAttendance(Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-direct v6, v7, v0, v8, Lcom/workshop/ledger/data/StateValidator;->validateExpenses(Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-direct v6, v7, v0, v8, Lcom/workshop/ledger/data/StateValidator;->validateReceipts(Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-direct v6, v7, v0, v8, Lcom/workshop/ledger/data/StateValidator;->validatePayouts(Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-direct v6, v7, v0, v8, Lcom/workshop/ledger/data/StateValidator;->validateTransfers(Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-direct v6, v7, v0, v8, Lcom/workshop/ledger/data/StateValidator;->validateAdjustments(Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->validateReceipts (Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+new-instance v0, Ljava/util/HashSet;
+invoke-direct v0, Ljava/util/HashSet;-><init>()V
+invoke-virtual v12, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v1
+const-string v2, "receipts"
+invoke-virtual v11, v2, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+move-result-object v11
+if-nez v11, +004h
+goto/16 +079h
+invoke-virtual v11, Lorg/json/JSONArray;->length()I
+move-result v2
+const/4 v3, 0
+if-ge v3, v2, +072h
+invoke-virtual v11, v3, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
+move-result-object v4
+if-nez v4, +021h
+add-int/lit8 v4, v3, 1
+new-instance v5, Ljava/lang/StringBuilder;
+invoke-direct v5, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v5, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v6, "/receipts: عنصر "
+invoke-virtual v5, v6, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v5, v4, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+const-string v4, " ساختار نامعتبر دارد"
+invoke-virtual v5, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v5, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v4
+invoke-virtual v13, v4, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+goto +49h
+invoke-virtual v12, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v5
+const-string v6, "/واریزی"
+invoke-static v5, v6, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v5
+sget-object v6, Lcom/workshop/ledger/data/StateValidator;->INSTANCE Lcom/workshop/ledger/data/StateValidator;
+invoke-direct v6, v4, v0, v5, v13, Lcom/workshop/ledger/data/StateValidator;->checkRecordId(Lorg/json/JSONObject; Ljava/util/Set; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v7, "dateFrom"
+invoke-direct v6, v4, v7, v5, v13, Lcom/workshop/ledger/data/StateValidator;->checkDate(Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v8, "dateTo"
+invoke-direct v6, v4, v8, v5, v13, Lcom/workshop/ledger/data/StateValidator;->checkDate(Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-static v4, v7, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v7
+invoke-static v4, v8, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v8
+if-eqz v7, +01fh
+if-eqz v8, +01dh
+invoke-virtual v6, v7, Lcom/workshop/ledger/data/StateValidator;->isJalaliDate(Ljava/lang/String;)Z
+move-result v9
+if-eqz v9, +017h
+invoke-virtual v6, v8, Lcom/workshop/ledger/data/StateValidator;->isJalaliDate(Ljava/lang/String;)Z
+move-result v9
+if-eqz v9, +011h
+invoke-virtual v7, v8, Ljava/lang/String;->compareTo(Ljava/lang/String;)I
+move-result v7
+if-lez v7, +00bh
+const-string v7, ": تاریخ شروع بعد از تاریخ پایان است"
+invoke-static v5, v7, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v7
+invoke-virtual v13, v7, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+const-string v7, "amount"
+invoke-direct v6, v4, v7, v5, v13, Lcom/workshop/ledger/data/StateValidator;->checkAmount(Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-direct v6, v4, v5, v13, Lcom/workshop/ledger/data/StateValidator;->checkDescription(Lorg/json/JSONObject; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+add-int/lit8 v3, v3, 1
+goto -71h
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->validateSettings (Lorg/json/JSONObject; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+if-nez v6, +003h
+return-void 
+const-string v0, "rangeFrom"
+const-string v1, "rangeTo"
+filled-new-array v0, v1, [Ljava/lang/String;
+move-result-object v0
+invoke-static v0, LO/l;->S([Ljava/lang/Object;)Ljava/util/List;
+move-result-object v0
+invoke-interface v0, Ljava/util/List;->iterator()Ljava/util/Iterator;
+move-result-object v0
+invoke-interface v0, Ljava/util/Iterator;->hasNext()Z
+move-result v1
+if-eqz v1, +038h
+invoke-interface v0, Ljava/util/Iterator;->next()Ljava/lang/Object;
+move-result-object v1
+check-cast v1, Ljava/lang/String;
+invoke-static v6, v1, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v2
+if-eqz v2, -010h
+invoke-virtual v2, Ljava/lang/String;->length()I
+move-result v3
+if-nez v3, +003h
+goto -18h
+invoke-virtual v5, v2, Lcom/workshop/ledger/data/StateValidator;->isJalaliDate(Ljava/lang/String;)Z
+move-result v2
+if-nez v2, -01dh
+new-instance v2, Ljava/lang/StringBuilder;
+invoke-direct v2, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v2, v7, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v3, ": تاریخ بازه ("
+invoke-virtual v2, v3, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v2, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v1, ") نامعتبر است"
+invoke-virtual v2, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v2, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v1
+invoke-virtual v8, v1, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+goto -3bh
+const-string v0, "overtimeFactor"
+invoke-virtual v6, v0, Lorg/json/JSONObject;->isNull(Ljava/lang/String;)Z
+move-result v1
+if-nez v1, +025h
+invoke-static v6, v0, Lcom/workshop/ledger/data/StateValidatorKt;->numOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/Double;
+move-result-object v0
+if-eqz v0, +016h
+invoke-virtual v0, Ljava/lang/Double;->doubleValue()D
+move-result-wide v1
+const-wide/high16 v3, 4607182418800017408
+cmpg-double v1, v1, v3
+if-ltz v1, +00ch
+invoke-virtual v0, Ljava/lang/Double;->doubleValue()D
+move-result-wide v0
+const-wide/high16 v2, 4617315517961601024
+cmpl-double v0, v0, v2
+if-lez v0, +00bh
+const-string v0, ": ضریب اضافه‌کار باید بین ۱ تا ۵ باشد"
+invoke-static v7, v0, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v0
+invoke-virtual v8, v0, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+const-string v0, "profitBasis"
+invoke-virtual v6, v0, Lorg/json/JSONObject;->isNull(Ljava/lang/String;)Z
+move-result v1
+if-nez v1, +017h
+sget-object v1, Lcom/workshop/ledger/data/StateValidator;->PROFIT_BASES Ljava/util/Set;
+invoke-static v6, v0, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v0
+invoke-static v1, v0, LO/k;->V(Ljava/util/Set; Ljava/lang/String;)Z
+move-result v0
+if-nez v0, +00bh
+const-string v0, ": مبنای سود نامعتبر است"
+invoke-static v7, v0, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v0
+invoke-virtual v8, v0, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+const-string v0, "theme"
+invoke-virtual v6, v0, Lorg/json/JSONObject;->isNull(Ljava/lang/String;)Z
+move-result v1
+if-nez v1, +017h
+sget-object v1, Lcom/workshop/ledger/data/StateValidator;->THEMES Ljava/util/Set;
+invoke-static v6, v0, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v0
+invoke-static v1, v0, LO/k;->V(Ljava/util/Set; Ljava/lang/String;)Z
+move-result v0
+if-nez v0, +00bh
+const-string v0, ": تم نامعتبر است"
+invoke-static v7, v0, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v0
+invoke-virtual v8, v0, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+const-string v0, "locked"
+invoke-virtual v6, v0, Lorg/json/JSONObject;->isNull(Ljava/lang/String;)Z
+move-result v1
+if-nez v1, +013h
+invoke-virtual v6, v0, Lorg/json/JSONObject;->opt(Ljava/lang/String;)Ljava/lang/Object;
+move-result-object v6
+instance-of v6, v6, Ljava/lang/Boolean;
+if-nez v6, +00bh
+const-string v6, ": وضعیت قفل مالی باید بولی باشد"
+invoke-static v7, v6, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v6
+invoke-virtual v8, v6, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->validateTransfers (Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+new-instance v0, Ljava/util/HashSet;
+invoke-direct v0, Ljava/util/HashSet;-><init>()V
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v1
+const-string v2, "transfers"
+invoke-virtual v10, v2, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+move-result-object v10
+const/4 v2, 0
+if-nez v10, +004h
+goto/16 +09ah
+invoke-virtual v10, Lorg/json/JSONArray;->length()I
+move-result v3
+move v4, v2
+if-ge v2, v3, +092h
+invoke-virtual v10, v2, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
+move-result-object v5
+if-nez v5, +021h
+add-int/lit8 v5, v2, 1
+new-instance v6, Ljava/lang/StringBuilder;
+invoke-direct v6, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v6, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v7, "/transfers: عنصر "
+invoke-virtual v6, v7, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v6, v5, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+const-string v5, " ساختار نامعتبر دارد"
+invoke-virtual v6, v5, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v6, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v5
+invoke-virtual v12, v5, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+goto +68h
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v6
+const-string v7, "/انتقال"
+invoke-static v6, v7, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v6
+sget-object v7, Lcom/workshop/ledger/data/StateValidator;->INSTANCE Lcom/workshop/ledger/data/StateValidator;
+invoke-direct v7, v5, v0, v6, v12, Lcom/workshop/ledger/data/StateValidator;->checkRecordId(Lorg/json/JSONObject; Ljava/util/Set; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v8, "date"
+invoke-direct v7, v5, v8, v6, v12, Lcom/workshop/ledger/data/StateValidator;->checkDate(Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v8, "amount"
+invoke-direct v7, v5, v8, v6, v12, Lcom/workshop/ledger/data/StateValidator;->checkAmount(Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-direct v7, v5, v6, v12, Lcom/workshop/ledger/data/StateValidator;->checkDescription(Lorg/json/JSONObject; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+sget-object v7, Lcom/workshop/ledger/data/StateValidator;->TRANSFER_KINDS Ljava/util/Set;
+const-string v8, "kind"
+invoke-static v5, v8, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v8
+invoke-static v7, v8, LO/k;->V(Ljava/util/Set; Ljava/lang/String;)Z
+move-result v7
+if-nez v7, +00bh
+const-string v7, ": نوع انتقال باید peer یا advance باشد"
+invoke-static v6, v7, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v6
+invoke-virtual v12, v6, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+const-string v6, "fromId"
+invoke-static v5, v6, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v6
+const-string v7, "toId"
+invoke-static v5, v7, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v5
+if-eqz v6, +013h
+invoke-virtual v6, Ljava/lang/String;->length()I
+move-result v7
+if-nez v7, +003h
+goto +bh
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getUserIds()Ljava/util/Set;
+move-result-object v7
+invoke-interface v7, v6, Ljava/util/Set;->contains(Ljava/lang/Object;)Z
+move-result v6
+if-eqz v6, +015h
+if-eqz v5, +015h
+invoke-virtual v5, Ljava/lang/String;->length()I
+move-result v6
+if-nez v6, +003h
+goto +dh
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getUserIds()Ljava/util/Set;
+move-result-object v6
+invoke-interface v6, v5, Ljava/util/Set;->contains(Ljava/lang/Object;)Z
+move-result v5
+if-nez v5, +004h
+add-int/lit8 v4, v4, 1
+add-int/lit8 v2, v2, 1
+goto/16 -090h
+move v2, v4
+if-lez v2, +022h
+invoke-virtual v11, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v10
+new-instance v11, Ljava/lang/StringBuilder;
+invoke-direct v11, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v11, v10, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v10, ": "
+invoke-virtual v11, v10, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v11, v2, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+const-string v10, " انتقال یتیم (کاربر ناموجود)"
+invoke-virtual v11, v10, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v11, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v10
+invoke-virtual v12, v10, Lcom/workshop/ledger/data/StateValidator$Issues;->warn(Ljava/lang/String;)V
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->validateUser (Lorg/json/JSONObject; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v0, "/کاربر"
+invoke-static v10, v0, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v4
+const/16 v5, 200
+const-string v3, "name"
+move-object v1, v8
+move-object v2, v9
+move-object v6, v11
+invoke-direct/range v1 ... v6, Lcom/workshop/ledger/data/StateValidator;->requireText(Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; I Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v0, "role"
+invoke-static v9, v0, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v0
+if-eqz v0, +013h
+invoke-virtual v0, Ljava/lang/String;->length()I
+move-result v0
+const/16 v1, 200
+if-le v0, v1, +00bh
+const-string v0, "/کاربر: عنوان نقش بیش از حد طولانی است"
+invoke-static v10, v0, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v0
+invoke-virtual v11, v0, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+const-string v0, "type"
+invoke-static v9, v0, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v0
+const-string v1, "/کاربر «"
+const-string v2, ""
+const-string v3, "name"
+if-eqz v0, +00ah
+sget-object v4, Lcom/workshop/ledger/data/StateValidator;->USER_TYPES Ljava/util/Set;
+invoke-interface v4, v0, Ljava/util/Set;->contains(Ljava/lang/Object;)Z
+move-result v0
+if-nez v0, +023h
+invoke-static v9, v3, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v0
+if-nez v0, +003h
+move-object v0, v2
+new-instance v4, Ljava/lang/StringBuilder;
+invoke-direct v4, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v4, v10, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v4, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v4, v0, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v0, "»: نوع کاربر باید master، apprentice یا custom باشد"
+invoke-virtual v4, v0, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v4, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v0
+invoke-virtual v11, v0, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+const-string v0, "workFactor"
+invoke-static v9, v0, Lcom/workshop/ledger/data/StateValidatorKt;->numOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/Double;
+move-result-object v0
+if-eqz v0, +00ch
+invoke-virtual v0, Ljava/lang/Double;->doubleValue()D
+move-result-wide v4
+const-wide/16 v6, 0
+cmpg-double v0, v4, v6
+if-gez v0, +024h
+invoke-static v9, v3, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v0
+if-nez v0, +003h
+goto +2h
+move-object v2, v0
+new-instance v0, Ljava/lang/StringBuilder;
+invoke-direct v0, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v0, v10, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v0, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v0, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v1, "»: ضریب کارکرد (workFactor) نباید منفی یا نامعتبر باشد"
+invoke-virtual v0, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v0, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v0
+invoke-virtual v11, v0, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+const-string v0, "active"
+const-string v1, "main"
+filled-new-array v0, v1, [Ljava/lang/String;
+move-result-object v0
+invoke-static v0, LO/l;->S([Ljava/lang/Object;)Ljava/util/List;
+move-result-object v0
+invoke-interface v0, Ljava/util/List;->iterator()Ljava/util/Iterator;
+move-result-object v0
+invoke-interface v0, Ljava/util/Iterator;->hasNext()Z
+move-result v1
+if-eqz v1, +033h
+invoke-interface v0, Ljava/util/Iterator;->next()Ljava/lang/Object;
+move-result-object v1
+check-cast v1, Ljava/lang/String;
+invoke-virtual v9, v1, Lorg/json/JSONObject;->isNull(Ljava/lang/String;)Z
+move-result v2
+if-nez v2, -010h
+invoke-virtual v9, v1, Lorg/json/JSONObject;->opt(Ljava/lang/String;)Ljava/lang/Object;
+move-result-object v2
+instance-of v2, v2, Ljava/lang/Boolean;
+if-nez v2, -018h
+new-instance v2, Ljava/lang/StringBuilder;
+invoke-direct v2, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v2, v10, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v3, "/کاربر: مقدار "
+invoke-virtual v2, v3, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v2, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v1, " باید بولی باشد"
+invoke-virtual v2, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v2, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v1
+invoke-virtual v11, v1, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+goto -36h
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->validateWages (Lorg/json/JSONObject; Lcom/workshop/ledger/data/StateValidator$ProjectScope; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+new-instance v0, Ljava/util/HashSet;
+invoke-direct v0, Ljava/util/HashSet;-><init>()V
+invoke-virtual v12, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v1
+const-string v2, "wages"
+invoke-virtual v11, v2, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+move-result-object v11
+const/4 v2, 0
+if-nez v11, +003h
+goto +6ch
+invoke-virtual v11, Lorg/json/JSONArray;->length()I
+move-result v3
+move v4, v2
+if-ge v2, v3, +065h
+invoke-virtual v11, v2, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
+move-result-object v5
+if-nez v5, +021h
+add-int/lit8 v5, v2, 1
+new-instance v6, Ljava/lang/StringBuilder;
+invoke-direct v6, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v6, v1, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v7, "/wages: عنصر "
+invoke-virtual v6, v7, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v6, v5, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+const-string v5, " ساختار نامعتبر دارد"
+invoke-virtual v6, v5, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v6, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v5
+invoke-virtual v13, v5, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+goto +3ch
+sget-object v6, Lcom/workshop/ledger/data/StateValidator;->INSTANCE Lcom/workshop/ledger/data/StateValidator;
+invoke-virtual v12, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v7
+const-string v8, "/نرخ"
+invoke-static v7, v8, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v7
+invoke-direct v6, v5, v0, v7, v13, Lcom/workshop/ledger/data/StateValidator;->checkRecordId(Lorg/json/JSONObject; Ljava/util/Set; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-virtual v12, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v7
+invoke-static v7, v8, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v7
+const-string v9, "rate"
+invoke-direct v6, v5, v9, v7, v13, Lcom/workshop/ledger/data/StateValidator;->checkAmount(Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-virtual v12, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v7
+invoke-static v7, v8, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v7
+const-string v8, "effectiveDate"
+invoke-direct v6, v5, v8, v7, v13, Lcom/workshop/ledger/data/StateValidator;->checkDate(Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-virtual v12, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getUserIds()Ljava/util/Set;
+move-result-object v6
+const-string v7, "userId"
+invoke-static v5, v7, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v5
+invoke-static v6, v5, LO/k;->V(Ljava/util/Set; Ljava/lang/String;)Z
+move-result v5
+if-nez v5, +004h
+add-int/lit8 v4, v4, 1
+add-int/lit8 v2, v2, 1
+goto -64h
+move v2, v4
+if-lez v2, +022h
+invoke-virtual v12, Lcom/workshop/ledger/data/StateValidator$ProjectScope;->getLabel()Ljava/lang/String;
+move-result-object v11
+new-instance v12, Ljava/lang/StringBuilder;
+invoke-direct v12, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v12, v11, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v11, ": "
+invoke-virtual v12, v11, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v12, v2, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+const-string v11, " نرخ دستمزد یتیم (کاربر ناموجود)"
+invoke-virtual v12, v11, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v12, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v11
+invoke-virtual v13, v11, Lcom/workshop/ledger/data/StateValidator$Issues;->warn(Ljava/lang/String;)V
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->isJalaliDate (Ljava/lang/String;)Z
+const/4 v0, 0
+if-nez v6, +003h
+return v0
+sget-object v1, Lcom/workshop/ledger/data/StateValidator;->JALALI_DATE_REGEX Lg0/e;
+invoke-virtual v1, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+iget-object v1, v1, Lg0/e;->b Ljava/util/regex/Pattern;
+invoke-virtual v1, v6, Ljava/util/regex/Pattern;->matcher(Ljava/lang/CharSequence;)Ljava/util/regex/Matcher;
+move-result-object v1
+const-string v2, "matcher(...)"
+invoke-static v1, v2, Lkotlin/jvm/internal/i;->d(Ljava/lang/Object; Ljava/lang/String;)V
+invoke-virtual v1, Ljava/util/regex/Matcher;->matches()Z
+move-result v2
+if-nez v2, +004h
+const/4 v6, 0
+goto +7h
+new-instance v2, LC/a;
+invoke-direct v2, v1, v6, LC/a;-><init>(Ljava/util/regex/Matcher; Ljava/lang/String;)V
+move-object v6, v2
+if-nez v6, +003h
+return v0
+invoke-virtual v6, LC/a;->d()Ljava/util/List;
+move-result-object v1
+check-cast v1, Lg0/d;
+const/4 v2, 1
+invoke-virtual v1, v2, Lg0/d;->get(I)Ljava/lang/Object;
+move-result-object v1
+check-cast v1, Ljava/lang/String;
+invoke-static v1, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
+move-result v1
+invoke-virtual v6, LC/a;->d()Ljava/util/List;
+move-result-object v3
+const/4 v4, 2
+check-cast v3, Lg0/d;
+invoke-virtual v3, v4, Lg0/d;->get(I)Ljava/lang/Object;
+move-result-object v3
+check-cast v3, Ljava/lang/String;
+invoke-static v3, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
+move-result v3
+invoke-virtual v6, LC/a;->d()Ljava/util/List;
+move-result-object v6
+const/4 v4, 3
+check-cast v6, Lg0/d;
+invoke-virtual v6, v4, Lg0/d;->get(I)Ljava/lang/Object;
+move-result-object v6
+check-cast v6, Ljava/lang/String;
+invoke-static v6, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
+move-result v6
+const/16 v4, 1200
+if-lt v1, v4, +012h
+const/16 v4, 1700
+if-le v1, v4, +003h
+goto +ch
+const/4 v1, 6
+if-gt v3, v1, +005h
+const/16 v1, 31
+goto +3h
+const/16 v1, 30
+if-gt v6, v1, +003h
+move v0, v2
+return v0
+
+## Lcom/workshop/ledger/data/StateValidator;->isValidAmount (Ljava/lang/Object;)Z
+instance-of v0, v6, Ljava/lang/Number;
+if-eqz v0, +005h
+check-cast v6, Ljava/lang/Number;
+goto +2h
+const/4 v6, 0
+const/4 v0, 0
+if-nez v6, +003h
+return v0
+invoke-virtual v6, Ljava/lang/Number;->doubleValue()D
+move-result-wide v1
+invoke-static v1, v2, Ljava/lang/Double;->isNaN(D)Z
+move-result v6
+if-nez v6, +018h
+invoke-static v1, v2, Ljava/lang/Double;->isInfinite(D)Z
+move-result v6
+if-nez v6, +012h
+const-wide/16 v3, 0
+cmpl-double v6, v1, v3
+if-ltz v6, +00ch
+const-wide v3, 4786511204640088064
+cmpl-double v6, v1, v3
+if-gtz v6, +003h
+const/4 v0, 1
+return v0
+
+## Lcom/workshop/ledger/data/StateValidator;->validate (Ljava/lang/String; J)Lcom/workshop/ledger/data/StateValidator$Result;
+const-string v0, "raw"
+invoke-static v8, v0, Lkotlin/jvm/internal/i;->e(Ljava/lang/Object; Ljava/lang/String;)V
+invoke-static v8, Lg0/m;->Y(Ljava/lang/String;)Z
+move-result v0
+if-eqz v0, +009h
+const-string v8, "داده‌ای برای ذخیره ارسال نشده است"
+invoke-direct v7, v8, Lcom/workshop/ledger/data/StateValidator;->failure(Ljava/lang/String;)Lcom/workshop/ledger/data/StateValidator$Result;
+move-result-object v8
+return-object v8
+invoke-direct v7, v8, v9, v10, Lcom/workshop/ledger/data/StateValidator;->utf8Length(Ljava/lang/CharSequence; J)J
+move-result-wide v0
+cmp-long v0, v0, v9
+if-lez v0, +01eh
+const/high16 v8, 1048576
+int-to-long v0, v8
+div-long/2addr v9, v0
+new-instance v8, Ljava/lang/StringBuilder;
+const-string v0, "حجم داده از سقف مجاز "
+invoke-direct v8, v0, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+invoke-virtual v8, v9, v10, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+const-string v9, " مگابایت بیشتر است"
+invoke-virtual v8, v9, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v8, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v8
+invoke-direct v7, v8, Lcom/workshop/ledger/data/StateValidator;->failure(Ljava/lang/String;)Lcom/workshop/ledger/data/StateValidator$Result;
+move-result-object v8
+return-object v8
+new-instance v9, Lorg/json/JSONObject;
+invoke-direct v9, v8, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
+new-instance v8, Lcom/workshop/ledger/data/StateValidator$Issues;
+invoke-direct v8, Lcom/workshop/ledger/data/StateValidator$Issues;-><init>()V
+const-string v10, "projects"
+invoke-virtual v9, v10, Lorg/json/JSONObject;->optJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+move-result-object v10
+if-nez v10, +009h
+const-string v8, "فهرست پروژه‌ها (projects) وجود ندارد"
+invoke-direct v7, v8, Lcom/workshop/ledger/data/StateValidator;->failure(Ljava/lang/String;)Lcom/workshop/ledger/data/StateValidator$Result;
+move-result-object v8
+return-object v8
+invoke-virtual v10, Lorg/json/JSONArray;->length()I
+move-result v0
+const/4 v1, 1
+if-lt v0, v1, +0adh
+invoke-virtual v10, Lorg/json/JSONArray;->length()I
+move-result v0
+const/16 v1, 100
+if-le v0, v1, +004h
+goto/16 +0a3h
+new-instance v0, Ljava/util/HashSet;
+invoke-direct v0, Ljava/util/HashSet;-><init>()V
+new-instance v1, Ljava/util/HashSet;
+invoke-direct v1, Ljava/util/HashSet;-><init>()V
+invoke-virtual v10, Lorg/json/JSONArray;->length()I
+move-result v2
+const/4 v3, 0
+const/4 v4, 0
+if-ge v3, v2, +03dh
+invoke-virtual v10, v3, Lorg/json/JSONArray;->optJSONObject(I)Lorg/json/JSONObject;
+move-result-object v5
+if-nez v5, +01bh
+add-int/lit8 v4, v3, 1
+new-instance v5, Ljava/lang/StringBuilder;
+const-string v6, "پروژه "
+invoke-direct v5, v6, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+invoke-virtual v5, v4, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+const-string v4, ": ساختار نامعتبر"
+invoke-virtual v5, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v5, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v4
+invoke-virtual v8, v4, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+goto +1ah
+invoke-direct v7, v5, v3, v0, v8, Lcom/workshop/ledger/data/StateValidator;->validateProject(Lorg/json/JSONObject; I Ljava/util/Set; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v6, "id"
+invoke-static v5, v6, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v5
+if-eqz v5, +010h
+const-string v6, "demo_quest_"
+invoke-static v5, v6, Lg0/m;->d0(Ljava/lang/String; Ljava/lang/String;)Z
+move-result v6
+if-eqz v6, +003h
+move-object v4, v5
+if-eqz v4, +005h
+invoke-virtual v1, v4, Ljava/util/HashSet;->add(Ljava/lang/Object;)Z
+add-int/lit8 v3, v3, 1
+goto -3dh
+const-string v10, "activeProjectId"
+invoke-static v9, v10, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v10
+if-eqz v10, +014h
+invoke-static v10, Lg0/m;->Y(Ljava/lang/String;)Z
+move-result v2
+if-eqz v2, +003h
+goto +ch
+invoke-virtual v0, v10, Ljava/util/HashSet;->contains(Ljava/lang/Object;)Z
+move-result v10
+if-nez v10, +007h
+const-string v10, "پروژه فعال در فهرست پروژه‌ها نیست و به اولین پروژه بازمی‌گردد"
+invoke-virtual v8, v10, Lcom/workshop/ledger/data/StateValidator$Issues;->warn(Ljava/lang/String;)V
+invoke-direct v7, v9, v0, v1, v8, Lcom/workshop/ledger/data/StateValidator;->validateOnboarding(Lorg/json/JSONObject; Ljava/util/Set; Ljava/util/Set; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v10, "coachDismissed"
+invoke-virtual v9, v10, Lorg/json/JSONObject;->isNull(Ljava/lang/String;)Z
+move-result v0
+if-nez v0, +00fh
+invoke-virtual v9, v10, Lorg/json/JSONObject;->opt(Ljava/lang/String;)Ljava/lang/Object;
+move-result-object v10
+instance-of v10, v10, Ljava/lang/Boolean;
+if-nez v10, +007h
+const-string v10, "مقدار coachDismissed باید بولی باشد"
+invoke-virtual v8, v10, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+new-instance v10, Lcom/workshop/ledger/data/StateValidator$Result;
+invoke-virtual v8, Lcom/workshop/ledger/data/StateValidator$Issues;->getErrors()Ljava/util/ArrayList;
+move-result-object v0
+invoke-virtual v0, Ljava/util/ArrayList;->isEmpty()Z
+move-result v0
+invoke-virtual v8, Lcom/workshop/ledger/data/StateValidator$Issues;->getErrors()Ljava/util/ArrayList;
+move-result-object v1
+invoke-virtual v8, Lcom/workshop/ledger/data/StateValidator$Issues;->getWarnings()Ljava/util/ArrayList;
+move-result-object v2
+invoke-virtual v8, Lcom/workshop/ledger/data/StateValidator$Issues;->getErrors()Ljava/util/ArrayList;
+move-result-object v8
+invoke-virtual v8, Ljava/util/ArrayList;->isEmpty()Z
+move-result v8
+if-eqz v8, +003h
+goto +2h
+move-object v9, v4
+invoke-direct v10, v0, v1, v2, v9, Lcom/workshop/ledger/data/StateValidator$Result;-><init>(Z Ljava/util/List; Ljava/util/List; Lorg/json/JSONObject;)V
+return-object v10
+const-string v8, "تعداد پروژه‌ها باید بین 1 تا 100 باشد"
+invoke-direct v7, v8, Lcom/workshop/ledger/data/StateValidator;->failure(Ljava/lang/String;)Lcom/workshop/ledger/data/StateValidator$Result;
+move-result-object v8
+return-object v8
+const-string v8, "ساختار JSON نامعتبر است"
+invoke-direct v7, v8, Lcom/workshop/ledger/data/StateValidator;->failure(Ljava/lang/String;)Lcom/workshop/ledger/data/StateValidator$Result;
+move-result-object v8
+return-object v8

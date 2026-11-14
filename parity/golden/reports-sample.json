@@ -1,0 +1,3924 @@
+{
+  "source": {
+    "apkSha256": "1fe8867aa04ee0fb2d0b4e7bdd5e0a502d1a4b264c93dc1f644e672192b1402b",
+    "htmlSha256": "42c61f95016c60163daf1cc46e3421c8fff6e20bc1e287d21d37feb936aab494"
+  },
+  "clock": "2024-04-03T12:34:00.000Z",
+  "cases": [
+    {
+      "fn": "exportFinancialReportCSV",
+      "args": [
+        {
+          "id": "p",
+          "settings": {
+            "overtimeFactor": 1,
+            "absentPenalty": 0,
+            "profitBasis": "cash",
+            "rangeFrom": "1403/01/01",
+            "rangeTo": "1403/01/04"
+          },
+          "users": [
+            {
+              "id": "m",
+              "name": "اوستا",
+              "type": "master",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "s",
+              "name": "شاگرد",
+              "type": "apprentice",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "m2",
+              "name": "اوستای دوم",
+              "type": "master",
+              "active": true,
+              "workFactor": 1.5
+            },
+            {
+              "id": "inactive",
+              "name": "اوستای غیرفعال",
+              "type": "master",
+              "active": false,
+              "workFactor": 1
+            }
+          ],
+          "wages": [
+            {
+              "userId": "s",
+              "rate": 101,
+              "effectiveDate": "1403/01/02"
+            },
+            {
+              "userId": "s",
+              "rate": 205,
+              "effectiveDate": "1403/01/04"
+            }
+          ],
+          "attendance": {
+            "1403/01/01": {
+              "m": 0,
+              "m2": 1,
+              "s": 1,
+              "inactive": 1
+            },
+            "1403/01/04": {
+              "m": 1,
+              "m2": {
+                "t": "h",
+                "h": 8.5
+              },
+              "s": {
+                "t": "h",
+                "h": 24
+              }
+            },
+            "1403/01/05": {
+              "m": 0.5,
+              "s": 0
+            }
+          },
+          "receipts": [
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/05",
+              "amount": 999999999999,
+              "description": "واریزی"
+            },
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/01",
+              "amount": 99,
+              "active": false,
+              "description": "واریزی"
+            }
+          ],
+          "expenses": [
+            {
+              "date": "1403/01/01",
+              "amount": 31,
+              "payerId": "m",
+              "description": "=هزینه شخصی",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 21,
+              "payerId": "shared",
+              "description": "هزینه مشترک، ابزار",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "active": false
+            }
+          ],
+          "payouts": [
+            {
+              "date": "1403/01/04",
+              "amount": 20,
+              "userId": "s",
+              "description": "پرداخت"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 10,
+              "userId": "m",
+              "description": "پرداخت"
+            }
+          ],
+          "transfers": [
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "kind": "peer",
+              "fromId": "m",
+              "toId": "m2",
+              "description": "انتقال"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 40,
+              "kind": "advance",
+              "toId": "m",
+              "description": "انتقال"
+            }
+          ],
+          "adjustments": [
+            {
+              "date": "1403/01/04",
+              "amount": 3,
+              "kind": "bonus",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "bonus",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "penalty",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "penalty",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "assistance",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "assistance",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "settle",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 7,
+              "kind": "settle",
+              "userId": "s",
+              "description": "تعدیل"
+            }
+          ],
+          "name": "کارگاه نمونه",
+          "categories": [
+            {
+              "id": "c",
+              "name": "مصالح"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "filename": "stayar-financial-14030115.csv",
+        "mime": "text/csv",
+        "rows": [
+          [
+            "گزارش جامع مالی — استایار"
+          ],
+          [
+            "پروژه",
+            "کارگاه نمونه"
+          ],
+          [
+            "بازه",
+            "1 فروردین 1403 تا 4 فروردین 1403"
+          ],
+          [
+            "مبنای سود",
+            "نقدی"
+          ],
+          [
+            "تاریخ تهیه",
+            "1403/01/15 12:34"
+          ],
+          [],
+          [
+            "شاخص‌های کلیدی"
+          ],
+          [
+            "شاخص",
+            "مبلغ (تومان)"
+          ],
+          [
+            "مجموع واریزی",
+            799999999999
+          ],
+          [
+            "هزینه‌های مشترک",
+            21
+          ],
+          [
+            "هزینه‌های شخصی اوستاها",
+            31
+          ],
+          [
+            "کل دستمزد استحقاقی",
+            715
+          ],
+          [
+            "پرداختی‌های نقدی",
+            20
+          ],
+          [
+            "مساعده پرسنل",
+            6
+          ],
+          [
+            "پاداش اوستاها",
+            3
+          ],
+          [
+            "جریمه اوستاها",
+            4
+          ],
+          [
+            "مانده قابل تقسیم",
+            799999999953
+          ],
+          [],
+          [
+            "سهم اوستاها"
+          ],
+          [
+            "نام",
+            "کارکرد (روز)",
+            "ضریب",
+            "کارکرد نهایی",
+            "درصد سهم",
+            "سهم پایه",
+            "بازپرداخت هزینه شخصی",
+            "سهم هزینه شخصی",
+            "انتقال داده‌شده",
+            "انتقال گرفته‌شده",
+            "پیش‌برداشت",
+            "مساعده",
+            "پاداش",
+            "جریمه",
+            "تسویه نقدی",
+            "مانده نهایی"
+          ],
+          [
+            "اوستا",
+            1,
+            1,
+            1,
+            24.43,
+            195419847317,
+            31,
+            8,
+            100,
+            0,
+            40,
+            5,
+            3,
+            4,
+            6,
+            195419847400
+          ],
+          [
+            "اوستای دوم",
+            2.06,
+            1.5,
+            3.09,
+            75.57,
+            604580152636,
+            0,
+            23,
+            0,
+            100,
+            0,
+            0,
+            0,
+            0,
+            0,
+            604580152513
+          ],
+          [
+            "اوستای غیرفعال",
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [],
+          [
+            "تراز شاگردان و پرسنل سایر"
+          ],
+          [
+            "نام",
+            "نوع",
+            "روز کامل",
+            "روز نصفه",
+            "ساعتی",
+            "ساعت اضافه‌کار",
+            "دستمزد پایه",
+            "پاداش",
+            "جریمه",
+            "دستمزد استحقاقی",
+            "پرداختی",
+            "مساعده",
+            "مانده"
+          ],
+          [
+            "شاگرد",
+            "شاگرد",
+            1,
+            0,
+            1,
+            16,
+            716,
+            4,
+            5,
+            715,
+            20,
+            6,
+            689
+          ]
+        ],
+        "contentBase64": "77u/2q/Ystin2LHYtCDYrNin2YXYuSDZhdin2YTbjCDigJQg2KfYs9iq2KfbjNin2LENCtm+2LHZiNqY2Ycs2qnYp9ix2q/Yp9mHINmG2YXZiNmG2YcNCtio2KfYstmHLDEg2YHYsdmI2LHYr9uM2YYgMTQwMyDYqtinIDQg2YHYsdmI2LHYr9uM2YYgMTQwMw0K2YXYqNmG2KfbjCDYs9mI2K8s2YbZgtiv24wNCtiq2KfYsduM2K4g2KrZh9uM2YcsMTQwMy8wMS8xNSAxMjozNA0KDQrYtNin2K7YteKAjNmH2KfbjCDaqdmE24zYr9uMDQrYtNin2K7YtSzZhdio2YTYuiAo2KrZiNmF2KfZhikNCtmF2KzZhdmI2Lkg2YjYp9ix24zYstuMLDc5OTk5OTk5OTk5OQ0K2YfYstuM2YbZh+KAjNmH2KfbjCDZhdi02KrYsdqpLDIxDQrZh9iy24zZhtmH4oCM2YfYp9uMINi02K7YtduMINin2YjYs9iq2KfZh9inLDMxDQraqdmEINiv2LPYqtmF2LLYryDYp9iz2KrYrdmC2KfZgtuMLDcxNQ0K2b7Ysdiv2KfYrtiq24zigIzZh9in24wg2YbZgtiv24wsMjANCtmF2LPYp9i52K/ZhyDZvtix2LPZhtmELDYNCtm+2KfYr9in2LQg2KfZiNiz2KrYp9mH2KcsMw0K2KzYsduM2YXZhyDYp9mI2LPYqtin2YfYpyw0DQrZhdin2YbYr9mHINmC2KfYqNmEINiq2YLYs9uM2YUsNzk5OTk5OTk5OTUzDQoNCtiz2YfZhSDYp9mI2LPYqtin2YfYpw0K2YbYp9mFLNqp2KfYsdqp2LHYryAo2LHZiNiyKSzYttix24zYqCzaqdin2LHaqdix2K8g2YbZh9in24zbjCzYr9ix2LXYryDYs9mH2YUs2LPZh9mFINm+2KfbjNmHLNio2KfYstm+2LHYr9in2K7YqiDZh9iy24zZhtmHINi02K7YtduMLNiz2YfZhSDZh9iy24zZhtmHINi02K7YtduMLNin2YbYqtmC2KfZhCDYr9in2K/Zh+KAjNi02K/ZhyzYp9mG2KrZgtin2YQg2q/YsdmB2KrZh+KAjNi02K/ZhyzZvtuM2LTigIzYqNix2K/Yp9i02Kos2YXYs9in2LnYr9mHLNm+2KfYr9in2LQs2KzYsduM2YXZhyzYqtiz2YjbjNmHINmG2YLYr9uMLNmF2KfZhtiv2Ycg2YbZh9in24zbjA0K2KfZiNiz2KrYpywxLDEsMSwyNC40MywxOTU0MTk4NDczMTcsMzEsOCwxMDAsMCw0MCw1LDMsNCw2LDE5NTQxOTg0NzQwMA0K2KfZiNiz2KrYp9uMINiv2YjZhSwyLjA2LDEuNSwzLjA5LDc1LjU3LDYwNDU4MDE1MjYzNiwwLDIzLDAsMTAwLDAsMCwwLDAsMCw2MDQ1ODAxNTI1MTMNCtin2YjYs9iq2KfbjCDYutuM2LHZgdi52KfZhCwxLDEsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMA0KDQrYqtix2KfYsiDYtNin2q/Ysdiv2KfZhiDZiCDZvtix2LPZhtmEINiz2KfbjNixDQrZhtin2YUs2YbZiNi5LNix2YjYsiDaqdin2YXZhCzYsdmI2LIg2YbYtdmB2Ycs2LPYp9i52KrbjCzYs9in2LnYqiDYp9i22KfZgdmH4oCM2qnYp9ixLNiv2LPYqtmF2LLYryDZvtin24zZhyzZvtin2K/Yp9i0LNis2LHbjNmF2Ycs2K/Ys9iq2YXYstivINin2LPYqtit2YLYp9mC24ws2b7Ysdiv2KfYrtiq24ws2YXYs9in2LnYr9mHLNmF2KfZhtiv2YcNCti02Kfar9ix2K8s2LTYp9qv2LHYrywxLDAsMSwxNiw3MTYsNCw1LDcxNSwyMCw2LDY4OQ=="
+      }
+    },
+    {
+      "fn": "exportDetailedAuditCSV",
+      "args": [
+        {
+          "id": "p",
+          "settings": {
+            "overtimeFactor": 1,
+            "absentPenalty": 0,
+            "profitBasis": "cash",
+            "rangeFrom": "1403/01/01",
+            "rangeTo": "1403/01/04"
+          },
+          "users": [
+            {
+              "id": "m",
+              "name": "اوستا",
+              "type": "master",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "s",
+              "name": "شاگرد",
+              "type": "apprentice",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "m2",
+              "name": "اوستای دوم",
+              "type": "master",
+              "active": true,
+              "workFactor": 1.5
+            },
+            {
+              "id": "inactive",
+              "name": "اوستای غیرفعال",
+              "type": "master",
+              "active": false,
+              "workFactor": 1
+            }
+          ],
+          "wages": [
+            {
+              "userId": "s",
+              "rate": 101,
+              "effectiveDate": "1403/01/02"
+            },
+            {
+              "userId": "s",
+              "rate": 205,
+              "effectiveDate": "1403/01/04"
+            }
+          ],
+          "attendance": {
+            "1403/01/01": {
+              "m": 0,
+              "m2": 1,
+              "s": 1,
+              "inactive": 1
+            },
+            "1403/01/04": {
+              "m": 1,
+              "m2": {
+                "t": "h",
+                "h": 8.5
+              },
+              "s": {
+                "t": "h",
+                "h": 24
+              }
+            },
+            "1403/01/05": {
+              "m": 0.5,
+              "s": 0
+            }
+          },
+          "receipts": [
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/05",
+              "amount": 999999999999,
+              "description": "واریزی"
+            },
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/01",
+              "amount": 99,
+              "active": false,
+              "description": "واریزی"
+            }
+          ],
+          "expenses": [
+            {
+              "date": "1403/01/01",
+              "amount": 31,
+              "payerId": "m",
+              "description": "=هزینه شخصی",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 21,
+              "payerId": "shared",
+              "description": "هزینه مشترک، ابزار",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "active": false
+            }
+          ],
+          "payouts": [
+            {
+              "date": "1403/01/04",
+              "amount": 20,
+              "userId": "s",
+              "description": "پرداخت"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 10,
+              "userId": "m",
+              "description": "پرداخت"
+            }
+          ],
+          "transfers": [
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "kind": "peer",
+              "fromId": "m",
+              "toId": "m2",
+              "description": "انتقال"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 40,
+              "kind": "advance",
+              "toId": "m",
+              "description": "انتقال"
+            }
+          ],
+          "adjustments": [
+            {
+              "date": "1403/01/04",
+              "amount": 3,
+              "kind": "bonus",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "bonus",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "penalty",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "penalty",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "assistance",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "assistance",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "settle",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 7,
+              "kind": "settle",
+              "userId": "s",
+              "description": "تعدیل"
+            }
+          ],
+          "name": "کارگاه نمونه",
+          "categories": [
+            {
+              "id": "c",
+              "name": "مصالح"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "filename": "stayar-audit-14030115.csv",
+        "mime": "text/csv",
+        "rows": [
+          [
+            "ریز حسابرسی — کارگاه نمونه",
+            "بازه: 1 فروردین 1403 تا 4 فروردین 1403"
+          ],
+          [
+            "فقط ثبت‌های داخل بازهٔ گزارش آمده است. مبلغ‌ها به تومان‌اند و ستون «روز کار» فقط برای حضور است."
+          ],
+          [
+            "نوع",
+            "تاریخ",
+            "شرح",
+            "دسته",
+            "پرداخت‌کننده / شخص",
+            "مبلغ (تومان)",
+            "روز کار",
+            "وضعیت",
+            "سهم واریزی در بازه (تومان)"
+          ],
+          [
+            "واریزی",
+            "1403/01/01 تا 1403/01/05",
+            "واریزی",
+            "",
+            "",
+            999999999999,
+            "",
+            "فعال",
+            799999999999
+          ],
+          [
+            "واریزی",
+            "1403/01/01 تا 1403/01/01",
+            "واریزی",
+            "",
+            "",
+            99,
+            "",
+            "غیرفعال",
+            ""
+          ],
+          [
+            "هزینه",
+            "1403/01/01",
+            "=هزینه شخصی",
+            "مصالح",
+            "اوستا",
+            31,
+            "",
+            "فعال"
+          ],
+          [
+            "هزینه",
+            "1403/01/04",
+            "هزینه مشترک، ابزار",
+            "مصالح",
+            "صندوق مشترک",
+            21,
+            "",
+            "فعال"
+          ],
+          [
+            "هزینه",
+            "1403/01/04",
+            null,
+            "",
+            "صندوق مشترک",
+            100,
+            "",
+            "غیرفعال"
+          ],
+          [
+            "پرداختی",
+            "1403/01/04",
+            "پرداخت",
+            "",
+            "شاگرد",
+            20,
+            "",
+            "فعال"
+          ],
+          [
+            "پرداختی",
+            "1403/01/04",
+            "پرداخت",
+            "",
+            "اوستا",
+            10,
+            "",
+            "فعال"
+          ],
+          [
+            "انتقال",
+            "1403/01/04",
+            "انتقال",
+            "",
+            "اوستا ← اوستای دوم",
+            100,
+            "",
+            "فعال"
+          ],
+          [
+            "پیش‌برداشت",
+            "1403/01/04",
+            "انتقال",
+            "",
+            "صندوق ← اوستا",
+            40,
+            "",
+            "فعال"
+          ],
+          [
+            "پاداش",
+            "1403/01/04",
+            "تعدیل",
+            "",
+            "اوستا",
+            3,
+            "",
+            "فعال"
+          ],
+          [
+            "پاداش",
+            "1403/01/04",
+            "تعدیل",
+            "",
+            "شاگرد",
+            4,
+            "",
+            "فعال"
+          ],
+          [
+            "جریمه",
+            "1403/01/04",
+            "تعدیل",
+            "",
+            "اوستا",
+            4,
+            "",
+            "فعال"
+          ],
+          [
+            "جریمه",
+            "1403/01/04",
+            "تعدیل",
+            "",
+            "شاگرد",
+            5,
+            "",
+            "فعال"
+          ],
+          [
+            "مساعده",
+            "1403/01/04",
+            "تعدیل",
+            "",
+            "اوستا",
+            5,
+            "",
+            "فعال"
+          ],
+          [
+            "مساعده",
+            "1403/01/04",
+            "تعدیل",
+            "",
+            "شاگرد",
+            6,
+            "",
+            "فعال"
+          ],
+          [
+            "تسویه نقدی",
+            "1403/01/04",
+            "تعدیل",
+            "",
+            "اوستا",
+            6,
+            "",
+            "فعال"
+          ],
+          [
+            "تسویه نقدی",
+            "1403/01/04",
+            "تعدیل",
+            "",
+            "شاگرد",
+            7,
+            "",
+            "فعال"
+          ],
+          [
+            "حضور",
+            "1403/01/01",
+            "غایب",
+            "",
+            "اوستا",
+            "",
+            0,
+            "معتبر"
+          ],
+          [
+            "حضور",
+            "1403/01/01",
+            "کامل",
+            "",
+            "اوستای دوم",
+            "",
+            1,
+            "معتبر"
+          ],
+          [
+            "حضور",
+            "1403/01/01",
+            "کامل",
+            "",
+            "شاگرد",
+            "",
+            1,
+            "معتبر"
+          ],
+          [
+            "حضور",
+            "1403/01/01",
+            "کامل",
+            "",
+            "اوستای غیرفعال",
+            "",
+            1,
+            "معتبر"
+          ],
+          [
+            "حضور",
+            "1403/01/04",
+            "کامل",
+            "",
+            "اوستا",
+            "",
+            1,
+            "معتبر"
+          ],
+          [
+            "حضور",
+            "1403/01/04",
+            "8.5 ساعت",
+            "",
+            "اوستای دوم",
+            "",
+            1.063,
+            "معتبر"
+          ],
+          [
+            "حضور",
+            "1403/01/04",
+            "24 ساعت",
+            "",
+            "شاگرد",
+            "",
+            3,
+            "معتبر"
+          ],
+          [],
+          [
+            "جمع (فقط ردیف‌های فعال)"
+          ],
+          [
+            "واریزی‌ها (سهم در بازه)",
+            "",
+            "",
+            "",
+            "",
+            799999999999
+          ],
+          [
+            "هزینه‌ها",
+            "",
+            "",
+            "",
+            "",
+            52
+          ],
+          [
+            "پرداختی‌ها",
+            "",
+            "",
+            "",
+            "",
+            30
+          ]
+        ],
+        "contentBase64": "77u/2LHbjNiyINit2LPYp9io2LHYs9uMIOKAlCDaqdin2LHar9in2Ycg2YbZhdmI2YbZhyzYqNin2LLZhzogMSDZgdix2YjYsdiv24zZhiAxNDAzINiq2KcgNCDZgdix2YjYsdiv24zZhiAxNDAzDQrZgdmC2Lcg2KvYqNiq4oCM2YfYp9uMINiv2KfYrtmEINio2KfYstmH2ZQg2q/Ystin2LHYtCDYotmF2K/ZhyDYp9iz2KouINmF2KjZhNi64oCM2YfYpyDYqNmHINiq2YjZhdin2YbigIzYp9mG2K8g2Ygg2LPYqtmI2YYgwqvYsdmI2LIg2qnYp9ixwrsg2YHZgti3INio2LHYp9uMINit2LbZiNixINin2LPYqi4NCtmG2YjYuSzYqtin2LHbjNiuLNi02LHYrSzYr9iz2KrZhyzZvtix2K/Yp9iu2KrigIzaqdmG2YbYr9mHIC8g2LTYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKSzYsdmI2LIg2qnYp9ixLNmI2LbYuduM2Kos2LPZh9mFINmI2KfYsduM2LLbjCDYr9ixINio2KfYstmHICjYqtmI2YXYp9mGKQ0K2YjYp9ix24zYstuMLDE0MDMvMDEvMDEg2KrYpyAxNDAzLzAxLzA1LNmI2KfYsduM2LLbjCwsLDk5OTk5OTk5OTk5OSws2YHYudin2YQsNzk5OTk5OTk5OTk5DQrZiNin2LHbjNiy24wsMTQwMy8wMS8wMSDYqtinIDE0MDMvMDEvMDEs2YjYp9ix24zYstuMLCwsOTksLNi624zYsdmB2LnYp9mELA0K2YfYstuM2YbZhywxNDAzLzAxLzAxLCc92YfYstuM2YbZhyDYtNiu2LXbjCzZhdi12KfZhNitLNin2YjYs9iq2KcsMzEsLNmB2LnYp9mEDQrZh9iy24zZhtmHLDE0MDMvMDEvMDQs2YfYstuM2YbZhyDZhdi02KrYsdqp2Iwg2KfYqNiy2KfYsSzZhdi12KfZhNitLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwyMSws2YHYudin2YQNCtmH2LLbjNmG2YcsMTQwMy8wMS8wNCwsLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwxMDAsLNi624zYsdmB2LnYp9mEDQrZvtix2K/Yp9iu2KrbjCwxNDAzLzAxLzA0LNm+2LHYr9in2K7Yqiws2LTYp9qv2LHYrywyMCws2YHYudin2YQNCtm+2LHYr9in2K7YqtuMLDE0MDMvMDEvMDQs2b7Ysdiv2KfYrtiqLCzYp9mI2LPYqtinLDEwLCzZgdi52KfZhA0K2KfZhtiq2YLYp9mELDE0MDMvMDEvMDQs2KfZhtiq2YLYp9mELCzYp9mI2LPYqtinIOKGkCDYp9mI2LPYqtin24wg2K/ZiNmFLDEwMCws2YHYudin2YQNCtm+24zYtOKAjNio2LHYr9in2LTYqiwxNDAzLzAxLzA0LNin2YbYqtmC2KfZhCws2LXZhtiv2YjZgiDihpAg2KfZiNiz2KrYpyw0MCws2YHYudin2YQNCtm+2KfYr9in2LQsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDMsLNmB2LnYp9mEDQrZvtin2K/Yp9i0LDE0MDMvMDEvMDQs2KrYudiv24zZhCws2LTYp9qv2LHYryw0LCzZgdi52KfZhA0K2KzYsduM2YXZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNin2YjYs9iq2KcsNCws2YHYudin2YQNCtis2LHbjNmF2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDYsLNmB2LnYp9mEDQrYqtiz2YjbjNmHINmG2YLYr9uMLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2KfZiNiz2KrYpyw2LCzZgdi52KfZhA0K2KrYs9mI24zZhyDZhtmC2K/bjCwxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNi02Kfar9ix2K8sNyws2YHYudin2YQNCtit2LbZiNixLDE0MDMvMDEvMDEs2LrYp9uM2KgsLNin2YjYs9iq2KcsLDAs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wMSzaqdin2YXZhCws2KfZiNiz2KrYp9uMINiv2YjZhSwsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzAxLNqp2KfZhdmELCzYtNin2q/YsdivLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDEs2qnYp9mF2YQsLNin2YjYs9iq2KfbjCDYutuM2LHZgdi52KfZhCwsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzA0LNqp2KfZhdmELCzYp9mI2LPYqtinLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDQsOC41INiz2KfYudiqLCzYp9mI2LPYqtin24wg2K/ZiNmFLCwxLjA2MyzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzA0LDI0INiz2KfYudiqLCzYtNin2q/YsdivLCwzLNmF2LnYqtio2LENCg0K2KzZhdi5ICjZgdmC2Lcg2LHYr9uM2YHigIzZh9in24wg2YHYudin2YQpDQrZiNin2LHbjNiy24zigIzZh9inICjYs9mH2YUg2K/YsSDYqNin2LLZhyksLCwsLDc5OTk5OTk5OTk5OQ0K2YfYstuM2YbZh+KAjNmH2KcsLCwsLDUyDQrZvtix2K/Yp9iu2KrbjOKAjNmH2KcsLCwsLDMw"
+      }
+    }
+  ],
+  "financialVariants": [
+    {
+      "args": [
+        {
+          "id": "p",
+          "settings": {
+            "overtimeFactor": 1,
+            "absentPenalty": 0,
+            "profitBasis": "cash",
+            "rangeFrom": "1403/01/01",
+            "rangeTo": "1403/01/04"
+          },
+          "users": [
+            {
+              "id": "m",
+              "name": "اوستا",
+              "type": "master",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "s",
+              "name": "شاگرد",
+              "type": "apprentice",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "m2",
+              "name": "اوستای دوم",
+              "type": "master",
+              "active": true,
+              "workFactor": 1.5
+            },
+            {
+              "id": "inactive",
+              "name": "اوستای غیرفعال",
+              "type": "master",
+              "active": false,
+              "workFactor": 1
+            }
+          ],
+          "wages": [
+            {
+              "userId": "s",
+              "rate": 101,
+              "effectiveDate": "1403/01/02"
+            },
+            {
+              "userId": "s",
+              "rate": 205,
+              "effectiveDate": "1403/01/04"
+            }
+          ],
+          "attendance": {
+            "1403/01/01": {
+              "m": 0,
+              "m2": 1,
+              "s": 1,
+              "inactive": 1
+            },
+            "1403/01/04": {
+              "m": 1,
+              "m2": {
+                "t": "h",
+                "h": 8.5
+              },
+              "s": {
+                "t": "h",
+                "h": 24
+              }
+            },
+            "1403/01/05": {
+              "m": 0.5,
+              "s": 0
+            }
+          },
+          "receipts": [
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/05",
+              "amount": 999999999999,
+              "description": "واریزی"
+            },
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/01",
+              "amount": 99,
+              "active": false,
+              "description": "واریزی"
+            }
+          ],
+          "expenses": [
+            {
+              "date": "1403/01/01",
+              "amount": 31,
+              "payerId": "m",
+              "description": "=هزینه شخصی",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 21,
+              "payerId": "shared",
+              "description": "هزینه مشترک، ابزار",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "active": false
+            }
+          ],
+          "payouts": [
+            {
+              "date": "1403/01/04",
+              "amount": 20,
+              "userId": "s",
+              "description": "پرداخت"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 10,
+              "userId": "m",
+              "description": "پرداخت"
+            }
+          ],
+          "transfers": [
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "kind": "peer",
+              "fromId": "m",
+              "toId": "m2",
+              "description": "انتقال"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 40,
+              "kind": "advance",
+              "toId": "m",
+              "description": "انتقال"
+            }
+          ],
+          "adjustments": [
+            {
+              "date": "1403/01/04",
+              "amount": 3,
+              "kind": "bonus",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "bonus",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "penalty",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "penalty",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "assistance",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "assistance",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "settle",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 7,
+              "kind": "settle",
+              "userId": "s",
+              "description": "تعدیل"
+            }
+          ],
+          "name": "کارگاه نمونه",
+          "categories": [
+            {
+              "id": "c",
+              "name": "مصالح"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "contentBase64": "77u/2q/Ystin2LHYtCDYrNin2YXYuSDZhdin2YTbjCDigJQg2KfYs9iq2KfbjNin2LENCtm+2LHZiNqY2Ycs2qnYp9ix2q/Yp9mHINmG2YXZiNmG2YcNCtio2KfYstmHLDEg2YHYsdmI2LHYr9uM2YYgMTQwMyDYqtinIDQg2YHYsdmI2LHYr9uM2YYgMTQwMw0K2YXYqNmG2KfbjCDYs9mI2K8s2YbZgtiv24wNCtiq2KfYsduM2K4g2KrZh9uM2YcsMTQwMy8wMS8xNSAxMjozNA0KDQrYtNin2K7YteKAjNmH2KfbjCDaqdmE24zYr9uMDQrYtNin2K7YtSzZhdio2YTYuiAo2KrZiNmF2KfZhikNCtmF2KzZhdmI2Lkg2YjYp9ix24zYstuMLDc5OTk5OTk5OTk5OQ0K2YfYstuM2YbZh+KAjNmH2KfbjCDZhdi02KrYsdqpLDIxDQrZh9iy24zZhtmH4oCM2YfYp9uMINi02K7YtduMINin2YjYs9iq2KfZh9inLDMxDQraqdmEINiv2LPYqtmF2LLYryDYp9iz2KrYrdmC2KfZgtuMLDcxNQ0K2b7Ysdiv2KfYrtiq24zigIzZh9in24wg2YbZgtiv24wsMjANCtmF2LPYp9i52K/ZhyDZvtix2LPZhtmELDYNCtm+2KfYr9in2LQg2KfZiNiz2KrYp9mH2KcsMw0K2KzYsduM2YXZhyDYp9mI2LPYqtin2YfYpyw0DQrZhdin2YbYr9mHINmC2KfYqNmEINiq2YLYs9uM2YUsNzk5OTk5OTk5OTUzDQoNCtiz2YfZhSDYp9mI2LPYqtin2YfYpw0K2YbYp9mFLNqp2KfYsdqp2LHYryAo2LHZiNiyKSzYttix24zYqCzaqdin2LHaqdix2K8g2YbZh9in24zbjCzYr9ix2LXYryDYs9mH2YUs2LPZh9mFINm+2KfbjNmHLNio2KfYstm+2LHYr9in2K7YqiDZh9iy24zZhtmHINi02K7YtduMLNiz2YfZhSDZh9iy24zZhtmHINi02K7YtduMLNin2YbYqtmC2KfZhCDYr9in2K/Zh+KAjNi02K/ZhyzYp9mG2KrZgtin2YQg2q/YsdmB2KrZh+KAjNi02K/ZhyzZvtuM2LTigIzYqNix2K/Yp9i02Kos2YXYs9in2LnYr9mHLNm+2KfYr9in2LQs2KzYsduM2YXZhyzYqtiz2YjbjNmHINmG2YLYr9uMLNmF2KfZhtiv2Ycg2YbZh9in24zbjA0K2KfZiNiz2KrYpywxLDEsMSwyNC40MywxOTU0MTk4NDczMTcsMzEsOCwxMDAsMCw0MCw1LDMsNCw2LDE5NTQxOTg0NzQwMA0K2KfZiNiz2KrYp9uMINiv2YjZhSwyLjA2LDEuNSwzLjA5LDc1LjU3LDYwNDU4MDE1MjYzNiwwLDIzLDAsMTAwLDAsMCwwLDAsMCw2MDQ1ODAxNTI1MTMNCtin2YjYs9iq2KfbjCDYutuM2LHZgdi52KfZhCwxLDEsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMA0KDQrYqtix2KfYsiDYtNin2q/Ysdiv2KfZhiDZiCDZvtix2LPZhtmEINiz2KfbjNixDQrZhtin2YUs2YbZiNi5LNix2YjYsiDaqdin2YXZhCzYsdmI2LIg2YbYtdmB2Ycs2LPYp9i52KrbjCzYs9in2LnYqiDYp9i22KfZgdmH4oCM2qnYp9ixLNiv2LPYqtmF2LLYryDZvtin24zZhyzZvtin2K/Yp9i0LNis2LHbjNmF2Ycs2K/Ys9iq2YXYstivINin2LPYqtit2YLYp9mC24ws2b7Ysdiv2KfYrtiq24ws2YXYs9in2LnYr9mHLNmF2KfZhtiv2YcNCti02Kfar9ix2K8s2LTYp9qv2LHYrywxLDAsMSwxNiw3MTYsNCw1LDcxNSwyMCw2LDY4OQ=="
+      },
+      "auditResult": {
+        "contentBase64": "77u/2LHbjNiyINit2LPYp9io2LHYs9uMIOKAlCDaqdin2LHar9in2Ycg2YbZhdmI2YbZhyzYqNin2LLZhzogMSDZgdix2YjYsdiv24zZhiAxNDAzINiq2KcgNCDZgdix2YjYsdiv24zZhiAxNDAzDQrZgdmC2Lcg2KvYqNiq4oCM2YfYp9uMINiv2KfYrtmEINio2KfYstmH2ZQg2q/Ystin2LHYtCDYotmF2K/ZhyDYp9iz2KouINmF2KjZhNi64oCM2YfYpyDYqNmHINiq2YjZhdin2YbigIzYp9mG2K8g2Ygg2LPYqtmI2YYgwqvYsdmI2LIg2qnYp9ixwrsg2YHZgti3INio2LHYp9uMINit2LbZiNixINin2LPYqi4NCtmG2YjYuSzYqtin2LHbjNiuLNi02LHYrSzYr9iz2KrZhyzZvtix2K/Yp9iu2KrigIzaqdmG2YbYr9mHIC8g2LTYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKSzYsdmI2LIg2qnYp9ixLNmI2LbYuduM2Kos2LPZh9mFINmI2KfYsduM2LLbjCDYr9ixINio2KfYstmHICjYqtmI2YXYp9mGKQ0K2YjYp9ix24zYstuMLDE0MDMvMDEvMDEg2KrYpyAxNDAzLzAxLzA1LNmI2KfYsduM2LLbjCwsLDk5OTk5OTk5OTk5OSws2YHYudin2YQsNzk5OTk5OTk5OTk5DQrZiNin2LHbjNiy24wsMTQwMy8wMS8wMSDYqtinIDE0MDMvMDEvMDEs2YjYp9ix24zYstuMLCwsOTksLNi624zYsdmB2LnYp9mELA0K2YfYstuM2YbZhywxNDAzLzAxLzAxLCc92YfYstuM2YbZhyDYtNiu2LXbjCzZhdi12KfZhNitLNin2YjYs9iq2KcsMzEsLNmB2LnYp9mEDQrZh9iy24zZhtmHLDE0MDMvMDEvMDQs2YfYstuM2YbZhyDZhdi02KrYsdqp2Iwg2KfYqNiy2KfYsSzZhdi12KfZhNitLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwyMSws2YHYudin2YQNCtmH2LLbjNmG2YcsMTQwMy8wMS8wNCwsLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwxMDAsLNi624zYsdmB2LnYp9mEDQrZvtix2K/Yp9iu2KrbjCwxNDAzLzAxLzA0LNm+2LHYr9in2K7Yqiws2LTYp9qv2LHYrywyMCws2YHYudin2YQNCtm+2LHYr9in2K7YqtuMLDE0MDMvMDEvMDQs2b7Ysdiv2KfYrtiqLCzYp9mI2LPYqtinLDEwLCzZgdi52KfZhA0K2KfZhtiq2YLYp9mELDE0MDMvMDEvMDQs2KfZhtiq2YLYp9mELCzYp9mI2LPYqtinIOKGkCDYp9mI2LPYqtin24wg2K/ZiNmFLDEwMCws2YHYudin2YQNCtm+24zYtOKAjNio2LHYr9in2LTYqiwxNDAzLzAxLzA0LNin2YbYqtmC2KfZhCws2LXZhtiv2YjZgiDihpAg2KfZiNiz2KrYpyw0MCws2YHYudin2YQNCtm+2KfYr9in2LQsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDMsLNmB2LnYp9mEDQrZvtin2K/Yp9i0LDE0MDMvMDEvMDQs2KrYudiv24zZhCws2LTYp9qv2LHYryw0LCzZgdi52KfZhA0K2KzYsduM2YXZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNin2YjYs9iq2KcsNCws2YHYudin2YQNCtis2LHbjNmF2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDYsLNmB2LnYp9mEDQrYqtiz2YjbjNmHINmG2YLYr9uMLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2KfZiNiz2KrYpyw2LCzZgdi52KfZhA0K2KrYs9mI24zZhyDZhtmC2K/bjCwxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNi02Kfar9ix2K8sNyws2YHYudin2YQNCtit2LbZiNixLDE0MDMvMDEvMDEs2LrYp9uM2KgsLNin2YjYs9iq2KcsLDAs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wMSzaqdin2YXZhCws2KfZiNiz2KrYp9uMINiv2YjZhSwsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzAxLNqp2KfZhdmELCzYtNin2q/YsdivLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDEs2qnYp9mF2YQsLNin2YjYs9iq2KfbjCDYutuM2LHZgdi52KfZhCwsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzA0LNqp2KfZhdmELCzYp9mI2LPYqtinLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDQsOC41INiz2KfYudiqLCzYp9mI2LPYqtin24wg2K/ZiNmFLCwxLjA2MyzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzA0LDI0INiz2KfYudiqLCzYtNin2q/YsdivLCwzLNmF2LnYqtio2LENCg0K2KzZhdi5ICjZgdmC2Lcg2LHYr9uM2YHigIzZh9in24wg2YHYudin2YQpDQrZiNin2LHbjNiy24zigIzZh9inICjYs9mH2YUg2K/YsSDYqNin2LLZhyksLCwsLDc5OTk5OTk5OTk5OQ0K2YfYstuM2YbZh+KAjNmH2KcsLCwsLDUyDQrZvtix2K/Yp9iu2KrbjOKAjNmH2KcsLCwsLDMw"
+      }
+    },
+    {
+      "args": [
+        {
+          "id": "p",
+          "settings": {
+            "overtimeFactor": 1.333,
+            "absentPenalty": 0.5,
+            "profitBasis": "commitment",
+            "rangeFrom": "1403/01/01",
+            "rangeTo": "1403/01/04"
+          },
+          "users": [
+            {
+              "id": "m",
+              "name": "اوستا",
+              "type": "master",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "s",
+              "name": "شاگرد",
+              "type": "apprentice",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "m2",
+              "name": "اوستای دوم",
+              "type": "master",
+              "active": true,
+              "workFactor": 1.5
+            },
+            {
+              "id": "inactive",
+              "name": "اوستای غیرفعال",
+              "type": "master",
+              "active": false,
+              "workFactor": 1
+            }
+          ],
+          "wages": [
+            {
+              "userId": "s",
+              "rate": 101,
+              "effectiveDate": "1403/01/02"
+            },
+            {
+              "userId": "s",
+              "rate": 205,
+              "effectiveDate": "1403/01/04"
+            }
+          ],
+          "attendance": {
+            "1403/01/01": {
+              "m": 0,
+              "m2": 1,
+              "s": 1,
+              "inactive": 1
+            },
+            "1403/01/04": {
+              "m": 1,
+              "m2": {
+                "t": "h",
+                "h": 8.5
+              },
+              "s": {
+                "t": "h",
+                "h": 24
+              }
+            },
+            "1403/01/05": {
+              "m": 0.5,
+              "s": 0
+            }
+          },
+          "receipts": [],
+          "expenses": [
+            {
+              "date": "1403/01/01",
+              "amount": 31,
+              "payerId": "m",
+              "description": "=هزینه شخصی",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 21,
+              "payerId": "shared",
+              "description": "هزینه مشترک، ابزار",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "active": false
+            }
+          ],
+          "payouts": [
+            {
+              "date": "1403/01/04",
+              "amount": 20,
+              "userId": "s",
+              "description": "پرداخت"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 10,
+              "userId": "m",
+              "description": "پرداخت"
+            }
+          ],
+          "transfers": [
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "kind": "peer",
+              "fromId": "m",
+              "toId": "m2",
+              "description": "انتقال"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 40,
+              "kind": "advance",
+              "toId": "m",
+              "description": "انتقال"
+            }
+          ],
+          "adjustments": [
+            {
+              "date": "1403/01/04",
+              "amount": 3,
+              "kind": "bonus",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "bonus",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "penalty",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "penalty",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "assistance",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "assistance",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "settle",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 7,
+              "kind": "settle",
+              "userId": "s",
+              "description": "تعدیل"
+            }
+          ],
+          "name": "کارگاه نمونه",
+          "categories": [
+            {
+              "id": "c",
+              "name": "مصالح"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "contentBase64": "77u/2q/Ystin2LHYtCDYrNin2YXYuSDZhdin2YTbjCDigJQg2KfYs9iq2KfbjNin2LENCtm+2LHZiNqY2Ycs2qnYp9ix2q/Yp9mHINmG2YXZiNmG2YcNCtio2KfYstmHLDEg2YHYsdmI2LHYr9uM2YYgMTQwMyDYqtinIDQg2YHYsdmI2LHYr9uM2YYgMTQwMw0K2YXYqNmG2KfbjCDYs9mI2K8s2KrYudmH2K/bjA0K2KrYp9ix24zYriDYqtmH24zZhywxNDAzLzAxLzE1IDEyOjM0DQoNCti02KfYrti14oCM2YfYp9uMINqp2YTbjNiv24wNCti02KfYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKQ0K2YXYrNmF2YjYuSDZiNin2LHbjNiy24wsMA0K2YfYstuM2YbZh+KAjNmH2KfbjCDZhdi02KrYsdqpLDIxDQrZh9iy24zZhtmH4oCM2YfYp9uMINi02K7YtduMINin2YjYs9iq2KfZh9inLDMxDQraqdmEINiv2LPYqtmF2LLYryDYp9iz2KrYrdmC2KfZgtuMLDg1Mg0K2b7Ysdiv2KfYrtiq24zigIzZh9in24wg2YbZgtiv24wsMjANCtmF2LPYp9i52K/ZhyDZvtix2LPZhtmELDYNCtm+2KfYr9in2LQg2KfZiNiz2KrYp9mH2KcsMw0K2KzYsduM2YXZhyDYp9mI2LPYqtin2YfYpyw0DQrZhdin2YbYr9mHINmC2KfYqNmEINiq2YLYs9uM2YUsLTg3Mg0KDQrYs9mH2YUg2KfZiNiz2KrYp9mH2KcNCtmG2KfZhSzaqdin2LHaqdix2K8gKNix2YjYsiks2LbYsduM2Kgs2qnYp9ix2qnYsdivINmG2YfYp9uM24ws2K/Ysdi12K8g2LPZh9mFLNiz2YfZhSDZvtin24zZhyzYqNin2LLZvtix2K/Yp9iu2Kog2YfYstuM2YbZhyDYtNiu2LXbjCzYs9mH2YUg2YfYstuM2YbZhyDYtNiu2LXbjCzYp9mG2KrZgtin2YQg2K/Yp9iv2YfigIzYtNiv2Ycs2KfZhtiq2YLYp9mEINqv2LHZgdiq2YfigIzYtNiv2Ycs2b7bjNi04oCM2KjYsdiv2KfYtNiqLNmF2LPYp9i52K/ZhyzZvtin2K/Yp9i0LNis2LHbjNmF2Ycs2KrYs9mI24zZhyDZhtmC2K/bjCzZhdin2YbYr9mHINmG2YfYp9uM24wNCtin2YjYs9iq2KcsMC41LDEsMC41LDEzLjc5LC0xMjAsMzEsNCwxMDAsMCw0MCw1LDMsNCw2LC0zMw0K2KfZiNiz2KrYp9uMINiv2YjZhSwyLjA4LDEuNSwzLjEyLDg2LjIxLC03NTIsMCwyNywwLDEwMCwwLDAsMCwwLDAsLTg3OQ0K2KfZiNiz2KrYp9uMINi624zYsdmB2LnYp9mELDEsMSwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwDQoNCtiq2LHYp9iyINi02Kfar9ix2K/Yp9mGINmIINm+2LHYs9mG2YQg2LPYp9uM2LENCtmG2KfZhSzZhtmI2Lks2LHZiNiyINqp2KfZhdmELNix2YjYsiDZhti12YHZhyzYs9in2LnYqtuMLNiz2KfYudiqINin2LbYp9mB2YfigIzaqdin2LEs2K/Ys9iq2YXYstivINm+2KfbjNmHLNm+2KfYr9in2LQs2KzYsduM2YXZhyzYr9iz2KrZhdiy2K8g2KfYs9iq2K3Zgtin2YLbjCzZvtix2K/Yp9iu2KrbjCzZhdiz2KfYudiv2Ycs2YXYp9mG2K/Zhw0K2LTYp9qv2LHYryzYtNin2q/YsdivLDEsMCwxLDE2LDg1Myw0LDUsODUyLDIwLDYsODI2"
+      },
+      "auditResult": {
+        "contentBase64": "77u/2LHbjNiyINit2LPYp9io2LHYs9uMIOKAlCDaqdin2LHar9in2Ycg2YbZhdmI2YbZhyzYqNin2LLZhzogMSDZgdix2YjYsdiv24zZhiAxNDAzINiq2KcgNCDZgdix2YjYsdiv24zZhiAxNDAzDQrZgdmC2Lcg2KvYqNiq4oCM2YfYp9uMINiv2KfYrtmEINio2KfYstmH2ZQg2q/Ystin2LHYtCDYotmF2K/ZhyDYp9iz2KouINmF2KjZhNi64oCM2YfYpyDYqNmHINiq2YjZhdin2YbigIzYp9mG2K8g2Ygg2LPYqtmI2YYgwqvYsdmI2LIg2qnYp9ixwrsg2YHZgti3INio2LHYp9uMINit2LbZiNixINin2LPYqi4NCtmG2YjYuSzYqtin2LHbjNiuLNi02LHYrSzYr9iz2KrZhyzZvtix2K/Yp9iu2KrigIzaqdmG2YbYr9mHIC8g2LTYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKSzYsdmI2LIg2qnYp9ixLNmI2LbYuduM2Kos2LPZh9mFINmI2KfYsduM2LLbjCDYr9ixINio2KfYstmHICjYqtmI2YXYp9mGKQ0K2YfYstuM2YbZhywxNDAzLzAxLzAxLCc92YfYstuM2YbZhyDYtNiu2LXbjCzZhdi12KfZhNitLNin2YjYs9iq2KcsMzEsLNmB2LnYp9mEDQrZh9iy24zZhtmHLDE0MDMvMDEvMDQs2YfYstuM2YbZhyDZhdi02KrYsdqp2Iwg2KfYqNiy2KfYsSzZhdi12KfZhNitLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwyMSws2YHYudin2YQNCtmH2LLbjNmG2YcsMTQwMy8wMS8wNCwsLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwxMDAsLNi624zYsdmB2LnYp9mEDQrZvtix2K/Yp9iu2KrbjCwxNDAzLzAxLzA0LNm+2LHYr9in2K7Yqiws2LTYp9qv2LHYrywyMCws2YHYudin2YQNCtm+2LHYr9in2K7YqtuMLDE0MDMvMDEvMDQs2b7Ysdiv2KfYrtiqLCzYp9mI2LPYqtinLDEwLCzZgdi52KfZhA0K2KfZhtiq2YLYp9mELDE0MDMvMDEvMDQs2KfZhtiq2YLYp9mELCzYp9mI2LPYqtinIOKGkCDYp9mI2LPYqtin24wg2K/ZiNmFLDEwMCws2YHYudin2YQNCtm+24zYtOKAjNio2LHYr9in2LTYqiwxNDAzLzAxLzA0LNin2YbYqtmC2KfZhCws2LXZhtiv2YjZgiDihpAg2KfZiNiz2KrYpyw0MCws2YHYudin2YQNCtm+2KfYr9in2LQsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDMsLNmB2LnYp9mEDQrZvtin2K/Yp9i0LDE0MDMvMDEvMDQs2KrYudiv24zZhCws2LTYp9qv2LHYryw0LCzZgdi52KfZhA0K2KzYsduM2YXZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNin2YjYs9iq2KcsNCws2YHYudin2YQNCtis2LHbjNmF2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDYsLNmB2LnYp9mEDQrYqtiz2YjbjNmHINmG2YLYr9uMLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2KfZiNiz2KrYpyw2LCzZgdi52KfZhA0K2KrYs9mI24zZhyDZhtmC2K/bjCwxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNi02Kfar9ix2K8sNyws2YHYudin2YQNCtit2LbZiNixLDE0MDMvMDEvMDEs2LrYp9uM2KgsLNin2YjYs9iq2KcsLC0wLjUs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wMSzaqdin2YXZhCws2KfZiNiz2KrYp9uMINiv2YjZhSwsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzAxLNqp2KfZhdmELCzYtNin2q/YsdivLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDEs2qnYp9mF2YQsLNin2YjYs9iq2KfbjCDYutuM2LHZgdi52KfZhCwsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzA0LNqp2KfZhdmELCzYp9mI2LPYqtinLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDQsOC41INiz2KfYudiqLCzYp9mI2LPYqtin24wg2K/ZiNmFLCwxLjA4MyzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzA0LDI0INiz2KfYudiqLCzYtNin2q/YsdivLCwzLjY2NizZhdi52KrYqNixDQoNCtis2YXYuSAo2YHZgti3INix2K/bjNmB4oCM2YfYp9uMINmB2LnYp9mEKQ0K2YjYp9ix24zYstuM4oCM2YfYpyAo2LPZh9mFINiv2LEg2KjYp9iy2YcpLCwsLCwwDQrZh9iy24zZhtmH4oCM2YfYpywsLCwsNTINCtm+2LHYr9in2K7YqtuM4oCM2YfYpywsLCwsMzA="
+      }
+    },
+    {
+      "args": [
+        {
+          "id": "p",
+          "settings": {
+            "overtimeFactor": 1.5,
+            "absentPenalty": 1.25,
+            "profitBasis": "cash",
+            "rangeFrom": "1403/01/01",
+            "rangeTo": "1403/01/04"
+          },
+          "users": [
+            {
+              "id": "m",
+              "name": "اوستا",
+              "type": "master",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "s",
+              "name": "شاگرد",
+              "type": "apprentice",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "m2",
+              "name": "اوستای دوم",
+              "type": "master",
+              "active": true,
+              "workFactor": 1.5
+            },
+            {
+              "id": "inactive",
+              "name": "اوستای غیرفعال",
+              "type": "master",
+              "active": false,
+              "workFactor": 1
+            }
+          ],
+          "wages": [
+            {
+              "userId": "s",
+              "rate": 101,
+              "effectiveDate": "1403/01/02"
+            },
+            {
+              "userId": "s",
+              "rate": 205,
+              "effectiveDate": "1403/01/04"
+            }
+          ],
+          "attendance": {},
+          "receipts": [
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/05",
+              "amount": 999999999999,
+              "description": "واریزی"
+            },
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/01",
+              "amount": 99,
+              "active": false,
+              "description": "واریزی"
+            }
+          ],
+          "expenses": [
+            {
+              "date": "1403/01/01",
+              "amount": 31,
+              "payerId": "m",
+              "description": "=هزینه شخصی",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 21,
+              "payerId": "shared",
+              "description": "هزینه مشترک، ابزار",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "active": false
+            }
+          ],
+          "payouts": [
+            {
+              "date": "1403/01/04",
+              "amount": 20,
+              "userId": "s",
+              "description": "پرداخت"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 10,
+              "userId": "m",
+              "description": "پرداخت"
+            }
+          ],
+          "transfers": [
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "kind": "peer",
+              "fromId": "m",
+              "toId": "m2",
+              "description": "انتقال"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 40,
+              "kind": "advance",
+              "toId": "m",
+              "description": "انتقال"
+            }
+          ],
+          "adjustments": [
+            {
+              "date": "1403/01/04",
+              "amount": 3,
+              "kind": "bonus",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "bonus",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "penalty",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "penalty",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "assistance",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "assistance",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "settle",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 7,
+              "kind": "settle",
+              "userId": "s",
+              "description": "تعدیل"
+            }
+          ],
+          "name": "کارگاه نمونه",
+          "categories": [
+            {
+              "id": "c",
+              "name": "مصالح"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "contentBase64": "77u/2q/Ystin2LHYtCDYrNin2YXYuSDZhdin2YTbjCDigJQg2KfYs9iq2KfbjNin2LENCtm+2LHZiNqY2Ycs2qnYp9ix2q/Yp9mHINmG2YXZiNmG2YcNCtio2KfYstmHLDEg2YHYsdmI2LHYr9uM2YYgMTQwMyDYqtinIDQg2YHYsdmI2LHYr9uM2YYgMTQwMw0K2YXYqNmG2KfbjCDYs9mI2K8s2YbZgtiv24wNCtiq2KfYsduM2K4g2KrZh9uM2YcsMTQwMy8wMS8xNSAxMjozNA0KDQrYtNin2K7YteKAjNmH2KfbjCDaqdmE24zYr9uMDQrYtNin2K7YtSzZhdio2YTYuiAo2KrZiNmF2KfZhikNCtmF2KzZhdmI2Lkg2YjYp9ix24zYstuMLDc5OTk5OTk5OTk5OQ0K2YfYstuM2YbZh+KAjNmH2KfbjCDZhdi02KrYsdqpLDIxDQrZh9iy24zZhtmH4oCM2YfYp9uMINi02K7YtduMINin2YjYs9iq2KfZh9inLDMxDQraqdmEINiv2LPYqtmF2LLYryDYp9iz2KrYrdmC2KfZgtuMLC0xDQrZvtix2K/Yp9iu2KrbjOKAjNmH2KfbjCDZhtmC2K/bjCwyMA0K2YXYs9in2LnYr9mHINm+2LHYs9mG2YQsNg0K2b7Yp9iv2KfYtCDYp9mI2LPYqtin2YfYpywzDQrYrNix24zZhdmHINin2YjYs9iq2KfZh9inLDQNCtmF2KfZhtiv2Ycg2YLYp9io2YQg2KrZgtiz24zZhSw3OTk5OTk5OTk5NTMNCg0K2LPZh9mFINin2YjYs9iq2KfZh9inDQrZhtin2YUs2qnYp9ix2qnYsdivICjYsdmI2LIpLNi22LHbjNioLNqp2KfYsdqp2LHYryDZhtmH2KfbjNuMLNiv2LHYtdivINiz2YfZhSzYs9mH2YUg2b7Yp9uM2Ycs2KjYp9iy2b7Ysdiv2KfYrtiqINmH2LLbjNmG2Ycg2LTYrti124ws2LPZh9mFINmH2LLbjNmG2Ycg2LTYrti124ws2KfZhtiq2YLYp9mEINiv2KfYr9mH4oCM2LTYr9mHLNin2YbYqtmC2KfZhCDar9ix2YHYqtmH4oCM2LTYr9mHLNm+24zYtOKAjNio2LHYr9in2LTYqizZhdiz2KfYudiv2Ycs2b7Yp9iv2KfYtCzYrNix24zZhdmHLNiq2LPZiNuM2Ycg2YbZgtiv24ws2YXYp9mG2K/ZhyDZhtmH2KfbjNuMDQrYp9mI2LPYqtinLDAsMSwwLDAsMCwzMSwwLDEwMCwwLDQwLDUsMyw0LDYsOTENCtin2YjYs9iq2KfbjCDYr9mI2YUsMCwxLjUsMCwwLDAsMCwwLDAsMTAwLDAsMCwwLDAsMCwtMTAwDQrYp9mI2LPYqtin24wg2LrbjNix2YHYudin2YQsMCwxLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDANCg0K2KrYsdin2LIg2LTYp9qv2LHYr9in2YYg2Ygg2b7Ysdiz2YbZhCDYs9in24zYsQ0K2YbYp9mFLNmG2YjYuSzYsdmI2LIg2qnYp9mF2YQs2LHZiNiyINmG2LXZgdmHLNiz2KfYudiq24ws2LPYp9i52Kog2KfYttin2YHZh+KAjNqp2KfYsSzYr9iz2KrZhdiy2K8g2b7Yp9uM2Ycs2b7Yp9iv2KfYtCzYrNix24zZhdmHLNiv2LPYqtmF2LLYryDYp9iz2KrYrdmC2KfZgtuMLNm+2LHYr9in2K7YqtuMLNmF2LPYp9i52K/ZhyzZhdin2YbYr9mHDQrYtNin2q/YsdivLNi02Kfar9ix2K8sMCwwLDAsMCwwLDQsNSwtMSwyMCw2LC0yNw=="
+      },
+      "auditResult": {
+        "contentBase64": "77u/2LHbjNiyINit2LPYp9io2LHYs9uMIOKAlCDaqdin2LHar9in2Ycg2YbZhdmI2YbZhyzYqNin2LLZhzogMSDZgdix2YjYsdiv24zZhiAxNDAzINiq2KcgNCDZgdix2YjYsdiv24zZhiAxNDAzDQrZgdmC2Lcg2KvYqNiq4oCM2YfYp9uMINiv2KfYrtmEINio2KfYstmH2ZQg2q/Ystin2LHYtCDYotmF2K/ZhyDYp9iz2KouINmF2KjZhNi64oCM2YfYpyDYqNmHINiq2YjZhdin2YbigIzYp9mG2K8g2Ygg2LPYqtmI2YYgwqvYsdmI2LIg2qnYp9ixwrsg2YHZgti3INio2LHYp9uMINit2LbZiNixINin2LPYqi4NCtmG2YjYuSzYqtin2LHbjNiuLNi02LHYrSzYr9iz2KrZhyzZvtix2K/Yp9iu2KrigIzaqdmG2YbYr9mHIC8g2LTYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKSzYsdmI2LIg2qnYp9ixLNmI2LbYuduM2Kos2LPZh9mFINmI2KfYsduM2LLbjCDYr9ixINio2KfYstmHICjYqtmI2YXYp9mGKQ0K2YjYp9ix24zYstuMLDE0MDMvMDEvMDEg2KrYpyAxNDAzLzAxLzA1LNmI2KfYsduM2LLbjCwsLDk5OTk5OTk5OTk5OSws2YHYudin2YQsNzk5OTk5OTk5OTk5DQrZiNin2LHbjNiy24wsMTQwMy8wMS8wMSDYqtinIDE0MDMvMDEvMDEs2YjYp9ix24zYstuMLCwsOTksLNi624zYsdmB2LnYp9mELA0K2YfYstuM2YbZhywxNDAzLzAxLzAxLCc92YfYstuM2YbZhyDYtNiu2LXbjCzZhdi12KfZhNitLNin2YjYs9iq2KcsMzEsLNmB2LnYp9mEDQrZh9iy24zZhtmHLDE0MDMvMDEvMDQs2YfYstuM2YbZhyDZhdi02KrYsdqp2Iwg2KfYqNiy2KfYsSzZhdi12KfZhNitLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwyMSws2YHYudin2YQNCtmH2LLbjNmG2YcsMTQwMy8wMS8wNCwsLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwxMDAsLNi624zYsdmB2LnYp9mEDQrZvtix2K/Yp9iu2KrbjCwxNDAzLzAxLzA0LNm+2LHYr9in2K7Yqiws2LTYp9qv2LHYrywyMCws2YHYudin2YQNCtm+2LHYr9in2K7YqtuMLDE0MDMvMDEvMDQs2b7Ysdiv2KfYrtiqLCzYp9mI2LPYqtinLDEwLCzZgdi52KfZhA0K2KfZhtiq2YLYp9mELDE0MDMvMDEvMDQs2KfZhtiq2YLYp9mELCzYp9mI2LPYqtinIOKGkCDYp9mI2LPYqtin24wg2K/ZiNmFLDEwMCws2YHYudin2YQNCtm+24zYtOKAjNio2LHYr9in2LTYqiwxNDAzLzAxLzA0LNin2YbYqtmC2KfZhCws2LXZhtiv2YjZgiDihpAg2KfZiNiz2KrYpyw0MCws2YHYudin2YQNCtm+2KfYr9in2LQsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDMsLNmB2LnYp9mEDQrZvtin2K/Yp9i0LDE0MDMvMDEvMDQs2KrYudiv24zZhCws2LTYp9qv2LHYryw0LCzZgdi52KfZhA0K2KzYsduM2YXZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNin2YjYs9iq2KcsNCws2YHYudin2YQNCtis2LHbjNmF2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDYsLNmB2LnYp9mEDQrYqtiz2YjbjNmHINmG2YLYr9uMLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2KfZiNiz2KrYpyw2LCzZgdi52KfZhA0K2KrYs9mI24zZhyDZhtmC2K/bjCwxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNi02Kfar9ix2K8sNyws2YHYudin2YQNCg0K2KzZhdi5ICjZgdmC2Lcg2LHYr9uM2YHigIzZh9in24wg2YHYudin2YQpDQrZiNin2LHbjNiy24zigIzZh9inICjYs9mH2YUg2K/YsSDYqNin2LLZhyksLCwsLDc5OTk5OTk5OTk5OQ0K2YfYstuM2YbZh+KAjNmH2KcsLCwsLDUyDQrZvtix2K/Yp9iu2KrbjOKAjNmH2KcsLCwsLDMw"
+      }
+    },
+    {
+      "args": [
+        {
+          "id": "p",
+          "settings": {
+            "overtimeFactor": 2,
+            "absentPenalty": 0,
+            "profitBasis": "commitment",
+            "rangeFrom": "",
+            "rangeTo": ""
+          },
+          "users": [
+            {
+              "id": "m",
+              "name": "اوستا",
+              "type": "master",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "s",
+              "name": "شاگرد",
+              "type": "apprentice",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "m2",
+              "name": "اوستای دوم",
+              "type": "master",
+              "active": true,
+              "workFactor": 1.5
+            },
+            {
+              "id": "inactive",
+              "name": "اوستای غیرفعال",
+              "type": "master",
+              "active": false,
+              "workFactor": 1
+            }
+          ],
+          "wages": [
+            {
+              "userId": "s",
+              "rate": 101,
+              "effectiveDate": "1403/01/02"
+            },
+            {
+              "userId": "s",
+              "rate": 205,
+              "effectiveDate": "1403/01/04"
+            }
+          ],
+          "attendance": {
+            "1403/01/01": {
+              "m": 0,
+              "m2": 1,
+              "s": 1,
+              "inactive": 1
+            },
+            "1403/01/04": {
+              "m": 1,
+              "m2": {
+                "t": "h",
+                "h": 8.5
+              },
+              "s": {
+                "t": "h",
+                "h": 24
+              }
+            },
+            "1403/01/05": {
+              "m": 0.5,
+              "s": 0
+            }
+          },
+          "receipts": [
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/05",
+              "amount": 999999999999,
+              "description": "واریزی"
+            },
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/01",
+              "amount": 99,
+              "active": false,
+              "description": "واریزی"
+            }
+          ],
+          "expenses": [
+            {
+              "date": "1403/01/01",
+              "amount": 31,
+              "payerId": "m",
+              "description": "=هزینه شخصی",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 21,
+              "payerId": "shared",
+              "description": "هزینه مشترک، ابزار",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "active": false
+            }
+          ],
+          "payouts": [
+            {
+              "date": "1403/01/04",
+              "amount": 20,
+              "userId": "s",
+              "description": "پرداخت"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 10,
+              "userId": "m",
+              "description": "پرداخت"
+            }
+          ],
+          "transfers": [
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "kind": "peer",
+              "fromId": "m",
+              "toId": "m2",
+              "description": "انتقال"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 40,
+              "kind": "advance",
+              "toId": "m",
+              "description": "انتقال"
+            }
+          ],
+          "adjustments": [
+            {
+              "date": "1403/01/04",
+              "amount": 3,
+              "kind": "bonus",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "bonus",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "penalty",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "penalty",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "assistance",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "assistance",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "settle",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 7,
+              "kind": "settle",
+              "userId": "s",
+              "description": "تعدیل"
+            }
+          ],
+          "name": "کارگاه نمونه",
+          "categories": [
+            {
+              "id": "c",
+              "name": "مصالح"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "contentBase64": "77u/2q/Ystin2LHYtCDYrNin2YXYuSDZhdin2YTbjCDigJQg2KfYs9iq2KfbjNin2LENCtm+2LHZiNqY2Ycs2qnYp9ix2q/Yp9mHINmG2YXZiNmG2YcNCtio2KfYstmHLNin2KjYqtiv2KfbjCDaqdin2LEg2KrYpyDYp9mF2LHZiNiyDQrZhdio2YbYp9uMINiz2YjYryzYqti52YfYr9uMDQrYqtin2LHbjNiuINiq2YfbjNmHLDE0MDMvMDEvMTUgMTI6MzQNCg0K2LTYp9iu2LXigIzZh9in24wg2qnZhNuM2K/bjA0K2LTYp9iu2LUs2YXYqNmE2LogKNiq2YjZhdin2YYpDQrZhdis2YXZiNi5INmI2KfYsduM2LLbjCw5OTk5OTk5OTk5OTkNCtmH2LLbjNmG2YfigIzZh9in24wg2YXYtNiq2LHaqSwyMQ0K2YfYstuM2YbZh+KAjNmH2KfbjCDYtNiu2LXbjCDYp9mI2LPYqtin2YfYpywzMQ0K2qnZhCDYr9iz2KrZhdiy2K8g2KfYs9iq2K3Zgtin2YLbjCwxMTI1DQrZvtix2K/Yp9iu2KrbjOKAjNmH2KfbjCDZhtmC2K/bjCwyMA0K2YXYs9in2LnYr9mHINm+2LHYs9mG2YQsNg0K2b7Yp9iv2KfYtCDYp9mI2LPYqtin2YfYpywzDQrYrNix24zZhdmHINin2YjYs9iq2KfZh9inLDQNCtmF2KfZhtiv2Ycg2YLYp9io2YQg2KrZgtiz24zZhSw5OTk5OTk5OTg4NTQNCg0K2LPZh9mFINin2YjYs9iq2KfZh9inDQrZhtin2YUs2qnYp9ix2qnYsdivICjYsdmI2LIpLNi22LHbjNioLNqp2KfYsdqp2LHYryDZhtmH2KfbjNuMLNiv2LHYtdivINiz2YfZhSzYs9mH2YUg2b7Yp9uM2Ycs2KjYp9iy2b7Ysdiv2KfYrtiqINmH2LLbjNmG2Ycg2LTYrti124ws2LPZh9mFINmH2LLbjNmG2Ycg2LTYrti124ws2KfZhtiq2YLYp9mEINiv2KfYr9mH4oCM2LTYr9mHLNin2YbYqtmC2KfZhCDar9ix2YHYqtmH4oCM2LTYr9mHLNm+24zYtOKAjNio2LHYr9in2LTYqizZhdiz2KfYudiv2Ycs2b7Yp9iv2KfYtCzYrNix24zZhdmHLNiq2LPZiNuM2Ycg2YbZgtiv24ws2YXYp9mG2K/ZhyDZhtmH2KfbjNuMDQrYp9mI2LPYqtinLDEuNSwxLDEuNSwzMiwzMTk5OTk5OTk2MzMsMzEsMTAsMTAwLDAsNDAsNSwzLDQsNiwzMTk5OTk5OTk3MTQNCtin2YjYs9iq2KfbjCDYr9mI2YUsMi4xMywxLjUsMy4xOSw2OCw2Nzk5OTk5OTkyMjEsMCwyMSwwLDEwMCwwLDAsMCwwLDAsNjc5OTk5OTk5MTAwDQrYp9mI2LPYqtin24wg2LrbjNix2YHYudin2YQsMSwxLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDANCg0K2KrYsdin2LIg2LTYp9qv2LHYr9in2YYg2Ygg2b7Ysdiz2YbZhCDYs9in24zYsQ0K2YbYp9mFLNmG2YjYuSzYsdmI2LIg2qnYp9mF2YQs2LHZiNiyINmG2LXZgdmHLNiz2KfYudiq24ws2LPYp9i52Kog2KfYttin2YHZh+KAjNqp2KfYsSzYr9iz2KrZhdiy2K8g2b7Yp9uM2Ycs2b7Yp9iv2KfYtCzYrNix24zZhdmHLNiv2LPYqtmF2LLYryDYp9iz2KrYrdmC2KfZgtuMLNm+2LHYr9in2K7YqtuMLNmF2LPYp9i52K/ZhyzZhdin2YbYr9mHDQrYtNin2q/YsdivLNi02Kfar9ix2K8sMSwwLDEsMTYsMTEyNiw0LDUsMTEyNSwyMCw2LDEwOTk="
+      },
+      "auditResult": {
+        "contentBase64": "77u/2LHbjNiyINit2LPYp9io2LHYs9uMIOKAlCDaqdin2LHar9in2Ycg2YbZhdmI2YbZhyzYqNin2LLZhzog2KfYqNiq2K/Yp9uMINqp2KfYsSDYqtinINin2YXYsdmI2LINCtmB2YLYtyDYq9io2KrigIzZh9in24wg2K/Yp9iu2YQg2KjYp9iy2YfZlCDar9iy2KfYsdi0INii2YXYr9mHINin2LPYqi4g2YXYqNmE2LrigIzZh9inINio2Ycg2KrZiNmF2KfZhuKAjNin2YbYryDZiCDYs9iq2YjZhiDCq9ix2YjYsiDaqdin2LHCuyDZgdmC2Lcg2KjYsdin24wg2K3YttmI2LEg2KfYs9iqLg0K2YbZiNi5LNiq2KfYsduM2K4s2LTYsditLNiv2LPYqtmHLNm+2LHYr9in2K7YquKAjNqp2YbZhtiv2YcgLyDYtNiu2LUs2YXYqNmE2LogKNiq2YjZhdin2YYpLNix2YjYsiDaqdin2LEs2YjYtti524zYqizYs9mH2YUg2YjYp9ix24zYstuMINiv2LEg2KjYp9iy2YcgKNiq2YjZhdin2YYpDQrZiNin2LHbjNiy24wsMTQwMy8wMS8wMSDYqtinIDE0MDMvMDEvMDUs2YjYp9ix24zYstuMLCwsOTk5OTk5OTk5OTk5LCzZgdi52KfZhCw5OTk5OTk5OTk5OTkNCtmI2KfYsduM2LLbjCwxNDAzLzAxLzAxINiq2KcgMTQwMy8wMS8wMSzZiNin2LHbjNiy24wsLCw5OSws2LrbjNix2YHYudin2YQsDQrZh9iy24zZhtmHLDE0MDMvMDEvMDEsJz3Zh9iy24zZhtmHINi02K7YtduMLNmF2LXYp9mE2K0s2KfZiNiz2KrYpywzMSws2YHYudin2YQNCtmH2LLbjNmG2YcsMTQwMy8wMS8wNCzZh9iy24zZhtmHINmF2LTYqtix2qnYjCDYp9io2LLYp9ixLNmF2LXYp9mE2K0s2LXZhtiv2YjZgiDZhdi02KrYsdqpLDIxLCzZgdi52KfZhA0K2YfYstuM2YbZhywxNDAzLzAxLzA0LCws2LXZhtiv2YjZgiDZhdi02KrYsdqpLDEwMCws2LrbjNix2YHYudin2YQNCtm+2LHYr9in2K7YqtuMLDE0MDMvMDEvMDQs2b7Ysdiv2KfYrtiqLCzYtNin2q/YsdivLDIwLCzZgdi52KfZhA0K2b7Ysdiv2KfYrtiq24wsMTQwMy8wMS8wNCzZvtix2K/Yp9iu2KosLNin2YjYs9iq2KcsMTAsLNmB2LnYp9mEDQrYp9mG2KrZgtin2YQsMTQwMy8wMS8wNCzYp9mG2KrZgtin2YQsLNin2YjYs9iq2Kcg4oaQINin2YjYs9iq2KfbjCDYr9mI2YUsMTAwLCzZgdi52KfZhA0K2b7bjNi04oCM2KjYsdiv2KfYtNiqLDE0MDMvMDEvMDQs2KfZhtiq2YLYp9mELCzYtdmG2K/ZiNmCIOKGkCDYp9mI2LPYqtinLDQwLCzZgdi52KfZhA0K2b7Yp9iv2KfYtCwxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNin2YjYs9iq2KcsMyws2YHYudin2YQNCtm+2KfYr9in2LQsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDQsLNmB2LnYp9mEDQrYrNix24zZhdmHLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2KfZiNiz2KrYpyw0LCzZgdi52KfZhA0K2KzYsduM2YXZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNi02Kfar9ix2K8sNSws2YHYudin2YQNCtmF2LPYp9i52K/ZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNin2YjYs9iq2KcsNSws2YHYudin2YQNCtmF2LPYp9i52K/ZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNi02Kfar9ix2K8sNiws2YHYudin2YQNCtiq2LPZiNuM2Ycg2YbZgtiv24wsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDYsLNmB2LnYp9mEDQrYqtiz2YjbjNmHINmG2YLYr9uMLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2LTYp9qv2LHYryw3LCzZgdi52KfZhA0K2K3YttmI2LEsMTQwMy8wMS8wMSzYutin24zYqCws2KfZiNiz2KrYpywsMCzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzAxLNqp2KfZhdmELCzYp9mI2LPYqtin24wg2K/ZiNmFLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDEs2qnYp9mF2YQsLNi02Kfar9ix2K8sLDEs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wMSzaqdin2YXZhCws2KfZiNiz2KrYp9uMINi624zYsdmB2LnYp9mELCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDQs2qnYp9mF2YQsLNin2YjYs9iq2KcsLDEs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wNCw4LjUg2LPYp9i52KosLNin2YjYs9iq2KfbjCDYr9mI2YUsLDEuMTI1LNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDQsMjQg2LPYp9i52KosLNi02Kfar9ix2K8sLDUs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wNSzZhti12YHZhyws2KfZiNiz2KrYpywsMC41LNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDUs2LrYp9uM2KgsLNi02Kfar9ix2K8sLDAs2YXYudiq2KjYsQ0KDQrYrNmF2LkgKNmB2YLYtyDYsdiv24zZgeKAjNmH2KfbjCDZgdi52KfZhCkNCtmI2KfYsduM2LLbjOKAjNmH2KcgKNiz2YfZhSDYr9ixINio2KfYstmHKSwsLCwsOTk5OTk5OTk5OTk5DQrZh9iy24zZhtmH4oCM2YfYpywsLCwsNTINCtm+2LHYr9in2K7YqtuM4oCM2YfYpywsLCwsMzA="
+      }
+    },
+    {
+      "args": [
+        {
+          "id": "p",
+          "settings": {
+            "overtimeFactor": 1,
+            "absentPenalty": 0.5,
+            "profitBasis": "cash",
+            "rangeFrom": "1403/01/01",
+            "rangeTo": "1403/01/04"
+          },
+          "users": [
+            {
+              "id": "m",
+              "name": "اوستا",
+              "type": "master",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "s",
+              "name": "شاگرد",
+              "type": "apprentice",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "m2",
+              "name": "اوستای دوم",
+              "type": "master",
+              "active": true,
+              "workFactor": 1.5
+            },
+            {
+              "id": "inactive",
+              "name": "اوستای غیرفعال",
+              "type": "master",
+              "active": false,
+              "workFactor": 1
+            }
+          ],
+          "wages": [
+            {
+              "userId": "s",
+              "rate": 101,
+              "effectiveDate": "1403/01/02"
+            },
+            {
+              "userId": "s",
+              "rate": 205,
+              "effectiveDate": "1403/01/04"
+            }
+          ],
+          "attendance": {
+            "1403/01/01": {
+              "m": 0,
+              "m2": 1,
+              "s": 1,
+              "inactive": 1
+            },
+            "1403/01/04": {
+              "m": 1,
+              "m2": {
+                "t": "h",
+                "h": 8.5
+              },
+              "s": {
+                "t": "h",
+                "h": 24
+              }
+            },
+            "1403/01/05": {
+              "m": 0.5,
+              "s": 0
+            }
+          },
+          "receipts": [
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/05",
+              "amount": 999999999999,
+              "description": "واریزی"
+            },
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/01",
+              "amount": 99,
+              "active": false,
+              "description": "واریزی"
+            }
+          ],
+          "expenses": [
+            {
+              "date": "1403/01/01",
+              "amount": 31,
+              "payerId": "m",
+              "description": "=هزینه شخصی",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 21,
+              "payerId": "shared",
+              "description": "هزینه مشترک، ابزار",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "active": false
+            }
+          ],
+          "payouts": [
+            {
+              "date": "1403/01/04",
+              "amount": 20,
+              "userId": "s",
+              "description": "پرداخت"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 10,
+              "userId": "m",
+              "description": "پرداخت"
+            }
+          ],
+          "transfers": [
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "kind": "peer",
+              "fromId": "m",
+              "toId": "m2",
+              "description": "انتقال"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 40,
+              "kind": "advance",
+              "toId": "m",
+              "description": "انتقال"
+            }
+          ],
+          "adjustments": [
+            {
+              "date": "1403/01/04",
+              "amount": 3,
+              "kind": "bonus",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "bonus",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "penalty",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "penalty",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "assistance",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "assistance",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "settle",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 7,
+              "kind": "settle",
+              "userId": "s",
+              "description": "تعدیل"
+            }
+          ],
+          "name": "=نام، خطر",
+          "categories": [
+            {
+              "id": "c",
+              "name": "مصالح"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "contentBase64": "77u/2q/Ystin2LHYtCDYrNin2YXYuSDZhdin2YTbjCDigJQg2KfYs9iq2KfbjNin2LENCtm+2LHZiNqY2YcsJz3Zhtin2YXYjCDYrti32LENCtio2KfYstmHLDEg2YHYsdmI2LHYr9uM2YYgMTQwMyDYqtinIDQg2YHYsdmI2LHYr9uM2YYgMTQwMw0K2YXYqNmG2KfbjCDYs9mI2K8s2YbZgtiv24wNCtiq2KfYsduM2K4g2KrZh9uM2YcsMTQwMy8wMS8xNSAxMjozNA0KDQrYtNin2K7YteKAjNmH2KfbjCDaqdmE24zYr9uMDQrYtNin2K7YtSzZhdio2YTYuiAo2KrZiNmF2KfZhikNCtmF2KzZhdmI2Lkg2YjYp9ix24zYstuMLDc5OTk5OTk5OTk5OQ0K2YfYstuM2YbZh+KAjNmH2KfbjCDZhdi02KrYsdqpLDIxDQrZh9iy24zZhtmH4oCM2YfYp9uMINi02K7YtduMINin2YjYs9iq2KfZh9inLDMxDQraqdmEINiv2LPYqtmF2LLYryDYp9iz2KrYrdmC2KfZgtuMLDcxNQ0K2b7Ysdiv2KfYrtiq24zigIzZh9in24wg2YbZgtiv24wsMjANCtmF2LPYp9i52K/ZhyDZvtix2LPZhtmELDYNCtm+2KfYr9in2LQg2KfZiNiz2KrYp9mH2KcsMw0K2KzYsduM2YXZhyDYp9mI2LPYqtin2YfYpyw0DQrZhdin2YbYr9mHINmC2KfYqNmEINiq2YLYs9uM2YUsNzk5OTk5OTk5OTUzDQoNCtiz2YfZhSDYp9mI2LPYqtin2YfYpw0K2YbYp9mFLNqp2KfYsdqp2LHYryAo2LHZiNiyKSzYttix24zYqCzaqdin2LHaqdix2K8g2YbZh9in24zbjCzYr9ix2LXYryDYs9mH2YUs2LPZh9mFINm+2KfbjNmHLNio2KfYstm+2LHYr9in2K7YqiDZh9iy24zZhtmHINi02K7YtduMLNiz2YfZhSDZh9iy24zZhtmHINi02K7YtduMLNin2YbYqtmC2KfZhCDYr9in2K/Zh+KAjNi02K/ZhyzYp9mG2KrZgtin2YQg2q/YsdmB2KrZh+KAjNi02K/ZhyzZvtuM2LTigIzYqNix2K/Yp9i02Kos2YXYs9in2LnYr9mHLNm+2KfYr9in2LQs2KzYsduM2YXZhyzYqtiz2YjbjNmHINmG2YLYr9uMLNmF2KfZhtiv2Ycg2YbZh9in24zbjA0K2KfZiNiz2KrYpywwLjUsMSwwLjUsMTMuOTEsMTExMzA0MzQ3ODIwLDMxLDQsMTAwLDAsNDAsNSwzLDQsNiwxMTEzMDQzNDc5MDcNCtin2YjYs9iq2KfbjCDYr9mI2YUsMi4wNiwxLjUsMy4wOSw4Ni4wOSw2ODg2OTU2NTIxMzMsMCwyNywwLDEwMCwwLDAsMCwwLDAsNjg4Njk1NjUyMDA2DQrYp9mI2LPYqtin24wg2LrbjNix2YHYudin2YQsMSwxLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDANCg0K2KrYsdin2LIg2LTYp9qv2LHYr9in2YYg2Ygg2b7Ysdiz2YbZhCDYs9in24zYsQ0K2YbYp9mFLNmG2YjYuSzYsdmI2LIg2qnYp9mF2YQs2LHZiNiyINmG2LXZgdmHLNiz2KfYudiq24ws2LPYp9i52Kog2KfYttin2YHZh+KAjNqp2KfYsSzYr9iz2KrZhdiy2K8g2b7Yp9uM2Ycs2b7Yp9iv2KfYtCzYrNix24zZhdmHLNiv2LPYqtmF2LLYryDYp9iz2KrYrdmC2KfZgtuMLNm+2LHYr9in2K7YqtuMLNmF2LPYp9i52K/ZhyzZhdin2YbYr9mHDQrYtNin2q/YsdivLNi02Kfar9ix2K8sMSwwLDEsMTYsNzE2LDQsNSw3MTUsMjAsNiw2ODk="
+      },
+      "auditResult": {
+        "contentBase64": "77u/2LHbjNiyINit2LPYp9io2LHYs9uMIOKAlCA92YbYp9mF2Iwg2K7Yt9ixLNio2KfYstmHOiAxINmB2LHZiNix2K/bjNmGIDE0MDMg2KrYpyA0INmB2LHZiNix2K/bjNmGIDE0MDMNCtmB2YLYtyDYq9io2KrigIzZh9in24wg2K/Yp9iu2YQg2KjYp9iy2YfZlCDar9iy2KfYsdi0INii2YXYr9mHINin2LPYqi4g2YXYqNmE2LrigIzZh9inINio2Ycg2KrZiNmF2KfZhuKAjNin2YbYryDZiCDYs9iq2YjZhiDCq9ix2YjYsiDaqdin2LHCuyDZgdmC2Lcg2KjYsdin24wg2K3YttmI2LEg2KfYs9iqLg0K2YbZiNi5LNiq2KfYsduM2K4s2LTYsditLNiv2LPYqtmHLNm+2LHYr9in2K7YquKAjNqp2YbZhtiv2YcgLyDYtNiu2LUs2YXYqNmE2LogKNiq2YjZhdin2YYpLNix2YjYsiDaqdin2LEs2YjYtti524zYqizYs9mH2YUg2YjYp9ix24zYstuMINiv2LEg2KjYp9iy2YcgKNiq2YjZhdin2YYpDQrZiNin2LHbjNiy24wsMTQwMy8wMS8wMSDYqtinIDE0MDMvMDEvMDUs2YjYp9ix24zYstuMLCwsOTk5OTk5OTk5OTk5LCzZgdi52KfZhCw3OTk5OTk5OTk5OTkNCtmI2KfYsduM2LLbjCwxNDAzLzAxLzAxINiq2KcgMTQwMy8wMS8wMSzZiNin2LHbjNiy24wsLCw5OSws2LrbjNix2YHYudin2YQsDQrZh9iy24zZhtmHLDE0MDMvMDEvMDEsJz3Zh9iy24zZhtmHINi02K7YtduMLNmF2LXYp9mE2K0s2KfZiNiz2KrYpywzMSws2YHYudin2YQNCtmH2LLbjNmG2YcsMTQwMy8wMS8wNCzZh9iy24zZhtmHINmF2LTYqtix2qnYjCDYp9io2LLYp9ixLNmF2LXYp9mE2K0s2LXZhtiv2YjZgiDZhdi02KrYsdqpLDIxLCzZgdi52KfZhA0K2YfYstuM2YbZhywxNDAzLzAxLzA0LCws2LXZhtiv2YjZgiDZhdi02KrYsdqpLDEwMCws2LrbjNix2YHYudin2YQNCtm+2LHYr9in2K7YqtuMLDE0MDMvMDEvMDQs2b7Ysdiv2KfYrtiqLCzYtNin2q/YsdivLDIwLCzZgdi52KfZhA0K2b7Ysdiv2KfYrtiq24wsMTQwMy8wMS8wNCzZvtix2K/Yp9iu2KosLNin2YjYs9iq2KcsMTAsLNmB2LnYp9mEDQrYp9mG2KrZgtin2YQsMTQwMy8wMS8wNCzYp9mG2KrZgtin2YQsLNin2YjYs9iq2Kcg4oaQINin2YjYs9iq2KfbjCDYr9mI2YUsMTAwLCzZgdi52KfZhA0K2b7bjNi04oCM2KjYsdiv2KfYtNiqLDE0MDMvMDEvMDQs2KfZhtiq2YLYp9mELCzYtdmG2K/ZiNmCIOKGkCDYp9mI2LPYqtinLDQwLCzZgdi52KfZhA0K2b7Yp9iv2KfYtCwxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNin2YjYs9iq2KcsMyws2YHYudin2YQNCtm+2KfYr9in2LQsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDQsLNmB2LnYp9mEDQrYrNix24zZhdmHLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2KfZiNiz2KrYpyw0LCzZgdi52KfZhA0K2KzYsduM2YXZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNi02Kfar9ix2K8sNSws2YHYudin2YQNCtmF2LPYp9i52K/ZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNin2YjYs9iq2KcsNSws2YHYudin2YQNCtmF2LPYp9i52K/ZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNi02Kfar9ix2K8sNiws2YHYudin2YQNCtiq2LPZiNuM2Ycg2YbZgtiv24wsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDYsLNmB2LnYp9mEDQrYqtiz2YjbjNmHINmG2YLYr9uMLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2LTYp9qv2LHYryw3LCzZgdi52KfZhA0K2K3YttmI2LEsMTQwMy8wMS8wMSzYutin24zYqCws2KfZiNiz2KrYpywsLTAuNSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzAxLNqp2KfZhdmELCzYp9mI2LPYqtin24wg2K/ZiNmFLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDEs2qnYp9mF2YQsLNi02Kfar9ix2K8sLDEs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wMSzaqdin2YXZhCws2KfZiNiz2KrYp9uMINi624zYsdmB2LnYp9mELCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDQs2qnYp9mF2YQsLNin2YjYs9iq2KcsLDEs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wNCw4LjUg2LPYp9i52KosLNin2YjYs9iq2KfbjCDYr9mI2YUsLDEuMDYzLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDQsMjQg2LPYp9i52KosLNi02Kfar9ix2K8sLDMs2YXYudiq2KjYsQ0KDQrYrNmF2LkgKNmB2YLYtyDYsdiv24zZgeKAjNmH2KfbjCDZgdi52KfZhCkNCtmI2KfYsduM2LLbjOKAjNmH2KcgKNiz2YfZhSDYr9ixINio2KfYstmHKSwsLCwsNzk5OTk5OTk5OTk5DQrZh9iy24zZhtmH4oCM2YfYpywsLCwsNTINCtm+2LHYr9in2K7YqtuM4oCM2YfYpywsLCwsMzA="
+      }
+    },
+    {
+      "args": [
+        {
+          "id": "p",
+          "settings": {
+            "overtimeFactor": 1.333,
+            "absentPenalty": 1.25,
+            "profitBasis": "commitment",
+            "rangeFrom": "1403/01/01",
+            "rangeTo": "1403/01/04"
+          },
+          "users": [
+            {
+              "id": "m",
+              "name": "اوستا",
+              "type": "master",
+              "active": false,
+              "workFactor": 1
+            },
+            {
+              "id": "s",
+              "name": "شاگرد",
+              "type": "apprentice",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "m2",
+              "name": "اوستای دوم",
+              "type": "master",
+              "active": true,
+              "workFactor": 1.5
+            },
+            {
+              "id": "inactive",
+              "name": "اوستای غیرفعال",
+              "type": "master",
+              "active": false,
+              "workFactor": 1
+            }
+          ],
+          "wages": [
+            {
+              "userId": "s",
+              "rate": 101,
+              "effectiveDate": "1403/01/02"
+            },
+            {
+              "userId": "s",
+              "rate": 205,
+              "effectiveDate": "1403/01/04"
+            }
+          ],
+          "attendance": {
+            "1403/01/01": {
+              "m": 0,
+              "m2": 1,
+              "s": 1,
+              "inactive": 1
+            },
+            "1403/01/04": {
+              "m": 1,
+              "m2": {
+                "t": "h",
+                "h": 8.5
+              },
+              "s": {
+                "t": "h",
+                "h": 24
+              }
+            },
+            "1403/01/05": {
+              "m": 0.5,
+              "s": 0
+            }
+          },
+          "receipts": [
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/05",
+              "amount": 999999999999,
+              "description": "واریزی"
+            },
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/01",
+              "amount": 99,
+              "active": false,
+              "description": "واریزی"
+            }
+          ],
+          "expenses": [
+            {
+              "date": "1403/01/01",
+              "amount": 31,
+              "payerId": "m",
+              "description": "=هزینه شخصی",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 21,
+              "payerId": "shared",
+              "description": "هزینه مشترک، ابزار",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "active": false
+            }
+          ],
+          "payouts": [
+            {
+              "date": "1403/01/04",
+              "amount": 20,
+              "userId": "s",
+              "description": "پرداخت"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 10,
+              "userId": "m",
+              "description": "پرداخت"
+            }
+          ],
+          "transfers": [
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "kind": "peer",
+              "fromId": "m",
+              "toId": "m2",
+              "description": "انتقال"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 40,
+              "kind": "advance",
+              "toId": "m",
+              "description": "انتقال"
+            }
+          ],
+          "adjustments": [
+            {
+              "date": "1403/01/04",
+              "amount": 3,
+              "kind": "bonus",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "bonus",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "penalty",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "penalty",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "assistance",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "assistance",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "settle",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 7,
+              "kind": "settle",
+              "userId": "s",
+              "description": "تعدیل"
+            }
+          ],
+          "name": "کارگاه نمونه",
+          "categories": [
+            {
+              "id": "c",
+              "name": "مصالح"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "contentBase64": "77u/2q/Ystin2LHYtCDYrNin2YXYuSDZhdin2YTbjCDigJQg2KfYs9iq2KfbjNin2LENCtm+2LHZiNqY2Ycs2qnYp9ix2q/Yp9mHINmG2YXZiNmG2YcNCtio2KfYstmHLDEg2YHYsdmI2LHYr9uM2YYgMTQwMyDYqtinIDQg2YHYsdmI2LHYr9uM2YYgMTQwMw0K2YXYqNmG2KfbjCDYs9mI2K8s2KrYudmH2K/bjA0K2KrYp9ix24zYriDYqtmH24zZhywxNDAzLzAxLzE1IDEyOjM0DQoNCti02KfYrti14oCM2YfYp9uMINqp2YTbjNiv24wNCti02KfYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKQ0K2YXYrNmF2YjYuSDZiNin2LHbjNiy24wsNzk5OTk5OTk5OTk5DQrZh9iy24zZhtmH4oCM2YfYp9uMINmF2LTYqtix2qksMjENCtmH2LLbjNmG2YfigIzZh9in24wg2LTYrti124wg2KfZiNiz2KrYp9mH2KcsMzENCtqp2YQg2K/Ys9iq2YXYstivINin2LPYqtit2YLYp9mC24wsODUyDQrZvtix2K/Yp9iu2KrbjOKAjNmH2KfbjCDZhtmC2K/bjCwyMA0K2YXYs9in2LnYr9mHINm+2LHYs9mG2YQsNg0K2b7Yp9iv2KfYtCDYp9mI2LPYqtin2YfYpywzDQrYrNix24zZhdmHINin2YjYs9iq2KfZh9inLDQNCtmF2KfZhtiv2Ycg2YLYp9io2YQg2KrZgtiz24zZhSw3OTk5OTk5OTkxMjcNCg0K2LPZh9mFINin2YjYs9iq2KfZh9inDQrZhtin2YUs2qnYp9ix2qnYsdivICjYsdmI2LIpLNi22LHbjNioLNqp2KfYsdqp2LHYryDZhtmH2KfbjNuMLNiv2LHYtdivINiz2YfZhSzYs9mH2YUg2b7Yp9uM2Ycs2KjYp9iy2b7Ysdiv2KfYrtiqINmH2LLbjNmG2Ycg2LTYrti124ws2LPZh9mFINmH2LLbjNmG2Ycg2LTYrti124ws2KfZhtiq2YLYp9mEINiv2KfYr9mH4oCM2LTYr9mHLNin2YbYqtmC2KfZhCDar9ix2YHYqtmH4oCM2LTYr9mHLNm+24zYtOKAjNio2LHYr9in2LTYqizZhdiz2KfYudiv2Ycs2b7Yp9iv2KfYtCzYrNix24zZhdmHLNiq2LPZiNuM2Ycg2YbZgtiv24ws2YXYp9mG2K/ZhyDZhtmH2KfbjNuMDQrYp9mI2LPYqtinLC0wLjI1LDEsMCwwLDAsMzEsMCwxMDAsMCw0MCw1LDMsNCw2LDkxDQrYp9mI2LPYqtin24wg2K/ZiNmFLDIuMDgsMS41LDMuMTIsMTAwLDc5OTk5OTk5OTEyNywwLDMxLDAsMTAwLDAsMCwwLDAsMCw3OTk5OTk5OTg5OTYNCtin2YjYs9iq2KfbjCDYutuM2LHZgdi52KfZhCwxLDEsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMA0KDQrYqtix2KfYsiDYtNin2q/Ysdiv2KfZhiDZiCDZvtix2LPZhtmEINiz2KfbjNixDQrZhtin2YUs2YbZiNi5LNix2YjYsiDaqdin2YXZhCzYsdmI2LIg2YbYtdmB2Ycs2LPYp9i52KrbjCzYs9in2LnYqiDYp9i22KfZgdmH4oCM2qnYp9ixLNiv2LPYqtmF2LLYryDZvtin24zZhyzZvtin2K/Yp9i0LNis2LHbjNmF2Ycs2K/Ys9iq2YXYstivINin2LPYqtit2YLYp9mC24ws2b7Ysdiv2KfYrtiq24ws2YXYs9in2LnYr9mHLNmF2KfZhtiv2YcNCti02Kfar9ix2K8s2LTYp9qv2LHYrywxLDAsMSwxNiw4NTMsNCw1LDg1MiwyMCw2LDgyNg=="
+      },
+      "auditResult": {
+        "contentBase64": "77u/2LHbjNiyINit2LPYp9io2LHYs9uMIOKAlCDaqdin2LHar9in2Ycg2YbZhdmI2YbZhyzYqNin2LLZhzogMSDZgdix2YjYsdiv24zZhiAxNDAzINiq2KcgNCDZgdix2YjYsdiv24zZhiAxNDAzDQrZgdmC2Lcg2KvYqNiq4oCM2YfYp9uMINiv2KfYrtmEINio2KfYstmH2ZQg2q/Ystin2LHYtCDYotmF2K/ZhyDYp9iz2KouINmF2KjZhNi64oCM2YfYpyDYqNmHINiq2YjZhdin2YbigIzYp9mG2K8g2Ygg2LPYqtmI2YYgwqvYsdmI2LIg2qnYp9ixwrsg2YHZgti3INio2LHYp9uMINit2LbZiNixINin2LPYqi4NCtmG2YjYuSzYqtin2LHbjNiuLNi02LHYrSzYr9iz2KrZhyzZvtix2K/Yp9iu2KrigIzaqdmG2YbYr9mHIC8g2LTYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKSzYsdmI2LIg2qnYp9ixLNmI2LbYuduM2Kos2LPZh9mFINmI2KfYsduM2LLbjCDYr9ixINio2KfYstmHICjYqtmI2YXYp9mGKQ0K2YjYp9ix24zYstuMLDE0MDMvMDEvMDEg2KrYpyAxNDAzLzAxLzA1LNmI2KfYsduM2LLbjCwsLDk5OTk5OTk5OTk5OSws2YHYudin2YQsNzk5OTk5OTk5OTk5DQrZiNin2LHbjNiy24wsMTQwMy8wMS8wMSDYqtinIDE0MDMvMDEvMDEs2YjYp9ix24zYstuMLCwsOTksLNi624zYsdmB2LnYp9mELA0K2YfYstuM2YbZhywxNDAzLzAxLzAxLCc92YfYstuM2YbZhyDYtNiu2LXbjCzZhdi12KfZhNitLNin2YjYs9iq2KcsMzEsLNmB2LnYp9mEDQrZh9iy24zZhtmHLDE0MDMvMDEvMDQs2YfYstuM2YbZhyDZhdi02KrYsdqp2Iwg2KfYqNiy2KfYsSzZhdi12KfZhNitLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwyMSws2YHYudin2YQNCtmH2LLbjNmG2YcsMTQwMy8wMS8wNCwsLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwxMDAsLNi624zYsdmB2LnYp9mEDQrZvtix2K/Yp9iu2KrbjCwxNDAzLzAxLzA0LNm+2LHYr9in2K7Yqiws2LTYp9qv2LHYrywyMCws2YHYudin2YQNCtm+2LHYr9in2K7YqtuMLDE0MDMvMDEvMDQs2b7Ysdiv2KfYrtiqLCzYp9mI2LPYqtinLDEwLCzZgdi52KfZhA0K2KfZhtiq2YLYp9mELDE0MDMvMDEvMDQs2KfZhtiq2YLYp9mELCzYp9mI2LPYqtinIOKGkCDYp9mI2LPYqtin24wg2K/ZiNmFLDEwMCws2YHYudin2YQNCtm+24zYtOKAjNio2LHYr9in2LTYqiwxNDAzLzAxLzA0LNin2YbYqtmC2KfZhCws2LXZhtiv2YjZgiDihpAg2KfZiNiz2KrYpyw0MCws2YHYudin2YQNCtm+2KfYr9in2LQsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDMsLNmB2LnYp9mEDQrZvtin2K/Yp9i0LDE0MDMvMDEvMDQs2KrYudiv24zZhCws2LTYp9qv2LHYryw0LCzZgdi52KfZhA0K2KzYsduM2YXZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNin2YjYs9iq2KcsNCws2YHYudin2YQNCtis2LHbjNmF2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDYsLNmB2LnYp9mEDQrYqtiz2YjbjNmHINmG2YLYr9uMLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2KfZiNiz2KrYpyw2LCzZgdi52KfZhA0K2KrYs9mI24zZhyDZhtmC2K/bjCwxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNi02Kfar9ix2K8sNyws2YHYudin2YQNCtit2LbZiNixLDE0MDMvMDEvMDEs2LrYp9uM2KgsLNin2YjYs9iq2KcsLC0xLjI1LNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDEs2qnYp9mF2YQsLNin2YjYs9iq2KfbjCDYr9mI2YUsLDEs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wMSzaqdin2YXZhCws2LTYp9qv2LHYrywsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzAxLNqp2KfZhdmELCzYp9mI2LPYqtin24wg2LrbjNix2YHYudin2YQsLDEs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wNCzaqdin2YXZhCws2KfZiNiz2KrYpywsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzA0LDguNSDYs9in2LnYqiws2KfZiNiz2KrYp9uMINiv2YjZhSwsMS4wODMs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wNCwyNCDYs9in2LnYqiws2LTYp9qv2LHYrywsMy42NjYs2YXYudiq2KjYsQ0KDQrYrNmF2LkgKNmB2YLYtyDYsdiv24zZgeKAjNmH2KfbjCDZgdi52KfZhCkNCtmI2KfYsduM2LLbjOKAjNmH2KcgKNiz2YfZhSDYr9ixINio2KfYstmHKSwsLCwsNzk5OTk5OTk5OTk5DQrZh9iy24zZhtmH4oCM2YfYpywsLCwsNTINCtm+2LHYr9in2K7YqtuM4oCM2YfYpywsLCwsMzA="
+      }
+    },
+    {
+      "args": [
+        {
+          "id": "p",
+          "settings": {
+            "overtimeFactor": 1.5,
+            "absentPenalty": 0,
+            "profitBasis": "cash",
+            "rangeFrom": "1403/01/01",
+            "rangeTo": "1403/01/04"
+          },
+          "users": [
+            {
+              "id": "m",
+              "name": "اوستا",
+              "type": "master",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "s",
+              "name": "شاگرد",
+              "type": "apprentice",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "m2",
+              "name": "اوستای دوم",
+              "type": "master",
+              "active": true,
+              "workFactor": 1.5
+            },
+            {
+              "id": "inactive",
+              "name": "اوستای غیرفعال",
+              "type": "master",
+              "active": false,
+              "workFactor": 1
+            }
+          ],
+          "wages": [
+            {
+              "userId": "s",
+              "rate": 101,
+              "effectiveDate": "1403/01/02"
+            },
+            {
+              "userId": "s",
+              "rate": 205,
+              "effectiveDate": "1403/01/04"
+            }
+          ],
+          "attendance": {
+            "1403/01/01": {
+              "m": 0,
+              "m2": 1,
+              "s": 1,
+              "inactive": 1
+            },
+            "1403/01/04": {
+              "m": 1,
+              "m2": {
+                "t": "h",
+                "h": 8.5
+              },
+              "s": {
+                "t": "h",
+                "h": 1.25
+              }
+            },
+            "1403/01/05": {
+              "m": 0.5,
+              "s": 0
+            }
+          },
+          "receipts": [
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/05",
+              "amount": 999999999999,
+              "description": "واریزی"
+            },
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/01",
+              "amount": 99,
+              "active": false,
+              "description": "واریزی"
+            }
+          ],
+          "expenses": [
+            {
+              "date": "1403/01/01",
+              "amount": 31,
+              "payerId": "m",
+              "description": "=هزینه شخصی",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 21,
+              "payerId": "shared",
+              "description": "هزینه مشترک، ابزار",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "active": false
+            }
+          ],
+          "payouts": [
+            {
+              "date": "1403/01/04",
+              "amount": 20,
+              "userId": "s",
+              "description": "پرداخت"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 10,
+              "userId": "m",
+              "description": "پرداخت"
+            }
+          ],
+          "transfers": [
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "kind": "peer",
+              "fromId": "m",
+              "toId": "m2",
+              "description": "انتقال"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 40,
+              "kind": "advance",
+              "toId": "m",
+              "description": "انتقال"
+            }
+          ],
+          "adjustments": [
+            {
+              "date": "1403/01/04",
+              "amount": 3,
+              "kind": "bonus",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "bonus",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "penalty",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "penalty",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "assistance",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "assistance",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "settle",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 7,
+              "kind": "settle",
+              "userId": "s",
+              "description": "تعدیل"
+            }
+          ],
+          "name": "کارگاه نمونه",
+          "categories": [
+            {
+              "id": "c",
+              "name": "مصالح"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "contentBase64": "77u/2q/Ystin2LHYtCDYrNin2YXYuSDZhdin2YTbjCDigJQg2KfYs9iq2KfbjNin2LENCtm+2LHZiNqY2Ycs2qnYp9ix2q/Yp9mHINmG2YXZiNmG2YcNCtio2KfYstmHLDEg2YHYsdmI2LHYr9uM2YYgMTQwMyDYqtinIDQg2YHYsdmI2LHYr9uM2YYgMTQwMw0K2YXYqNmG2KfbjCDYs9mI2K8s2YbZgtiv24wNCtiq2KfYsduM2K4g2KrZh9uM2YcsMTQwMy8wMS8xNSAxMjozNA0KDQrYtNin2K7YteKAjNmH2KfbjCDaqdmE24zYr9uMDQrYtNin2K7YtSzZhdio2YTYuiAo2KrZiNmF2KfZhikNCtmF2KzZhdmI2Lkg2YjYp9ix24zYstuMLDc5OTk5OTk5OTk5OQ0K2YfYstuM2YbZh+KAjNmH2KfbjCDZhdi02KrYsdqpLDIxDQrZh9iy24zZhtmH4oCM2YfYp9uMINi02K7YtduMINin2YjYs9iq2KfZh9inLDMxDQraqdmEINiv2LPYqtmF2LLYryDYp9iz2KrYrdmC2KfZgtuMLDEzMg0K2b7Ysdiv2KfYrtiq24zigIzZh9in24wg2YbZgtiv24wsMjANCtmF2LPYp9i52K/ZhyDZvtix2LPZhtmELDYNCtm+2KfYr9in2LQg2KfZiNiz2KrYp9mH2KcsMw0K2KzYsduM2YXZhyDYp9mI2LPYqtin2YfYpyw0DQrZhdin2YbYr9mHINmC2KfYqNmEINiq2YLYs9uM2YUsNzk5OTk5OTk5OTUzDQoNCtiz2YfZhSDYp9mI2LPYqtin2YfYpw0K2YbYp9mFLNqp2KfYsdqp2LHYryAo2LHZiNiyKSzYttix24zYqCzaqdin2LHaqdix2K8g2YbZh9in24zbjCzYr9ix2LXYryDYs9mH2YUs2LPZh9mFINm+2KfbjNmHLNio2KfYstm+2LHYr9in2K7YqiDZh9iy24zZhtmHINi02K7YtduMLNiz2YfZhSDZh9iy24zZhtmHINi02K7YtduMLNin2YbYqtmC2KfZhCDYr9in2K/Zh+KAjNi02K/ZhyzYp9mG2KrZgtin2YQg2q/YsdmB2KrZh+KAjNi02K/ZhyzZvtuM2LTigIzYqNix2K/Yp9i02Kos2YXYs9in2LnYr9mHLNm+2KfYr9in2LQs2KzYsduM2YXZhyzYqtiz2YjbjNmHINmG2YLYr9uMLNmF2KfZhtiv2Ycg2YbZh9in24zbjA0K2KfZiNiz2KrYpywxLDEsMSwyNC4xNSwxOTMyMDc1NDcxNTgsMzEsNywxMDAsMCw0MCw1LDMsNCw2LDE5MzIwNzU0NzI0Mg0K2KfZiNiz2KrYp9uMINiv2YjZhSwyLjA5LDEuNSwzLjE0LDc1Ljg1LDYwNjc5MjQ1Mjc5NSwwLDI0LDAsMTAwLDAsMCwwLDAsMCw2MDY3OTI0NTI2NzENCtin2YjYs9iq2KfbjCDYutuM2LHZgdi52KfZhCwxLDEsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMA0KDQrYqtix2KfYsiDYtNin2q/Ysdiv2KfZhiDZiCDZvtix2LPZhtmEINiz2KfbjNixDQrZhtin2YUs2YbZiNi5LNix2YjYsiDaqdin2YXZhCzYsdmI2LIg2YbYtdmB2Ycs2LPYp9i52KrbjCzYs9in2LnYqiDYp9i22KfZgdmH4oCM2qnYp9ixLNiv2LPYqtmF2LLYryDZvtin24zZhyzZvtin2K/Yp9i0LNis2LHbjNmF2Ycs2K/Ys9iq2YXYstivINin2LPYqtit2YLYp9mC24ws2b7Ysdiv2KfYrtiq24ws2YXYs9in2LnYr9mHLNmF2KfZhtiv2YcNCti02Kfar9ix2K8s2LTYp9qv2LHYrywxLDAsMSwwLDEzMyw0LDUsMTMyLDIwLDYsMTA2"
+      },
+      "auditResult": {
+        "contentBase64": "77u/2LHbjNiyINit2LPYp9io2LHYs9uMIOKAlCDaqdin2LHar9in2Ycg2YbZhdmI2YbZhyzYqNin2LLZhzogMSDZgdix2YjYsdiv24zZhiAxNDAzINiq2KcgNCDZgdix2YjYsdiv24zZhiAxNDAzDQrZgdmC2Lcg2KvYqNiq4oCM2YfYp9uMINiv2KfYrtmEINio2KfYstmH2ZQg2q/Ystin2LHYtCDYotmF2K/ZhyDYp9iz2KouINmF2KjZhNi64oCM2YfYpyDYqNmHINiq2YjZhdin2YbigIzYp9mG2K8g2Ygg2LPYqtmI2YYgwqvYsdmI2LIg2qnYp9ixwrsg2YHZgti3INio2LHYp9uMINit2LbZiNixINin2LPYqi4NCtmG2YjYuSzYqtin2LHbjNiuLNi02LHYrSzYr9iz2KrZhyzZvtix2K/Yp9iu2KrigIzaqdmG2YbYr9mHIC8g2LTYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKSzYsdmI2LIg2qnYp9ixLNmI2LbYuduM2Kos2LPZh9mFINmI2KfYsduM2LLbjCDYr9ixINio2KfYstmHICjYqtmI2YXYp9mGKQ0K2YjYp9ix24zYstuMLDE0MDMvMDEvMDEg2KrYpyAxNDAzLzAxLzA1LNmI2KfYsduM2LLbjCwsLDk5OTk5OTk5OTk5OSws2YHYudin2YQsNzk5OTk5OTk5OTk5DQrZiNin2LHbjNiy24wsMTQwMy8wMS8wMSDYqtinIDE0MDMvMDEvMDEs2YjYp9ix24zYstuMLCwsOTksLNi624zYsdmB2LnYp9mELA0K2YfYstuM2YbZhywxNDAzLzAxLzAxLCc92YfYstuM2YbZhyDYtNiu2LXbjCzZhdi12KfZhNitLNin2YjYs9iq2KcsMzEsLNmB2LnYp9mEDQrZh9iy24zZhtmHLDE0MDMvMDEvMDQs2YfYstuM2YbZhyDZhdi02KrYsdqp2Iwg2KfYqNiy2KfYsSzZhdi12KfZhNitLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwyMSws2YHYudin2YQNCtmH2LLbjNmG2YcsMTQwMy8wMS8wNCwsLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwxMDAsLNi624zYsdmB2LnYp9mEDQrZvtix2K/Yp9iu2KrbjCwxNDAzLzAxLzA0LNm+2LHYr9in2K7Yqiws2LTYp9qv2LHYrywyMCws2YHYudin2YQNCtm+2LHYr9in2K7YqtuMLDE0MDMvMDEvMDQs2b7Ysdiv2KfYrtiqLCzYp9mI2LPYqtinLDEwLCzZgdi52KfZhA0K2KfZhtiq2YLYp9mELDE0MDMvMDEvMDQs2KfZhtiq2YLYp9mELCzYp9mI2LPYqtinIOKGkCDYp9mI2LPYqtin24wg2K/ZiNmFLDEwMCws2YHYudin2YQNCtm+24zYtOKAjNio2LHYr9in2LTYqiwxNDAzLzAxLzA0LNin2YbYqtmC2KfZhCws2LXZhtiv2YjZgiDihpAg2KfZiNiz2KrYpyw0MCws2YHYudin2YQNCtm+2KfYr9in2LQsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDMsLNmB2LnYp9mEDQrZvtin2K/Yp9i0LDE0MDMvMDEvMDQs2KrYudiv24zZhCws2LTYp9qv2LHYryw0LCzZgdi52KfZhA0K2KzYsduM2YXZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNin2YjYs9iq2KcsNCws2YHYudin2YQNCtis2LHbjNmF2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDYsLNmB2LnYp9mEDQrYqtiz2YjbjNmHINmG2YLYr9uMLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2KfZiNiz2KrYpyw2LCzZgdi52KfZhA0K2KrYs9mI24zZhyDZhtmC2K/bjCwxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNi02Kfar9ix2K8sNyws2YHYudin2YQNCtit2LbZiNixLDE0MDMvMDEvMDEs2LrYp9uM2KgsLNin2YjYs9iq2KcsLDAs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wMSzaqdin2YXZhCws2KfZiNiz2KrYp9uMINiv2YjZhSwsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzAxLNqp2KfZhdmELCzYtNin2q/YsdivLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDEs2qnYp9mF2YQsLNin2YjYs9iq2KfbjCDYutuM2LHZgdi52KfZhCwsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzA0LNqp2KfZhdmELCzYp9mI2LPYqtinLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDQsOC41INiz2KfYudiqLCzYp9mI2LPYqtin24wg2K/ZiNmFLCwxLjA5NCzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzA0LDEuMjUg2LPYp9i52KosLNi02Kfar9ix2K8sLDAuMTU2LNmF2LnYqtio2LENCg0K2KzZhdi5ICjZgdmC2Lcg2LHYr9uM2YHigIzZh9in24wg2YHYudin2YQpDQrZiNin2LHbjNiy24zigIzZh9inICjYs9mH2YUg2K/YsSDYqNin2LLZhyksLCwsLDc5OTk5OTk5OTk5OQ0K2YfYstuM2YbZh+KAjNmH2KcsLCwsLDUyDQrZvtix2K/Yp9iu2KrbjOKAjNmH2KcsLCwsLDMw"
+      }
+    },
+    {
+      "args": [
+        {
+          "id": "p",
+          "settings": {
+            "overtimeFactor": 2,
+            "absentPenalty": 0.5,
+            "profitBasis": "commitment",
+            "rangeFrom": "1403/01/01",
+            "rangeTo": "1403/01/04"
+          },
+          "users": [
+            {
+              "id": "m",
+              "name": "اوستا",
+              "type": "master",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "s",
+              "name": "شاگرد",
+              "type": "apprentice",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "m2",
+              "name": "اوستای دوم",
+              "type": "master",
+              "active": true,
+              "workFactor": 0.1
+            },
+            {
+              "id": "inactive",
+              "name": "اوستای غیرفعال",
+              "type": "master",
+              "active": false,
+              "workFactor": 1
+            }
+          ],
+          "wages": [
+            {
+              "userId": "s",
+              "rate": 101,
+              "effectiveDate": "1403/01/02"
+            },
+            {
+              "userId": "s",
+              "rate": 205,
+              "effectiveDate": "1403/01/04"
+            }
+          ],
+          "attendance": {
+            "1403/01/01": {
+              "m": 0,
+              "m2": 1,
+              "s": 1,
+              "inactive": 1
+            },
+            "1403/01/04": {
+              "m": 1,
+              "m2": {
+                "t": "h",
+                "h": 8.5
+              },
+              "s": {
+                "t": "h",
+                "h": 24
+              }
+            },
+            "1403/01/05": {
+              "m": 0.5,
+              "s": 0
+            }
+          },
+          "receipts": [
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/05",
+              "amount": 999999999999,
+              "description": "واریزی"
+            },
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/01",
+              "amount": 99,
+              "active": false,
+              "description": "واریزی"
+            }
+          ],
+          "expenses": [
+            {
+              "date": "1403/01/01",
+              "amount": 31,
+              "payerId": "m",
+              "description": "=هزینه شخصی",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 21,
+              "payerId": "shared",
+              "description": "هزینه مشترک، ابزار",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "active": false
+            }
+          ],
+          "payouts": [
+            {
+              "date": "1403/01/04",
+              "amount": 20,
+              "userId": "s",
+              "description": "پرداخت"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 10,
+              "userId": "m",
+              "description": "پرداخت"
+            }
+          ],
+          "transfers": [
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "kind": "peer",
+              "fromId": "m",
+              "toId": "m2",
+              "description": "انتقال"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 40,
+              "kind": "advance",
+              "toId": "m",
+              "description": "انتقال"
+            }
+          ],
+          "adjustments": [
+            {
+              "date": "1403/01/04",
+              "amount": 3,
+              "kind": "bonus",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "bonus",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "penalty",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "penalty",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "assistance",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "assistance",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "settle",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 7,
+              "kind": "settle",
+              "userId": "s",
+              "description": "تعدیل"
+            }
+          ],
+          "name": "کارگاه نمونه",
+          "categories": [
+            {
+              "id": "c",
+              "name": "مصالح"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "contentBase64": "77u/2q/Ystin2LHYtCDYrNin2YXYuSDZhdin2YTbjCDigJQg2KfYs9iq2KfbjNin2LENCtm+2LHZiNqY2Ycs2qnYp9ix2q/Yp9mHINmG2YXZiNmG2YcNCtio2KfYstmHLDEg2YHYsdmI2LHYr9uM2YYgMTQwMyDYqtinIDQg2YHYsdmI2LHYr9uM2YYgMTQwMw0K2YXYqNmG2KfbjCDYs9mI2K8s2KrYudmH2K/bjA0K2KrYp9ix24zYriDYqtmH24zZhywxNDAzLzAxLzE1IDEyOjM0DQoNCti02KfYrti14oCM2YfYp9uMINqp2YTbjNiv24wNCti02KfYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKQ0K2YXYrNmF2YjYuSDZiNin2LHbjNiy24wsNzk5OTk5OTk5OTk5DQrZh9iy24zZhtmH4oCM2YfYp9uMINmF2LTYqtix2qksMjENCtmH2LLbjNmG2YfigIzZh9in24wg2LTYrti124wg2KfZiNiz2KrYp9mH2KcsMzENCtqp2YQg2K/Ys9iq2YXYstivINin2LPYqtit2YLYp9mC24wsMTEyNQ0K2b7Ysdiv2KfYrtiq24zigIzZh9in24wg2YbZgtiv24wsMjANCtmF2LPYp9i52K/ZhyDZvtix2LPZhtmELDYNCtm+2KfYr9in2LQg2KfZiNiz2KrYp9mH2KcsMw0K2KzYsduM2YXZhyDYp9mI2LPYqtin2YfYpyw0DQrZhdin2YbYr9mHINmC2KfYqNmEINiq2YLYs9uM2YUsNzk5OTk5OTk4ODU0DQoNCtiz2YfZhSDYp9mI2LPYqtin2YfYpw0K2YbYp9mFLNqp2KfYsdqp2LHYryAo2LHZiNiyKSzYttix24zYqCzaqdin2LHaqdix2K8g2YbZh9in24zbjCzYr9ix2LXYryDYs9mH2YUs2LPZh9mFINm+2KfbjNmHLNio2KfYstm+2LHYr9in2K7YqiDZh9iy24zZhtmHINi02K7YtduMLNiz2YfZhSDZh9iy24zZhtmHINi02K7YtduMLNin2YbYqtmC2KfZhCDYr9in2K/Zh+KAjNi02K/ZhyzYp9mG2KrZgtin2YQg2q/YsdmB2KrZh+KAjNi02K/ZhyzZvtuM2LTigIzYqNix2K/Yp9i02Kos2YXYs9in2LnYr9mHLNm+2KfYr9in2LQs2KzYsduM2YXZhyzYqtiz2YjbjNmHINmG2YLYr9uMLNmF2KfZhtiv2Ycg2YbZh9in24zbjA0K2KfZiNiz2KrYpywwLjUsMSwwLjUsNzAuMTgsNTYxNDAzNTA3OTY4LDMxLDIyLDEwMCwwLDQwLDUsMyw0LDYsNTYxNDAzNTA4MDM3DQrYp9mI2LPYqtin24wg2K/ZiNmFLDIuMTMsMC4xLDAuMjEsMjkuODIsMjM4NTk2NDkwODg2LDAsOSwwLDEwMCwwLDAsMCwwLDAsMjM4NTk2NDkwNzc3DQrYp9mI2LPYqtin24wg2LrbjNix2YHYudin2YQsMSwxLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDANCg0K2KrYsdin2LIg2LTYp9qv2LHYr9in2YYg2Ygg2b7Ysdiz2YbZhCDYs9in24zYsQ0K2YbYp9mFLNmG2YjYuSzYsdmI2LIg2qnYp9mF2YQs2LHZiNiyINmG2LXZgdmHLNiz2KfYudiq24ws2LPYp9i52Kog2KfYttin2YHZh+KAjNqp2KfYsSzYr9iz2KrZhdiy2K8g2b7Yp9uM2Ycs2b7Yp9iv2KfYtCzYrNix24zZhdmHLNiv2LPYqtmF2LLYryDYp9iz2KrYrdmC2KfZgtuMLNm+2LHYr9in2K7YqtuMLNmF2LPYp9i52K/ZhyzZhdin2YbYr9mHDQrYtNin2q/YsdivLNi02Kfar9ix2K8sMSwwLDEsMTYsMTEyNiw0LDUsMTEyNSwyMCw2LDEwOTk="
+      },
+      "auditResult": {
+        "contentBase64": "77u/2LHbjNiyINit2LPYp9io2LHYs9uMIOKAlCDaqdin2LHar9in2Ycg2YbZhdmI2YbZhyzYqNin2LLZhzogMSDZgdix2YjYsdiv24zZhiAxNDAzINiq2KcgNCDZgdix2YjYsdiv24zZhiAxNDAzDQrZgdmC2Lcg2KvYqNiq4oCM2YfYp9uMINiv2KfYrtmEINio2KfYstmH2ZQg2q/Ystin2LHYtCDYotmF2K/ZhyDYp9iz2KouINmF2KjZhNi64oCM2YfYpyDYqNmHINiq2YjZhdin2YbigIzYp9mG2K8g2Ygg2LPYqtmI2YYgwqvYsdmI2LIg2qnYp9ixwrsg2YHZgti3INio2LHYp9uMINit2LbZiNixINin2LPYqi4NCtmG2YjYuSzYqtin2LHbjNiuLNi02LHYrSzYr9iz2KrZhyzZvtix2K/Yp9iu2KrigIzaqdmG2YbYr9mHIC8g2LTYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKSzYsdmI2LIg2qnYp9ixLNmI2LbYuduM2Kos2LPZh9mFINmI2KfYsduM2LLbjCDYr9ixINio2KfYstmHICjYqtmI2YXYp9mGKQ0K2YjYp9ix24zYstuMLDE0MDMvMDEvMDEg2KrYpyAxNDAzLzAxLzA1LNmI2KfYsduM2LLbjCwsLDk5OTk5OTk5OTk5OSws2YHYudin2YQsNzk5OTk5OTk5OTk5DQrZiNin2LHbjNiy24wsMTQwMy8wMS8wMSDYqtinIDE0MDMvMDEvMDEs2YjYp9ix24zYstuMLCwsOTksLNi624zYsdmB2LnYp9mELA0K2YfYstuM2YbZhywxNDAzLzAxLzAxLCc92YfYstuM2YbZhyDYtNiu2LXbjCzZhdi12KfZhNitLNin2YjYs9iq2KcsMzEsLNmB2LnYp9mEDQrZh9iy24zZhtmHLDE0MDMvMDEvMDQs2YfYstuM2YbZhyDZhdi02KrYsdqp2Iwg2KfYqNiy2KfYsSzZhdi12KfZhNitLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwyMSws2YHYudin2YQNCtmH2LLbjNmG2YcsMTQwMy8wMS8wNCwsLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwxMDAsLNi624zYsdmB2LnYp9mEDQrZvtix2K/Yp9iu2KrbjCwxNDAzLzAxLzA0LNm+2LHYr9in2K7Yqiws2LTYp9qv2LHYrywyMCws2YHYudin2YQNCtm+2LHYr9in2K7YqtuMLDE0MDMvMDEvMDQs2b7Ysdiv2KfYrtiqLCzYp9mI2LPYqtinLDEwLCzZgdi52KfZhA0K2KfZhtiq2YLYp9mELDE0MDMvMDEvMDQs2KfZhtiq2YLYp9mELCzYp9mI2LPYqtinIOKGkCDYp9mI2LPYqtin24wg2K/ZiNmFLDEwMCws2YHYudin2YQNCtm+24zYtOKAjNio2LHYr9in2LTYqiwxNDAzLzAxLzA0LNin2YbYqtmC2KfZhCws2LXZhtiv2YjZgiDihpAg2KfZiNiz2KrYpyw0MCws2YHYudin2YQNCtm+2KfYr9in2LQsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDMsLNmB2LnYp9mEDQrZvtin2K/Yp9i0LDE0MDMvMDEvMDQs2KrYudiv24zZhCws2LTYp9qv2LHYryw0LCzZgdi52KfZhA0K2KzYsduM2YXZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNin2YjYs9iq2KcsNCws2YHYudin2YQNCtis2LHbjNmF2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDYsLNmB2LnYp9mEDQrYqtiz2YjbjNmHINmG2YLYr9uMLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2KfZiNiz2KrYpyw2LCzZgdi52KfZhA0K2KrYs9mI24zZhyDZhtmC2K/bjCwxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNi02Kfar9ix2K8sNyws2YHYudin2YQNCtit2LbZiNixLDE0MDMvMDEvMDEs2LrYp9uM2KgsLNin2YjYs9iq2KcsLC0wLjUs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wMSzaqdin2YXZhCws2KfZiNiz2KrYp9uMINiv2YjZhSwsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzAxLNqp2KfZhdmELCzYtNin2q/YsdivLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDEs2qnYp9mF2YQsLNin2YjYs9iq2KfbjCDYutuM2LHZgdi52KfZhCwsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzA0LNqp2KfZhdmELCzYp9mI2LPYqtinLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDQsOC41INiz2KfYudiqLCzYp9mI2LPYqtin24wg2K/ZiNmFLCwxLjEyNSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzA0LDI0INiz2KfYudiqLCzYtNin2q/YsdivLCw1LNmF2LnYqtio2LENCg0K2KzZhdi5ICjZgdmC2Lcg2LHYr9uM2YHigIzZh9in24wg2YHYudin2YQpDQrZiNin2LHbjNiy24zigIzZh9inICjYs9mH2YUg2K/YsSDYqNin2LLZhyksLCwsLDc5OTk5OTk5OTk5OQ0K2YfYstuM2YbZh+KAjNmH2KcsLCwsLDUyDQrZvtix2K/Yp9iu2KrbjOKAjNmH2KcsLCwsLDMw"
+      }
+    },
+    {
+      "args": [
+        {
+          "id": "p",
+          "settings": {
+            "overtimeFactor": 1,
+            "absentPenalty": 1.25,
+            "profitBasis": "cash",
+            "rangeFrom": "1403/01/01",
+            "rangeTo": "1403/01/04"
+          },
+          "users": [
+            {
+              "id": "m",
+              "name": "اوستا",
+              "type": "master",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "s",
+              "name": "شاگرد",
+              "type": "apprentice",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "m2",
+              "name": "اوستای دوم",
+              "type": "master",
+              "active": true,
+              "workFactor": 1.5
+            },
+            {
+              "id": "inactive",
+              "name": "اوستای غیرفعال",
+              "type": "master",
+              "active": false,
+              "workFactor": 1
+            }
+          ],
+          "wages": [
+            {
+              "userId": "s",
+              "rate": 101,
+              "effectiveDate": "1403/01/02"
+            },
+            {
+              "userId": "s",
+              "rate": 205,
+              "effectiveDate": "1403/01/04"
+            }
+          ],
+          "attendance": {
+            "1403/01/01": {
+              "m": 0,
+              "m2": 1,
+              "s": 1,
+              "inactive": 1,
+              "missing": 1
+            },
+            "1403/01/04": {
+              "m": 1,
+              "m2": {
+                "t": "h",
+                "h": 8.5
+              },
+              "s": {
+                "t": "h",
+                "h": 24
+              }
+            },
+            "1403/01/05": {
+              "m": 0.5,
+              "s": 0
+            }
+          },
+          "receipts": [
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/05",
+              "amount": 999999999999,
+              "description": "واریزی"
+            },
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/01",
+              "amount": 99,
+              "active": false,
+              "description": "واریزی"
+            }
+          ],
+          "expenses": [
+            {
+              "date": "1403/01/01",
+              "amount": 31,
+              "payerId": "m",
+              "description": "=هزینه شخصی",
+              "categoryId": "missing"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 21,
+              "payerId": "shared",
+              "description": "هزینه مشترک، ابزار",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "active": false
+            }
+          ],
+          "payouts": [
+            {
+              "date": "1403/01/04",
+              "amount": 20,
+              "userId": "s",
+              "description": "پرداخت"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 10,
+              "userId": "m",
+              "description": "پرداخت"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 3,
+              "userId": "missing"
+            }
+          ],
+          "transfers": [
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "kind": "peer",
+              "fromId": "m",
+              "toId": "m2",
+              "description": "انتقال"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 40,
+              "kind": "advance",
+              "toId": "m",
+              "description": "انتقال"
+            }
+          ],
+          "adjustments": [
+            {
+              "date": "1403/01/04",
+              "amount": 3,
+              "kind": "bonus",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "bonus",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "penalty",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "penalty",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "assistance",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "assistance",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "settle",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 7,
+              "kind": "settle",
+              "userId": "s",
+              "description": "تعدیل"
+            }
+          ],
+          "name": "کارگاه نمونه",
+          "categories": [
+            {
+              "id": "c",
+              "name": "مصالح"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "contentBase64": "77u/2q/Ystin2LHYtCDYrNin2YXYuSDZhdin2YTbjCDigJQg2KfYs9iq2KfbjNin2LENCtm+2LHZiNqY2Ycs2qnYp9ix2q/Yp9mHINmG2YXZiNmG2YcNCtio2KfYstmHLDEg2YHYsdmI2LHYr9uM2YYgMTQwMyDYqtinIDQg2YHYsdmI2LHYr9uM2YYgMTQwMw0K2YXYqNmG2KfbjCDYs9mI2K8s2YbZgtiv24wNCtiq2KfYsduM2K4g2KrZh9uM2YcsMTQwMy8wMS8xNSAxMjozNA0KDQrYtNin2K7YteKAjNmH2KfbjCDaqdmE24zYr9uMDQrYtNin2K7YtSzZhdio2YTYuiAo2KrZiNmF2KfZhikNCtmF2KzZhdmI2Lkg2YjYp9ix24zYstuMLDc5OTk5OTk5OTk5OQ0K2YfYstuM2YbZh+KAjNmH2KfbjCDZhdi02KrYsdqpLDIxDQrZh9iy24zZhtmH4oCM2YfYp9uMINi02K7YtduMINin2YjYs9iq2KfZh9inLDMxDQraqdmEINiv2LPYqtmF2LLYryDYp9iz2KrYrdmC2KfZgtuMLDcxNQ0K2b7Ysdiv2KfYrtiq24zigIzZh9in24wg2YbZgtiv24wsMjANCtmF2LPYp9i52K/ZhyDZvtix2LPZhtmELDYNCtm+2KfYr9in2LQg2KfZiNiz2KrYp9mH2KcsMw0K2KzYsduM2YXZhyDYp9mI2LPYqtin2YfYpyw0DQrZhdin2YbYr9mHINmC2KfYqNmEINiq2YLYs9uM2YUsNzk5OTk5OTk5OTUzDQoNCtiz2YfZhSDYp9mI2LPYqtin2YfYpw0K2YbYp9mFLNqp2KfYsdqp2LHYryAo2LHZiNiyKSzYttix24zYqCzaqdin2LHaqdix2K8g2YbZh9in24zbjCzYr9ix2LXYryDYs9mH2YUs2LPZh9mFINm+2KfbjNmHLNio2KfYstm+2LHYr9in2K7YqiDZh9iy24zZhtmHINi02K7YtduMLNiz2YfZhSDZh9iy24zZhtmHINi02K7YtduMLNin2YbYqtmC2KfZhCDYr9in2K/Zh+KAjNi02K/ZhyzYp9mG2KrZgtin2YQg2q/YsdmB2KrZh+KAjNi02K/ZhyzZvtuM2LTigIzYqNix2K/Yp9i02Kos2YXYs9in2LnYr9mHLNm+2KfYr9in2LQs2KzYsduM2YXZhyzYqtiz2YjbjNmHINmG2YLYr9uMLNmF2KfZhtiv2Ycg2YbZh9in24zbjA0K2KfZiNiz2KrYpywtMC4yNSwxLDAsMCwwLDMxLDAsMTAwLDAsNDAsNSwzLDQsNiw5MQ0K2KfZiNiz2KrYp9uMINiv2YjZhSwyLjA2LDEuNSwzLjA5LDEwMCw3OTk5OTk5OTk5NTMsMCwzMSwwLDEwMCwwLDAsMCwwLDAsNzk5OTk5OTk5ODIyDQrYp9mI2LPYqtin24wg2LrbjNix2YHYudin2YQsMSwxLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDANCg0K2KrYsdin2LIg2LTYp9qv2LHYr9in2YYg2Ygg2b7Ysdiz2YbZhCDYs9in24zYsQ0K2YbYp9mFLNmG2YjYuSzYsdmI2LIg2qnYp9mF2YQs2LHZiNiyINmG2LXZgdmHLNiz2KfYudiq24ws2LPYp9i52Kog2KfYttin2YHZh+KAjNqp2KfYsSzYr9iz2KrZhdiy2K8g2b7Yp9uM2Ycs2b7Yp9iv2KfYtCzYrNix24zZhdmHLNiv2LPYqtmF2LLYryDYp9iz2KrYrdmC2KfZgtuMLNm+2LHYr9in2K7YqtuMLNmF2LPYp9i52K/ZhyzZhdin2YbYr9mHDQrYtNin2q/YsdivLNi02Kfar9ix2K8sMSwwLDEsMTYsNzE2LDQsNSw3MTUsMjAsNiw2ODk="
+      },
+      "auditResult": {
+        "contentBase64": "77u/2LHbjNiyINit2LPYp9io2LHYs9uMIOKAlCDaqdin2LHar9in2Ycg2YbZhdmI2YbZhyzYqNin2LLZhzogMSDZgdix2YjYsdiv24zZhiAxNDAzINiq2KcgNCDZgdix2YjYsdiv24zZhiAxNDAzDQrZgdmC2Lcg2KvYqNiq4oCM2YfYp9uMINiv2KfYrtmEINio2KfYstmH2ZQg2q/Ystin2LHYtCDYotmF2K/ZhyDYp9iz2KouINmF2KjZhNi64oCM2YfYpyDYqNmHINiq2YjZhdin2YbigIzYp9mG2K8g2Ygg2LPYqtmI2YYgwqvYsdmI2LIg2qnYp9ixwrsg2YHZgti3INio2LHYp9uMINit2LbZiNixINin2LPYqi4NCtmG2YjYuSzYqtin2LHbjNiuLNi02LHYrSzYr9iz2KrZhyzZvtix2K/Yp9iu2KrigIzaqdmG2YbYr9mHIC8g2LTYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKSzYsdmI2LIg2qnYp9ixLNmI2LbYuduM2Kos2LPZh9mFINmI2KfYsduM2LLbjCDYr9ixINio2KfYstmHICjYqtmI2YXYp9mGKQ0K2YjYp9ix24zYstuMLDE0MDMvMDEvMDEg2KrYpyAxNDAzLzAxLzA1LNmI2KfYsduM2LLbjCwsLDk5OTk5OTk5OTk5OSws2YHYudin2YQsNzk5OTk5OTk5OTk5DQrZiNin2LHbjNiy24wsMTQwMy8wMS8wMSDYqtinIDE0MDMvMDEvMDEs2YjYp9ix24zYstuMLCwsOTksLNi624zYsdmB2LnYp9mELA0K2YfYstuM2YbZhywxNDAzLzAxLzAxLCc92YfYstuM2YbZhyDYtNiu2LXbjCws2KfZiNiz2KrYpywzMSws2YHYudin2YQNCtmH2LLbjNmG2YcsMTQwMy8wMS8wNCzZh9iy24zZhtmHINmF2LTYqtix2qnYjCDYp9io2LLYp9ixLNmF2LXYp9mE2K0s2LXZhtiv2YjZgiDZhdi02KrYsdqpLDIxLCzZgdi52KfZhA0K2YfYstuM2YbZhywxNDAzLzAxLzA0LCws2LXZhtiv2YjZgiDZhdi02KrYsdqpLDEwMCws2LrbjNix2YHYudin2YQNCtm+2LHYr9in2K7YqtuMLDE0MDMvMDEvMDQs2b7Ysdiv2KfYrtiqLCzYtNin2q/YsdivLDIwLCzZgdi52KfZhA0K2b7Ysdiv2KfYrtiq24wsMTQwMy8wMS8wNCzZvtix2K/Yp9iu2KosLNin2YjYs9iq2KcsMTAsLNmB2LnYp9mEDQrZvtix2K/Yp9iu2KrbjCwxNDAzLzAxLzA0LCws4oCUICjYrdiw2YHigIzYtNiv2YcpLDMsLNmB2LnYp9mEDQrYp9mG2KrZgtin2YQsMTQwMy8wMS8wNCzYp9mG2KrZgtin2YQsLNin2YjYs9iq2Kcg4oaQINin2YjYs9iq2KfbjCDYr9mI2YUsMTAwLCzZgdi52KfZhA0K2b7bjNi04oCM2KjYsdiv2KfYtNiqLDE0MDMvMDEvMDQs2KfZhtiq2YLYp9mELCzYtdmG2K/ZiNmCIOKGkCDYp9mI2LPYqtinLDQwLCzZgdi52KfZhA0K2b7Yp9iv2KfYtCwxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNin2YjYs9iq2KcsMyws2YHYudin2YQNCtm+2KfYr9in2LQsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDQsLNmB2LnYp9mEDQrYrNix24zZhdmHLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2KfZiNiz2KrYpyw0LCzZgdi52KfZhA0K2KzYsduM2YXZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNi02Kfar9ix2K8sNSws2YHYudin2YQNCtmF2LPYp9i52K/ZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNin2YjYs9iq2KcsNSws2YHYudin2YQNCtmF2LPYp9i52K/ZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNi02Kfar9ix2K8sNiws2YHYudin2YQNCtiq2LPZiNuM2Ycg2YbZgtiv24wsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDYsLNmB2LnYp9mEDQrYqtiz2YjbjNmHINmG2YLYr9uMLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2LTYp9qv2LHYryw3LCzZgdi52KfZhA0K2K3YttmI2LEsMTQwMy8wMS8wMSzYutin24zYqCws2KfZiNiz2KrYpywsLTEuMjUs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wMSzaqdin2YXZhCws2KfZiNiz2KrYp9uMINiv2YjZhSwsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzAxLNqp2KfZhdmELCzYtNin2q/YsdivLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDEs2qnYp9mF2YQsLNin2YjYs9iq2KfbjCDYutuM2LHZgdi52KfZhCwsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzAxLNqp2KfZhdmELCzigJQgKNit2LDZgeKAjNi02K/ZhyksLDEs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wNCzaqdin2YXZhCws2KfZiNiz2KrYpywsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzA0LDguNSDYs9in2LnYqiws2KfZiNiz2KrYp9uMINiv2YjZhSwsMS4wNjMs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wNCwyNCDYs9in2LnYqiws2LTYp9qv2LHYrywsMyzZhdi52KrYqNixDQoNCtis2YXYuSAo2YHZgti3INix2K/bjNmB4oCM2YfYp9uMINmB2LnYp9mEKQ0K2YjYp9ix24zYstuM4oCM2YfYpyAo2LPZh9mFINiv2LEg2KjYp9iy2YcpLCwsLCw3OTk5OTk5OTk5OTkNCtmH2LLbjNmG2YfigIzZh9inLCwsLCw1Mg0K2b7Ysdiv2KfYrtiq24zigIzZh9inLCwsLCwzMw=="
+      }
+    },
+    {
+      "args": [
+        {
+          "id": "p",
+          "settings": {
+            "overtimeFactor": 1.333,
+            "absentPenalty": 0,
+            "profitBasis": "commitment",
+            "rangeFrom": "1403/01/01",
+            "rangeTo": "1403/01/04"
+          },
+          "users": [
+            {
+              "id": "m",
+              "name": "اوستا",
+              "type": "master",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "s",
+              "name": "شاگرد",
+              "type": "apprentice",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "m2",
+              "name": "اوستای دوم",
+              "type": "master",
+              "active": true,
+              "workFactor": 1.5
+            },
+            {
+              "id": "inactive",
+              "name": "اوستای غیرفعال",
+              "type": "master",
+              "active": false,
+              "workFactor": 1
+            }
+          ],
+          "wages": [
+            {
+              "userId": "s",
+              "rate": 101,
+              "effectiveDate": "1403/01/02"
+            },
+            {
+              "userId": "s",
+              "rate": 205,
+              "effectiveDate": "1403/01/04"
+            }
+          ],
+          "attendance": {
+            "1403/01/01": {
+              "m": 0,
+              "m2": 1,
+              "s": 1,
+              "inactive": 1
+            },
+            "1403/01/04": {
+              "m": {
+                "t": "h",
+                "h": -1
+              },
+              "m2": {
+                "t": "h",
+                "h": 8.5
+              },
+              "s": {
+                "t": "h",
+                "h": 25
+              }
+            },
+            "1403/01/05": {
+              "m": 0.5,
+              "s": 0
+            }
+          },
+          "receipts": [
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/05",
+              "amount": 999999999999,
+              "description": "واریزی"
+            },
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/01",
+              "amount": 99,
+              "active": false,
+              "description": "واریزی"
+            }
+          ],
+          "expenses": [
+            {
+              "date": "1403/01/01",
+              "amount": 31,
+              "payerId": "m",
+              "description": "=هزینه شخصی",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 21,
+              "payerId": "shared",
+              "description": "هزینه مشترک، ابزار",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "active": false
+            }
+          ],
+          "payouts": [
+            {
+              "date": "1403/01/04",
+              "amount": 20,
+              "userId": "s",
+              "description": "پرداخت"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 10,
+              "userId": "m",
+              "description": "پرداخت"
+            }
+          ],
+          "transfers": [
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "kind": "peer",
+              "fromId": "m",
+              "toId": "m2",
+              "description": "انتقال"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 40,
+              "kind": "advance",
+              "toId": "m",
+              "description": "انتقال"
+            }
+          ],
+          "adjustments": [
+            {
+              "date": "1403/01/04",
+              "amount": 3,
+              "kind": "bonus",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "bonus",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "penalty",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "penalty",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "assistance",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "assistance",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "settle",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 7,
+              "kind": "settle",
+              "userId": "s",
+              "description": "تعدیل"
+            }
+          ],
+          "name": "کارگاه نمونه",
+          "categories": [
+            {
+              "id": "c",
+              "name": "مصالح"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "contentBase64": "77u/2q/Ystin2LHYtCDYrNin2YXYuSDZhdin2YTbjCDigJQg2KfYs9iq2KfbjNin2LENCtm+2LHZiNqY2Ycs2qnYp9ix2q/Yp9mHINmG2YXZiNmG2YcNCtio2KfYstmHLDEg2YHYsdmI2LHYr9uM2YYgMTQwMyDYqtinIDQg2YHYsdmI2LHYr9uM2YYgMTQwMw0K2YXYqNmG2KfbjCDYs9mI2K8s2KrYudmH2K/bjA0K2KrYp9ix24zYriDYqtmH24zZhywxNDAzLzAxLzE1IDEyOjM0DQoNCti02KfYrti14oCM2YfYp9uMINqp2YTbjNiv24wNCti02KfYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKQ0K2YXYrNmF2YjYuSDZiNin2LHbjNiy24wsNzk5OTk5OTk5OTk5DQrZh9iy24zZhtmH4oCM2YfYp9uMINmF2LTYqtix2qksMjENCtmH2LLbjNmG2YfigIzZh9in24wg2LTYrti124wg2KfZiNiz2KrYp9mH2KcsMzENCtqp2YQg2K/Ys9iq2YXYstivINin2LPYqtit2YLYp9mC24wsMTAwDQrZvtix2K/Yp9iu2KrbjOKAjNmH2KfbjCDZhtmC2K/bjCwyMA0K2YXYs9in2LnYr9mHINm+2LHYs9mG2YQsNg0K2b7Yp9iv2KfYtCDYp9mI2LPYqtin2YfYpywzDQrYrNix24zZhdmHINin2YjYs9iq2KfZh9inLDQNCtmF2KfZhtiv2Ycg2YLYp9io2YQg2KrZgtiz24zZhSw3OTk5OTk5OTk4NzkNCg0K2LPZh9mFINin2YjYs9iq2KfZh9inDQrZhtin2YUs2qnYp9ix2qnYsdivICjYsdmI2LIpLNi22LHbjNioLNqp2KfYsdqp2LHYryDZhtmH2KfbjNuMLNiv2LHYtdivINiz2YfZhSzYs9mH2YUg2b7Yp9uM2Ycs2KjYp9iy2b7Ysdiv2KfYrtiqINmH2LLbjNmG2Ycg2LTYrti124ws2LPZh9mFINmH2LLbjNmG2Ycg2LTYrti124ws2KfZhtiq2YLYp9mEINiv2KfYr9mH4oCM2LTYr9mHLNin2YbYqtmC2KfZhCDar9ix2YHYqtmH4oCM2LTYr9mHLNm+24zYtOKAjNio2LHYr9in2LTYqizZhdiz2KfYudiv2Ycs2b7Yp9iv2KfYtCzYrNix24zZhdmHLNiq2LPZiNuM2Ycg2YbZgtiv24ws2YXYp9mG2K/ZhyDZhtmH2KfbjNuMDQrYp9mI2LPYqtinLDAsMSwwLDAsMCwzMSwwLDEwMCwwLDQwLDUsMyw0LDYsOTENCtin2YjYs9iq2KfbjCDYr9mI2YUsMi4wOCwxLjUsMy4xMiwxMDAsNzk5OTk5OTk5ODc5LDAsMzEsMCwxMDAsMCwwLDAsMCwwLDc5OTk5OTk5OTc0OA0K2KfZiNiz2KrYp9uMINi624zYsdmB2LnYp9mELDEsMSwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwDQoNCtiq2LHYp9iyINi02Kfar9ix2K/Yp9mGINmIINm+2LHYs9mG2YQg2LPYp9uM2LENCtmG2KfZhSzZhtmI2Lks2LHZiNiyINqp2KfZhdmELNix2YjYsiDZhti12YHZhyzYs9in2LnYqtuMLNiz2KfYudiqINin2LbYp9mB2YfigIzaqdin2LEs2K/Ys9iq2YXYstivINm+2KfbjNmHLNm+2KfYr9in2LQs2KzYsduM2YXZhyzYr9iz2KrZhdiy2K8g2KfYs9iq2K3Zgtin2YLbjCzZvtix2K/Yp9iu2KrbjCzZhdiz2KfYudiv2Ycs2YXYp9mG2K/Zhw0K2LTYp9qv2LHYryzYtNin2q/YsdivLDEsMCwwLDAsMTAxLDQsNSwxMDAsMjAsNiw3NA=="
+      },
+      "auditResult": {
+        "contentBase64": "77u/2LHbjNiyINit2LPYp9io2LHYs9uMIOKAlCDaqdin2LHar9in2Ycg2YbZhdmI2YbZhyzYqNin2LLZhzogMSDZgdix2YjYsdiv24zZhiAxNDAzINiq2KcgNCDZgdix2YjYsdiv24zZhiAxNDAzDQrZgdmC2Lcg2KvYqNiq4oCM2YfYp9uMINiv2KfYrtmEINio2KfYstmH2ZQg2q/Ystin2LHYtCDYotmF2K/ZhyDYp9iz2KouINmF2KjZhNi64oCM2YfYpyDYqNmHINiq2YjZhdin2YbigIzYp9mG2K8g2Ygg2LPYqtmI2YYgwqvYsdmI2LIg2qnYp9ixwrsg2YHZgti3INio2LHYp9uMINit2LbZiNixINin2LPYqi4NCtmG2YjYuSzYqtin2LHbjNiuLNi02LHYrSzYr9iz2KrZhyzZvtix2K/Yp9iu2KrigIzaqdmG2YbYr9mHIC8g2LTYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKSzYsdmI2LIg2qnYp9ixLNmI2LbYuduM2Kos2LPZh9mFINmI2KfYsduM2LLbjCDYr9ixINio2KfYstmHICjYqtmI2YXYp9mGKQ0K2YjYp9ix24zYstuMLDE0MDMvMDEvMDEg2KrYpyAxNDAzLzAxLzA1LNmI2KfYsduM2LLbjCwsLDk5OTk5OTk5OTk5OSws2YHYudin2YQsNzk5OTk5OTk5OTk5DQrZiNin2LHbjNiy24wsMTQwMy8wMS8wMSDYqtinIDE0MDMvMDEvMDEs2YjYp9ix24zYstuMLCwsOTksLNi624zYsdmB2LnYp9mELA0K2YfYstuM2YbZhywxNDAzLzAxLzAxLCc92YfYstuM2YbZhyDYtNiu2LXbjCzZhdi12KfZhNitLNin2YjYs9iq2KcsMzEsLNmB2LnYp9mEDQrZh9iy24zZhtmHLDE0MDMvMDEvMDQs2YfYstuM2YbZhyDZhdi02KrYsdqp2Iwg2KfYqNiy2KfYsSzZhdi12KfZhNitLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwyMSws2YHYudin2YQNCtmH2LLbjNmG2YcsMTQwMy8wMS8wNCwsLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwxMDAsLNi624zYsdmB2LnYp9mEDQrZvtix2K/Yp9iu2KrbjCwxNDAzLzAxLzA0LNm+2LHYr9in2K7Yqiws2LTYp9qv2LHYrywyMCws2YHYudin2YQNCtm+2LHYr9in2K7YqtuMLDE0MDMvMDEvMDQs2b7Ysdiv2KfYrtiqLCzYp9mI2LPYqtinLDEwLCzZgdi52KfZhA0K2KfZhtiq2YLYp9mELDE0MDMvMDEvMDQs2KfZhtiq2YLYp9mELCzYp9mI2LPYqtinIOKGkCDYp9mI2LPYqtin24wg2K/ZiNmFLDEwMCws2YHYudin2YQNCtm+24zYtOKAjNio2LHYr9in2LTYqiwxNDAzLzAxLzA0LNin2YbYqtmC2KfZhCws2LXZhtiv2YjZgiDihpAg2KfZiNiz2KrYpyw0MCws2YHYudin2YQNCtm+2KfYr9in2LQsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDMsLNmB2LnYp9mEDQrZvtin2K/Yp9i0LDE0MDMvMDEvMDQs2KrYudiv24zZhCws2LTYp9qv2LHYryw0LCzZgdi52KfZhA0K2KzYsduM2YXZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNin2YjYs9iq2KcsNCws2YHYudin2YQNCtis2LHbjNmF2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDYsLNmB2LnYp9mEDQrYqtiz2YjbjNmHINmG2YLYr9uMLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2KfZiNiz2KrYpyw2LCzZgdi52KfZhA0K2KrYs9mI24zZhyDZhtmC2K/bjCwxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNi02Kfar9ix2K8sNyws2YHYudin2YQNCtit2LbZiNixLDE0MDMvMDEvMDEs2LrYp9uM2KgsLNin2YjYs9iq2KcsLDAs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wMSzaqdin2YXZhCws2KfZiNiz2KrYp9uMINiv2YjZhSwsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzAxLNqp2KfZhdmELCzYtNin2q/YsdivLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDEs2qnYp9mF2YQsLNin2YjYs9iq2KfbjCDYutuM2LHZgdi52KfZhCwsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzA0LCctMSDYs9in2LnYqiws2KfZiNiz2KrYpywsLNmG2KfZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzA0LDguNSDYs9in2LnYqiws2KfZiNiz2KrYp9uMINiv2YjZhSwsMS4wODMs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wNCwyNSDYs9in2LnYqiws2LTYp9qv2LHYrywsLNmG2KfZhdi52KrYqNixDQoNCtis2YXYuSAo2YHZgti3INix2K/bjNmB4oCM2YfYp9uMINmB2LnYp9mEKQ0K2YjYp9ix24zYstuM4oCM2YfYpyAo2LPZh9mFINiv2LEg2KjYp9iy2YcpLCwsLCw3OTk5OTk5OTk5OTkNCtmH2LLbjNmG2YfigIzZh9inLCwsLCw1Mg0K2b7Ysdiv2KfYrtiq24zigIzZh9inLCwsLCwzMA=="
+      }
+    },
+    {
+      "args": [
+        {
+          "id": "p",
+          "settings": {
+            "overtimeFactor": 1.5,
+            "absentPenalty": 0.5,
+            "profitBasis": "cash",
+            "rangeFrom": "1403/01/01",
+            "rangeTo": "1403/01/04"
+          },
+          "users": [
+            {
+              "id": "m",
+              "name": "اوستا",
+              "type": "master",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "s",
+              "name": "شاگرد",
+              "type": "apprentice",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "m2",
+              "name": "اوستای دوم",
+              "type": "master",
+              "active": true,
+              "workFactor": 1.5
+            },
+            {
+              "id": "inactive",
+              "name": "اوستای غیرفعال",
+              "type": "master",
+              "active": false,
+              "workFactor": 1
+            }
+          ],
+          "wages": [
+            {
+              "userId": "s",
+              "rate": 101,
+              "effectiveDate": "1403/01/02"
+            },
+            {
+              "userId": "s",
+              "rate": 205,
+              "effectiveDate": "1403/01/04"
+            }
+          ],
+          "attendance": {
+            "1403/01/01": {
+              "m": 0,
+              "m2": 1,
+              "s": 1,
+              "inactive": 1
+            },
+            "1403/01/04": {
+              "m": 1,
+              "m2": {
+                "t": "h",
+                "h": 8.5
+              },
+              "s": {
+                "t": "h",
+                "h": 24
+              }
+            },
+            "1403/01/05": {
+              "m": 0.5,
+              "s": 0
+            }
+          },
+          "receipts": [
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/05",
+              "amount": 999999999999,
+              "description": "واریزی"
+            },
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/01",
+              "amount": 99,
+              "active": false,
+              "description": "واریزی"
+            }
+          ],
+          "expenses": [
+            {
+              "date": "1403/01/01",
+              "amount": 31,
+              "payerId": "m",
+              "description": "=هزینه شخصی",
+              "categoryId": "c",
+              "active": false
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 21,
+              "payerId": "shared",
+              "description": "هزینه مشترک، ابزار",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "active": false
+            }
+          ],
+          "payouts": [
+            {
+              "date": "1403/01/04",
+              "amount": 20,
+              "userId": "s",
+              "description": "پرداخت",
+              "active": false
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 10,
+              "userId": "m",
+              "description": "پرداخت"
+            }
+          ],
+          "transfers": [
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "kind": "peer",
+              "fromId": "m",
+              "toId": "m2",
+              "description": "انتقال",
+              "active": false
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 40,
+              "kind": "advance",
+              "toId": "m",
+              "description": "انتقال"
+            }
+          ],
+          "adjustments": [
+            {
+              "date": "1403/01/04",
+              "amount": 3,
+              "kind": "bonus",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "bonus",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "penalty",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "penalty",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "assistance",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "assistance",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "settle",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 7,
+              "kind": "settle",
+              "userId": "s",
+              "description": "تعدیل"
+            }
+          ],
+          "name": "کارگاه نمونه",
+          "categories": [
+            {
+              "id": "c",
+              "name": "مصالح"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "contentBase64": "77u/2q/Ystin2LHYtCDYrNin2YXYuSDZhdin2YTbjCDigJQg2KfYs9iq2KfbjNin2LENCtm+2LHZiNqY2Ycs2qnYp9ix2q/Yp9mHINmG2YXZiNmG2YcNCtio2KfYstmHLDEg2YHYsdmI2LHYr9uM2YYgMTQwMyDYqtinIDQg2YHYsdmI2LHYr9uM2YYgMTQwMw0K2YXYqNmG2KfbjCDYs9mI2K8s2YbZgtiv24wNCtiq2KfYsduM2K4g2KrZh9uM2YcsMTQwMy8wMS8xNSAxMjozNA0KDQrYtNin2K7YteKAjNmH2KfbjCDaqdmE24zYr9uMDQrYtNin2K7YtSzZhdio2YTYuiAo2KrZiNmF2KfZhikNCtmF2KzZhdmI2Lkg2YjYp9ix24zYstuMLDc5OTk5OTk5OTk5OQ0K2YfYstuM2YbZh+KAjNmH2KfbjCDZhdi02KrYsdqpLDIxDQrZh9iy24zZhtmH4oCM2YfYp9uMINi02K7YtduMINin2YjYs9iq2KfZh9inLDANCtqp2YQg2K/Ys9iq2YXYstivINin2LPYqtit2YLYp9mC24wsOTIwDQrZvtix2K/Yp9iu2KrbjOKAjNmH2KfbjCDZhtmC2K/bjCwwDQrZhdiz2KfYudiv2Ycg2b7Ysdiz2YbZhCw2DQrZvtin2K/Yp9i0INin2YjYs9iq2KfZh9inLDMNCtis2LHbjNmF2Ycg2KfZiNiz2KrYp9mH2KcsNA0K2YXYp9mG2K/ZhyDZgtin2KjZhCDYqtmC2LPbjNmFLDc5OTk5OTk5OTk3Mw0KDQrYs9mH2YUg2KfZiNiz2KrYp9mH2KcNCtmG2KfZhSzaqdin2LHaqdix2K8gKNix2YjYsiks2LbYsduM2Kgs2qnYp9ix2qnYsdivINmG2YfYp9uM24ws2K/Ysdi12K8g2LPZh9mFLNiz2YfZhSDZvtin24zZhyzYqNin2LLZvtix2K/Yp9iu2Kog2YfYstuM2YbZhyDYtNiu2LXbjCzYs9mH2YUg2YfYstuM2YbZhyDYtNiu2LXbjCzYp9mG2KrZgtin2YQg2K/Yp9iv2YfigIzYtNiv2Ycs2KfZhtiq2YLYp9mEINqv2LHZgdiq2YfigIzYtNiv2Ycs2b7bjNi04oCM2KjYsdiv2KfYtNiqLNmF2LPYp9i52K/ZhyzZvtin2K/Yp9i0LNis2LHbjNmF2Ycs2KrYs9mI24zZhyDZhtmC2K/bjCzZhdin2YbYr9mHINmG2YfYp9uM24wNCtin2YjYs9iq2KcsMC41LDEsMC41LDEzLjczLDEwOTg3MTI0NDYzMSwwLDAsMCwwLDQwLDUsMyw0LDYsMTA5ODcxMjQ0NTkxDQrYp9mI2LPYqtin24wg2K/ZiNmFLDIuMDksMS41LDMuMTQsODYuMjcsNjkwMTI4NzU1MzQyLDAsMCwwLDAsMCwwLDAsMCwwLDY5MDEyODc1NTM0Mg0K2KfZiNiz2KrYp9uMINi624zYsdmB2LnYp9mELDEsMSwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwDQoNCtiq2LHYp9iyINi02Kfar9ix2K/Yp9mGINmIINm+2LHYs9mG2YQg2LPYp9uM2LENCtmG2KfZhSzZhtmI2Lks2LHZiNiyINqp2KfZhdmELNix2YjYsiDZhti12YHZhyzYs9in2LnYqtuMLNiz2KfYudiqINin2LbYp9mB2YfigIzaqdin2LEs2K/Ys9iq2YXYstivINm+2KfbjNmHLNm+2KfYr9in2LQs2KzYsduM2YXZhyzYr9iz2KrZhdiy2K8g2KfYs9iq2K3Zgtin2YLbjCzZvtix2K/Yp9iu2KrbjCzZhdiz2KfYudiv2Ycs2YXYp9mG2K/Zhw0K2LTYp9qv2LHYryzYtNin2q/YsdivLDEsMCwxLDE2LDkyMSw0LDUsOTIwLDAsNiw5MTQ="
+      },
+      "auditResult": {
+        "contentBase64": "77u/2LHbjNiyINit2LPYp9io2LHYs9uMIOKAlCDaqdin2LHar9in2Ycg2YbZhdmI2YbZhyzYqNin2LLZhzogMSDZgdix2YjYsdiv24zZhiAxNDAzINiq2KcgNCDZgdix2YjYsdiv24zZhiAxNDAzDQrZgdmC2Lcg2KvYqNiq4oCM2YfYp9uMINiv2KfYrtmEINio2KfYstmH2ZQg2q/Ystin2LHYtCDYotmF2K/ZhyDYp9iz2KouINmF2KjZhNi64oCM2YfYpyDYqNmHINiq2YjZhdin2YbigIzYp9mG2K8g2Ygg2LPYqtmI2YYgwqvYsdmI2LIg2qnYp9ixwrsg2YHZgti3INio2LHYp9uMINit2LbZiNixINin2LPYqi4NCtmG2YjYuSzYqtin2LHbjNiuLNi02LHYrSzYr9iz2KrZhyzZvtix2K/Yp9iu2KrigIzaqdmG2YbYr9mHIC8g2LTYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKSzYsdmI2LIg2qnYp9ixLNmI2LbYuduM2Kos2LPZh9mFINmI2KfYsduM2LLbjCDYr9ixINio2KfYstmHICjYqtmI2YXYp9mGKQ0K2YjYp9ix24zYstuMLDE0MDMvMDEvMDEg2KrYpyAxNDAzLzAxLzA1LNmI2KfYsduM2LLbjCwsLDk5OTk5OTk5OTk5OSws2YHYudin2YQsNzk5OTk5OTk5OTk5DQrZiNin2LHbjNiy24wsMTQwMy8wMS8wMSDYqtinIDE0MDMvMDEvMDEs2YjYp9ix24zYstuMLCwsOTksLNi624zYsdmB2LnYp9mELA0K2YfYstuM2YbZhywxNDAzLzAxLzAxLCc92YfYstuM2YbZhyDYtNiu2LXbjCzZhdi12KfZhNitLNin2YjYs9iq2KcsMzEsLNi624zYsdmB2LnYp9mEDQrZh9iy24zZhtmHLDE0MDMvMDEvMDQs2YfYstuM2YbZhyDZhdi02KrYsdqp2Iwg2KfYqNiy2KfYsSzZhdi12KfZhNitLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwyMSws2YHYudin2YQNCtmH2LLbjNmG2YcsMTQwMy8wMS8wNCwsLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwxMDAsLNi624zYsdmB2LnYp9mEDQrZvtix2K/Yp9iu2KrbjCwxNDAzLzAxLzA0LNm+2LHYr9in2K7Yqiws2LTYp9qv2LHYrywyMCws2LrbjNix2YHYudin2YQNCtm+2LHYr9in2K7YqtuMLDE0MDMvMDEvMDQs2b7Ysdiv2KfYrtiqLCzYp9mI2LPYqtinLDEwLCzZgdi52KfZhA0K2KfZhtiq2YLYp9mELDE0MDMvMDEvMDQs2KfZhtiq2YLYp9mELCzYp9mI2LPYqtinIOKGkCDYp9mI2LPYqtin24wg2K/ZiNmFLDEwMCws2LrbjNix2YHYudin2YQNCtm+24zYtOKAjNio2LHYr9in2LTYqiwxNDAzLzAxLzA0LNin2YbYqtmC2KfZhCws2LXZhtiv2YjZgiDihpAg2KfZiNiz2KrYpyw0MCws2YHYudin2YQNCtm+2KfYr9in2LQsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDMsLNmB2LnYp9mEDQrZvtin2K/Yp9i0LDE0MDMvMDEvMDQs2KrYudiv24zZhCws2LTYp9qv2LHYryw0LCzZgdi52KfZhA0K2KzYsduM2YXZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNin2YjYs9iq2KcsNCws2YHYudin2YQNCtis2LHbjNmF2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDYsLNmB2LnYp9mEDQrYqtiz2YjbjNmHINmG2YLYr9uMLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2KfZiNiz2KrYpyw2LCzZgdi52KfZhA0K2KrYs9mI24zZhyDZhtmC2K/bjCwxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNi02Kfar9ix2K8sNyws2YHYudin2YQNCtit2LbZiNixLDE0MDMvMDEvMDEs2LrYp9uM2KgsLNin2YjYs9iq2KcsLC0wLjUs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wMSzaqdin2YXZhCws2KfZiNiz2KrYp9uMINiv2YjZhSwsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzAxLNqp2KfZhdmELCzYtNin2q/YsdivLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDEs2qnYp9mF2YQsLNin2YjYs9iq2KfbjCDYutuM2LHZgdi52KfZhCwsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzA0LNqp2KfZhdmELCzYp9mI2LPYqtinLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDQsOC41INiz2KfYudiqLCzYp9mI2LPYqtin24wg2K/ZiNmFLCwxLjA5NCzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzA0LDI0INiz2KfYudiqLCzYtNin2q/YsdivLCw0LNmF2LnYqtio2LENCg0K2KzZhdi5ICjZgdmC2Lcg2LHYr9uM2YHigIzZh9in24wg2YHYudin2YQpDQrZiNin2LHbjNiy24zigIzZh9inICjYs9mH2YUg2K/YsSDYqNin2LLZhyksLCwsLDc5OTk5OTk5OTk5OQ0K2YfYstuM2YbZh+KAjNmH2KcsLCwsLDIxDQrZvtix2K/Yp9iu2KrbjOKAjNmH2KcsLCwsLDEw"
+      }
+    },
+    {
+      "args": [
+        {
+          "id": "p",
+          "settings": {
+            "overtimeFactor": 2,
+            "absentPenalty": 1.25,
+            "profitBasis": "commitment",
+            "rangeFrom": "1403/01/01",
+            "rangeTo": "1403/01/04"
+          },
+          "users": [
+            {
+              "id": "m",
+              "name": "اوستا",
+              "type": "master",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "s",
+              "name": "شاگرد",
+              "type": "apprentice",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "m2",
+              "name": "اوستای دوم",
+              "type": "master",
+              "active": true,
+              "workFactor": 1.5
+            },
+            {
+              "id": "inactive",
+              "name": "اوستای غیرفعال",
+              "type": "master",
+              "active": false,
+              "workFactor": 1
+            }
+          ],
+          "wages": [
+            {
+              "userId": "s",
+              "rate": 101,
+              "effectiveDate": "1403/01/02"
+            },
+            {
+              "userId": "s",
+              "rate": 205,
+              "effectiveDate": "1403/01/04"
+            }
+          ],
+          "attendance": {
+            "1403/01/01": {
+              "m": 0,
+              "m2": 1,
+              "s": 1,
+              "inactive": 1
+            },
+            "1403/01/04": {
+              "m": 1,
+              "m2": {
+                "t": "h",
+                "h": 8.5
+              },
+              "s": {
+                "t": "h",
+                "h": 24
+              }
+            },
+            "1403/01/05": {
+              "m": 0.5,
+              "s": 0
+            }
+          },
+          "receipts": [
+            {
+              "dateFrom": "1403/01/05",
+              "dateTo": "1403/01/01",
+              "amount": 999999999999,
+              "description": "واریزی"
+            },
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/01",
+              "amount": 99,
+              "active": false,
+              "description": "واریزی"
+            }
+          ],
+          "expenses": [
+            {
+              "date": "1403/01/01",
+              "amount": 31,
+              "payerId": "m",
+              "description": "=هزینه شخصی",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 21,
+              "payerId": "shared",
+              "description": "هزینه مشترک، ابزار",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "active": false
+            }
+          ],
+          "payouts": [
+            {
+              "date": "1403/01/04",
+              "amount": 20,
+              "userId": "s",
+              "description": "پرداخت"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 10,
+              "userId": "m",
+              "description": "پرداخت"
+            }
+          ],
+          "transfers": [
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "kind": "peer",
+              "fromId": "m",
+              "toId": "m2",
+              "description": "انتقال"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 40,
+              "kind": "advance",
+              "toId": "m",
+              "description": "انتقال"
+            }
+          ],
+          "adjustments": [
+            {
+              "date": "1403/01/04",
+              "amount": 3,
+              "kind": "bonus",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "bonus",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "penalty",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "penalty",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "assistance",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "assistance",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "settle",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 7,
+              "kind": "settle",
+              "userId": "s",
+              "description": "تعدیل"
+            }
+          ],
+          "name": "کارگاه نمونه",
+          "categories": [
+            {
+              "id": "c",
+              "name": "مصالح"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "contentBase64": "77u/2q/Ystin2LHYtCDYrNin2YXYuSDZhdin2YTbjCDigJQg2KfYs9iq2KfbjNin2LENCtm+2LHZiNqY2Ycs2qnYp9ix2q/Yp9mHINmG2YXZiNmG2YcNCtio2KfYstmHLDEg2YHYsdmI2LHYr9uM2YYgMTQwMyDYqtinIDQg2YHYsdmI2LHYr9uM2YYgMTQwMw0K2YXYqNmG2KfbjCDYs9mI2K8s2KrYudmH2K/bjA0K2KrYp9ix24zYriDYqtmH24zZhywxNDAzLzAxLzE1IDEyOjM0DQoNCti02KfYrti14oCM2YfYp9uMINqp2YTbjNiv24wNCti02KfYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKQ0K2YXYrNmF2YjYuSDZiNin2LHbjNiy24wsMA0K2YfYstuM2YbZh+KAjNmH2KfbjCDZhdi02KrYsdqpLDIxDQrZh9iy24zZhtmH4oCM2YfYp9uMINi02K7YtduMINin2YjYs9iq2KfZh9inLDMxDQraqdmEINiv2LPYqtmF2LLYryDYp9iz2KrYrdmC2KfZgtuMLDExMjUNCtm+2LHYr9in2K7YqtuM4oCM2YfYp9uMINmG2YLYr9uMLDIwDQrZhdiz2KfYudiv2Ycg2b7Ysdiz2YbZhCw2DQrZvtin2K/Yp9i0INin2YjYs9iq2KfZh9inLDMNCtis2LHbjNmF2Ycg2KfZiNiz2KrYp9mH2KcsNA0K2YXYp9mG2K/ZhyDZgtin2KjZhCDYqtmC2LPbjNmFLC0xMTQ1DQoNCtiz2YfZhSDYp9mI2LPYqtin2YfYpw0K2YbYp9mFLNqp2KfYsdqp2LHYryAo2LHZiNiyKSzYttix24zYqCzaqdin2LHaqdix2K8g2YbZh9in24zbjCzYr9ix2LXYryDYs9mH2YUs2LPZh9mFINm+2KfbjNmHLNio2KfYstm+2LHYr9in2K7YqiDZh9iy24zZhtmHINi02K7YtduMLNiz2YfZhSDZh9iy24zZhtmHINi02K7YtduMLNin2YbYqtmC2KfZhCDYr9in2K/Zh+KAjNi02K/ZhyzYp9mG2KrZgtin2YQg2q/YsdmB2KrZh+KAjNi02K/ZhyzZvtuM2LTigIzYqNix2K/Yp9i02Kos2YXYs9in2LnYr9mHLNm+2KfYr9in2LQs2KzYsduM2YXZhyzYqtiz2YjbjNmHINmG2YLYr9uMLNmF2KfZhtiv2Ycg2YbZh9in24zbjA0K2KfZiNiz2KrYpywtMC4yNSwxLDAsMCwwLDMxLDAsMTAwLDAsNDAsNSwzLDQsNiw5MQ0K2KfZiNiz2KrYp9uMINiv2YjZhSwyLjEzLDEuNSwzLjE5LDEwMCwtMTE0NSwwLDMxLDAsMTAwLDAsMCwwLDAsMCwtMTI3Ng0K2KfZiNiz2KrYp9uMINi624zYsdmB2LnYp9mELDEsMSwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwDQoNCtiq2LHYp9iyINi02Kfar9ix2K/Yp9mGINmIINm+2LHYs9mG2YQg2LPYp9uM2LENCtmG2KfZhSzZhtmI2Lks2LHZiNiyINqp2KfZhdmELNix2YjYsiDZhti12YHZhyzYs9in2LnYqtuMLNiz2KfYudiqINin2LbYp9mB2YfigIzaqdin2LEs2K/Ys9iq2YXYstivINm+2KfbjNmHLNm+2KfYr9in2LQs2KzYsduM2YXZhyzYr9iz2KrZhdiy2K8g2KfYs9iq2K3Zgtin2YLbjCzZvtix2K/Yp9iu2KrbjCzZhdiz2KfYudiv2Ycs2YXYp9mG2K/Zhw0K2LTYp9qv2LHYryzYtNin2q/YsdivLDEsMCwxLDE2LDExMjYsNCw1LDExMjUsMjAsNiwxMDk5"
+      },
+      "auditResult": {
+        "contentBase64": "77u/2LHbjNiyINit2LPYp9io2LHYs9uMIOKAlCDaqdin2LHar9in2Ycg2YbZhdmI2YbZhyzYqNin2LLZhzogMSDZgdix2YjYsdiv24zZhiAxNDAzINiq2KcgNCDZgdix2YjYsdiv24zZhiAxNDAzDQrZgdmC2Lcg2KvYqNiq4oCM2YfYp9uMINiv2KfYrtmEINio2KfYstmH2ZQg2q/Ystin2LHYtCDYotmF2K/ZhyDYp9iz2KouINmF2KjZhNi64oCM2YfYpyDYqNmHINiq2YjZhdin2YbigIzYp9mG2K8g2Ygg2LPYqtmI2YYgwqvYsdmI2LIg2qnYp9ixwrsg2YHZgti3INio2LHYp9uMINit2LbZiNixINin2LPYqi4NCtmG2YjYuSzYqtin2LHbjNiuLNi02LHYrSzYr9iz2KrZhyzZvtix2K/Yp9iu2KrigIzaqdmG2YbYr9mHIC8g2LTYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKSzYsdmI2LIg2qnYp9ixLNmI2LbYuduM2Kos2LPZh9mFINmI2KfYsduM2LLbjCDYr9ixINio2KfYstmHICjYqtmI2YXYp9mGKQ0K2YjYp9ix24zYstuMLDE0MDMvMDEvMDEg2KrYpyAxNDAzLzAxLzAxLNmI2KfYsduM2LLbjCwsLDk5LCzYutuM2LHZgdi52KfZhCwNCtmH2LLbjNmG2YcsMTQwMy8wMS8wMSwnPdmH2LLbjNmG2Ycg2LTYrti124ws2YXYtdin2YTYrSzYp9mI2LPYqtinLDMxLCzZgdi52KfZhA0K2YfYstuM2YbZhywxNDAzLzAxLzA0LNmH2LLbjNmG2Ycg2YXYtNiq2LHaqdiMINin2KjYstin2LEs2YXYtdin2YTYrSzYtdmG2K/ZiNmCINmF2LTYqtix2qksMjEsLNmB2LnYp9mEDQrZh9iy24zZhtmHLDE0MDMvMDEvMDQsLCzYtdmG2K/ZiNmCINmF2LTYqtix2qksMTAwLCzYutuM2LHZgdi52KfZhA0K2b7Ysdiv2KfYrtiq24wsMTQwMy8wMS8wNCzZvtix2K/Yp9iu2KosLNi02Kfar9ix2K8sMjAsLNmB2LnYp9mEDQrZvtix2K/Yp9iu2KrbjCwxNDAzLzAxLzA0LNm+2LHYr9in2K7Yqiws2KfZiNiz2KrYpywxMCws2YHYudin2YQNCtin2YbYqtmC2KfZhCwxNDAzLzAxLzA0LNin2YbYqtmC2KfZhCws2KfZiNiz2KrYpyDihpAg2KfZiNiz2KrYp9uMINiv2YjZhSwxMDAsLNmB2LnYp9mEDQrZvtuM2LTigIzYqNix2K/Yp9i02KosMTQwMy8wMS8wNCzYp9mG2KrZgtin2YQsLNi12YbYr9mI2YIg4oaQINin2YjYs9iq2KcsNDAsLNmB2LnYp9mEDQrZvtin2K/Yp9i0LDE0MDMvMDEvMDQs2KrYudiv24zZhCws2KfZiNiz2KrYpywzLCzZgdi52KfZhA0K2b7Yp9iv2KfYtCwxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNi02Kfar9ix2K8sNCws2YHYudin2YQNCtis2LHbjNmF2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDQsLNmB2LnYp9mEDQrYrNix24zZhdmHLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2LTYp9qv2LHYryw1LCzZgdi52KfZhA0K2YXYs9in2LnYr9mHLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2KfZiNiz2KrYpyw1LCzZgdi52KfZhA0K2YXYs9in2LnYr9mHLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2LTYp9qv2LHYryw2LCzZgdi52KfZhA0K2KrYs9mI24zZhyDZhtmC2K/bjCwxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNin2YjYs9iq2KcsNiws2YHYudin2YQNCtiq2LPZiNuM2Ycg2YbZgtiv24wsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDcsLNmB2LnYp9mEDQrYrdi22YjYsSwxNDAzLzAxLzAxLNi62KfbjNioLCzYp9mI2LPYqtinLCwtMS4yNSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzAxLNqp2KfZhdmELCzYp9mI2LPYqtin24wg2K/ZiNmFLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDEs2qnYp9mF2YQsLNi02Kfar9ix2K8sLDEs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wMSzaqdin2YXZhCws2KfZiNiz2KrYp9uMINi624zYsdmB2LnYp9mELCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDQs2qnYp9mF2YQsLNin2YjYs9iq2KcsLDEs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wNCw4LjUg2LPYp9i52KosLNin2YjYs9iq2KfbjCDYr9mI2YUsLDEuMTI1LNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDQsMjQg2LPYp9i52KosLNi02Kfar9ix2K8sLDUs2YXYudiq2KjYsQ0KDQrYrNmF2LkgKNmB2YLYtyDYsdiv24zZgeKAjNmH2KfbjCDZgdi52KfZhCkNCtmI2KfYsduM2LLbjOKAjNmH2KcgKNiz2YfZhSDYr9ixINio2KfYstmHKSwsLCwsMA0K2YfYstuM2YbZh+KAjNmH2KcsLCwsLDUyDQrZvtix2K/Yp9iu2KrbjOKAjNmH2KcsLCwsLDMw"
+      }
+    },
+    {
+      "args": [
+        {
+          "id": "p",
+          "settings": {
+            "overtimeFactor": 1,
+            "absentPenalty": 0,
+            "profitBasis": "cash",
+            "rangeFrom": "1403/01/01",
+            "rangeTo": "1403/01/04"
+          },
+          "users": [
+            {
+              "id": "m",
+              "name": "اوستا",
+              "type": "master",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "s",
+              "name": "شاگرد",
+              "type": "apprentice",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "m2",
+              "name": "اوستای دوم",
+              "type": "master",
+              "active": true,
+              "workFactor": 1.5
+            },
+            {
+              "id": "inactive",
+              "name": "اوستای غیرفعال",
+              "type": "master",
+              "active": false,
+              "workFactor": 1
+            }
+          ],
+          "wages": [
+            {
+              "userId": "s",
+              "rate": 101,
+              "effectiveDate": "1403/01/02"
+            },
+            {
+              "userId": "s",
+              "rate": 205,
+              "effectiveDate": "1403/01/04"
+            }
+          ],
+          "attendance": {
+            "1403/01/01": {
+              "m": "0",
+              "m2": "1",
+              "s": "0.5",
+              "inactive": 1
+            },
+            "1403/01/04": {
+              "m": 1,
+              "m2": {
+                "t": "h",
+                "h": 8.5
+              },
+              "s": {
+                "t": "h",
+                "h": 24
+              }
+            },
+            "1403/01/05": {
+              "m": 0.5,
+              "s": 0
+            }
+          },
+          "receipts": [
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/05",
+              "amount": 999999999999,
+              "description": "واریزی"
+            },
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/01",
+              "amount": 99,
+              "active": false,
+              "description": "واریزی"
+            }
+          ],
+          "expenses": [
+            {
+              "date": "1403/01/01",
+              "amount": 31,
+              "payerId": "m",
+              "description": "=هزینه شخصی",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 21,
+              "payerId": "shared",
+              "description": "هزینه مشترک، ابزار",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "active": false
+            }
+          ],
+          "payouts": [
+            {
+              "date": "1403/01/04",
+              "amount": 20,
+              "userId": "s",
+              "description": "پرداخت"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 10,
+              "userId": "m",
+              "description": "پرداخت"
+            }
+          ],
+          "transfers": [
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "kind": "peer",
+              "fromId": "m",
+              "toId": "m2",
+              "description": "انتقال"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 40,
+              "kind": "advance",
+              "toId": "m",
+              "description": "انتقال"
+            }
+          ],
+          "adjustments": [
+            {
+              "date": "1403/01/04",
+              "amount": 3,
+              "kind": "bonus",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "bonus",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "penalty",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "penalty",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "assistance",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "assistance",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "settle",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 7,
+              "kind": "settle",
+              "userId": "s",
+              "description": "تعدیل"
+            }
+          ],
+          "name": "کارگاه نمونه",
+          "categories": [
+            {
+              "id": "c",
+              "name": "مصالح"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "contentBase64": "77u/2q/Ystin2LHYtCDYrNin2YXYuSDZhdin2YTbjCDigJQg2KfYs9iq2KfbjNin2LENCtm+2LHZiNqY2Ycs2qnYp9ix2q/Yp9mHINmG2YXZiNmG2YcNCtio2KfYstmHLDEg2YHYsdmI2LHYr9uM2YYgMTQwMyDYqtinIDQg2YHYsdmI2LHYr9uM2YYgMTQwMw0K2YXYqNmG2KfbjCDYs9mI2K8s2YbZgtiv24wNCtiq2KfYsduM2K4g2KrZh9uM2YcsMTQwMy8wMS8xNSAxMjozNA0KDQrYtNin2K7YteKAjNmH2KfbjCDaqdmE24zYr9uMDQrYtNin2K7YtSzZhdio2YTYuiAo2KrZiNmF2KfZhikNCtmF2KzZhdmI2Lkg2YjYp9ix24zYstuMLDc5OTk5OTk5OTk5OQ0K2YfYstuM2YbZh+KAjNmH2KfbjCDZhdi02KrYsdqpLDIxDQrZh9iy24zZhtmH4oCM2YfYp9uMINi02K7YtduMINin2YjYs9iq2KfZh9inLDMxDQraqdmEINiv2LPYqtmF2LLYryDYp9iz2KrYrdmC2KfZgtuMLDY2NQ0K2b7Ysdiv2KfYrtiq24zigIzZh9in24wg2YbZgtiv24wsMjANCtmF2LPYp9i52K/ZhyDZvtix2LPZhtmELDYNCtm+2KfYr9in2LQg2KfZiNiz2KrYp9mH2KcsMw0K2KzYsduM2YXZhyDYp9mI2LPYqtin2YfYpyw0DQrZhdin2YbYr9mHINmC2KfYqNmEINiq2YLYs9uM2YUsNzk5OTk5OTk5OTUzDQoNCtiz2YfZhSDYp9mI2LPYqtin2YfYpw0K2YbYp9mFLNqp2KfYsdqp2LHYryAo2LHZiNiyKSzYttix24zYqCzaqdin2LHaqdix2K8g2YbZh9in24zbjCzYr9ix2LXYryDYs9mH2YUs2LPZh9mFINm+2KfbjNmHLNio2KfYstm+2LHYr9in2K7YqiDZh9iy24zZhtmHINi02K7YtduMLNiz2YfZhSDZh9iy24zZhtmHINi02K7YtduMLNin2YbYqtmC2KfZhCDYr9in2K/Zh+KAjNi02K/ZhyzYp9mG2KrZgtin2YQg2q/YsdmB2KrZh+KAjNi02K/ZhyzZvtuM2LTigIzYqNix2K/Yp9i02Kos2YXYs9in2LnYr9mHLNm+2KfYr9in2LQs2KzYsduM2YXZhyzYqtiz2YjbjNmHINmG2YLYr9uMLNmF2KfZhtiv2Ycg2YbZh9in24zbjA0K2KfZiNiz2KrYpywxLDEsMSwyNC40MywxOTU0MTk4NDczMTcsMzEsOCwxMDAsMCw0MCw1LDMsNCw2LDE5NTQxOTg0NzQwMA0K2KfZiNiz2KrYp9uMINiv2YjZhSwyLjA2LDEuNSwzLjA5LDc1LjU3LDYwNDU4MDE1MjYzNiwwLDIzLDAsMTAwLDAsMCwwLDAsMCw2MDQ1ODAxNTI1MTMNCtin2YjYs9iq2KfbjCDYutuM2LHZgdi52KfZhCwxLDEsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMA0KDQrYqtix2KfYsiDYtNin2q/Ysdiv2KfZhiDZiCDZvtix2LPZhtmEINiz2KfbjNixDQrZhtin2YUs2YbZiNi5LNix2YjYsiDaqdin2YXZhCzYsdmI2LIg2YbYtdmB2Ycs2LPYp9i52KrbjCzYs9in2LnYqiDYp9i22KfZgdmH4oCM2qnYp9ixLNiv2LPYqtmF2LLYryDZvtin24zZhyzZvtin2K/Yp9i0LNis2LHbjNmF2Ycs2K/Ys9iq2YXYstivINin2LPYqtit2YLYp9mC24ws2b7Ysdiv2KfYrtiq24ws2YXYs9in2LnYr9mHLNmF2KfZhtiv2YcNCti02Kfar9ix2K8s2LTYp9qv2LHYrywwLDAsMiwxNiw2NjYsNCw1LDY2NSwyMCw2LDYzOQ=="
+      },
+      "auditResult": {
+        "contentBase64": "77u/2LHbjNiyINit2LPYp9io2LHYs9uMIOKAlCDaqdin2LHar9in2Ycg2YbZhdmI2YbZhyzYqNin2LLZhzogMSDZgdix2YjYsdiv24zZhiAxNDAzINiq2KcgNCDZgdix2YjYsdiv24zZhiAxNDAzDQrZgdmC2Lcg2KvYqNiq4oCM2YfYp9uMINiv2KfYrtmEINio2KfYstmH2ZQg2q/Ystin2LHYtCDYotmF2K/ZhyDYp9iz2KouINmF2KjZhNi64oCM2YfYpyDYqNmHINiq2YjZhdin2YbigIzYp9mG2K8g2Ygg2LPYqtmI2YYgwqvYsdmI2LIg2qnYp9ixwrsg2YHZgti3INio2LHYp9uMINit2LbZiNixINin2LPYqi4NCtmG2YjYuSzYqtin2LHbjNiuLNi02LHYrSzYr9iz2KrZhyzZvtix2K/Yp9iu2KrigIzaqdmG2YbYr9mHIC8g2LTYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKSzYsdmI2LIg2qnYp9ixLNmI2LbYuduM2Kos2LPZh9mFINmI2KfYsduM2LLbjCDYr9ixINio2KfYstmHICjYqtmI2YXYp9mGKQ0K2YjYp9ix24zYstuMLDE0MDMvMDEvMDEg2KrYpyAxNDAzLzAxLzA1LNmI2KfYsduM2LLbjCwsLDk5OTk5OTk5OTk5OSws2YHYudin2YQsNzk5OTk5OTk5OTk5DQrZiNin2LHbjNiy24wsMTQwMy8wMS8wMSDYqtinIDE0MDMvMDEvMDEs2YjYp9ix24zYstuMLCwsOTksLNi624zYsdmB2LnYp9mELA0K2YfYstuM2YbZhywxNDAzLzAxLzAxLCc92YfYstuM2YbZhyDYtNiu2LXbjCzZhdi12KfZhNitLNin2YjYs9iq2KcsMzEsLNmB2LnYp9mEDQrZh9iy24zZhtmHLDE0MDMvMDEvMDQs2YfYstuM2YbZhyDZhdi02KrYsdqp2Iwg2KfYqNiy2KfYsSzZhdi12KfZhNitLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwyMSws2YHYudin2YQNCtmH2LLbjNmG2YcsMTQwMy8wMS8wNCwsLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwxMDAsLNi624zYsdmB2LnYp9mEDQrZvtix2K/Yp9iu2KrbjCwxNDAzLzAxLzA0LNm+2LHYr9in2K7Yqiws2LTYp9qv2LHYrywyMCws2YHYudin2YQNCtm+2LHYr9in2K7YqtuMLDE0MDMvMDEvMDQs2b7Ysdiv2KfYrtiqLCzYp9mI2LPYqtinLDEwLCzZgdi52KfZhA0K2KfZhtiq2YLYp9mELDE0MDMvMDEvMDQs2KfZhtiq2YLYp9mELCzYp9mI2LPYqtinIOKGkCDYp9mI2LPYqtin24wg2K/ZiNmFLDEwMCws2YHYudin2YQNCtm+24zYtOKAjNio2LHYr9in2LTYqiwxNDAzLzAxLzA0LNin2YbYqtmC2KfZhCws2LXZhtiv2YjZgiDihpAg2KfZiNiz2KrYpyw0MCws2YHYudin2YQNCtm+2KfYr9in2LQsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDMsLNmB2LnYp9mEDQrZvtin2K/Yp9i0LDE0MDMvMDEvMDQs2KrYudiv24zZhCws2LTYp9qv2LHYryw0LCzZgdi52KfZhA0K2KzYsduM2YXZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNin2YjYs9iq2KcsNCws2YHYudin2YQNCtis2LHbjNmF2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDYsLNmB2LnYp9mEDQrYqtiz2YjbjNmHINmG2YLYr9uMLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2KfZiNiz2KrYpyw2LCzZgdi52KfZhA0K2KrYs9mI24zZhyDZhtmC2K/bjCwxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNi02Kfar9ix2K8sNyws2YHYudin2YQNCtit2LbZiNixLDE0MDMvMDEvMDEs4oCULCzYp9mI2LPYqtinLCwwLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDEs4oCULCzYp9mI2LPYqtin24wg2K/ZiNmFLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDEs4oCULCzYtNin2q/YsdivLCwwLjUs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wMSzaqdin2YXZhCws2KfZiNiz2KrYp9uMINi624zYsdmB2LnYp9mELCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDQs2qnYp9mF2YQsLNin2YjYs9iq2KcsLDEs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wNCw4LjUg2LPYp9i52KosLNin2YjYs9iq2KfbjCDYr9mI2YUsLDEuMDYzLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDQsMjQg2LPYp9i52KosLNi02Kfar9ix2K8sLDMs2YXYudiq2KjYsQ0KDQrYrNmF2LkgKNmB2YLYtyDYsdiv24zZgeKAjNmH2KfbjCDZgdi52KfZhCkNCtmI2KfYsduM2LLbjOKAjNmH2KcgKNiz2YfZhSDYr9ixINio2KfYstmHKSwsLCwsNzk5OTk5OTk5OTk5DQrZh9iy24zZhtmH4oCM2YfYpywsLCwsNTINCtm+2LHYr9in2K7YqtuM4oCM2YfYpywsLCwsMzA="
+      }
+    },
+    {
+      "args": [
+        {
+          "id": "p",
+          "settings": {
+            "overtimeFactor": 1.333,
+            "absentPenalty": 0.5,
+            "profitBasis": "commitment",
+            "rangeFrom": "1403/01/01",
+            "rangeTo": "1403/01/04"
+          },
+          "users": [
+            {
+              "id": "m",
+              "name": "اوستا",
+              "type": "master",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "s",
+              "name": "شاگرد",
+              "type": "custom",
+              "active": true,
+              "workFactor": 1
+            },
+            {
+              "id": "m2",
+              "name": "اوستای دوم",
+              "type": "master",
+              "active": true,
+              "workFactor": 1.5
+            },
+            {
+              "id": "inactive",
+              "name": "اوستای غیرفعال",
+              "type": "master",
+              "active": false,
+              "workFactor": 1
+            }
+          ],
+          "wages": [
+            {
+              "userId": "s",
+              "rate": 101,
+              "effectiveDate": "1403/01/02"
+            },
+            {
+              "userId": "s",
+              "rate": 205,
+              "effectiveDate": "1403/01/04"
+            }
+          ],
+          "attendance": {
+            "1403/01/01": {
+              "m": 0,
+              "m2": 1,
+              "s": 1,
+              "inactive": 1
+            },
+            "1403/01/04": {
+              "m": 1,
+              "m2": {
+                "t": "h",
+                "h": 8.5
+              },
+              "s": {
+                "t": "h",
+                "h": 24
+              }
+            },
+            "1403/01/05": {
+              "m": 0.5,
+              "s": 0
+            }
+          },
+          "receipts": [
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/05",
+              "amount": 999999999999,
+              "description": "واریزی"
+            },
+            {
+              "dateFrom": "1403/01/01",
+              "dateTo": "1403/01/01",
+              "amount": 99,
+              "active": false,
+              "description": "واریزی"
+            }
+          ],
+          "expenses": [
+            {
+              "date": "1403/01/01",
+              "amount": 31,
+              "payerId": "m",
+              "description": "=هزینه شخصی",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 21,
+              "payerId": "shared",
+              "description": "هزینه مشترک، ابزار",
+              "categoryId": "c"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "active": false
+            }
+          ],
+          "payouts": [
+            {
+              "date": "1403/01/04",
+              "amount": 20,
+              "userId": "s",
+              "description": "پرداخت"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 10,
+              "userId": "m",
+              "description": "پرداخت"
+            }
+          ],
+          "transfers": [
+            {
+              "date": "1403/01/04",
+              "amount": 100,
+              "kind": "other",
+              "fromId": "m",
+              "toId": "m2",
+              "description": "انتقال"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 40,
+              "kind": "advance",
+              "toId": "m",
+              "description": "انتقال"
+            }
+          ],
+          "adjustments": [
+            {
+              "date": "1403/01/04",
+              "amount": 3,
+              "kind": "unknown",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "bonus",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 4,
+              "kind": "penalty",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "penalty",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 5,
+              "kind": "assistance",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "assistance",
+              "userId": "s",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 6,
+              "kind": "settle",
+              "userId": "m",
+              "description": "تعدیل"
+            },
+            {
+              "date": "1403/01/04",
+              "amount": 7,
+              "kind": "settle",
+              "userId": "s",
+              "description": "تعدیل"
+            }
+          ],
+          "name": "کارگاه نمونه",
+          "categories": [
+            {
+              "id": "c",
+              "name": "مصالح"
+            }
+          ]
+        }
+      ],
+      "result": {
+        "contentBase64": "77u/2q/Ystin2LHYtCDYrNin2YXYuSDZhdin2YTbjCDigJQg2KfYs9iq2KfbjNin2LENCtm+2LHZiNqY2Ycs2qnYp9ix2q/Yp9mHINmG2YXZiNmG2YcNCtio2KfYstmHLDEg2YHYsdmI2LHYr9uM2YYgMTQwMyDYqtinIDQg2YHYsdmI2LHYr9uM2YYgMTQwMw0K2YXYqNmG2KfbjCDYs9mI2K8s2KrYudmH2K/bjA0K2KrYp9ix24zYriDYqtmH24zZhywxNDAzLzAxLzE1IDEyOjM0DQoNCti02KfYrti14oCM2YfYp9uMINqp2YTbjNiv24wNCti02KfYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKQ0K2YXYrNmF2YjYuSDZiNin2LHbjNiy24wsNzk5OTk5OTk5OTk5DQrZh9iy24zZhtmH4oCM2YfYp9uMINmF2LTYqtix2qksMjENCtmH2LLbjNmG2YfigIzZh9in24wg2LTYrti124wg2KfZiNiz2KrYp9mH2KcsMzENCtqp2YQg2K/Ys9iq2YXYstivINin2LPYqtit2YLYp9mC24wsODUyDQrZvtix2K/Yp9iu2KrbjOKAjNmH2KfbjCDZhtmC2K/bjCwyMA0K2YXYs9in2LnYr9mHINm+2LHYs9mG2YQsNg0K2b7Yp9iv2KfYtCDYp9mI2LPYqtin2YfYpywwDQrYrNix24zZhdmHINin2YjYs9iq2KfZh9inLDQNCtmF2KfZhtiv2Ycg2YLYp9io2YQg2KrZgtiz24zZhSw3OTk5OTk5OTkxMzANCg0K2LPZh9mFINin2YjYs9iq2KfZh9inDQrZhtin2YUs2qnYp9ix2qnYsdivICjYsdmI2LIpLNi22LHbjNioLNqp2KfYsdqp2LHYryDZhtmH2KfbjNuMLNiv2LHYtdivINiz2YfZhSzYs9mH2YUg2b7Yp9uM2Ycs2KjYp9iy2b7Ysdiv2KfYrtiqINmH2LLbjNmG2Ycg2LTYrti124ws2LPZh9mFINmH2LLbjNmG2Ycg2LTYrti124ws2KfZhtiq2YLYp9mEINiv2KfYr9mH4oCM2LTYr9mHLNin2YbYqtmC2KfZhCDar9ix2YHYqtmH4oCM2LTYr9mHLNm+24zYtOKAjNio2LHYr9in2LTYqizZhdiz2KfYudiv2Ycs2b7Yp9iv2KfYtCzYrNix24zZhdmHLNiq2LPZiNuM2Ycg2YbZgtiv24ws2YXYp9mG2K/ZhyDZhtmH2KfbjNuMDQrYp9mI2LPYqtinLDAuNSwxLDAuNSwxMy43OSwxMTAzNDU3Nzg3MjMsMzEsNCwxMDAsMCw0MCw1LDAsNCw2LDExMDM0NTc3ODgwNw0K2KfZiNiz2KrYp9uMINiv2YjZhSwyLjA4LDEuNSwzLjEyLDg2LjIxLDY4OTY1NDIyMDQwNywwLDI3LDAsMTAwLDAsMCwwLDAsMCw2ODk2NTQyMjAyODANCtin2YjYs9iq2KfbjCDYutuM2LHZgdi52KfZhCwxLDEsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMA0KDQrYqtix2KfYsiDYtNin2q/Ysdiv2KfZhiDZiCDZvtix2LPZhtmEINiz2KfbjNixDQrZhtin2YUs2YbZiNi5LNix2YjYsiDaqdin2YXZhCzYsdmI2LIg2YbYtdmB2Ycs2LPYp9i52KrbjCzYs9in2LnYqiDYp9i22KfZgdmH4oCM2qnYp9ixLNiv2LPYqtmF2LLYryDZvtin24zZhyzZvtin2K/Yp9i0LNis2LHbjNmF2Ycs2K/Ys9iq2YXYstivINin2LPYqtit2YLYp9mC24ws2b7Ysdiv2KfYrtiq24ws2YXYs9in2LnYr9mHLNmF2KfZhtiv2YcNCti02Kfar9ix2K8s2b7Ysdiz2YbZhCDYs9in24zYsSwxLDAsMSwxNiw4NTMsNCw1LDg1MiwyMCw2LDgyNg=="
+      },
+      "auditResult": {
+        "contentBase64": "77u/2LHbjNiyINit2LPYp9io2LHYs9uMIOKAlCDaqdin2LHar9in2Ycg2YbZhdmI2YbZhyzYqNin2LLZhzogMSDZgdix2YjYsdiv24zZhiAxNDAzINiq2KcgNCDZgdix2YjYsdiv24zZhiAxNDAzDQrZgdmC2Lcg2KvYqNiq4oCM2YfYp9uMINiv2KfYrtmEINio2KfYstmH2ZQg2q/Ystin2LHYtCDYotmF2K/ZhyDYp9iz2KouINmF2KjZhNi64oCM2YfYpyDYqNmHINiq2YjZhdin2YbigIzYp9mG2K8g2Ygg2LPYqtmI2YYgwqvYsdmI2LIg2qnYp9ixwrsg2YHZgti3INio2LHYp9uMINit2LbZiNixINin2LPYqi4NCtmG2YjYuSzYqtin2LHbjNiuLNi02LHYrSzYr9iz2KrZhyzZvtix2K/Yp9iu2KrigIzaqdmG2YbYr9mHIC8g2LTYrti1LNmF2KjZhNi6ICjYqtmI2YXYp9mGKSzYsdmI2LIg2qnYp9ixLNmI2LbYuduM2Kos2LPZh9mFINmI2KfYsduM2LLbjCDYr9ixINio2KfYstmHICjYqtmI2YXYp9mGKQ0K2YjYp9ix24zYstuMLDE0MDMvMDEvMDEg2KrYpyAxNDAzLzAxLzA1LNmI2KfYsduM2LLbjCwsLDk5OTk5OTk5OTk5OSws2YHYudin2YQsNzk5OTk5OTk5OTk5DQrZiNin2LHbjNiy24wsMTQwMy8wMS8wMSDYqtinIDE0MDMvMDEvMDEs2YjYp9ix24zYstuMLCwsOTksLNi624zYsdmB2LnYp9mELA0K2YfYstuM2YbZhywxNDAzLzAxLzAxLCc92YfYstuM2YbZhyDYtNiu2LXbjCzZhdi12KfZhNitLNin2YjYs9iq2KcsMzEsLNmB2LnYp9mEDQrZh9iy24zZhtmHLDE0MDMvMDEvMDQs2YfYstuM2YbZhyDZhdi02KrYsdqp2Iwg2KfYqNiy2KfYsSzZhdi12KfZhNitLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwyMSws2YHYudin2YQNCtmH2LLbjNmG2YcsMTQwMy8wMS8wNCwsLNi12YbYr9mI2YIg2YXYtNiq2LHaqSwxMDAsLNi624zYsdmB2LnYp9mEDQrZvtix2K/Yp9iu2KrbjCwxNDAzLzAxLzA0LNm+2LHYr9in2K7Yqiws2LTYp9qv2LHYrywyMCws2YHYudin2YQNCtm+2LHYr9in2K7YqtuMLDE0MDMvMDEvMDQs2b7Ysdiv2KfYrtiqLCzYp9mI2LPYqtinLDEwLCzZgdi52KfZhA0K2KfZhtiq2YLYp9mELDE0MDMvMDEvMDQs2KfZhtiq2YLYp9mELCzYp9mI2LPYqtinIOKGkCDYp9mI2LPYqtin24wg2K/ZiNmFLDEwMCws2YHYudin2YQNCtm+24zYtOKAjNio2LHYr9in2LTYqiwxNDAzLzAxLzA0LNin2YbYqtmC2KfZhCws2LXZhtiv2YjZgiDihpAg2KfZiNiz2KrYpyw0MCws2YHYudin2YQNCnVua25vd24sMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDMsLNmB2LnYp9mEDQrZvtin2K/Yp9i0LDE0MDMvMDEvMDQs2KrYudiv24zZhCws2LTYp9qv2LHYryw0LCzZgdi52KfZhA0K2KzYsduM2YXZhywxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNin2YjYs9iq2KcsNCws2YHYudin2YQNCtis2LHbjNmF2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYp9mI2LPYqtinLDUsLNmB2LnYp9mEDQrZhdiz2KfYudiv2YcsMTQwMy8wMS8wNCzYqti52K/bjNmELCzYtNin2q/YsdivLDYsLNmB2LnYp9mEDQrYqtiz2YjbjNmHINmG2YLYr9uMLDE0MDMvMDEvMDQs2KrYudiv24zZhCws2KfZiNiz2KrYpyw2LCzZgdi52KfZhA0K2KrYs9mI24zZhyDZhtmC2K/bjCwxNDAzLzAxLzA0LNiq2LnYr9uM2YQsLNi02Kfar9ix2K8sNyws2YHYudin2YQNCtit2LbZiNixLDE0MDMvMDEvMDEs2LrYp9uM2KgsLNin2YjYs9iq2KcsLC0wLjUs2YXYudiq2KjYsQ0K2K3YttmI2LEsMTQwMy8wMS8wMSzaqdin2YXZhCws2KfZiNiz2KrYp9uMINiv2YjZhSwsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzAxLNqp2KfZhdmELCzYtNin2q/YsdivLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDEs2qnYp9mF2YQsLNin2YjYs9iq2KfbjCDYutuM2LHZgdi52KfZhCwsMSzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzA0LNqp2KfZhdmELCzYp9mI2LPYqtinLCwxLNmF2LnYqtio2LENCtit2LbZiNixLDE0MDMvMDEvMDQsOC41INiz2KfYudiqLCzYp9mI2LPYqtin24wg2K/ZiNmFLCwxLjA4MyzZhdi52KrYqNixDQrYrdi22YjYsSwxNDAzLzAxLzA0LDI0INiz2KfYudiqLCzYtNin2q/YsdivLCwzLjY2NizZhdi52KrYqNixDQoNCtis2YXYuSAo2YHZgti3INix2K/bjNmB4oCM2YfYp9uMINmB2LnYp9mEKQ0K2YjYp9ix24zYstuM4oCM2YfYpyAo2LPZh9mFINiv2LEg2KjYp9iy2YcpLCwsLCw3OTk5OTk5OTk5OTkNCtmH2LLbjNmG2YfigIzZh9inLCwsLCw1Mg0K2b7Ysdiv2KfYrtiq24zigIzZh9inLCwsLCwzMA=="
+      }
+    }
+  ]
+}

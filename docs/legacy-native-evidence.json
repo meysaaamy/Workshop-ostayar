@@ -1,0 +1,15 @@
+{
+  "apkSha256": "1fe8867aa04ee0fb2d0b4e7bdd5e0a502d1a4b264c93dc1f644e672192b1402b",
+  "package": "com.workshop.ledger",
+  "bridgeStringLengthLimitCodeUnits": 83886080,
+  "stateValidatorDefaultUtf8ByteLimit": 67108864,
+  "backupSnapLimit": 3,
+  "payoutValidatorChecksUserExistenceButNoTypeCallSeen": true,
+  "replacementCallOrder": [
+    "RoomDatabaseKt.withTransaction",
+    "SettingsRepository.writeSnapshot"
+  ],
+  "pcmSynthRateHz": 22050,
+  "pcmSynthArray": "Int16Array",
+  "note": "Static code evidence only. Control flow, persistence failures and media output require device tests."
+}

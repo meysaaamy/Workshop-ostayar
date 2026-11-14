@@ -1,0 +1,289 @@
+# Selected original DEX instructions (not decompiled source)
+# APK sha256: 1fe8867aa04ee0fb2d0b4e7bdd5e0a502d1a4b264c93dc1f644e672192b1402b
+# package: com.workshop.ledger; versionCode: 1
+
+## Lcom/workshop/ledger/data/StateValidator;-><clinit> ()V
+new-instance v0, Lcom/workshop/ledger/data/StateValidator;
+invoke-direct v0, Lcom/workshop/ledger/data/StateValidator;-><init>()V
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->INSTANCE Lcom/workshop/ledger/data/StateValidator;
+new-instance v0, Lg0/e;
+const-string v1, "^[A-Za-z0-9_.-]{1,64}$"
+invoke-direct v0, v1, Lg0/e;-><init>(Ljava/lang/String;)V
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->ID_REGEX Lg0/e;
+new-instance v0, Lg0/e;
+const-string v1, "^(\d{4})/(0[1-9]|1[0-2])/(0[1-9]|[12]\d|3[01])$"
+invoke-direct v0, v1, Lg0/e;-><init>(Ljava/lang/String;)V
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->JALALI_DATE_REGEX Lg0/e;
+const-string v0, "apprentice"
+const-string v1, "custom"
+const-string v2, "master"
+filled-new-array v2, v0, v1, [Ljava/lang/String;
+move-result-object v0
+invoke-static v0, LO/j;->W([Ljava/lang/Object;)Ljava/util/Set;
+move-result-object v0
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->USER_TYPES Ljava/util/Set;
+const-string v0, "peer"
+const-string v1, "advance"
+filled-new-array v0, v1, [Ljava/lang/String;
+move-result-object v0
+invoke-static v0, LO/j;->W([Ljava/lang/Object;)Ljava/util/Set;
+move-result-object v0
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->TRANSFER_KINDS Ljava/util/Set;
+const-string v0, "assistance"
+const-string v1, "settle"
+const-string v2, "bonus"
+const-string v3, "penalty"
+filled-new-array v2, v3, v0, v1, [Ljava/lang/String;
+move-result-object v0
+invoke-static v0, LO/j;->W([Ljava/lang/Object;)Ljava/util/Set;
+move-result-object v0
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->ADJUSTMENT_KINDS Ljava/util/Set;
+const-string v0, "not_started"
+const-string v1, "in_quest"
+const-string v2, "completed"
+const-string v3, "skipped"
+filled-new-array v0, v1, v2, v3, [Ljava/lang/String;
+move-result-object v0
+invoke-static v0, LO/j;->W([Ljava/lang/Object;)Ljava/util/Set;
+move-result-object v0
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->ONBOARDING_STATUSES Ljava/util/Set;
+filled-new-array v2, v3, [Ljava/lang/String;
+move-result-object v0
+invoke-static v0, LO/j;->W([Ljava/lang/Object;)Ljava/util/Set;
+move-result-object v0
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->LEGACY_ONBOARDING_VALUES Ljava/util/Set;
+const-string v0, "cash"
+const-string v1, "commitment"
+filled-new-array v0, v1, [Ljava/lang/String;
+move-result-object v0
+invoke-static v0, LO/j;->W([Ljava/lang/Object;)Ljava/util/Set;
+move-result-object v0
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->PROFIT_BASES Ljava/util/Set;
+const-string v0, "light"
+const-string v1, "dark"
+const-string v2, "system"
+filled-new-array v2, v0, v1, [Ljava/lang/String;
+move-result-object v0
+invoke-static v0, LO/j;->W([Ljava/lang/Object;)Ljava/util/Set;
+move-result-object v0
+sput-object v0, Lcom/workshop/ledger/data/StateValidator;->THEMES Ljava/util/Set;
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->checkAmount (Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-virtual v1, v2, Lorg/json/JSONObject;->opt(Ljava/lang/String;)Ljava/lang/Object;
+move-result-object v1
+invoke-virtual v0, v1, Lcom/workshop/ledger/data/StateValidator;->isValidAmount(Ljava/lang/Object;)Z
+move-result v1
+if-nez v1, +01eh
+new-instance v1, Ljava/lang/StringBuilder;
+invoke-direct v1, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v1, v3, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v3, ": مبلغ ("
+invoke-virtual v1, v3, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v2, ") نباید منفی، تهی یا نامعتبر باشد"
+invoke-virtual v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v1, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v1
+invoke-virtual v4, v1, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->checkDate (Lorg/json/JSONObject; Ljava/lang/String; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+invoke-static v1, v2, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v1
+invoke-virtual v0, v1, Lcom/workshop/ledger/data/StateValidator;->isJalaliDate(Ljava/lang/String;)Z
+move-result v1
+if-nez v1, +01eh
+new-instance v1, Ljava/lang/StringBuilder;
+invoke-direct v1, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v1, v3, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v3, ": تاریخ ("
+invoke-virtual v1, v3, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v2, ") باید به شکل YYYY/MM/DD معتبر باشد"
+invoke-virtual v1, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v1, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v1
+invoke-virtual v4, v1, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->checkRecordId (Lorg/json/JSONObject; Ljava/util/Set; Ljava/lang/String; Lcom/workshop/ledger/data/StateValidator$Issues;)V
+const-string v0, "id"
+invoke-static v2, v0, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v2
+if-nez v2, +004h
+const-string v2, ""
+sget-object v0, Lcom/workshop/ledger/data/StateValidator;->ID_REGEX Lg0/e;
+invoke-virtual v0, v2, Lg0/e;->a(Ljava/lang/String;)Z
+move-result v0
+if-nez v0, +00ch
+const-string v2, ": شناسه نامعتبر است"
+invoke-static v4, v2, LA/d;->e(Ljava/lang/String; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v2
+invoke-virtual v5, v2, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+goto +23h
+invoke-interface v3, v2, Ljava/util/Set;->add(Ljava/lang/Object;)Z
+move-result v3
+if-nez v3, +01eh
+new-instance v3, Ljava/lang/StringBuilder;
+invoke-direct v3, Ljava/lang/StringBuilder;-><init>()V
+invoke-virtual v3, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v4, ": شناسه «"
+invoke-virtual v3, v4, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v3, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v2, "» تکراری است"
+invoke-virtual v3, v2, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v3, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v2
+invoke-virtual v5, v2, Lcom/workshop/ledger/data/StateValidator$Issues;->error(Ljava/lang/String;)V
+return-void 
+
+## Lcom/workshop/ledger/data/StateValidator;->isValidAttendanceValue (Ljava/lang/Object;)Z
+instance-of v0, v9, Ljava/lang/Number;
+const/4 v1, 1
+const-wide/16 v2, 0
+const/4 v4, 0
+if-eqz v0, +01dh
+check-cast v9, Ljava/lang/Number;
+invoke-virtual v9, Ljava/lang/Number;->doubleValue()D
+move-result-wide v5
+cmpg-double v9, v5, v2
+if-nez v9, +003h
+goto +5ah
+const-wide/high16 v2, 4602678819172646912
+cmpg-double v9, v5, v2
+if-nez v9, +003h
+goto +53h
+const-wide/high16 v2, 4607182418800017408
+cmpg-double v9, v5, v2
+if-nez v9, +003h
+goto +4ch
+move v1, v4
+goto +4ah
+instance-of v0, v9, Lorg/json/JSONObject;
+if-eqz v0, -004h
+check-cast v9, Lorg/json/JSONObject;
+const-string v0, "h"
+invoke-virtual v9, v0, Lorg/json/JSONObject;->opt(Ljava/lang/String;)Ljava/lang/Object;
+move-result-object v5
+instance-of v6, v5, Ljava/lang/Number;
+const/4 v7, 0
+if-eqz v6, +005h
+check-cast v5, Ljava/lang/Number;
+goto +2h
+move-object v5, v7
+if-eqz v5, +00ah
+invoke-virtual v5, Ljava/lang/Number;->doubleValue()D
+move-result-wide v5
+invoke-static v5, v6, Ljava/lang/Double;->valueOf(D)Ljava/lang/Double;
+move-result-object v7
+const-string v5, "t"
+invoke-static v9, v5, Lcom/workshop/ledger/data/StateValidatorKt;->strOrNull(Lorg/json/JSONObject; Ljava/lang/String;)Ljava/lang/String;
+move-result-object v9
+invoke-static v9, v0, Lkotlin/jvm/internal/i;->a(Ljava/lang/Object; Ljava/lang/Object;)Z
+move-result v9
+if-eqz v9, -02bh
+if-eqz v7, -02dh
+invoke-virtual v7, Ljava/lang/Double;->doubleValue()D
+move-result-wide v5
+invoke-static v5, v6, Ljava/lang/Double;->isNaN(D)Z
+move-result v9
+if-nez v9, -037h
+invoke-virtual v7, Ljava/lang/Double;->doubleValue()D
+move-result-wide v5
+cmpl-double v9, v5, v2
+if-ltz v9, -03fh
+invoke-virtual v7, Ljava/lang/Double;->doubleValue()D
+move-result-wide v2
+const-wide/high16 v5, 4627448617123184640
+cmpg-double v9, v2, v5
+if-gtz v9, -049h
+return v1
+
+## Lcom/workshop/ledger/data/StateValidator;->isJalaliDate (Ljava/lang/String;)Z
+const/4 v0, 0
+if-nez v6, +003h
+return v0
+sget-object v1, Lcom/workshop/ledger/data/StateValidator;->JALALI_DATE_REGEX Lg0/e;
+invoke-virtual v1, Ljava/lang/Object;->getClass()Ljava/lang/Class;
+iget-object v1, v1, Lg0/e;->b Ljava/util/regex/Pattern;
+invoke-virtual v1, v6, Ljava/util/regex/Pattern;->matcher(Ljava/lang/CharSequence;)Ljava/util/regex/Matcher;
+move-result-object v1
+const-string v2, "matcher(...)"
+invoke-static v1, v2, Lkotlin/jvm/internal/i;->d(Ljava/lang/Object; Ljava/lang/String;)V
+invoke-virtual v1, Ljava/util/regex/Matcher;->matches()Z
+move-result v2
+if-nez v2, +004h
+const/4 v6, 0
+goto +7h
+new-instance v2, LC/a;
+invoke-direct v2, v1, v6, LC/a;-><init>(Ljava/util/regex/Matcher; Ljava/lang/String;)V
+move-object v6, v2
+if-nez v6, +003h
+return v0
+invoke-virtual v6, LC/a;->d()Ljava/util/List;
+move-result-object v1
+check-cast v1, Lg0/d;
+const/4 v2, 1
+invoke-virtual v1, v2, Lg0/d;->get(I)Ljava/lang/Object;
+move-result-object v1
+check-cast v1, Ljava/lang/String;
+invoke-static v1, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
+move-result v1
+invoke-virtual v6, LC/a;->d()Ljava/util/List;
+move-result-object v3
+const/4 v4, 2
+check-cast v3, Lg0/d;
+invoke-virtual v3, v4, Lg0/d;->get(I)Ljava/lang/Object;
+move-result-object v3
+check-cast v3, Ljava/lang/String;
+invoke-static v3, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
+move-result v3
+invoke-virtual v6, LC/a;->d()Ljava/util/List;
+move-result-object v6
+const/4 v4, 3
+check-cast v6, Lg0/d;
+invoke-virtual v6, v4, Lg0/d;->get(I)Ljava/lang/Object;
+move-result-object v6
+check-cast v6, Ljava/lang/String;
+invoke-static v6, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
+move-result v6
+const/16 v4, 1200
+if-lt v1, v4, +012h
+const/16 v4, 1700
+if-le v1, v4, +003h
+goto +ch
+const/4 v1, 6
+if-gt v3, v1, +005h
+const/16 v1, 31
+goto +3h
+const/16 v1, 30
+if-gt v6, v1, +003h
+move v0, v2
+return v0
+
+## Lcom/workshop/ledger/data/StateValidator;->isValidAmount (Ljava/lang/Object;)Z
+instance-of v0, v6, Ljava/lang/Number;
+if-eqz v0, +005h
+check-cast v6, Ljava/lang/Number;
+goto +2h
+const/4 v6, 0
+const/4 v0, 0
+if-nez v6, +003h
+return v0
+invoke-virtual v6, Ljava/lang/Number;->doubleValue()D
+move-result-wide v1
+invoke-static v1, v2, Ljava/lang/Double;->isNaN(D)Z
+move-result v6
+if-nez v6, +018h
+invoke-static v1, v2, Ljava/lang/Double;->isInfinite(D)Z
+move-result v6
+if-nez v6, +012h
+const-wide/16 v3, 0
+cmpl-double v6, v1, v3
+if-ltz v6, +00ch
+const-wide v3, 4786511204640088064
+cmpl-double v6, v1, v3
+if-gtz v6, +003h
+const/4 v0, 1
+return v0

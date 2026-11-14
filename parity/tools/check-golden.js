@@ -1,0 +1,52 @@
+#!/usr/bin/env node
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const crypto = require('node:crypto');
+const path = require('node:path');
+const cp = require('node:child_process');
+const root=path.resolve(__dirname,'../..');
+const file=path.join(root,'parity/golden/legacy-sample.json');
+const before=fs.readFileSync(file);
+const data=JSON.parse(before);
+const sha=x=>crypto.createHash('sha256').update(x).digest('hex');
+assert.equal(data.source.apkSha256,sha(fs.readFileSync(path.join(root,'Stayar-v1_16.apk'))));
+cp.execFileSync(process.execPath,[path.join(__dirname,'generate.js')]);
+assert.equal(sha(fs.readFileSync(file)),sha(before),'golden generation must be reproducible');
+for (const c of data.cases.filter(x=>x.fn==='allocate')) {
+ const [total,weights]=c.args;
+ assert.equal(c.result.reduce((a,b)=>a+b,0),weights.some(Boolean)?Math.round(total):0);
+}
+const receipts=data.cases.filter(x=>x.fn==='receiptShare');
+assert.equal(receipts[1].result+receipts[2].result,101);
+const floatBoundary=data.cases.find(c => c.fn==='compute' && c.args[1].settings.overtimeFactor===1.333 && c.args[1].attendance['1403/01/01']?.s?.h===11);
+assert.equal(floatBoundary.result.acc.s.baseWage,5999);
+// In exact decimal arithmetic (8 + 3*1.333)*4000/8 is 5999.5.
+assert.equal((8n*1000n + 3n*1333n)*4000n, 5999500n*8n);
+const cv = (fn, arg) => data.cases.find(c => c.fn===fn && JSON.stringify(c.args[0])===JSON.stringify(arg)).result;
+assert.equal(cv('cvDate','1402/12/30'),false);
+assert.equal(cv('cvDate','1403/12/30'),true);
+assert.equal(cv('cvDate','1199/12/29'),false);
+assert.equal(cv('cvAttValue',{t:'h',h:1.25}),true);
+assert.equal(cv('cvAttValue',{t:'h',h:0}),true);
+assert.equal(cv('cvAttValue',{t:'h',h:24.5}),false);
+const normalized = data.cases.filter(c => c.fn==='normalizeState');
+assert.deepEqual(normalized.slice(0,5).map(c=>c.result.projects[0].settings.overtimeFactor), [1,1.4,1.4,1.4,1.5]);
+assert.ok(normalized.slice(0,5).every(c=>c.result.activeProjectId==='p' && c.result.version===3));
+assert.equal(normalized[5].result.projects[0].isSandbox,true);
+assert.equal(normalized[5].result.projects[0].attendance['1403/01/01'].u,0.5);
+const quarterHour = data.cases.find(c => c.fn==='compute' && c.args[1].attendance['1403/01/01']?.s?.h===1.25);
+assert.equal(quarterHour.result.acc.s.days,0.15625);
+assert.equal(quarterHour.result.acc.s.baseWage,16);
+const health=data.cases.filter(c=>c.fn==='health');
+assert.equal(health.length,10);
+assert.ok(health.every(c=>c.result.stats.total===9));
+const found=new Set(health.flatMap(c=>c.result.items.filter(i=>i.sev!=='ok').map(i=>i.code)));
+assert.deepEqual([...found].sort(),['amount','cat','hours','inactive-att','master','orphan','overpay','share','wage']);
+const csv = value => data.cases.find(c=>c.fn==='csvCell' && c.args[0]===value).result;
+assert.equal(csv(-10),'-10'); assert.equal(csv('-10'),"'-10");
+assert.equal(csv('=SUM(A1:A2)'),"'=SUM(A1:A2)"); assert.equal(csv('a,b'),'"a,b"');
+const zero=data.cases.find(c=>c.fn==='compute' && c.args[1].attendance && !Object.keys(c.args[1].attendance).length);
+assert.ok(zero && zero.result.unallocated===zero.result.profit && zero.result.totalWorkFinal===0);
+const negative=data.cases.find(c=>c.fn==='compute' && c.result.negativeMasters.length);
+assert.ok(negative);
+console.log(`Checked provenance, reproducibility and selected properties for ${data.cases.length} cases. Not a Kotlin parity test.`);
