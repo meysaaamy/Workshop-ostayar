@@ -9,6 +9,6 @@ assert.equal(lines.length,283);
 for(const name of ['attFraction','compute','parseMoney','sanityCheck','csvCell','normalizeState']) {
  const line=lines.find(l=>l.startsWith(`| ${name} |`));assert.ok(line?.includes('نمونهٔ قدیمی'),name);
 }
-assert.equal(lines.filter(x=>x.includes('جزئی؛ آزمون مرجع Kotlin')).length,10);
+assert.equal(lines.filter(x=>x.includes('جزئی؛ آزمون مرجع Kotlin')).length,13);
 assert.ok(lines.filter(x=>!x.includes('جزئی؛ آزمون مرجع Kotlin')).every(x=>x.includes('در انتظار پیاده‌سازی')));
-console.log('Checked reproducibility and 283 tentative mappings; ten have partial implementations and direct Kotlin tests.');
+console.log('Checked reproducibility and 283 tentative mappings; thirteen have partial implementations and direct Kotlin tests.');

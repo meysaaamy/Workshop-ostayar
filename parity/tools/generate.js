@@ -171,6 +171,20 @@ floatingBoundary.settings.overtimeFactor=1.333;
 floatingBoundary.wages=[{userId:'s',rate:4000,effectiveDate:'1403/01/01'}];
 floatingBoundary.attendance={'1403/01/01':{m:1,s:{t:'h',h:11}}};
 add('compute',[null,floatingBoundary],e.compute(null,floatingBoundary));
+// More field-validator cases from the actual old web functions.
+for (const v of [null,true,false,'1','۱۲۳',0,0.1,0.5,1,999999999999,999999999999.5,1000000000000,-1]) add('cvAmount',[v],e.cvAmount(v));
+for (let i=0;i<500;i++) {
+ const v=(rand(300001)-100000)/100;
+ add('cvAmount',[v],e.cvAmount(v));
+ const h=(rand(30001)-3000)/1000;
+ const a=i%3===0?h:i%3===1?{t:'h',h}:{t:'x',h};
+ add('cvAttValue',[a],e.cvAttValue(a));
+}
+for (let i=0;i<300;i++) {
+ const y=1198+rand(505),m=rand(15),d=rand(34);
+ const v=`${String(y).padStart(4,'0')}/${String(m).padStart(2,'0')}/${String(d).padStart(2,'0')}`;
+ add('cvDate',[v],e.cvDate(v));
+}
 const output = {source:{apkSha256:crypto.createHash('sha256').update(fs.readFileSync(apk)).digest('hex'),htmlSha256:crypto.createHash('sha256').update(src).digest('hex')}, seed:'0x51a7a2',cases};
 const out = path.join(root,'parity/golden/legacy-sample.json');
 fs.writeFileSync(out,JSON.stringify(output,null,2)+'\n');

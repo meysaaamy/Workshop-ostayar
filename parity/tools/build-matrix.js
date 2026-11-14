@@ -5,7 +5,7 @@ const root=path.resolve(__dirname,'../..');
 const inventory=fs.readFileSync(path.join(root,'docs/legacy-function-inventory.md'),'utf8');
 const rows=inventory.split('\n').filter(x=>x.startsWith('| ')&&!x.startsWith('| تابع')).map(l=>l.split('|').slice(1,-1).map(x=>x.trim())).filter(x=>x.length===5 && x[1]==='script' && /^\d+$/.test(x[2]));
 if(rows.length!==283) throw Error(`Expected 283 top-level declarations, found ${rows.length}; review source changes first`);
-const direct={attFraction:'attFraction',wageRateFor:'wageRateFor',allocate:'allocate',receiptShare:'receiptShare',compute:'compute',parseMoney:'parseMoney',cvDate:'cvDate',cvAttValue:'cvAttValue',clientValidate:'clientValidate',normalizeState:'normalizeState',sanityCheck:'health',csvCell:'csvCell'};
+const direct={attFraction:'attFraction',wageRateFor:'wageRateFor',allocate:'allocate',receiptShare:'receiptShare',compute:'compute',parseMoney:'parseMoney',cvDate:'cvDate',cvAmount:'cvAmount',cvAttValue:'cvAttValue',clientValidate:'clientValidate',normalizeState:'normalizeState',sanityCheck:'health',csvCell:'csvCell'};
 const sample=JSON.parse(fs.readFileSync(path.join(root,'parity/golden/legacy-sample.json')));
 const counts=sample.cases.reduce((m,c)=>(m[c.fn]=(m[c.fn]||0)+1,m),{});
 const implemented = {
@@ -14,7 +14,10 @@ const implemented = {
  attFraction:'domain/AttendanceMath.fraction (انواع پشتیبانی‌شده)', compute:'domain/FinancialEngine.compute (تاریخ معتبر)',
  csvCell:'data/LegacyCsv.cell (انواع پشتیبانی‌شده)', downloadCSV:'data/LegacyCsv.encode (صرفاً تولید بایت؛ بدون ذخیره)',
  exportFinancialReportCSV:'data/FinancialCsvReport.rows (محدود؛ بدون ذخیرهٔ فایل)',
- exportDetailedAuditCSV:'data/AuditCsvReport.rows (محدود؛ بدون ذخیرهٔ فایل)' 
+ exportDetailedAuditCSV:'data/AuditCsvReport.rows (محدود؛ بدون ذخیرهٔ فایل)',
+ cvDate:'data/LegacyFieldValidators.validDate (اعتبارسنج وب)',
+ cvAmount:'data/LegacyFieldValidators.validAmount (اعتبارسنج وب)',
+ cvAttValue:'data/LegacyFieldValidators.validAttendance (اعتبارسنج وب)' 
 };
 const financial=new Set(['otFactor','attFraction','absPenalty','isStaffUser','attFr','buildWageIndex','wageRateFor','allocate','receiptShare','compute']);
 const storage=new Set(['sanId','sanRef','sanDay','sanNum','sanText','sanKind','sanOpt','sanFix','sanitizeProject','normalizeState','loadState','NATIVE_STRIP','nativeJson','persistNow','saveState']);
@@ -45,7 +48,7 @@ function plan(name,line){
  if(line<4367)return 'app/data: آموزش تعاملی و sandbox (فاز ۵)';
  return 'app/domain: سلامت، آموزش یا تنظیمات (فاز ۵)';
 }
-let out='# ماتریس پیشنهادی ۲۸۳ تابع سطح اسکریپت\n\nاین نگاشت از محل بخش در سورس تولید شده و **طرح اولیه نیازمند بازبینی** است، نه ادعای همارزی یا نام کلاس نهایی. ده تابع دارای پیاده‌سازی جزئی و آزمون مستقیم Kotlin هستند؛ وضعیت بقیه نیازمند بازبینی است و برچسب انتظار به معنی بررسی کامل نیست. ستون آزمون شمار نمونه‌های مرجع قدیمی را نشان می‌دهد و همارزی همهٔ حالت‌ها را ثابت نمی‌کند. توابع محلی، متدهای شیء، انتساب‌ها و callbackها در فهرست جداگانه باقی‌اند.\n\n| تابع قدیمی | خط | مقصد پیشنهادی | آزمون مرجع فعلی | وضعیت |\n|---|---:|---|---|---|\n';
+let out='# ماتریس پیشنهادی ۲۸۳ تابع سطح اسکریپت\n\nاین نگاشت از محل بخش در سورس تولید شده و **طرح اولیه نیازمند بازبینی** است، نه ادعای همارزی یا نام کلاس نهایی. سیزده تابع دارای پیاده‌سازی جزئی و آزمون مستقیم Kotlin هستند؛ وضعیت بقیه نیازمند بازبینی است و برچسب انتظار به معنی بررسی کامل نیست. ستون آزمون شمار نمونه‌های مرجع قدیمی را نشان می‌دهد و همارزی همهٔ حالت‌ها را ثابت نمی‌کند. توابع محلی، متدهای شیء، انتساب‌ها و callbackها در فهرست جداگانه باقی‌اند.\n\n| تابع قدیمی | خط | مقصد پیشنهادی | آزمون مرجع فعلی | وضعیت |\n|---|---:|---|---|---|\n';
 for(const r of rows){const [name,,line]=r, test=direct[name], n=test?counts[test]||0:0; const intended=implemented[name]||plan(name,+line), status=implemented[name]?'جزئی؛ آزمون مرجع Kotlin':'در انتظار پیاده‌سازی';all.push({name,line:+line,intended,test:test||null,count:n});out+=`| ${name} | ${line} | ${intended} | ${n?`${test}: ${n} نمونهٔ قدیمی`:'هنوز مشخص نشده'} | ${status} |\n`;}
 fs.writeFileSync(path.join(root,'docs/legacy-function-matrix-draft.md'),out);
 console.log(`Mapped ${all.length} declarations to tentative destinations; ${all.filter(x=>x.count).length} have directly named legacy cases.`);

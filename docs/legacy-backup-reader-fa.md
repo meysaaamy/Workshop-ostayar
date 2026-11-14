@@ -14,3 +14,14 @@
 JAVA_HOME=/path/to/jdk KOTLINC=/path/to/kotlinc parity/tools/check-backup-reader.sh
 cd parity && npm ci && npm test
 ```
+
+## اعتبارسنج‌های جزئی فیلدهای وب قدیمی
+
+`LegacyFieldValidators` سه قاعدهٔ `cvDate`، `cvAmount` و `cvAttValue` نسخهٔ وب را برای مقادیر JSON پیاده‌سازی می‌کند. ۳۰۸ تاریخ، ۵۱۳ مبلغ و ۵۱۰ مقدار حضور، همراه با ۲۳ متن عددی پیش از گردشدن JSON، با توابع داخل APK مقایسه شده‌اند. مقایسهٔ اعداد با شبیه‌سازی binary64 انجام می‌شود؛ مثلاً متن عددی کمی بالاتر از ۲۴ ممکن است در JavaScript دقیقاً ۲۴ شود. ساعات قدیمی ۱٫۲۵ پذیرفته می‌شوند. اعتبارسنج مبلغ وب **اعداد اعشاری را هم می‌پذیرد**؛ این به معنی مجاز بودن ذخیرهٔ آنها در مدل پولی `Long` جدید یا گردکردن آنها نیست.
+
+اعداد غیرقابل تجزیه یا خارج از محدودیت `BigDecimal` و شبیه‌ساز به‌صورت محافظه‌کارانه رد می‌شوند؛ بعضی exponentهای بسیار بزرگ در JSON ممکن است در JavaScript به صفر underflow شوند اما اینجا رد شوند. این محدودیت در ورودی غیرعادی یک انحراف است. این توابع `clientValidate` کامل، validator بومی، normalizeState، ارتباط شناسه‌ها یا بازیابی امن را پیاده نمی‌کنند و به تنهایی مجوز نوشتن داده نیستند.
+
+```sh
+JAVA_HOME=/path/to/jdk KOTLINC=/path/to/kotlinc parity/tools/check-field-validators.sh
+cd parity && npm test
+```

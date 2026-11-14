@@ -1,0 +1,142 @@
+{
+  "cases": [
+    {
+      "raw": "0",
+      "amount": true,
+      "attendance": true,
+      "hours": true
+    },
+    {
+      "raw": "-0",
+      "amount": true,
+      "attendance": true,
+      "hours": true
+    },
+    {
+      "raw": "1",
+      "amount": true,
+      "attendance": true,
+      "hours": true
+    },
+    {
+      "raw": "0.5",
+      "amount": true,
+      "attendance": true,
+      "hours": true
+    },
+    {
+      "raw": "0.50000000000000001",
+      "amount": true,
+      "attendance": true,
+      "hours": true
+    },
+    {
+      "raw": "1.00000000000000001",
+      "amount": true,
+      "attendance": true,
+      "hours": true
+    },
+    {
+      "raw": "1.25",
+      "amount": true,
+      "attendance": false,
+      "hours": true
+    },
+    {
+      "raw": "24",
+      "amount": true,
+      "attendance": false,
+      "hours": true
+    },
+    {
+      "raw": "24.0000000000000001",
+      "amount": true,
+      "attendance": false,
+      "hours": true
+    },
+    {
+      "raw": "24.00000000000001",
+      "amount": true,
+      "attendance": false,
+      "hours": false
+    },
+    {
+      "raw": "-0.00000000000000000001",
+      "amount": false,
+      "attendance": false,
+      "hours": false
+    },
+    {
+      "raw": "999999999999",
+      "amount": true,
+      "attendance": false,
+      "hours": false
+    },
+    {
+      "raw": "999999999999.000001",
+      "amount": true,
+      "attendance": false,
+      "hours": false
+    },
+    {
+      "raw": "999999999999.1",
+      "amount": false,
+      "attendance": false,
+      "hours": false
+    },
+    {
+      "raw": "1000000000000",
+      "amount": false,
+      "attendance": false,
+      "hours": false
+    },
+    {
+      "raw": "1e-325",
+      "amount": true,
+      "attendance": true,
+      "hours": true
+    },
+    {
+      "raw": "-1e-325",
+      "amount": true,
+      "attendance": true,
+      "hours": true
+    },
+    {
+      "raw": "1e-400",
+      "amount": true,
+      "attendance": true,
+      "hours": true
+    },
+    {
+      "raw": "-1e-400",
+      "amount": true,
+      "attendance": true,
+      "hours": true
+    },
+    {
+      "raw": "1e-100000",
+      "amount": true,
+      "attendance": true,
+      "hours": true
+    },
+    {
+      "raw": "1e309",
+      "amount": false,
+      "attendance": false,
+      "hours": false
+    },
+    {
+      "raw": "1e100000",
+      "amount": false,
+      "attendance": false,
+      "hours": false
+    },
+    {
+      "raw": "1.7976931348623157e308",
+      "amount": false,
+      "attendance": false,
+      "hours": false
+    }
+  ]
+}

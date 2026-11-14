@@ -25,7 +25,7 @@ const code = [
   between('function inactiveAttCount(prefix) {', 'function renderMatrix() {'),
   between('function sanityCheck() {', 'function cleanOrphans() {'),
   between('function csvCell(v) {', 'function downloadCSV('),
-  'globalThis.engine = {attFraction, attFr, wageRateFor, allocate, receiptShare, compute, parseMoney, cvDate, cvAttValue, clientValidate, normalizeState, csvCell, health: p => { S = {projects: [p], activeProjectId: p.id}; return sanityCheck(); }, jalaali: window.jalaali};'
+  'globalThis.engine = {attFraction, attFr, wageRateFor, allocate, receiptShare, compute, parseMoney, cvDate, cvAmount, cvAttValue, clientValidate, normalizeState, csvCell, health: p => { S = {projects: [p], activeProjectId: p.id}; return sanityCheck(); }, jalaali: window.jalaali};'
 ].join('\n');
 const context = vm.createContext({window:{}});
 vm.runInContext(code, context, {timeout: 2000, filename:'extracted-legacy-engine.js'});
