@@ -6,8 +6,8 @@ import com.workshop.ledger.domain.JalaliCalendar
 import java.util.Locale
 
 /**
- * Experimental additive migration for the APK v2 table layout. Not registered in the app.
- * Room must call it within its migration transaction, and a v3 Room schema must validate
+ * Experimental additive migration for the APK v2 table layout, registered in the transitional Room database.
+ * Room must call it within its migration transaction, and its v3 schema must validate
  * the result. Original columns, attendance JSON, unknown tables and DataStore are untouched.
  */
 object LegacyRoomMigration2To3 : Migration(2, 3) {
