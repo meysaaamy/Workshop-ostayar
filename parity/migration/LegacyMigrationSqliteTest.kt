@@ -7,7 +7,7 @@ import java.io.Closeable
 import java.math.BigDecimal
 import stayar.parity.JsonReader
 
-private fun quoted(s: String): String = buildString {
+internal fun quoted(s: String): String = buildString {
     append('"')
     for(c in s) when(c) {
         '"' -> append("\\\""); '\\' -> append("\\\\"); '\n' -> append("\\n"); '\r' -> append("\\r"); '\t' -> append("\\t")
@@ -15,7 +15,7 @@ private fun quoted(s: String): String = buildString {
     }
     append('"')
 }
-private class Bridge(worker: String): SupportSQLiteDatabase, Closeable {
+internal class Bridge(worker: String): SupportSQLiteDatabase, Closeable {
     private val process=ProcessBuilder("python3",worker).redirectError(ProcessBuilder.Redirect.INHERIT).start()
     private val input=process.outputStream.bufferedWriter(Charsets.UTF_8)
     private val output=process.inputStream.bufferedReader(Charsets.UTF_8)

@@ -4,6 +4,7 @@ import json
 import hashlib
 import struct
 import random
+import stat
 import math
 import sqlite3
 import sys
@@ -44,9 +45,14 @@ def initialize(kind):
             if math.isfinite(value):
                 conn.execute("INSERT INTO users VALUES (?,?,?,?,?,?,?,?,?,?)",('p',f'f{i}','n','r','master',value,0,0,1,None))
     if kind=='unexpected_trigger': conn.execute("CREATE TRIGGER unexpected BEFORE UPDATE ON receipts BEGIN SELECT 1; END")
+    capture_columns()
+
+def capture_columns():
+    global source_columns
     source_columns={}
     for (table,) in conn.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name"):
-        source_columns[table]=[row[1] for row in conn.execute(f'PRAGMA table_info("{table}")')]
+        quoted=table.replace('\"','\"\"')
+        source_columns[table]=[row[1] for row in conn.execute(f'PRAGMA table_info(\"{quoted}\")')]
 
 def digest_legacy_rows():
     def encode(v):
@@ -58,13 +64,27 @@ def digest_legacy_rows():
     snapshot=[]
     for table,columns in source_columns.items():
         names=','.join('"'+s.replace('"','""')+'"' for s in columns)
-        rows=conn.execute(f'SELECT {names} FROM "{table}" ORDER BY rowid').fetchall()
+        quoted=table.replace('\"','\"\"')
+        rows=conn.execute(f'SELECT {names} FROM \"{quoted}\"').fetchall()
+        rows=sorted(rows,key=lambda row: json.dumps([encode(v) for v in row],ensure_ascii=True,separators=(',',':')))
         snapshot.append([table,columns,[[encode(v) for v in row] for row in rows]])
     return hashlib.sha256(json.dumps(snapshot,ensure_ascii=True,separators=(',',':')).encode()).hexdigest()
 
 
 def main(req):
     if req['op']=='init': initialize(req['kind']);return None
+    if req['op']=='init_external':
+        global conn, inject_late_failure
+        path=Path(req['path'])
+        if not stat.S_ISREG(path.lstat().st_mode): raise ValueError('database must be a regular non-symlink')
+        source=sqlite3.connect(path.resolve().as_uri()+'?mode=ro',uri=True)
+        try:
+            conn.close();conn=sqlite3.connect(':memory:',isolation_level=None)
+            source.backup(conn)
+        finally: source.close()
+        inject_late_failure=False
+        capture_columns()
+        return None
     if req['op']=='exec':
         if inject_late_failure and req['sql'].startswith('UPDATE `receipts` SET `migration_'): raise sqlite3.OperationalError('injected late failure')
         conn.execute(req['sql'],req.get('args',[]));return None
