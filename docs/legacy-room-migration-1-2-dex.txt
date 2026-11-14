@@ -1,0 +1,60 @@
+# Original DEX instructions; no Android runtime execution.
+# APK sha256: 1fe8867aa04ee0fb2d0b4e7bdd5e0a502d1a4b264c93dc1f644e672192b1402b
+
+## Lcom/workshop/ledger/data/LedgerDatabase;-><clinit> ()V
+new-instance v0, Lcom/workshop/ledger/data/LedgerDatabase$Companion;
+const/4 v1, 0
+invoke-direct v0, v1, Lcom/workshop/ledger/data/LedgerDatabase$Companion;-><init>(Lkotlin/jvm/internal/e;)V
+sput-object v0, Lcom/workshop/ledger/data/LedgerDatabase;->Companion Lcom/workshop/ledger/data/LedgerDatabase$Companion;
+new-instance v0, Lcom/workshop/ledger/data/LedgerDatabase$Companion$MIGRATION_1_2$1;
+invoke-direct v0, Lcom/workshop/ledger/data/LedgerDatabase$Companion$MIGRATION_1_2$1;-><init>()V
+sput-object v0, Lcom/workshop/ledger/data/LedgerDatabase;->MIGRATION_1_2 Landroidx/room/migration/Migration;
+const-string v19, "CREATE INDEX IF NOT EXISTS `index_adjustments_projectId_date` ON `adjustments` (`projectId`, `date`)"
+const-string v20, "CREATE TABLE IF NOT EXISTS `categories` (`projectId` TEXT NOT NULL, `id` TEXT NOT NULL, `name` TEXT NOT NULL, PRIMARY KEY(`projectId`, `id`))"
+const-string v1, "CREATE TABLE IF NOT EXISTS `projects` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, PRIMARY KEY(`id`))"
+const-string v2, "CREATE TABLE IF NOT EXISTS `users` (`projectId` TEXT NOT NULL, `id` TEXT NOT NULL, `name` TEXT NOT NULL, `role` TEXT NOT NULL, `type` TEXT NOT NULL, `workFactor` REAL NOT NULL, `active` INTEGER NOT NULL, `main` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `deletedAt` INTEGER, PRIMARY KEY(`projectId`, `id`))"
+const-string v3, "CREATE INDEX IF NOT EXISTS `index_users_projectId` ON `users` (`projectId`)"
+const-string v4, "CREATE TABLE IF NOT EXISTS `wages` (`projectId` TEXT NOT NULL, `id` TEXT NOT NULL, `userId` TEXT NOT NULL, `rate` REAL NOT NULL, `effectiveDate` TEXT NOT NULL, PRIMARY KEY(`projectId`, `id`))"
+const-string v5, "CREATE INDEX IF NOT EXISTS `index_wages_projectId` ON `wages` (`projectId`)"
+const-string v6, "CREATE INDEX IF NOT EXISTS `index_wages_projectId_userId` ON `wages` (`projectId`, `userId`)"
+const-string v7, "CREATE TABLE IF NOT EXISTS `attendance` (`projectId` TEXT NOT NULL, `date` TEXT NOT NULL, `userId` TEXT NOT NULL, `valueJson` TEXT NOT NULL, PRIMARY KEY(`projectId`, `date`, `userId`))"
+const-string v8, "CREATE INDEX IF NOT EXISTS `index_attendance_projectId` ON `attendance` (`projectId`)"
+const-string v9, "CREATE INDEX IF NOT EXISTS `index_attendance_projectId_date` ON `attendance` (`projectId`, `date`)"
+const-string v10, "CREATE TABLE IF NOT EXISTS `expenses` (`projectId` TEXT NOT NULL, `id` TEXT NOT NULL, `date` TEXT NOT NULL, `description` TEXT NOT NULL, `categoryId` TEXT, `payerId` TEXT, `amount` REAL NOT NULL, `active` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, PRIMARY KEY(`projectId`, `id`))"
+const-string v11, "CREATE INDEX IF NOT EXISTS `index_expenses_projectId_date` ON `expenses` (`projectId`, `date`)"
+const-string v12, "CREATE TABLE IF NOT EXISTS `receipts` (`projectId` TEXT NOT NULL, `id` TEXT NOT NULL, `dateFrom` TEXT NOT NULL, `dateTo` TEXT NOT NULL, `amount` REAL NOT NULL, `description` TEXT NOT NULL, `active` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, PRIMARY KEY(`projectId`, `id`))"
+const-string v13, "CREATE INDEX IF NOT EXISTS `index_receipts_projectId_dateFrom` ON `receipts` (`projectId`, `dateFrom`)"
+const-string v14, "CREATE TABLE IF NOT EXISTS `payouts` (`projectId` TEXT NOT NULL, `id` TEXT NOT NULL, `date` TEXT NOT NULL, `userId` TEXT NOT NULL, `amount` REAL NOT NULL, `description` TEXT NOT NULL, `active` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, PRIMARY KEY(`projectId`, `id`))"
+const-string v15, "CREATE INDEX IF NOT EXISTS `index_payouts_projectId_date` ON `payouts` (`projectId`, `date`)"
+const-string v16, "CREATE TABLE IF NOT EXISTS `transfers` (`projectId` TEXT NOT NULL, `id` TEXT NOT NULL, `date` TEXT NOT NULL, `fromId` TEXT, `toId` TEXT, `amount` REAL NOT NULL, `description` TEXT NOT NULL, `kind` TEXT NOT NULL, `active` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, PRIMARY KEY(`projectId`, `id`))"
+const-string v17, "CREATE INDEX IF NOT EXISTS `index_transfers_projectId_date` ON `transfers` (`projectId`, `date`)"
+const-string v18, "CREATE TABLE IF NOT EXISTS `adjustments` (`projectId` TEXT NOT NULL, `id` TEXT NOT NULL, `date` TEXT NOT NULL, `userId` TEXT NOT NULL, `kind` TEXT NOT NULL, `amount` REAL NOT NULL, `description` TEXT NOT NULL, `active` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, PRIMARY KEY(`projectId`, `id`))"
+filled-new-array/range v1 ... v20, [Ljava/lang/String;
+move-result-object v0
+invoke-static v0, LO/l;->S([Ljava/lang/Object;)Ljava/util/List;
+move-result-object v0
+sput-object v0, Lcom/workshop/ledger/data/LedgerDatabase;->MIGRATION_1_2_STATEMENTS Ljava/util/List;
+return-void
+
+## Lcom/workshop/ledger/data/LedgerDatabase$Companion$MIGRATION_1_2$1;-><init> ()V
+const/4 v0, 1
+const/4 v1, 2
+invoke-direct v2, v0, v1, Landroidx/room/migration/Migration;-><init>(I I)V
+return-void
+
+## Lcom/workshop/ledger/data/LedgerDatabase$Companion$MIGRATION_1_2$1;->migrate (LC/c;)V
+const-string v0, "db"
+invoke-static v3, v0, Lkotlin/jvm/internal/i;->e(Ljava/lang/Object; Ljava/lang/String;)V
+invoke-static Lcom/workshop/ledger/data/LedgerDatabase;->access$getMIGRATION_1_2_STATEMENTS$cp()Ljava/util/List;
+move-result-object v0
+invoke-interface v0, Ljava/lang/Iterable;->iterator()Ljava/util/Iterator;
+move-result-object v0
+invoke-interface v0, Ljava/util/Iterator;->hasNext()Z
+move-result v1
+if-eqz v1, +00ch
+invoke-interface v0, Ljava/util/Iterator;->next()Ljava/lang/Object;
+move-result-object v1
+check-cast v1, Ljava/lang/String;
+invoke-interface v3, v1, LC/c;->execSQL(Ljava/lang/String;)V
+goto -fh
+return-void
