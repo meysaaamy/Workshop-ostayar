@@ -21,7 +21,7 @@ object LegacyFieldValidators {
         return year in 1200..1700 && JalaliCalendar.isValidDate(year, s.substring(5,7).toInt(), s.substring(8,10).toInt())
     }
 
-    private fun number(value: JsonValue?): BigDecimal? {
+    internal fun number(value: JsonValue?): BigDecimal? {
         val raw = (value as? JsonValue.Number)?.raw ?: return null
         if (raw.length > 128) return null
         val decimal = raw.toBigDecimalOrNull() ?: return null
@@ -32,7 +32,7 @@ object LegacyFieldValidators {
         if (exponent > 308) return null
         return decimal
     }
-    private fun compare(value: BigDecimal, other: BigDecimal): Int? =
+    internal fun compare(value: BigDecimal, other: BigDecimal): Int? =
         try { LegacyNumberComparison.compare(value,other) } catch (_: ArithmeticException) { null } catch (_: IllegalArgumentException) { null }
 
     /** The old web validator allows fractional money; this is NOT the new Long input policy. */

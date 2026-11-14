@@ -185,6 +185,48 @@ for (let i=0;i<300;i++) {
  const v=`${String(y).padStart(4,'0')}/${String(m).padStart(2,'0')}/${String(d).padStart(2,'0')}`;
  add('cvDate',[v],e.cvDate(v));
 }
+// Client validator first-error order on realistic JSON project shapes.
+const validatorBase={projects:[{id:'p',name:'پروژه',settings:{},users:[{id:'u',name:'علی',type:'apprentice',workFactor:1}],categories:[{id:'c',name:'مصالح'}],wages:[{id:'w',rate:101,effectiveDate:'1403/01/01'}],expenses:[{id:'e',date:'1403/01/01',amount:2}],receipts:[{id:'r',dateFrom:'1403/01/01',dateTo:'1403/01/02',amount:4}],payouts:[{id:'b',date:'1403/01/01',amount:2}],transfers:[{id:'t',date:'1403/01/01',amount:2,kind:'peer'}],adjustments:[{id:'a',date:'1403/01/01',amount:2,kind:'bonus'}],attendance:{'1403/01/01':{u:{t:'h',h:1.25}}}}]};
+const validatorMutations=[
+ s=>s.projects=[], s=>s.projects.push(JSON.parse(JSON.stringify(s.projects[0]))),s=>s.projects[0].id='?',s=>s.projects[0].name='  ',
+ s=>s.projects[0].settings.rangeFrom='1402/12/30',s=>s.projects[0].settings.overtimeFactor=0,s=>s.projects[0].settings.absentPenalty=3.1,
+ s=>s.projects[0].settings.profitBasis='other',s=>s.projects[0].settings.theme='blue',s=>s.projects[0].settings.locked='true',
+ s=>s.projects[0].users[0].id='!',s=>s.projects[0].users.push(JSON.parse(JSON.stringify(s.projects[0].users[0]))),
+ s=>s.projects[0].users[0].name='\uFEFF',s=>s.projects[0].users[0].role='x'.repeat(201),s=>s.projects[0].users[0].type='unknown',
+ s=>delete s.projects[0].users[0].type,s=>s.projects[0].users[0].workFactor=-1,s=>s.projects[0].users[0].active='false',
+ s=>s.projects[0].categories[0].name='',s=>s.projects[0].wages[0].rate=-1,s=>s.projects[0].wages[0].effectiveDate='wrong',
+ s=>s.projects[0].expenses[0].date='wrong',s=>s.projects[0].expenses[0].amount=-1,s=>s.projects[0].expenses[0].description='x'.repeat(2001),
+ s=>s.projects[0].receipts[0].dateTo='wrong',s=>s.projects[0].receipts[0].dateFrom='1403/01/03',s=>s.projects[0].receipts[0].amount=-1,
+ s=>s.projects[0].payouts[0].amount=-1,s=>s.projects[0].transfers[0].kind='other',s=>s.projects[0].adjustments[0].kind='other',
+ s=>s.projects[0].attendance={'1402/12/30':{}},s=>s.projects[0].attendance={'1403/01/01':[]},s=>s.projects[0].attendance={'1403/01/01':{u:'1'}},
+ s=>s.projects[0].users=[null],s=>s.projects[0].users=[[]],s=>s.projects[0].expenses[0].description={a:1},
+ s=>s.projects[0].settings.overtimeFactor=1.0000000000000001,s=>s.projects[0].settings.absentPenalty=-0.5,
+ s=>s.projects[0].users[0].workFactor=0.1,s=>s.projects[0].payouts[0].amount=0.25,
+];
+for(const mutate of [()=>{},...validatorMutations]) {
+ const state=JSON.parse(JSON.stringify(validatorBase));mutate(state);add('clientValidate',[state],e.clientValidate(state));
+}
+// Combine validator mutations to check ordering and diverse supported JSON scalar fields.
+const fieldValues=[null,true,false,'','0','  ','valid','\uFEFF',0,0.5,1,-1,3,5,1000000000000,'x'.repeat(201),['a','b'],{k:'v'}];
+for(let i=0;i<400;i++) {
+ const state=JSON.parse(JSON.stringify(validatorBase));const p=state.projects[0];
+ const v=()=>fieldValues[rand(fieldValues.length)];
+ switch(i%12) {
+  case 0:p.id=v();p.name=v();break;
+  case 1:p.settings.overtimeFactor=v();p.settings.absentPenalty=v();break;
+  case 2:p.settings.profitBasis=v();p.settings.theme=v();p.settings.locked=v();break;
+  case 3:p.users[0].name=v();p.users[0].type=v();break;
+  case 4:p.users[0].role=v();p.users[0].workFactor=v();break;
+  case 5:p.users[0].active=v();p.users[0].main=v();break;
+  case 6:p.expenses[0].description=v();p.expenses[0].amount=v();break;
+  case 7:p.receipts[0].amount=v();p.receipts[0].description=v();break;
+  case 8:p.transfers[0].kind=v();p.adjustments[0].kind=v();break;
+  case 9:p.wages[0].rate=v();p.categories[0].name=v();break;
+  case 10:p.attendance['1403/01/01'].u=v();break;
+  case 11:p.settings.rangeFrom=v();p.settings.rangeTo=v();break;
+ }
+ add('clientValidate',[state],e.clientValidate(state));
+}
 const output = {source:{apkSha256:crypto.createHash('sha256').update(fs.readFileSync(apk)).digest('hex'),htmlSha256:crypto.createHash('sha256').update(src).digest('hex')}, seed:'0x51a7a2',cases};
 const out = path.join(root,'parity/golden/legacy-sample.json');
 fs.writeFileSync(out,JSON.stringify(output,null,2)+'\n');
