@@ -189,7 +189,7 @@ def main():
     v = sub.add_parser('verify'); v.add_argument('--snapshot', required=True)
     args = parser.parse_args()
     try:
-        if args.command == 'backup': result = backup(args.database,args.settings,args.destination,stopped=args.app_stopped)
+        if args.command == 'backup': raise ValueError('Plaintext backup creation is disabled; use encrypted_backup.py instead')
         elif args.command == 'restore': result = restore(args.snapshot,args.destination,stopped=args.app_stopped)
         else: result = verify(args.snapshot)
     except (OSError, sqlite3.Error, ValueError, UnicodeError) as e:
