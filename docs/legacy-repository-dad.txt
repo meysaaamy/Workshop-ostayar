@@ -1,0 +1,904 @@
+# Best-effort Androguard DAD pseudocode; NOT original Kotlin and may be inaccurate.
+# Verify all control flow and constants against original DEX instructions.
+# APK SHA-256: 1fe8867aa04ee0fb2d0b4e7bdd5e0a502d1a4b264c93dc1f644e672192b1402b
+# Class: Lcom/workshop/ledger/data/LedgerRepository;
+
+## <init> (Lcom/workshop/ledger/data/LedgerDatabase; Lcom/workshop/ledger/data/SettingsRepository;)V
+
+    public LedgerRepository(com.workshop.ledger.data.LedgerDatabase p2, com.workshop.ledger.data.SettingsRepository p3)
+    {
+        kotlin.jvm.internal.i.e(p2, "database");
+        kotlin.jvm.internal.i.e(p3, "settings");
+        this.database = p2;
+        this.settings = p3;
+        this.dao = p2.ledgerDao();
+        this.projectHashes = new java.util.concurrent.ConcurrentHashMap();
+        return;
+    }
+
+
+## access$adjustmentToJson (Lcom/workshop/ledger/data/LedgerRepository; Lcom/workshop/ledger/data/AdjustmentEntity;)Lorg/json/JSONObject;
+
+    public static final synthetic org.json.JSONObject access$adjustmentToJson(com.workshop.ledger.data.LedgerRepository p0, com.workshop.ledger.data.AdjustmentEntity p1)
+    {
+        return p0.adjustmentToJson(p1);
+    }
+
+
+## access$attendanceToJson (Lcom/workshop/ledger/data/LedgerRepository; Ljava/util/List;)Lorg/json/JSONObject;
+
+    public static final synthetic org.json.JSONObject access$attendanceToJson(com.workshop.ledger.data.LedgerRepository p0, java.util.List p1)
+    {
+        return p0.attendanceToJson(p1);
+    }
+
+
+## access$canonicalHash (Lcom/workshop/ledger/data/LedgerRepository; Ljava/lang/Object;)I
+
+    public static final synthetic int access$canonicalHash(com.workshop.ledger.data.LedgerRepository p0, Object p1)
+    {
+        return p0.canonicalHash(p1);
+    }
+
+
+## access$categoryToJson (Lcom/workshop/ledger/data/LedgerRepository; Lcom/workshop/ledger/data/CategoryEntity;)Lorg/json/JSONObject;
+
+    public static final synthetic org.json.JSONObject access$categoryToJson(com.workshop.ledger.data.LedgerRepository p0, com.workshop.ledger.data.CategoryEntity p1)
+    {
+        return p0.categoryToJson(p1);
+    }
+
+
+## access$expenseToJson (Lcom/workshop/ledger/data/LedgerRepository; Lcom/workshop/ledger/data/ExpenseEntity;)Lorg/json/JSONObject;
+
+    public static final synthetic org.json.JSONObject access$expenseToJson(com.workshop.ledger.data.LedgerRepository p0, com.workshop.ledger.data.ExpenseEntity p1)
+    {
+        return p0.expenseToJson(p1);
+    }
+
+
+## access$getDao$p (Lcom/workshop/ledger/data/LedgerRepository;)Lcom/workshop/ledger/data/LedgerDao;
+
+    public static final synthetic com.workshop.ledger.data.LedgerDao access$getDao$p(com.workshop.ledger.data.LedgerRepository p0)
+    {
+        return p0.dao;
+    }
+
+
+## access$getDatabase$p (Lcom/workshop/ledger/data/LedgerRepository;)Lcom/workshop/ledger/data/LedgerDatabase;
+
+    public static final synthetic com.workshop.ledger.data.LedgerDatabase access$getDatabase$p(com.workshop.ledger.data.LedgerRepository p0)
+    {
+        return p0.database;
+    }
+
+
+## access$getProjectHashes$p (Lcom/workshop/ledger/data/LedgerRepository;)Ljava/util/concurrent/ConcurrentHashMap;
+
+    public static final synthetic java.util.concurrent.ConcurrentHashMap access$getProjectHashes$p(com.workshop.ledger.data.LedgerRepository p0)
+    {
+        return p0.projectHashes;
+    }
+
+
+## access$getSettings$p (Lcom/workshop/ledger/data/LedgerRepository;)Lcom/workshop/ledger/data/SettingsRepository;
+
+    public static final synthetic com.workshop.ledger.data.SettingsRepository access$getSettings$p(com.workshop.ledger.data.LedgerRepository p0)
+    {
+        return p0.settings;
+    }
+
+
+## access$onboardingState (Lcom/workshop/ledger/data/LedgerRepository; Ljava/lang/String;)Lorg/json/JSONObject;
+
+    public static final synthetic org.json.JSONObject access$onboardingState(com.workshop.ledger.data.LedgerRepository p0, String p1)
+    {
+        return p0.onboardingState(p1);
+    }
+
+
+## access$parseObject (Lcom/workshop/ledger/data/LedgerRepository; Ljava/lang/String;)Lorg/json/JSONObject;
+
+    public static final synthetic org.json.JSONObject access$parseObject(com.workshop.ledger.data.LedgerRepository p0, String p1)
+    {
+        return p0.parseObject(p1);
+    }
+
+
+## access$payoutToJson (Lcom/workshop/ledger/data/LedgerRepository; Lcom/workshop/ledger/data/PayoutEntity;)Lorg/json/JSONObject;
+
+    public static final synthetic org.json.JSONObject access$payoutToJson(com.workshop.ledger.data.LedgerRepository p0, com.workshop.ledger.data.PayoutEntity p1)
+    {
+        return p0.payoutToJson(p1);
+    }
+
+
+## access$receiptToJson (Lcom/workshop/ledger/data/LedgerRepository; Lcom/workshop/ledger/data/ReceiptEntity;)Lorg/json/JSONObject;
+
+    public static final synthetic org.json.JSONObject access$receiptToJson(com.workshop.ledger.data.LedgerRepository p0, com.workshop.ledger.data.ReceiptEntity p1)
+    {
+        return p0.receiptToJson(p1);
+    }
+
+
+## access$toAdjustment (Lcom/workshop/ledger/data/LedgerRepository; Ljava/lang/String; Lorg/json/JSONObject;)Lcom/workshop/ledger/data/AdjustmentEntity;
+
+    public static final synthetic com.workshop.ledger.data.AdjustmentEntity access$toAdjustment(com.workshop.ledger.data.LedgerRepository p0, String p1, org.json.JSONObject p2)
+    {
+        return p0.toAdjustment(p1, p2);
+    }
+
+
+## access$toAttendance (Lcom/workshop/ledger/data/LedgerRepository; Ljava/lang/String; Lorg/json/JSONObject;)Ljava/util/List;
+
+    public static final synthetic java.util.List access$toAttendance(com.workshop.ledger.data.LedgerRepository p0, String p1, org.json.JSONObject p2)
+    {
+        return p0.toAttendance(p1, p2);
+    }
+
+
+## access$toCategory (Lcom/workshop/ledger/data/LedgerRepository; Ljava/lang/String; Lorg/json/JSONObject;)Lcom/workshop/ledger/data/CategoryEntity;
+
+    public static final synthetic com.workshop.ledger.data.CategoryEntity access$toCategory(com.workshop.ledger.data.LedgerRepository p0, String p1, org.json.JSONObject p2)
+    {
+        return p0.toCategory(p1, p2);
+    }
+
+
+## access$toExpense (Lcom/workshop/ledger/data/LedgerRepository; Ljava/lang/String; Lorg/json/JSONObject;)Lcom/workshop/ledger/data/ExpenseEntity;
+
+    public static final synthetic com.workshop.ledger.data.ExpenseEntity access$toExpense(com.workshop.ledger.data.LedgerRepository p0, String p1, org.json.JSONObject p2)
+    {
+        return p0.toExpense(p1, p2);
+    }
+
+
+## access$toPayout (Lcom/workshop/ledger/data/LedgerRepository; Ljava/lang/String; Lorg/json/JSONObject;)Lcom/workshop/ledger/data/PayoutEntity;
+
+    public static final synthetic com.workshop.ledger.data.PayoutEntity access$toPayout(com.workshop.ledger.data.LedgerRepository p0, String p1, org.json.JSONObject p2)
+    {
+        return p0.toPayout(p1, p2);
+    }
+
+
+## access$toReceipt (Lcom/workshop/ledger/data/LedgerRepository; Ljava/lang/String; Lorg/json/JSONObject;)Lcom/workshop/ledger/data/ReceiptEntity;
+
+    public static final synthetic com.workshop.ledger.data.ReceiptEntity access$toReceipt(com.workshop.ledger.data.LedgerRepository p0, String p1, org.json.JSONObject p2)
+    {
+        return p0.toReceipt(p1, p2);
+    }
+
+
+## access$toTransfer (Lcom/workshop/ledger/data/LedgerRepository; Ljava/lang/String; Lorg/json/JSONObject;)Lcom/workshop/ledger/data/TransferEntity;
+
+    public static final synthetic com.workshop.ledger.data.TransferEntity access$toTransfer(com.workshop.ledger.data.LedgerRepository p0, String p1, org.json.JSONObject p2)
+    {
+        return p0.toTransfer(p1, p2);
+    }
+
+
+## access$toUser (Lcom/workshop/ledger/data/LedgerRepository; Ljava/lang/String; Lorg/json/JSONObject;)Lcom/workshop/ledger/data/UserEntity;
+
+    public static final synthetic com.workshop.ledger.data.UserEntity access$toUser(com.workshop.ledger.data.LedgerRepository p0, String p1, org.json.JSONObject p2)
+    {
+        return p0.toUser(p1, p2);
+    }
+
+
+## access$toWage (Lcom/workshop/ledger/data/LedgerRepository; Ljava/lang/String; Lorg/json/JSONObject;)Lcom/workshop/ledger/data/WageEntity;
+
+    public static final synthetic com.workshop.ledger.data.WageEntity access$toWage(com.workshop.ledger.data.LedgerRepository p0, String p1, org.json.JSONObject p2)
+    {
+        return p0.toWage(p1, p2);
+    }
+
+
+## access$transferToJson (Lcom/workshop/ledger/data/LedgerRepository; Lcom/workshop/ledger/data/TransferEntity;)Lorg/json/JSONObject;
+
+    public static final synthetic org.json.JSONObject access$transferToJson(com.workshop.ledger.data.LedgerRepository p0, com.workshop.ledger.data.TransferEntity p1)
+    {
+        return p0.transferToJson(p1);
+    }
+
+
+## access$userToJson (Lcom/workshop/ledger/data/LedgerRepository; Lcom/workshop/ledger/data/UserEntity;)Lorg/json/JSONObject;
+
+    public static final synthetic org.json.JSONObject access$userToJson(com.workshop.ledger.data.LedgerRepository p0, com.workshop.ledger.data.UserEntity p1)
+    {
+        return p0.userToJson(p1);
+    }
+
+
+## access$wageToJson (Lcom/workshop/ledger/data/LedgerRepository; Lcom/workshop/ledger/data/WageEntity;)Lorg/json/JSONObject;
+
+    public static final synthetic org.json.JSONObject access$wageToJson(com.workshop.ledger.data.LedgerRepository p0, com.workshop.ledger.data.WageEntity p1)
+    {
+        return p0.wageToJson(p1);
+    }
+
+
+## adjustmentToJson (Lcom/workshop/ledger/data/AdjustmentEntity;)Lorg/json/JSONObject;
+
+    private final org.json.JSONObject adjustmentToJson(com.workshop.ledger.data.AdjustmentEntity p5)
+    {
+        return new org.json.JSONObject().put("id", p5.getId()).put("date", p5.getDate()).put("userId", p5.getUserId()).put("kind", p5.getKind()).put("amount", p5.getAmount()).put("description", p5.getDescription()).put("active", p5.getActive()).put("createdAt", p5.getCreatedAt()).put("updatedAt", p5.getUpdatedAt());
+    }
+
+
+## appendCanonical (Ljava/lang/StringBuilder; Ljava/lang/Object;)V
+
+    private final void appendCanonical(StringBuilder p7, Object p8)
+    {
+        if ((p8 != 0) && (p8 != org.json.JSONObject.NULL)) {
+            if (!(p8 instanceof org.json.JSONObject)) {
+                if (!(p8 instanceof org.json.JSONArray)) {
+                    if (!(p8 instanceof Number)) {
+                        if (!(p8 instanceof Boolean)) {
+                            p7.append(34);
+                            p7.append(p8.toString());
+                            p7.append(34);
+                        } else {
+                            int v8_4;
+                            if (!((Boolean) p8).booleanValue()) {
+                                v8_4 = 102;
+                            } else {
+                                v8_4 = 116;
+                            }
+                            p7.append(v8_4);
+                        }
+                    } else {
+                        long v0_3 = ((Number) p8).doubleValue();
+                        if ((v0_3 != Math.floor(v0_3)) || (Math.abs(v0_3) >= 4831355200913801216)) {
+                            p7.append(v0_3);
+                        } else {
+                            p7.append(((long) v0_3));
+                        }
+                    }
+                } else {
+                    p7.append(91);
+                    long v0_7 = ((org.json.JSONArray) p8).length();
+                    Object v2_2 = 0;
+                    while (v2_2 < v0_7) {
+                        this.appendCanonical(p7, ((org.json.JSONArray) p8).opt(v2_2));
+                        p7.append(44);
+                        v2_2++;
+                    }
+                    p7.append(93);
+                }
+            } else {
+                p7.append(123);
+                long v0_9 = ((org.json.JSONObject) p8).keys();
+                kotlin.jvm.internal.i.d(v0_9, "keys(...)");
+                long v0_12 = new f0.a(new f0.c(1, v0_9));
+                Object v2_7 = new java.util.ArrayList();
+                long v0_13 = v0_12.iterator();
+                while (v0_13.hasNext()) {
+                    v2_7.add(v0_13.next());
+                }
+                if (v2_7.size() > 1) {
+                    java.util.Collections.sort(v2_7);
+                }
+                long v0_15 = v2_7.iterator();
+                while (v0_15.hasNext()) {
+                    Object v2_10 = ((String) v0_15.next());
+                    p7.append(v2_10);
+                    p7.append(58);
+                    this.appendCanonical(p7, ((org.json.JSONObject) p8).opt(v2_10));
+                    p7.append(44);
+                }
+                p7.append(125);
+            }
+        } else {
+            p7.append(110);
+        }
+        return;
+    }
+
+
+## array (Ljava/util/List; LY/l;)Lorg/json/JSONArray;
+
+    private final org.json.JSONArray array(java.util.List p3, Y.l p4)
+    {
+        org.json.JSONArray v0_1 = new org.json.JSONArray();
+        if (p3 != null) {
+            java.util.Iterator v3_1 = p3.iterator();
+            while (v3_1.hasNext()) {
+                v0_1.put(p4.invoke(v3_1.next()));
+            }
+        }
+        return v0_1;
+    }
+
+
+## attendanceToJson (Ljava/util/List;)Lorg/json/JSONObject;
+
+    private final org.json.JSONObject attendanceToJson(java.util.List p6)
+    {
+        org.json.JSONObject v0_1 = new org.json.JSONObject();
+        java.util.Iterator v6_1 = p6.iterator();
+        while (v6_1.hasNext()) {
+            String v1_0 = ((com.workshop.ledger.data.AttendanceEntity) v6_1.next());
+            org.json.JSONObject v2_1 = v0_1.optJSONObject(v1_0.getDate());
+            if (v2_1 == null) {
+                v2_1 = new org.json.JSONObject();
+                v0_1.put(v1_0.getDate(), v2_1);
+            }
+            try {
+                Object v3_3 = new org.json.JSONTokener(v1_0.getValueJson()).nextValue();
+            } catch (Exception) {
+                v3_3 = org.json.JSONObject.NULL;
+            }
+            v2_1.put(v1_0.getUserId(), v3_3);
+        }
+        return v0_1;
+    }
+
+
+## canonicalHash (Ljava/lang/Object;)I
+
+    private final int canonicalHash(Object p2)
+    {
+        StringBuilder v0_1 = new StringBuilder();
+        this.appendCanonical(v0_1, p2);
+        return v0_1.toString().hashCode();
+    }
+
+
+## categoryToJson (Lcom/workshop/ledger/data/CategoryEntity;)Lorg/json/JSONObject;
+
+    private final org.json.JSONObject categoryToJson(com.workshop.ledger.data.CategoryEntity p4)
+    {
+        return new org.json.JSONObject().put("id", p4.getId()).put("name", p4.getName());
+    }
+
+
+## expenseToJson (Lcom/workshop/ledger/data/ExpenseEntity;)Lorg/json/JSONObject;
+
+    private final org.json.JSONObject expenseToJson(com.workshop.ledger.data.ExpenseEntity p5)
+    {
+        org.json.JSONObject v0_3 = new org.json.JSONObject().put("id", p5.getId()).put("date", p5.getDate()).put("description", p5.getDescription());
+        String v1_1 = p5.getCategoryId();
+        if (v1_1 == null) {
+            v1_1 = org.json.JSONObject.NULL;
+        }
+        org.json.JSONObject v0_4 = v0_3.put("categoryId", v1_1);
+        String v1_2 = p5.getPayerId();
+        if (v1_2 == null) {
+            v1_2 = org.json.JSONObject.NULL;
+        }
+        return v0_4.put("payerId", v1_2).put("amount", p5.getAmount()).put("active", p5.getActive()).put("createdAt", p5.getCreatedAt()).put("updatedAt", p5.getUpdatedAt());
+    }
+
+
+## mapObjects (Lorg/json/JSONObject; Ljava/lang/String; LY/l;)Ljava/util/List;
+
+    private final java.util.List mapObjects(org.json.JSONObject p4, String p5, Y.l p6)
+    {
+        O.s v4_1 = p4.optJSONArray(p5);
+        if (v4_1 != null) {
+            java.util.ArrayList v5_2 = new java.util.ArrayList(v4_1.length());
+            int v0_1 = v4_1.length();
+            int v1 = 0;
+            while (v1 < v0_1) {
+                Object v2_0 = v4_1.optJSONObject(v1);
+                if (v2_0 != null) {
+                    v5_2.add(p6.invoke(v2_0));
+                }
+                v1++;
+            }
+            return v5_2;
+        } else {
+            return O.s.b;
+        }
+    }
+
+
+## now ()J
+
+    private final long now()
+    {
+        return System.currentTimeMillis();
+    }
+
+
+## onboardingState (Ljava/lang/String;)Lorg/json/JSONObject;
+
+    private final org.json.JSONObject onboardingState(String p7)
+    {
+        if ((!kotlin.jvm.internal.i.a(p7, "completed")) && (!kotlin.jvm.internal.i.a(p7, "skipped"))) {
+            try {
+                if ((p7 != null) && (!g0.m.Y(p7))) {
+                    return new org.json.JSONObject(p7);
+                } else {
+                    org.json.JSONObject v7_5 = new org.json.JSONObject().put("status", "not_started").put("questStep", 0).put("sandboxProjectId", org.json.JSONObject.NULL);
+                    kotlin.jvm.internal.i.d(v7_5, "put(...)");
+                    return v7_5;
+                }
+            } catch (Exception) {
+                v7_5 = new org.json.JSONObject().put("status", "not_started").put("questStep", 0).put("sandboxProjectId", org.json.JSONObject.NULL);
+                kotlin.jvm.internal.i.d(v7_5, "put(...)");
+                return v7_5;
+            }
+        } else {
+            org.json.JSONObject v7_8 = new org.json.JSONObject().put("status", p7).put("questStep", 0).put("sandboxProjectId", org.json.JSONObject.NULL);
+            kotlin.jvm.internal.i.d(v7_8, "put(...)");
+            return v7_8;
+        }
+    }
+
+
+## parseObject (Ljava/lang/String;)Lorg/json/JSONObject;
+
+    private final org.json.JSONObject parseObject(String p2)
+    {
+        org.json.JSONObject v0_2;
+        if (p2 == null) {
+            v0_2 = new org.json.JSONObject();
+        } else {
+            try {
+                if (!g0.m.Y(p2)) {
+                    v0_2 = new org.json.JSONObject(p2);
+                } else {
+                }
+            } catch (Exception) {
+                v0_2 = new org.json.JSONObject();
+            }
+        }
+        return v0_2;
+    }
+
+
+## payoutToJson (Lcom/workshop/ledger/data/PayoutEntity;)Lorg/json/JSONObject;
+
+    private final org.json.JSONObject payoutToJson(com.workshop.ledger.data.PayoutEntity p5)
+    {
+        return new org.json.JSONObject().put("id", p5.getId()).put("date", p5.getDate()).put("userId", p5.getUserId()).put("amount", p5.getAmount()).put("description", p5.getDescription()).put("active", p5.getActive()).put("createdAt", p5.getCreatedAt()).put("updatedAt", p5.getUpdatedAt());
+    }
+
+
+## receiptToJson (Lcom/workshop/ledger/data/ReceiptEntity;)Lorg/json/JSONObject;
+
+    private final org.json.JSONObject receiptToJson(com.workshop.ledger.data.ReceiptEntity p5)
+    {
+        return new org.json.JSONObject().put("id", p5.getId()).put("dateFrom", p5.getDateFrom()).put("dateTo", p5.getDateTo()).put("amount", p5.getAmount()).put("description", p5.getDescription()).put("active", p5.getActive()).put("createdAt", p5.getCreatedAt()).put("updatedAt", p5.getUpdatedAt());
+    }
+
+
+## toAdjustment (Ljava/lang/String; Lorg/json/JSONObject;)Lcom/workshop/ledger/data/AdjustmentEntity;
+
+    private final com.workshop.ledger.data.AdjustmentEntity toAdjustment(String p18, org.json.JSONObject p19)
+    {
+        String v4_0;
+        com.workshop.ledger.data.AdjustmentEntity v14 = new com.workshop.ledger.data.AdjustmentEntity;
+        String v2 = p19.getString("id");
+        kotlin.jvm.internal.i.d(v2, "getString(...)");
+        String v1_15 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p19, "date");
+        if (v1_15 != null) {
+            v4_0 = v1_15;
+        } else {
+            v4_0 = "";
+        }
+        String v5_0;
+        String v1_1 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p19, "userId");
+        if (v1_1 != null) {
+            v5_0 = v1_1;
+        } else {
+            v5_0 = "";
+        }
+        long v6_0;
+        String v1_4 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p19, "kind");
+        if (v1_4 != null) {
+            v6_0 = v1_4;
+        } else {
+            v6_0 = "";
+        }
+        long v7;
+        String v1_6 = com.workshop.ledger.data.StateValidatorKt.numOrNull(p19, "amount");
+        if (v1_6 == null) {
+            v7 = 0;
+        } else {
+            v7 = v1_6.doubleValue();
+        }
+        boolean v9_0;
+        String v1_8 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p19, "description");
+        if (v1_8 != null) {
+            v9_0 = v1_8;
+        } else {
+            v9_0 = "";
+        }
+        v14(p18, v2, v4_0, v5_0, v6_0, v7, v9_0, com.workshop.ledger.data.StateValidatorKt.boolOr(p19, "active", 1), com.workshop.ledger.data.StateValidatorKt.longOr(p19, "createdAt", this.now()), com.workshop.ledger.data.StateValidatorKt.longOr(p19, "updatedAt", this.now()));
+        return v14;
+    }
+
+
+## toAttendance (Ljava/lang/String; Lorg/json/JSONObject;)Ljava/util/List;
+
+    private final java.util.List toAttendance(String p10, org.json.JSONObject p11)
+    {
+        if (p11 != null) {
+            java.util.ArrayList v0_1 = new java.util.ArrayList();
+            java.util.Iterator v1 = p11.keys();
+            while (v1.hasNext()) {
+                String v2_1 = ((String) v1.next());
+                org.json.JSONObject v3 = p11.optJSONObject(v2_1);
+                if (v3 != null) {
+                    java.util.Iterator v4 = v3.keys();
+                    while (v4.hasNext()) {
+                        String v5_2 = ((String) v4.next());
+                        Object v6 = v3.opt(v5_2);
+                        if (v6 != null) {
+                            String v8_1;
+                            kotlin.jvm.internal.i.b(v2_1);
+                            kotlin.jvm.internal.i.b(v5_2);
+                            String v8_0 = org.json.JSONObject.wrap(v6);
+                            if (v8_0 == null) {
+                                v8_1 = v6.toString();
+                            } else {
+                                v8_1 = v8_0.toString();
+                                if (v8_1 == null) {
+                                }
+                            }
+                            v0_1.add(new com.workshop.ledger.data.AttendanceEntity(p10, v2_1, v5_2, v8_1));
+                        }
+                    }
+                }
+            }
+            return v0_1;
+        } else {
+            return O.s.b;
+        }
+    }
+
+
+## toCategory (Ljava/lang/String; Lorg/json/JSONObject;)Lcom/workshop/ledger/data/CategoryEntity;
+
+    private final com.workshop.ledger.data.CategoryEntity toCategory(String p4, org.json.JSONObject p5)
+    {
+        String v1_1 = p5.getString("id");
+        kotlin.jvm.internal.i.d(v1_1, "getString(...)");
+        String v5_1 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p5, "name");
+        if (v5_1 == null) {
+            v5_1 = "";
+        }
+        return new com.workshop.ledger.data.CategoryEntity(p4, v1_1, v5_1);
+    }
+
+
+## toExpense (Ljava/lang/String; Lorg/json/JSONObject;)Lcom/workshop/ledger/data/ExpenseEntity;
+
+    private final com.workshop.ledger.data.ExpenseEntity toExpense(String p17, org.json.JSONObject p18)
+    {
+        String v5;
+        String v4 = p18.getString("id");
+        kotlin.jvm.internal.i.d(v4, "getString(...)");
+        String v1_15 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p18, "date");
+        if (v1_15 != null) {
+            v5 = v1_15;
+        } else {
+            v5 = "";
+        }
+        String v6;
+        String v1_2 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p18, "description");
+        if (v1_2 != null) {
+            v6 = v1_2;
+        } else {
+            v6 = "";
+        }
+        int v7;
+        String v1_4 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p18, "categoryId");
+        com.workshop.ledger.data.ExpenseEntity v2_0 = 0;
+        if (v1_4 == null) {
+            v7 = 0;
+        } else {
+            if (v1_4.length() == 0) {
+                v1_4 = 0;
+            }
+            v7 = v1_4;
+        }
+        String v1_6 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p18, "payerId");
+        if ((v1_6 != null) && (v1_6.length() != 0)) {
+            v2_0 = v1_6;
+        }
+        String v1_10;
+        int v8 = v2_0;
+        String v1_9 = com.workshop.ledger.data.StateValidatorKt.numOrNull(p18, "amount");
+        if (v1_9 == null) {
+            v1_10 = 0;
+        } else {
+            v1_10 = v1_9.doubleValue();
+        }
+        com.workshop.ledger.data.ExpenseEntity v0_1 = new com.workshop.ledger.data.ExpenseEntity;
+        v0_1(p17, v4, v5, v6, v7, v8, v1_10, com.workshop.ledger.data.StateValidatorKt.boolOr(p18, "active", 1), com.workshop.ledger.data.StateValidatorKt.longOr(p18, "createdAt", this.now()), com.workshop.ledger.data.StateValidatorKt.longOr(p18, "updatedAt", this.now()));
+        return v0_1;
+    }
+
+
+## toPayout (Ljava/lang/String; Lorg/json/JSONObject;)Lcom/workshop/ledger/data/PayoutEntity;
+
+    private final com.workshop.ledger.data.PayoutEntity toPayout(String p17, org.json.JSONObject p18)
+    {
+        String v4_0;
+        com.workshop.ledger.data.PayoutEntity v13 = new com.workshop.ledger.data.PayoutEntity;
+        String v2 = p18.getString("id");
+        kotlin.jvm.internal.i.d(v2, "getString(...)");
+        String v1_13 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p18, "date");
+        if (v1_13 != null) {
+            v4_0 = v1_13;
+        } else {
+            v4_0 = "";
+        }
+        long v5_0;
+        String v1_1 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p18, "userId");
+        if (v1_1 != null) {
+            v5_0 = v1_1;
+        } else {
+            v5_0 = "";
+        }
+        long v6;
+        String v1_4 = com.workshop.ledger.data.StateValidatorKt.numOrNull(p18, "amount");
+        if (v1_4 == null) {
+            v6 = 0;
+        } else {
+            v6 = v1_4.doubleValue();
+        }
+        boolean v8_0;
+        String v1_6 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p18, "description");
+        if (v1_6 != null) {
+            v8_0 = v1_6;
+        } else {
+            v8_0 = "";
+        }
+        v13(p17, v2, v4_0, v5_0, v6, v8_0, com.workshop.ledger.data.StateValidatorKt.boolOr(p18, "active", 1), com.workshop.ledger.data.StateValidatorKt.longOr(p18, "createdAt", this.now()), com.workshop.ledger.data.StateValidatorKt.longOr(p18, "updatedAt", this.now()));
+        return v13;
+    }
+
+
+## toReceipt (Ljava/lang/String; Lorg/json/JSONObject;)Lcom/workshop/ledger/data/ReceiptEntity;
+
+    private final com.workshop.ledger.data.ReceiptEntity toReceipt(String p17, org.json.JSONObject p18)
+    {
+        String v4_0;
+        com.workshop.ledger.data.ReceiptEntity v13 = new com.workshop.ledger.data.ReceiptEntity;
+        String v2 = p18.getString("id");
+        kotlin.jvm.internal.i.d(v2, "getString(...)");
+        String v1_13 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p18, "dateFrom");
+        if (v1_13 != null) {
+            v4_0 = v1_13;
+        } else {
+            v4_0 = "";
+        }
+        long v5_0;
+        String v1_1 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p18, "dateTo");
+        if (v1_1 != null) {
+            v5_0 = v1_1;
+        } else {
+            v5_0 = "";
+        }
+        long v6;
+        String v1_4 = com.workshop.ledger.data.StateValidatorKt.numOrNull(p18, "amount");
+        if (v1_4 == null) {
+            v6 = 0;
+        } else {
+            v6 = v1_4.doubleValue();
+        }
+        boolean v8_0;
+        String v1_6 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p18, "description");
+        if (v1_6 != null) {
+            v8_0 = v1_6;
+        } else {
+            v8_0 = "";
+        }
+        v13(p17, v2, v4_0, v5_0, v6, v8_0, com.workshop.ledger.data.StateValidatorKt.boolOr(p18, "active", 1), com.workshop.ledger.data.StateValidatorKt.longOr(p18, "createdAt", this.now()), com.workshop.ledger.data.StateValidatorKt.longOr(p18, "updatedAt", this.now()));
+        return v13;
+    }
+
+
+## toTransfer (Ljava/lang/String; Lorg/json/JSONObject;)Lcom/workshop/ledger/data/TransferEntity;
+
+    private final com.workshop.ledger.data.TransferEntity toTransfer(String p18, org.json.JSONObject p19)
+    {
+        String v5;
+        String v4 = p19.getString("id");
+        kotlin.jvm.internal.i.d(v4, "getString(...)");
+        String v1_16 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p19, "date");
+        if (v1_16 != null) {
+            v5 = v1_16;
+        } else {
+            v5 = "";
+        }
+        int v6_0;
+        String v1_2 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p19, "fromId");
+        String v3_0 = 0;
+        if (v1_2 == null) {
+            v6_0 = 0;
+        } else {
+            if (v1_2.length() == 0) {
+                v1_2 = 0;
+            }
+            v6_0 = v1_2;
+        }
+        String v1_4 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p19, "toId");
+        if ((v1_4 != null) && (v1_4.length() != 0)) {
+            v3_0 = v1_4;
+        }
+        long v8;
+        int v7_1 = v3_0;
+        String v1_6 = com.workshop.ledger.data.StateValidatorKt.numOrNull(p19, "amount");
+        if (v1_6 == null) {
+            v8 = 0;
+        } else {
+            v8 = v1_6.doubleValue();
+        }
+        String v10;
+        String v1_9 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p19, "description");
+        if (v1_9 != null) {
+            v10 = v1_9;
+        } else {
+            v10 = "";
+        }
+        String v11;
+        String v1_11 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p19, "kind");
+        if (v1_11 != null) {
+            v11 = v1_11;
+        } else {
+            v11 = "";
+        }
+        com.workshop.ledger.data.TransferEntity v0_1 = new com.workshop.ledger.data.TransferEntity;
+        v0_1(p18, v4, v5, v6_0, v7_1, v8, v10, v11, com.workshop.ledger.data.StateValidatorKt.boolOr(p19, "active", 1), com.workshop.ledger.data.StateValidatorKt.longOr(p19, "createdAt", this.now()), com.workshop.ledger.data.StateValidatorKt.longOr(p19, "updatedAt", this.now()));
+        return v0_1;
+    }
+
+
+## toUser (Ljava/lang/String; Lorg/json/JSONObject;)Lcom/workshop/ledger/data/UserEntity;
+
+    private final com.workshop.ledger.data.UserEntity toUser(String p17, org.json.JSONObject p18)
+    {
+        String v4_0;
+        com.workshop.ledger.data.UserEntity v13 = new com.workshop.ledger.data.UserEntity;
+        String v2 = p18.getString("id");
+        kotlin.jvm.internal.i.d(v2, "getString(...)");
+        String v1_14 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p18, "name");
+        if (v1_14 != null) {
+            v4_0 = v1_14;
+        } else {
+            v4_0 = "";
+        }
+        String v5_0;
+        String v1_1 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p18, "role");
+        if (v1_1 != null) {
+            v5_0 = v1_1;
+        } else {
+            v5_0 = "";
+        }
+        long v6_0;
+        String v1_4 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p18, "type");
+        if (v1_4 != null) {
+            v6_0 = v1_4;
+        } else {
+            v6_0 = "";
+        }
+        long v7;
+        String v1_6 = com.workshop.ledger.data.StateValidatorKt.numOrNull(p18, "workFactor");
+        if (v1_6 == null) {
+            v7 = 4607182418800017408;
+        } else {
+            v7 = v1_6.doubleValue();
+        }
+        com.workshop.ledger.data.UserEntity v0_2;
+        boolean v9_0 = com.workshop.ledger.data.StateValidatorKt.boolOr(p18, "active", 1);
+        long v10_0 = com.workshop.ledger.data.StateValidatorKt.boolOr(p18, "main", 0);
+        long v11_1 = com.workshop.ledger.data.StateValidatorKt.longOr(p18, "createdAt", this.now());
+        if (!p18.isNull("deletedAt")) {
+            v0_2 = Long.valueOf(com.workshop.ledger.data.StateValidatorKt.longOr(p18, "deletedAt", this.now()));
+        } else {
+            v0_2 = 0;
+        }
+        v13(p17, v2, v4_0, v5_0, v6_0, v7, v9_0, v10_0, v11_1, v0_2);
+        return v13;
+    }
+
+
+## toWage (Ljava/lang/String; Lorg/json/JSONObject;)Lcom/workshop/ledger/data/WageEntity;
+
+    private final com.workshop.ledger.data.WageEntity toWage(String p9, org.json.JSONObject p10)
+    {
+        String v3;
+        com.workshop.ledger.data.WageEntity v7 = new com.workshop.ledger.data.WageEntity;
+        String v2 = p10.getString("id");
+        kotlin.jvm.internal.i.d(v2, "getString(...)");
+        com.workshop.ledger.data.WageEntity v0_7 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p10, "userId");
+        if (v0_7 != null) {
+            v3 = v0_7;
+        } else {
+            v3 = "";
+        }
+        long v4;
+        com.workshop.ledger.data.WageEntity v0_2 = com.workshop.ledger.data.StateValidatorKt.numOrNull(p10, "rate");
+        if (v0_2 == null) {
+            v4 = 0;
+        } else {
+            v4 = v0_2.doubleValue();
+        }
+        String v6;
+        String v10_1 = com.workshop.ledger.data.StateValidatorKt.strOrNull(p10, "effectiveDate");
+        if (v10_1 != null) {
+            v6 = v10_1;
+        } else {
+            v6 = "";
+        }
+        v7(p9, v2, v3, v4, v6);
+        return v7;
+    }
+
+
+## transferToJson (Lcom/workshop/ledger/data/TransferEntity;)Lorg/json/JSONObject;
+
+    private final org.json.JSONObject transferToJson(com.workshop.ledger.data.TransferEntity p5)
+    {
+        org.json.JSONObject v0_2 = new org.json.JSONObject().put("id", p5.getId()).put("date", p5.getDate());
+        String v1_0 = p5.getFromId();
+        if (v1_0 == null) {
+            v1_0 = org.json.JSONObject.NULL;
+        }
+        org.json.JSONObject v0_3 = v0_2.put("fromId", v1_0);
+        String v1_1 = p5.getToId();
+        if (v1_1 == null) {
+            v1_1 = org.json.JSONObject.NULL;
+        }
+        return v0_3.put("toId", v1_1).put("amount", p5.getAmount()).put("description", p5.getDescription()).put("kind", p5.getKind()).put("active", p5.getActive()).put("createdAt", p5.getCreatedAt()).put("updatedAt", p5.getUpdatedAt());
+    }
+
+
+## userToJson (Lcom/workshop/ledger/data/UserEntity;)Lorg/json/JSONObject;
+
+    private final org.json.JSONObject userToJson(com.workshop.ledger.data.UserEntity p5)
+    {
+        org.json.JSONObject v0_8 = new org.json.JSONObject().put("id", p5.getId()).put("name", p5.getName()).put("role", p5.getRole()).put("type", p5.getType()).put("workFactor", p5.getWorkFactor()).put("active", p5.getActive()).put("main", p5.getMain()).put("createdAt", p5.getCreatedAt());
+        org.json.JSONObject v5_1 = p5.getDeletedAt();
+        if (v5_1 == null) {
+            v5_1 = org.json.JSONObject.NULL;
+        }
+        return v0_8.put("deletedAt", v5_1);
+    }
+
+
+## wageToJson (Lcom/workshop/ledger/data/WageEntity;)Lorg/json/JSONObject;
+
+    private final org.json.JSONObject wageToJson(com.workshop.ledger.data.WageEntity p5)
+    {
+        return new org.json.JSONObject().put("id", p5.getId()).put("userId", p5.getUserId()).put("rate", p5.getRate()).put("effectiveDate", p5.getEffectiveDate());
+    }
+
+
+## readStore (LQ/d;)Ljava/lang/Object;
+
+    public final Object readStore(Q.d p4)
+    {
+        return i0.x.q(p0.d.d, new com.workshop.ledger.data.LedgerRepository$readStore$2(this, 0), p4);
+    }
+
+
+## readStoreBlocking ()Ljava/lang/String;
+
+    public final String readStoreBlocking()
+    {
+        return ((String) i0.x.m(p0.d.d, new com.workshop.ledger.data.LedgerRepository$readStoreBlocking$1(this, 0)));
+    }
+
+
+## replaceStore (Ljava/lang/String; LQ/d;)Ljava/lang/Object;
+
+    public final Object replaceStore(String p4, Q.d p5)
+    {
+        return i0.x.q(p0.d.d, new com.workshop.ledger.data.LedgerRepository$replaceStore$2(p4, this, 0), p5);
+    }
+
+
+## replaceStoreBlocking (Ljava/lang/String;)Lcom/workshop/ledger/data/StateValidator$Result;
+
+    public final com.workshop.ledger.data.StateValidator$Result replaceStoreBlocking(String p4)
+    {
+        kotlin.jvm.internal.i.e(p4, "raw");
+        return ((com.workshop.ledger.data.StateValidator$Result) i0.x.m(p0.d.d, new com.workshop.ledger.data.LedgerRepository$replaceStoreBlocking$1(this, p4, 0)));
+    }
+

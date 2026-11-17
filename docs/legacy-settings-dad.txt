@@ -1,0 +1,435 @@
+# Best-effort Androguard DAD pseudocode; NOT original Kotlin and may be inaccurate.
+# Verify all control flow and constants against original DEX instructions.
+# APK SHA-256: 1fe8867aa04ee0fb2d0b4e7bdd5e0a502d1a4b264c93dc1f644e672192b1402b
+# Class: Lcom/workshop/ledger/data/SettingsRepository;
+
+## <init> (Landroid/content/Context;)V
+
+    public SettingsRepository(android.content.Context p2)
+    {
+        kotlin.jvm.internal.i.e(p2, "context");
+        t.h v2_1 = p2.getApplicationContext();
+        kotlin.jvm.internal.i.d(v2_1, "getApplicationContext(...)");
+        this.store = com.workshop.ledger.data.LedgerPreferencesKt.access$getLedgerSettingsStore(v2_1);
+        return;
+    }
+
+
+## getActiveProjectId (LQ/d;)Ljava/lang/Object;
+
+    public final Object getActiveProjectId(Q.d p5)
+    {
+        x.d v0_3;
+        if (!(p5 instanceof com.workshop.ledger.data.SettingsRepository$getActiveProjectId$1)) {
+            v0_3 = new com.workshop.ledger.data.SettingsRepository$getActiveProjectId$1(this, p5);
+        } else {
+            v0_3 = ((com.workshop.ledger.data.SettingsRepository$getActiveProjectId$1) p5);
+            R.a v1_2 = ((com.workshop.ledger.data.SettingsRepository$getActiveProjectId$1) p5).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.workshop.ledger.data.SettingsRepository$getActiveProjectId$1) p5).label = (v1_2 - -2147483648);
+            }
+        }
+        Object v5_1 = v0_3.result;
+        R.a v1_1 = R.a.b;
+        int v2_0 = v0_3.label;
+        if (v2_0 == 0) {
+            a.a.P(v5_1);
+            Object v5_3 = this.store.getData();
+            v0_3.label = 1;
+            v5_1 = l0.G.f(v5_3, v0_3);
+            if (v5_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                a.a.P(v5_1);
+            }
+        }
+        return ((x.b) v5_1).c(com.workshop.ledger.data.LedgerPreferenceKeys.INSTANCE.getACTIVE_PROJECT_ID());
+    }
+
+
+## getActiveProjectIdBlocking ()Ljava/lang/String;
+
+    public final String getActiveProjectIdBlocking()
+    {
+        return ((String) i0.x.m(p0.d.d, new com.workshop.ledger.data.SettingsRepository$getActiveProjectIdBlocking$1(this, 0)));
+    }
+
+
+## getAllProjectSettings (LQ/d;)Ljava/lang/Object;
+
+    public final Object getAllProjectSettings(Q.d p6)
+    {
+        IllegalStateException v0_4;
+        if (!(p6 instanceof com.workshop.ledger.data.SettingsRepository$getAllProjectSettings$1)) {
+            v0_4 = new com.workshop.ledger.data.SettingsRepository$getAllProjectSettings$1(this, p6);
+        } else {
+            v0_4 = ((com.workshop.ledger.data.SettingsRepository$getAllProjectSettings$1) p6);
+            Object v1_2 = ((com.workshop.ledger.data.SettingsRepository$getAllProjectSettings$1) p6).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.workshop.ledger.data.SettingsRepository$getAllProjectSettings$1) p6).label = (v1_2 - -2147483648);
+            }
+        }
+        IllegalStateException v0_3;
+        java.util.Iterator v6_1 = v0_4.result;
+        Object v1_1 = R.a.b;
+        String v2_0 = v0_4.label;
+        if (v2_0 == null) {
+            a.a.P(v6_1);
+            java.util.Iterator v6_3 = new java.util.HashMap();
+            String v2_2 = this.store.getData();
+            v0_4.L$0 = v6_3;
+            v0_4.label = 1;
+            IllegalStateException v0_2 = l0.G.f(v2_2, v0_4);
+            if (v0_2 != v1_1) {
+                v0_3 = v6_3;
+                v6_1 = v0_2;
+            } else {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                v0_3 = ((java.util.HashMap) v0_4.L$0);
+                a.a.P(v6_1);
+            }
+        }
+        java.util.Iterator v6_9 = ((x.b) v6_1).a().entrySet().iterator();
+        while (v6_9.hasNext()) {
+            Object v1_5 = ((java.util.Map$Entry) v6_9.next());
+            String v2_5 = ((x.d) v1_5.getKey());
+            Object v1_6 = v1_5.getValue();
+            String v2_7 = com.workshop.ledger.data.LedgerPreferenceKeys.INSTANCE.projectIdFromKeyName(v2_5.a);
+            if ((v2_7 != null) && ((v1_6 instanceof String))) {
+                v0_3.put(v2_7, v1_6);
+            }
+        }
+        return v0_3;
+    }
+
+
+## getAutoBackupEnvelope (LQ/d;)Ljava/lang/Object;
+
+    public final Object getAutoBackupEnvelope(Q.d p5)
+    {
+        x.d v0_3;
+        if (!(p5 instanceof com.workshop.ledger.data.SettingsRepository$getAutoBackupEnvelope$1)) {
+            v0_3 = new com.workshop.ledger.data.SettingsRepository$getAutoBackupEnvelope$1(this, p5);
+        } else {
+            v0_3 = ((com.workshop.ledger.data.SettingsRepository$getAutoBackupEnvelope$1) p5);
+            R.a v1_2 = ((com.workshop.ledger.data.SettingsRepository$getAutoBackupEnvelope$1) p5).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.workshop.ledger.data.SettingsRepository$getAutoBackupEnvelope$1) p5).label = (v1_2 - -2147483648);
+            }
+        }
+        Object v5_1 = v0_3.result;
+        R.a v1_1 = R.a.b;
+        int v2_0 = v0_3.label;
+        if (v2_0 == 0) {
+            a.a.P(v5_1);
+            Object v5_3 = this.store.getData();
+            v0_3.label = 1;
+            v5_1 = l0.G.f(v5_3, v0_3);
+            if (v5_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                a.a.P(v5_1);
+            }
+        }
+        return ((x.b) v5_1).c(com.workshop.ledger.data.LedgerPreferenceKeys.INSTANCE.getAUTO_BACKUP_ENVELOPE());
+    }
+
+
+## getAutoBackupEnvelopeBlocking ()Ljava/lang/String;
+
+    public final String getAutoBackupEnvelopeBlocking()
+    {
+        return ((String) i0.x.m(p0.d.d, new com.workshop.ledger.data.SettingsRepository$getAutoBackupEnvelopeBlocking$1(this, 0)));
+    }
+
+
+## getOnboardingState (LQ/d;)Ljava/lang/Object;
+
+    public final Object getOnboardingState(Q.d p5)
+    {
+        x.d v0_3;
+        if (!(p5 instanceof com.workshop.ledger.data.SettingsRepository$getOnboardingState$1)) {
+            v0_3 = new com.workshop.ledger.data.SettingsRepository$getOnboardingState$1(this, p5);
+        } else {
+            v0_3 = ((com.workshop.ledger.data.SettingsRepository$getOnboardingState$1) p5);
+            R.a v1_2 = ((com.workshop.ledger.data.SettingsRepository$getOnboardingState$1) p5).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.workshop.ledger.data.SettingsRepository$getOnboardingState$1) p5).label = (v1_2 - -2147483648);
+            }
+        }
+        Object v5_1 = v0_3.result;
+        R.a v1_1 = R.a.b;
+        int v2_0 = v0_3.label;
+        if (v2_0 == 0) {
+            a.a.P(v5_1);
+            Object v5_3 = this.store.getData();
+            v0_3.label = 1;
+            v5_1 = l0.G.f(v5_3, v0_3);
+            if (v5_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                a.a.P(v5_1);
+            }
+        }
+        return ((x.b) v5_1).c(com.workshop.ledger.data.LedgerPreferenceKeys.INSTANCE.getONBOARDING_STATE());
+    }
+
+
+## getOnboardingStateBlocking ()Ljava/lang/String;
+
+    public final String getOnboardingStateBlocking()
+    {
+        return ((String) i0.x.m(p0.d.d, new com.workshop.ledger.data.SettingsRepository$getOnboardingStateBlocking$1(this, 0)));
+    }
+
+
+## getProjectSettings (Ljava/lang/String; LQ/d;)Ljava/lang/Object;
+
+    public final Object getProjectSettings(String p5, Q.d p6)
+    {
+        com.workshop.ledger.data.LedgerPreferenceKeys v0_2;
+        if (!(p6 instanceof com.workshop.ledger.data.SettingsRepository$getProjectSettings$1)) {
+            v0_2 = new com.workshop.ledger.data.SettingsRepository$getProjectSettings$1(this, p6);
+        } else {
+            v0_2 = ((com.workshop.ledger.data.SettingsRepository$getProjectSettings$1) p6);
+            R.a v1_2 = ((com.workshop.ledger.data.SettingsRepository$getProjectSettings$1) p6).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.workshop.ledger.data.SettingsRepository$getProjectSettings$1) p6).label = (v1_2 - -2147483648);
+            }
+        }
+        x.b v6_1 = v0_2.result;
+        R.a v1_1 = R.a.b;
+        int v2_0 = v0_2.label;
+        if (v2_0 == 0) {
+            a.a.P(v6_1);
+            x.b v6_3 = this.store.getData();
+            v0_2.L$0 = p5;
+            v0_2.label = 1;
+            v6_1 = l0.G.f(v6_3, v0_2);
+            if (v6_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                p5 = ((String) v0_2.L$0);
+                a.a.P(v6_1);
+            }
+        }
+        return ((x.b) v6_1).c(com.workshop.ledger.data.LedgerPreferenceKeys.INSTANCE.projectSettings(p5));
+    }
+
+
+## getProjectSettingsBlocking (Ljava/lang/String;)Ljava/lang/String;
+
+    public final String getProjectSettingsBlocking(String p4)
+    {
+        kotlin.jvm.internal.i.e(p4, "projectId");
+        return ((String) i0.x.m(p0.d.d, new com.workshop.ledger.data.SettingsRepository$getProjectSettingsBlocking$1(this, p4, 0)));
+    }
+
+
+## isAttendanceCoachDismissed (LQ/d;)Ljava/lang/Object;
+
+    public final Object isAttendanceCoachDismissed(Q.d p5)
+    {
+        x.d v0_3;
+        if (!(p5 instanceof com.workshop.ledger.data.SettingsRepository$isAttendanceCoachDismissed$1)) {
+            v0_3 = new com.workshop.ledger.data.SettingsRepository$isAttendanceCoachDismissed$1(this, p5);
+        } else {
+            v0_3 = ((com.workshop.ledger.data.SettingsRepository$isAttendanceCoachDismissed$1) p5);
+            R.a v1_2 = ((com.workshop.ledger.data.SettingsRepository$isAttendanceCoachDismissed$1) p5).label;
+            if ((v1_2 & -2147483648) == 0) {
+            } else {
+                ((com.workshop.ledger.data.SettingsRepository$isAttendanceCoachDismissed$1) p5).label = (v1_2 - -2147483648);
+            }
+        }
+        Boolean v5_1 = v0_3.result;
+        R.a v1_1 = R.a.b;
+        int v2_0 = v0_3.label;
+        if (v2_0 == 0) {
+            a.a.P(v5_1);
+            Boolean v5_3 = this.store.getData();
+            v0_3.label = 1;
+            v5_1 = l0.G.f(v5_3, v0_3);
+            if (v5_1 == v1_1) {
+                return v1_1;
+            }
+        } else {
+            if (v2_0 != 1) {
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+            } else {
+                a.a.P(v5_1);
+            }
+        }
+        Boolean v5_9;
+        Boolean v5_8 = ((Boolean) ((x.b) v5_1).c(com.workshop.ledger.data.LedgerPreferenceKeys.INSTANCE.getATTENDANCE_COACH_DISMISSED()));
+        if (v5_8 == null) {
+            v5_9 = 0;
+        } else {
+            v5_9 = v5_8.booleanValue();
+        }
+        return Boolean.valueOf(v5_9);
+    }
+
+
+## isAttendanceCoachDismissedBlocking ()Z
+
+    public final boolean isAttendanceCoachDismissedBlocking()
+    {
+        return ((Boolean) i0.x.m(p0.d.d, new com.workshop.ledger.data.SettingsRepository$isAttendanceCoachDismissedBlocking$1(this, 0))).booleanValue();
+    }
+
+
+## setActiveProjectId (Ljava/lang/String; LQ/d;)Ljava/lang/Object;
+
+    public final Object setActiveProjectId(String p4, Q.d p5)
+    {
+        N.h v4_1 = x.g.a(this.store, new com.workshop.ledger.data.SettingsRepository$setActiveProjectId$2(p4, 0), p5);
+        if (v4_1 != R.a.b) {
+            return N.h.a;
+        } else {
+            return v4_1;
+        }
+    }
+
+
+## setActiveProjectIdBlocking (Ljava/lang/String;)V
+
+    public final void setActiveProjectIdBlocking(String p4)
+    {
+        kotlin.jvm.internal.i.e(p4, "projectId");
+        i0.x.m(p0.d.d, new com.workshop.ledger.data.SettingsRepository$setActiveProjectIdBlocking$1(this, p4, 0));
+        return;
+    }
+
+
+## setAttendanceCoachDismissed (Z LQ/d;)Ljava/lang/Object;
+
+    public final Object setAttendanceCoachDismissed(boolean p4, Q.d p5)
+    {
+        N.h v4_1 = x.g.a(this.store, new com.workshop.ledger.data.SettingsRepository$setAttendanceCoachDismissed$2(p4, 0), p5);
+        if (v4_1 != R.a.b) {
+            return N.h.a;
+        } else {
+            return v4_1;
+        }
+    }
+
+
+## setAttendanceCoachDismissedBlocking (Z)V
+
+    public final void setAttendanceCoachDismissedBlocking(boolean p4)
+    {
+        i0.x.m(p0.d.d, new com.workshop.ledger.data.SettingsRepository$setAttendanceCoachDismissedBlocking$1(this, p4, 0));
+        return;
+    }
+
+
+## setAutoBackupEnvelope (Ljava/lang/String; LQ/d;)Ljava/lang/Object;
+
+    public final Object setAutoBackupEnvelope(String p4, Q.d p5)
+    {
+        N.h v4_1 = x.g.a(this.store, new com.workshop.ledger.data.SettingsRepository$setAutoBackupEnvelope$2(p4, 0), p5);
+        if (v4_1 != R.a.b) {
+            return N.h.a;
+        } else {
+            return v4_1;
+        }
+    }
+
+
+## setAutoBackupEnvelopeBlocking (Ljava/lang/String;)V
+
+    public final void setAutoBackupEnvelopeBlocking(String p4)
+    {
+        kotlin.jvm.internal.i.e(p4, "envelope");
+        i0.x.m(p0.d.d, new com.workshop.ledger.data.SettingsRepository$setAutoBackupEnvelopeBlocking$1(this, p4, 0));
+        return;
+    }
+
+
+## setOnboardingState (Ljava/lang/String; LQ/d;)Ljava/lang/Object;
+
+    public final Object setOnboardingState(String p4, Q.d p5)
+    {
+        N.h v4_1 = x.g.a(this.store, new com.workshop.ledger.data.SettingsRepository$setOnboardingState$2(p4, 0), p5);
+        if (v4_1 != R.a.b) {
+            return N.h.a;
+        } else {
+            return v4_1;
+        }
+    }
+
+
+## setOnboardingStateBlocking (Ljava/lang/String;)V
+
+    public final void setOnboardingStateBlocking(String p4)
+    {
+        i0.x.m(p0.d.d, new com.workshop.ledger.data.SettingsRepository$setOnboardingStateBlocking$1(this, p4, 0));
+        return;
+    }
+
+
+## setProjectSettings (Ljava/lang/String; Ljava/lang/String; LQ/d;)Ljava/lang/Object;
+
+    public final Object setProjectSettings(String p4, String p5, Q.d p6)
+    {
+        N.h v4_1 = x.g.a(this.store, new com.workshop.ledger.data.SettingsRepository$setProjectSettings$2(p4, p5, 0), p6);
+        if (v4_1 != R.a.b) {
+            return N.h.a;
+        } else {
+            return v4_1;
+        }
+    }
+
+
+## setProjectSettingsBlocking (Ljava/lang/String; Ljava/lang/String;)V
+
+    public final void setProjectSettingsBlocking(String p4, String p5)
+    {
+        kotlin.jvm.internal.i.e(p4, "projectId");
+        kotlin.jvm.internal.i.e(p5, "json");
+        i0.x.m(p0.d.d, new com.workshop.ledger.data.SettingsRepository$setProjectSettingsBlocking$1(this, p4, p5, 0));
+        return;
+    }
+
+
+## writeSnapshot (Ljava/lang/String; Ljava/lang/String; Z Ljava/util/Map; Ljava/util/Set; LQ/d;)Ljava/lang/Object;
+
+    public final Object writeSnapshot(String p10, String p11, boolean p12, java.util.Map p13, java.util.Set p14, Q.d p15)
+    {
+        t.h v0 = this.store;
+        com.workshop.ledger.data.SettingsRepository$writeSnapshot$2 v8 = new com.workshop.ledger.data.SettingsRepository$writeSnapshot$2;
+        v8(p10, p11, p12, p13, p14, 0);
+        N.h v10_1 = x.g.a(v0, v8, p15);
+        if (v10_1 != R.a.b) {
+            return N.h.a;
+        } else {
+            return v10_1;
+        }
+    }
+

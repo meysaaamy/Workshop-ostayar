@@ -1,0 +1,408 @@
+# Best-effort Androguard DAD pseudocode; NOT original Kotlin and may be inaccurate.
+# Verify all control flow and constants against original DEX instructions.
+# APK SHA-256: 1fe8867aa04ee0fb2d0b4e7bdd5e0a502d1a4b264c93dc1f644e672192b1402b
+# Class: Lcom/workshop/ledger/web/NativeBridge;
+
+## <clinit> ()V
+
+    static NativeBridge()
+    {
+        com.workshop.ledger.web.NativeBridge.Companion = new M.c();
+        String v1_4 = new N.c("application/json", "json");
+        new N.c("text/csv", "csv");
+        new N.c("application/pdf", "pdf");
+        new N.c("image/png", "png");
+        new N.c("image/svg+xml", "svg");
+        g0.e v0_6 = new N.c[] {v1_4, new N.c("text/html", "html")});
+        String v1_2 = new java.util.LinkedHashMap(O.v.R(6));
+        O.v.S(v1_2, v0_6);
+        com.workshop.ledger.web.NativeBridge.ALLOWED_MIME_TYPES = v1_2;
+        com.workshop.ledger.web.NativeBridge.UNSAFE_CHARS = new g0.e("[^A-Za-z0-9._-]");
+        return;
+    }
+
+
+## <init> (LM/e; Lcom/workshop/ledger/data/LedgerRepository; Lcom/workshop/ledger/data/SettingsRepository;)V
+
+    public NativeBridge(M.e p2, com.workshop.ledger.data.LedgerRepository p3, com.workshop.ledger.data.SettingsRepository p4)
+    {
+        kotlin.jvm.internal.i.e(p2, "host");
+        kotlin.jvm.internal.i.e(p3, "repository");
+        kotlin.jvm.internal.i.e(p4, "settings");
+        this.host = p2;
+        this.repository = p3;
+        this.settings = p4;
+        return;
+    }
+
+
+## access$getUNSAFE_CHARS$cp ()Lg0/e;
+
+    public static final synthetic g0.e access$getUNSAFE_CHARS$cp()
+    {
+        return com.workshop.ledger.web.NativeBridge.UNSAFE_CHARS;
+    }
+
+
+## prepareFile (Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)LM/d;
+
+    private final M.d prepareFile(String p17, String p18, String p19)
+    {
+        String v8_0;
+        int v2_13 = 2;
+        CharSequence v7 = "";
+        if (p18 != null) {
+            v8_0 = p18;
+        } else {
+            v8_0 = "";
+        }
+        String v8_1 = v8_0.toLowerCase(java.util.Locale.ROOT);
+        kotlin.jvm.internal.i.d(v8_1, "toLowerCase(...)");
+        String v9_3 = g0.m.X(v8_1, 59, 0, 6);
+        if (v9_3 != -1) {
+            v8_1 = v8_1.substring(0, v9_3);
+            kotlin.jvm.internal.i.d(v8_1, "substring(...)");
+        }
+        String v8_3 = g0.m.g0(v8_1).toString();
+        String v9_6 = ((String) com.workshop.ledger.web.NativeBridge.ALLOWED_MIME_TYPES.get(v8_3));
+        if (v9_6 != null) {
+            if ((p19 != null) && ((p19.length() != 0) && (p19.length() <= 94371840))) {
+                try {
+                    String v11_3;
+                    String v1_9 = android.util.Base64.decode(p19, 0);
+                    M.d v10_3 = new M.d;
+                    com.workshop.ledger.web.NativeBridge.Companion.getClass();
+                } catch (IllegalArgumentException) {
+                    String v1_11 = ((com.workshop.ledger.MainActivity) this.host);
+                    v1_11.getClass();
+                    v1_11.runOnUiThread(new K.g(v1_11, 0, "\u0645\u062d\u062a\u0648\u0627\u06cc \u0641\u0627\u06cc\u0644 \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u0627\u0633\u062a"));
+                    return v10_3;
+                }
+                if (p17 != null) {
+                    v11_3 = p17;
+                } else {
+                    v11_3 = "";
+                }
+                String v11_5 = g0.m.f0(g0.m.f0(v11_3, 47, v11_3), 92, g0.m.f0(v11_3, 47, v11_3));
+                int v12_3 = com.workshop.ledger.web.NativeBridge.access$getUNSAFE_CHARS$cp();
+                v12_3.getClass();
+                String v11_7 = v12_3.b.matcher(v11_5).replaceAll("_");
+                kotlin.jvm.internal.i.d(v11_7, "replaceAll(...)");
+                char[] v13 = new char[2];
+                v13 = {46, 95};
+                int v14 = v11_7.length();
+                int v15 = 0;
+                while (v15 < v14) {
+                    int v6_1 = v11_7.charAt(v15);
+                    int v4_7 = 0;
+                    while (v4_7 < v2_13) {
+                        if (v6_1 != v13[v4_7]) {
+                            v4_7++;
+                            v2_13 = 2;
+                        }
+                        int v2_17;
+                        if (v4_7 < 0) {
+                            v2_17 = 0;
+                        } else {
+                            v2_17 = 1;
+                        }
+                        if (v2_17 != 0) {
+                            v15++;
+                            v2_13 = 2;
+                            int v6 = 0;
+                        } else {
+                            v7 = v11_7.subSequence(v15, v11_7.length());
+                        }
+                        int v2_1 = v7.toString();
+                        kotlin.jvm.internal.i.e(v2_1, "<this>");
+                        int v4_1 = g0.m.Z(v2_1, 46);
+                        if (v4_1 != -1) {
+                            v2_1 = v2_1.substring(0, v4_1);
+                            kotlin.jvm.internal.i.d(v2_1, "substring(...)");
+                        }
+                        int v4_3 = (79 - v9_6.length());
+                        if (v4_3 < 0) {
+                            String v1_2 = new StringBuilder("Requested character count ");
+                            v1_2.append(v4_3);
+                            v1_2.append(" is less than zero.");
+                            throw new IllegalArgumentException(v1_2.toString().toString());
+                        } else {
+                            int v5_2 = v2_1.length();
+                            if (v4_3 > v5_2) {
+                                v4_3 = v5_2;
+                            }
+                            int v2_6 = v2_1.substring(0, v4_3);
+                            kotlin.jvm.internal.i.d(v2_6, "substring(...)");
+                            if (g0.m.Y(v2_6)) {
+                                v2_6 = "export";
+                            }
+                            StringBuilder v3_2 = new StringBuilder();
+                            v3_2.append(v2_6);
+                            v3_2.append(".");
+                            v3_2.append(v9_6);
+                            int v2_8 = v3_2.toString();
+                            kotlin.jvm.internal.i.b(v1_9);
+                            return v10_3(v1_9, v2_8, v8_3);
+                        }
+                    }
+                    v4_7 = -1;
+                }
+            } else {
+                String v1_6 = ((com.workshop.ledger.MainActivity) this.host);
+                v1_6.getClass();
+                v1_6.runOnUiThread(new K.g(v1_6, 0, "\u062d\u062c\u0645 \u0641\u0627\u06cc\u0644 \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u0627\u0633\u062a"));
+                return 0;
+            }
+        } else {
+            String v1_8 = ((com.workshop.ledger.MainActivity) this.host);
+            v1_8.getClass();
+            v1_8.runOnUiThread(new K.g(v1_8, 0, "\u0646\u0648\u0639 \u0641\u0627\u06cc\u0644 \u0645\u062c\u0627\u0632 \u0646\u06cc\u0633\u062a"));
+            return 0;
+        }
+    }
+
+
+## getAutoBackup ()Ljava/lang/String;
+
+    public final String getAutoBackup()
+    {
+        String v0 = "";
+        try {
+            String v1_1 = this.settings.getAutoBackupEnvelopeBlocking();
+        } catch (Exception) {
+            return v0;
+        }
+        if (v1_1 != null) {
+            v0 = v1_1;
+            return v0;
+        } else {
+            return v0;
+        }
+    }
+
+
+## getState ()Ljava/lang/String;
+
+    public final String getState()
+    {
+        try {
+            String v0_4 = this.repository.readStoreBlocking();
+        } catch (String v0_5) {
+            org.json.JSONObject v1_1 = new org.json.JSONObject();
+            String v2 = v0_5.getMessage();
+            if (v2 == null) {
+                v2 = v0_5.getClass().getSimpleName();
+            }
+            v0_4 = v1_1.put("error", v2).toString();
+            return v0_4;
+        }
+        if (v0_4 != null) {
+            return v0_4;
+        } else {
+            v0_4 = "";
+            return v0_4;
+        }
+    }
+
+
+## pickJsonBackup (Z)V
+
+    public final void pickJsonBackup(boolean p4)
+    {
+        com.workshop.ledger.MainActivity v0_1 = ((com.workshop.ledger.MainActivity) this.host);
+        v0_1.getClass();
+        v0_1.runOnUiThread(new K.d(v0_1, p4, 1));
+        return;
+    }
+
+
+## playPcm (Ljava/lang/String; I)V
+
+    public final void playPcm(String p1, int p2)
+    {
+        com.workshop.ledger.web.Snd.play(p1, p2);
+        return;
+    }
+
+
+## saveAutoBackup (Ljava/lang/String;)Z
+
+    public final boolean saveAutoBackup(String p8)
+    {
+        int v1 = 0;
+        try {
+            if ((p8 != null) && ((p8.length() != 0) && (p8.length() <= 83886080))) {
+                String v2_1 = new org.json.JSONObject(p8);
+                com.workshop.ledger.data.SettingsRepository v8_1 = v2_1.optJSONArray("snaps");
+                if ((v8_1 != null) && (v8_1.length() > 3)) {
+                    org.json.JSONArray v3_2 = new org.json.JSONArray();
+                    int v5_1 = (v8_1.length() - 3);
+                    int v4_1 = v8_1.length();
+                    while (v5_1 < v4_1) {
+                        v3_2.put(v8_1.get(v5_1));
+                        v5_1++;
+                    }
+                    v2_1.put("snaps", v3_2);
+                }
+                com.workshop.ledger.data.SettingsRepository v8_2 = this.settings;
+                String v0_1 = v2_1.toString();
+                kotlin.jvm.internal.i.d(v0_1, "toString(...)");
+                v8_2.setAutoBackupEnvelopeBlocking(v0_1);
+                v1 = 1;
+            }
+        } catch (Exception) {
+        }
+        return v1;
+    }
+
+
+## saveFile (Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)V
+
+    public final void saveFile(String p3, String p4, String p5)
+    {
+        byte[] v3_1 = this.prepareFile(p3, p4, p5);
+        if (v3_1 != null) {
+            com.workshop.ledger.MainActivity v4_2 = ((com.workshop.ledger.MainActivity) this.host);
+            v4_2.getClass();
+            String v5_1 = v3_1.a;
+            kotlin.jvm.internal.i.e(v5_1, "fileName");
+            String v0_1 = v3_1.b;
+            kotlin.jvm.internal.i.e(v0_1, "mimeType");
+            v4_2.runOnUiThread(new K.e(v4_2, v5_1, v0_1, v3_1.c));
+            return;
+        } else {
+            return;
+        }
+    }
+
+
+## saveState (Ljava/lang/String;)Ljava/lang/String;
+
+    public final String saveState(String p9)
+    {
+        if ((p9 != null) && (p9.length() != 0)) {
+            if (p9.length() <= 83886080) {
+                String v9_3;
+                String v9_1 = this.repository.replaceStoreBlocking(p9);
+                if (!v9_1.getOk()) {
+                    v9_3 = M.c.a(com.workshop.ledger.web.NativeBridge.Companion, 0, O.k.X(v9_1.getErrors(), "\u061b ", 0, 0, 0, 62));
+                    return v9_3;
+                } else {
+                    v9_3 = M.c.a(com.workshop.ledger.web.NativeBridge.Companion, 1, 0);
+                    return v9_3;
+                }
+            } else {
+                return M.c.a(com.workshop.ledger.web.NativeBridge.Companion, 0, "\u062d\u062c\u0645 \u062f\u0627\u062f\u0647 \u0627\u0632 \u06f8\u06f0 \u0645\u06af\u0627\u0628\u0627\u06cc\u062a \u0628\u06cc\u0634\u062a\u0631 \u0627\u0633\u062a");
+            }
+        } else {
+            return M.c.a(com.workshop.ledger.web.NativeBridge.Companion, 0, "\u062f\u0627\u062f\u0647\u200c\u0627\u06cc \u0628\u0631\u0627\u06cc \u0630\u062e\u06cc\u0631\u0647 \u0627\u0631\u0633\u0627\u0644 \u0646\u0634\u062f");
+        }
+    }
+
+
+## setSystemTheme (Z)V
+
+    public final void setSystemTheme(boolean p4)
+    {
+        com.workshop.ledger.MainActivity v0_1 = ((com.workshop.ledger.MainActivity) this.host);
+        v0_1.getClass();
+        v0_1.runOnUiThread(new K.d(v0_1, p4, 0));
+        return;
+    }
+
+
+## shareFile (Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)V
+
+    public final void shareFile(String p3, String p4, String p5)
+    {
+        byte[] v3_1 = this.prepareFile(p3, p4, p5);
+        if (v3_1 != null) {
+            com.workshop.ledger.MainActivity v4_2 = ((com.workshop.ledger.MainActivity) this.host);
+            v4_2.getClass();
+            String v5_1 = v3_1.a;
+            kotlin.jvm.internal.i.e(v5_1, "fileName");
+            String v0_1 = v3_1.b;
+            kotlin.jvm.internal.i.e(v0_1, "mimeType");
+            v4_2.runOnUiThread(new K.e(v4_2, v5_1, v3_1.c, v0_1));
+            return;
+        } else {
+            return;
+        }
+    }
+
+
+## stopPcm ()V
+
+    public final void stopPcm()
+    {
+        com.workshop.ledger.web.Snd.stopAll();
+        return;
+    }
+
+
+## validateState (Ljava/lang/String;)Ljava/lang/String;
+
+    public final String validateState(String p11)
+    {
+        if (p11 != null) {
+            Class v1_2 = p11.length();
+            if (v1_2 != null) {
+                if (v1_2 <= 83886080) {
+                    try {
+                        String v9;
+                        com.workshop.ledger.data.StateValidator$Result v8 = com.workshop.ledger.data.StateValidator.validate$default(com.workshop.ledger.data.StateValidator.INSTANCE, p11, 0, 2, 0);
+                    } catch (Class v1_4) {
+                        String v3_3 = v1_4.getMessage();
+                        if (v3_3 == null) {
+                            v3_3 = v1_4.getClass().getSimpleName();
+                        }
+                        v9 = M.c.a(com.workshop.ledger.web.NativeBridge.Companion, 0, v3_3);
+                        return v9;
+                    }
+                    if (!v8.getOk()) {
+                        v9 = M.c.a(com.workshop.ledger.web.NativeBridge.Companion, 0, O.k.X(v8.getErrors(), "\u061b ", 0, 0, 0, 62));
+                        return v9;
+                    } else {
+                        v9 = M.c.a(com.workshop.ledger.web.NativeBridge.Companion, 1, 0);
+                        return v9;
+                    }
+                } else {
+                    return M.c.a(com.workshop.ledger.web.NativeBridge.Companion, 0, "\u062d\u062c\u0645 \u062f\u0627\u062f\u0647 \u0627\u0632 \u06f8\u06f0 \u0645\u06af\u0627\u0628\u0627\u06cc\u062a \u0628\u06cc\u0634\u062a\u0631 \u0627\u0633\u062a");
+                }
+            }
+        }
+        return M.c.a(com.workshop.ledger.web.NativeBridge.Companion, 0, "\u062f\u0627\u062f\u0647\u200c\u0627\u06cc \u0628\u0631\u0627\u06cc \u0630\u062e\u06cc\u0631\u0647 \u0627\u0631\u0633\u0627\u0644 \u0646\u0634\u062f");
+    }
+
+
+## vibrate (I)V
+
+    public final void vibrate(int p6)
+    {
+        long v0_1 = ((long) a.a.s(p6, 1, 500));
+        android.os.VibrationEffect v6_10 = ((com.workshop.ledger.MainActivity) this.host).getApplicationContext();
+        kotlin.jvm.internal.i.d(v6_10, "getApplicationContext(...)");
+        android.os.Vibrator v4_0 = 0;
+        if (android.os.Build$VERSION.SDK_INT < 31) {
+            android.os.VibrationEffect v6_1 = v6_10.getSystemService("vibrator");
+            if ((v6_1 instanceof android.os.Vibrator)) {
+                v4_0 = ((android.os.Vibrator) v6_1);
+            }
+        } else {
+            android.os.VibrationEffect v6_3;
+            android.os.VibrationEffect v6_2 = v6_10.getSystemService("vibrator_manager");
+            if (!M.b.f(v6_2)) {
+                v6_3 = 0;
+            } else {
+                v6_3 = M.b.b(v6_2);
+            }
+            if (v6_3 != null) {
+                v4_0 = M.b.a(v6_3);
+            }
+        }
+        if ((v4_0 != null) && (v4_0.hasVibrator())) {
+            v4_0.vibrate(android.os.VibrationEffect.createOneShot(v0_1, -1));
+        }
+        return;
+    }
+

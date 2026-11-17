@@ -1,0 +1,2 @@
+# Host-side encrypted snapshot tool; not an Android dependency.
+cryptography==44.0.3

@@ -1,0 +1,71 @@
+# Best-effort Androguard DAD pseudocode; NOT original Kotlin and may be inaccurate.
+# Verify all control flow and constants against original DEX instructions.
+# APK SHA-256: 1fe8867aa04ee0fb2d0b4e7bdd5e0a502d1a4b264c93dc1f644e672192b1402b
+# Class: Lcom/workshop/ledger/web/Snd;
+
+## kill (Landroid/media/AudioTrack;)V
+
+    private static void kill(android.media.AudioTrack p1)
+    {
+        try {
+            p1.stop();
+            p1.release();
+            return;
+        } catch (Throwable v0) {
+            return;
+        }
+    }
+
+
+## play (Ljava/lang/String; I)V
+
+    public static synchronized void play(String p9, int p10)
+    {
+        try {
+            byte[] v1 = android.util.Base64.decode(p9, 0);
+            int v2 = v1.length;
+        } catch (Throwable v0) {
+            return;
+        }
+        if (v2 >= 2) {
+            android.media.AudioTrack[] v3_1 = com.workshop.ledger.web.Snd.ring;
+            if (v3_1 == null) {
+                v3_1 = new android.media.AudioTrack[3];
+                com.workshop.ledger.web.Snd.ring = v3_1;
+            }
+            int v4_2 = ((com.workshop.ledger.web.Snd.idx + 1) % 3);
+            com.workshop.ledger.web.Snd.idx = v4_2;
+            android.media.AudioAttributes v5_1 = v3_1[v4_2];
+            if (v5_1 != null) {
+                com.workshop.ledger.web.Snd.kill(v5_1);
+            }
+            android.media.AudioTrack v7_8 = new android.media.AudioTrack$Builder().setAudioAttributes(new android.media.AudioAttributes$Builder().setUsage(5).setContentType(4).build()).setAudioFormat(new android.media.AudioFormat$Builder().setEncoding(2).setSampleRate(p10).setChannelMask(4).build()).setBufferSizeInBytes(v2).setTransferMode(0).build();
+            v7_8.write(v1, 0, v2);
+            v7_8.play();
+            v3_1[v4_2] = v7_8;
+        }
+        return;
+    }
+
+
+## stopAll ()V
+
+    public static synchronized void stopAll()
+    {
+        android.media.AudioTrack[] v0 = com.workshop.ledger.web.Snd.ring;
+        if (v0 != null) {
+            int v1 = 0;
+            while (v1 < v0.length) {
+                android.media.AudioTrack v2_1 = v0[v1];
+                if (v2_1 != null) {
+                    v0[v1] = 0;
+                    com.workshop.ledger.web.Snd.kill(v2_1);
+                }
+                v1++;
+            }
+            return;
+        } else {
+            return;
+        }
+    }
+

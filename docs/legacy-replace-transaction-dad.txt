@@ -1,0 +1,371 @@
+# Best-effort Androguard DAD pseudocode; NOT original Kotlin and may be inaccurate.
+# Verify all control flow and constants against original DEX instructions.
+# APK SHA-256: 1fe8867aa04ee0fb2d0b4e7bdd5e0a502d1a4b264c93dc1f644e672192b1402b
+# Class: Lcom/workshop/ledger/data/LedgerRepository$replaceStore$2$1;
+
+## <init> (Ljava/util/ArrayList; Lcom/workshop/ledger/data/LedgerRepository; Ljava/util/ArrayList; LQ/d;)V
+
+    public LedgerRepository$replaceStore$2$1(java.util.ArrayList p1, com.workshop.ledger.data.LedgerRepository p2, java.util.ArrayList p3, Q.d p4)
+    {
+        this.$changed = p1;
+        this.this$0 = p2;
+        this.$retainedIds = p3;
+        super(1, p4);
+        return;
+    }
+
+
+## create (LQ/d;)LQ/d;
+
+    public final Q.d create(Q.d p5)
+    {
+        return new com.workshop.ledger.data.LedgerRepository$replaceStore$2$1(this.$changed, this.this$0, this.$retainedIds, p5);
+    }
+
+
+## invoke (LQ/d;)Ljava/lang/Object;
+
+    public final Object invoke(Q.d p2)
+    {
+        return ((com.workshop.ledger.data.LedgerRepository$replaceStore$2$1) this.create(p2)).invokeSuspend(N.h.a);
+    }
+
+
+## invoke (Ljava/lang/Object;)Ljava/lang/Object;
+
+    public bridge synthetic Object invoke(Object p1)
+    {
+        return this.invoke(((Q.d) p1));
+    }
+
+
+## invokeSuspend (Ljava/lang/Object;)Ljava/lang/Object;
+
+    public final Object invokeSuspend(Object p21)
+    {
+        java.util.Iterator v14;
+        java.util.ArrayList v1_0;
+        java.util.ArrayList v1_3;
+        int v13_0 = R.a.b;
+        switch (this.label) {
+            case 0:
+                a.a.P(p21);
+                if (this.$changed.isEmpty()) {
+                    Object v0_37 = this.$changed.iterator();
+                    kotlin.jvm.internal.i.d(v0_37, "iterator(...)");
+                    v14 = v0_37;
+                    if (!v14.hasNext()) {
+                        v1_0 = v13_0;
+                        Object v0_40 = com.workshop.ledger.data.LedgerRepository.access$getDao$p(this.this$0);
+                        java.util.ArrayList v2_11 = this.$retainedIds;
+                        this.L$0 = 0;
+                        this.label = 3;
+                        if (v0_40.deleteProjectsNotIn(v2_11, this) != v1_0) {
+                            Object v0_43 = com.workshop.ledger.data.LedgerRepository.access$getDao$p(this.this$0);
+                            java.util.ArrayList v2_12 = this.$retainedIds;
+                            this.label = 4;
+                            if (v0_43.deleteUsersNotIn(v2_12, this) != v1_0) {
+                                Object v0_46 = com.workshop.ledger.data.LedgerRepository.access$getDao$p(this.this$0);
+                                java.util.ArrayList v2_13 = this.$retainedIds;
+                                this.label = 5;
+                                if (v0_46.deleteWagesNotIn(v2_13, this) != v1_0) {
+                                    Object v0_49 = com.workshop.ledger.data.LedgerRepository.access$getDao$p(this.this$0);
+                                    java.util.ArrayList v2_14 = this.$retainedIds;
+                                    this.label = 6;
+                                    if (v0_49.deleteAttendanceNotIn(v2_14, this) != v1_0) {
+                                        Object v0_1 = com.workshop.ledger.data.LedgerRepository.access$getDao$p(this.this$0);
+                                        java.util.ArrayList v2_0 = this.$retainedIds;
+                                        this.label = 7;
+                                        if (v0_1.deleteExpensesNotIn(v2_0, this) != v1_0) {
+                                            Object v0_4 = com.workshop.ledger.data.LedgerRepository.access$getDao$p(this.this$0);
+                                            java.util.ArrayList v2_1 = this.$retainedIds;
+                                            this.label = 8;
+                                            if (v0_4.deleteReceiptsNotIn(v2_1, this) != v1_0) {
+                                                Object v0_7 = com.workshop.ledger.data.LedgerRepository.access$getDao$p(this.this$0);
+                                                java.util.ArrayList v2_2 = this.$retainedIds;
+                                                this.label = 9;
+                                                if (v0_7.deletePayoutsNotIn(v2_2, this) != v1_0) {
+                                                    Object v0_10 = com.workshop.ledger.data.LedgerRepository.access$getDao$p(this.this$0);
+                                                    java.util.ArrayList v2_3 = this.$retainedIds;
+                                                    this.label = 10;
+                                                    if (v0_10.deleteTransfersNotIn(v2_3, this) != v1_0) {
+                                                        Object v0_13 = com.workshop.ledger.data.LedgerRepository.access$getDao$p(this.this$0);
+                                                        java.util.ArrayList v2_4 = this.$retainedIds;
+                                                        this.label = 11;
+                                                        if (v0_13.deleteAdjustmentsNotIn(v2_4, this) != v1_0) {
+                                                            Object v0_16 = com.workshop.ledger.data.LedgerRepository.access$getDao$p(this.this$0);
+                                                            java.util.ArrayList v2_5 = this.$retainedIds;
+                                                            this.label = 12;
+                                                            if (v0_16.deleteCategoriesNotIn(v2_5, this) != v1_0) {
+                                                                return N.h.a;
+                                                            } else {
+                                                                return v1_0;
+                                                            }
+                                                        } else {
+                                                            return v1_0;
+                                                        }
+                                                    } else {
+                                                        return v1_0;
+                                                    }
+                                                } else {
+                                                    return v1_0;
+                                                }
+                                            } else {
+                                                return v1_0;
+                                            }
+                                        } else {
+                                            return v1_0;
+                                        }
+                                    } else {
+                                        return v1_0;
+                                    }
+                                } else {
+                                    return v1_0;
+                                }
+                            } else {
+                                return v1_0;
+                            }
+                        } else {
+                            return v1_0;
+                        }
+                    } else {
+                        java.util.ArrayList v7_1;
+                        Object v0_19 = v14.next();
+                        kotlin.jvm.internal.i.d(v0_19, "next(...)");
+                        Object v0_20 = ((com.workshop.ledger.data.LedgerRepository$ChangedProject) v0_19);
+                        java.util.ArrayList v1_2 = v0_20.getId();
+                        Object v0_21 = v0_20.getJson();
+                        java.util.ArrayList v2_7 = com.workshop.ledger.data.LedgerRepository.access$getDao$p(this.this$0);
+                        com.workshop.ledger.data.LedgerRepository v3_6 = this.this$0;
+                        java.util.List v4_1 = v0_21.optJSONArray("users");
+                        int v5_0 = O.s.b;
+                        if (v4_1 != null) {
+                            v7_1 = new java.util.ArrayList(v4_1.length());
+                            int v8_1 = v4_1.length();
+                            int v9_0 = 0;
+                            while (v9_0 < v8_1) {
+                                org.json.JSONObject v10_0 = v4_1.optJSONObject(v9_0);
+                                if (v10_0 != null) {
+                                    v7_1.add(com.workshop.ledger.data.LedgerRepository.access$toUser(v3_6, v1_2, v10_0));
+                                }
+                                v9_0++;
+                            }
+                        } else {
+                            v7_1 = v5_0;
+                        }
+                        com.workshop.ledger.data.LedgerRepository v3_8;
+                        com.workshop.ledger.data.LedgerRepository v3_7 = this.this$0;
+                        java.util.List v4_3 = v0_21.optJSONArray("wages");
+                        if (v4_3 != null) {
+                            int v8_3 = new java.util.ArrayList(v4_3.length());
+                            int v9_2 = v4_3.length();
+                            org.json.JSONObject v10_2 = 0;
+                            while (v10_2 < v9_2) {
+                                com.workshop.ledger.data.LedgerRepository$replaceStore$2$1 v11_0 = v4_3.optJSONObject(v10_2);
+                                if (v11_0 != null) {
+                                    v8_3.add(com.workshop.ledger.data.LedgerRepository.access$toWage(v3_7, v1_2, v11_0));
+                                }
+                                v10_2++;
+                            }
+                            v3_8 = v8_3;
+                        } else {
+                            v3_8 = v5_0;
+                        }
+                        org.json.JSONObject v10_4;
+                        java.util.List v4_5 = com.workshop.ledger.data.LedgerRepository.access$toAttendance(this.this$0, v1_2, v0_21.optJSONObject("attendance"));
+                        int v8_6 = this.this$0;
+                        int v9_4 = v0_21.optJSONArray("expenses");
+                        if (v9_4 != 0) {
+                            v10_4 = new java.util.ArrayList(v9_4.length());
+                            com.workshop.ledger.data.LedgerRepository$replaceStore$2$1 v11_3 = v9_4.length();
+                            int v15_0 = 0;
+                            while (v15_0 < v11_3) {
+                                java.util.ArrayList v6_0 = v9_4.optJSONObject(v15_0);
+                                if (v6_0 != null) {
+                                    v10_4.add(com.workshop.ledger.data.LedgerRepository.access$toExpense(v8_6, v1_2, v6_0));
+                                }
+                                v15_0++;
+                            }
+                        } else {
+                            v10_4 = v5_0;
+                        }
+                        java.util.ArrayList v6_3;
+                        int v16_0;
+                        java.util.ArrayList v6_2 = this.this$0;
+                        int v8_8 = v0_21.optJSONArray("receipts");
+                        if (v8_8 != 0) {
+                            int v9_6 = new java.util.ArrayList(v8_8.length());
+                            com.workshop.ledger.data.LedgerRepository$replaceStore$2$1 v11_5 = v8_8.length();
+                            int v15_1 = 0;
+                            while (v15_1 < v11_5) {
+                                int v16_1 = v5_0;
+                                int v5_1 = v8_8.optJSONObject(v15_1);
+                                if (v5_1 != 0) {
+                                    v9_6.add(com.workshop.ledger.data.LedgerRepository.access$toReceipt(v6_2, v1_2, v5_1));
+                                }
+                                v15_1++;
+                                v5_0 = v16_1;
+                            }
+                            v16_0 = v5_0;
+                            v6_3 = v9_6;
+                        } else {
+                            v6_3 = v5_0;
+                            v16_0 = v6_3;
+                        }
+                        int v9_8;
+                        int v5_3 = this.this$0;
+                        int v8_10 = v0_21.optJSONArray("payouts");
+                        if (v8_10 != 0) {
+                            v9_8 = new java.util.ArrayList(v8_10.length());
+                            com.workshop.ledger.data.LedgerRepository$replaceStore$2$1 v11_7 = v8_10.length();
+                            int v15_2 = 0;
+                            while (v15_2 < v11_7) {
+                                java.util.ArrayList v17_0 = v11_7;
+                                com.workshop.ledger.data.LedgerRepository$replaceStore$2$1 v11_8 = v8_10.optJSONObject(v15_2);
+                                if (v11_8 != null) {
+                                    v9_8.add(com.workshop.ledger.data.LedgerRepository.access$toPayout(v5_3, v1_2, v11_8));
+                                }
+                                v15_2++;
+                                v11_7 = v17_0;
+                            }
+                        } else {
+                            v9_8 = v16_0;
+                        }
+                        int v8_13;
+                        java.util.ArrayList v17_1;
+                        int v5_4 = this.this$0;
+                        int v8_12 = v0_21.optJSONArray("transfers");
+                        if (v8_12 != 0) {
+                            com.workshop.ledger.data.LedgerRepository$replaceStore$2$1 v11_11 = new java.util.ArrayList(v8_12.length());
+                            int v15_4 = v8_12.length();
+                            v17_1 = v13_0;
+                            int v13_1 = 0;
+                            while (v13_1 < v15_4) {
+                                int v18_0 = v15_4;
+                                int v15_5 = v8_12.optJSONObject(v13_1);
+                                if (v15_5 != 0) {
+                                    v11_11.add(com.workshop.ledger.data.LedgerRepository.access$toTransfer(v5_4, v1_2, v15_5));
+                                }
+                                v13_1++;
+                                v15_4 = v18_0;
+                            }
+                            v8_13 = v11_11;
+                        } else {
+                            v17_1 = v13_0;
+                            v8_13 = v16_0;
+                        }
+                        int v13_3;
+                        int v18_1;
+                        int v5_5 = this.this$0;
+                        com.workshop.ledger.data.LedgerRepository$replaceStore$2$1 v11_13 = v0_21.optJSONArray("adjustments");
+                        if (v11_13 != null) {
+                            v13_3 = new java.util.ArrayList(v11_13.length());
+                            int v15_8 = v11_13.length();
+                            v18_1 = v8_13;
+                            int v8_14 = 0;
+                            while (v8_14 < v15_8) {
+                                int v19 = v15_8;
+                                int v15_9 = v11_13.optJSONObject(v8_14);
+                                if (v15_9 != 0) {
+                                    v13_3.add(com.workshop.ledger.data.LedgerRepository.access$toAdjustment(v5_5, v1_2, v15_9));
+                                }
+                                v8_14++;
+                                v15_8 = v19;
+                            }
+                        } else {
+                            v18_1 = v8_13;
+                            v13_3 = v16_0;
+                        }
+                        int v5_6 = this.this$0;
+                        Object v0_28 = v0_21.optJSONArray("categories");
+                        if (v0_28 != null) {
+                            int v8_17 = new java.util.ArrayList(v0_28.length());
+                            com.workshop.ledger.data.LedgerRepository$replaceStore$2$1 v11_15 = v0_28.length();
+                            int v15_11 = 0;
+                            while (v15_11 < v11_15) {
+                                com.workshop.ledger.data.LedgerRepository$replaceStore$2$1 v21_1 = v11_15;
+                                com.workshop.ledger.data.LedgerRepository$replaceStore$2$1 v11_16 = v0_28.optJSONObject(v15_11);
+                                if (v11_16 != null) {
+                                    v8_17.add(com.workshop.ledger.data.LedgerRepository.access$toCategory(v5_6, v1_2, v11_16));
+                                }
+                                v15_11++;
+                                v11_15 = v21_1;
+                            }
+                            v16_0 = v8_17;
+                        }
+                        this.L$0 = v14;
+                        this.label = 2;
+                        v1_3 = v17_1;
+                        if (v2_7.replaceScopedProjectData(v1_2, v7_1, v3_8, v4_5, v10_4, v6_3, v9_8, v18_1, v13_3, v16_0, this) != v1_3) {
+                        } else {
+                            return v1_3;
+                        }
+                    }
+                } else {
+                    Object v0_29 = com.workshop.ledger.data.LedgerRepository.access$getDao$p(this.this$0);
+                    java.util.ArrayList v1_4 = this.$changed;
+                    java.util.ArrayList v2_10 = new java.util.ArrayList(O.m.T(v1_4));
+                    java.util.ArrayList v1_6 = v1_4.iterator();
+                    while (v1_6.hasNext()) {
+                        v2_10.add(((com.workshop.ledger.data.LedgerRepository$ChangedProject) v1_6.next()).toProjectEntity());
+                    }
+                    this.label = 1;
+                    if (v0_29.upsertProjects(v2_10, this) != v13_0) {
+                    } else {
+                        return v13_0;
+                    }
+                }
+            case 1:
+                a.a.P(p21);
+                break;
+            case 2:
+                Object v0_24 = ((java.util.Iterator) this.L$0);
+                a.a.P(p21);
+                v14 = v0_24;
+                v1_3 = v13_0;
+                break;
+            case 3:
+                a.a.P(p21);
+                v1_0 = v13_0;
+                break;
+            case 4:
+                a.a.P(p21);
+                v1_0 = v13_0;
+                break;
+            case 5:
+                a.a.P(p21);
+                v1_0 = v13_0;
+                break;
+            case 6:
+                a.a.P(p21);
+                v1_0 = v13_0;
+                break;
+            case 7:
+                a.a.P(p21);
+                v1_0 = v13_0;
+                break;
+            case 8:
+                a.a.P(p21);
+                v1_0 = v13_0;
+                break;
+            case 9:
+                a.a.P(p21);
+                v1_0 = v13_0;
+                break;
+            case 10:
+                a.a.P(p21);
+                v1_0 = v13_0;
+                break;
+            case 11:
+                a.a.P(p21);
+                v1_0 = v13_0;
+                break;
+            case 12:
+                a.a.P(p21);
+                return N.h.a;
+            default:
+                throw new IllegalStateException("call to \'resume\' before \'invoke\' with coroutine");
+        }
+        v13_0 = v1_3;
+    }
+

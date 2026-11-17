@@ -1,0 +1,1253 @@
+{
+  "source": {
+    "apkSha256": "1fe8867aa04ee0fb2d0b4e7bdd5e0a502d1a4b264c93dc1f644e672192b1402b",
+    "htmlSha256": "42c61f95016c60163daf1cc46e3421c8fff6e20bc1e287d21d37feb936aab494"
+  },
+  "note": "Static source extraction only. Dynamic expressions are recorded as JavaScript source, not evaluated.",
+  "variables": {
+    "NAV": {
+      "line": 1909,
+      "value": [
+        {
+          "id": "dashboard",
+          "t": "داشبورد",
+          "i": "home"
+        },
+        {
+          "id": "attendance",
+          "t": "حضور و غیاب",
+          "i": "calendar"
+        },
+        {
+          "id": "expenses",
+          "t": "هزینه‌ها",
+          "i": "cart"
+        },
+        {
+          "id": "receipts",
+          "t": "واریزی‌های کارفرما",
+          "i": "wallet"
+        },
+        {
+          "id": "payouts",
+          "t": "پرداختی شاگردها",
+          "i": "receipt"
+        },
+        {
+          "id": "transfers",
+          "t": "انتقال بین اوستاها",
+          "i": "transfer"
+        },
+        {
+          "id": "adjustments",
+          "t": "پاداش، جریمه و مساعده",
+          "i": "bolt"
+        },
+        {
+          "id": "wages",
+          "t": "دستمزدها",
+          "i": "layers"
+        },
+        {
+          "id": "users",
+          "t": "کاربران",
+          "i": "users"
+        },
+        {
+          "id": "reports",
+          "t": "گزارش‌ها و خروجی",
+          "i": "chart"
+        },
+        {
+          "id": "health",
+          "t": "سنجش سلامت داده",
+          "i": "shield"
+        },
+        {
+          "id": "projects",
+          "t": "پروژه‌ها",
+          "i": "folder"
+        },
+        {
+          "id": "guide",
+          "t": "راهنما و آموزش",
+          "i": "help"
+        },
+        {
+          "id": "settings",
+          "t": "تنظیمات و پشتیبان",
+          "i": "settings"
+        }
+      ]
+    },
+    "BOTTOM": {
+      "line": 1918,
+      "value": [
+        "dashboard",
+        "attendance",
+        "expenses",
+        "reports"
+      ]
+    },
+    "CRUD": {
+      "line": 2069,
+      "pages": {
+        "receipts": {
+          "line": 2070,
+          "title": "واریزی‌های کارفرما",
+          "single": "واریزی",
+          "intro": "پولی که از کارفرما دریافت می‌کنید. هر واریزی یک بازه تاریخ دارد؛ مبلغ آن به‌طور مساوی بین روزهای همین بازه پخش می‌شود و هر گزارش فقط سهم روزهای داخل بازهٔ خودش را حساب می‌کند (پس جمع گزارش‌های پشت‌سرهم دقیقاً برابر کل مبلغ است). بازه را همان دوره‌ای بگذارید که پول بابتش آمده.",
+          "fields": [
+            {
+              "k": "dateFrom",
+              "label": "از تاریخ",
+              "type": "date",
+              "required": true,
+              "def": {
+                "dynamicSource": "jTodayStr()"
+              }
+            },
+            {
+              "k": "dateTo",
+              "label": "تا تاریخ",
+              "type": "date",
+              "required": true,
+              "def": {
+                "dynamicSource": "jTodayStr()"
+              }
+            },
+            {
+              "k": "amount",
+              "label": "مبلغ (تومان)",
+              "type": "money",
+              "required": true,
+              "full": true
+            },
+            {
+              "k": "description",
+              "label": "توضیحات",
+              "type": "text",
+              "full": true,
+              "max": 200
+            },
+            {
+              "k": "active",
+              "label": "فعال در محاسبات",
+              "type": "check",
+              "def": true,
+              "full": true
+            }
+          ],
+          "validate": {
+            "dynamicSource": "v => (v.dateFrom > v.dateTo ? 'تاریخ شروع نباید بعد از تاریخ پایان باشد' : '')"
+          },
+          "build": null
+        },
+        "expenses": {
+          "line": 2080,
+          "title": "هزینه‌ها",
+          "single": "هزینه",
+          "intro": "هزینه «مشترک» از صندوق کارگاه پرداخت می‌شود و از سود کم می‌شود. هزینه «شخصی اوستا» را همان اوستا از جیب داده؛ به او برگردانده می‌شود و بین همه اوستاها به نسبت کارکرد تقسیم می‌شود.",
+          "fields": [
+            {
+              "k": "date",
+              "label": "تاریخ",
+              "type": "date",
+              "required": true,
+              "def": {
+                "dynamicSource": "jTodayStr()"
+              }
+            },
+            {
+              "k": "amount",
+              "label": "مبلغ (تومان)",
+              "type": "money",
+              "required": true
+            },
+            {
+              "k": "description",
+              "label": "شرح هزینه",
+              "type": "text",
+              "required": true,
+              "full": true,
+              "max": 200
+            },
+            {
+              "k": "categoryId",
+              "label": "دسته‌بندی",
+              "type": "select",
+              "options": {
+                "dynamicSource": "() => [['', '— بدون دسته —']].concat(P().categories.map(c => [c.id, c.name]))"
+              }
+            },
+            {
+              "k": "payerId",
+              "label": "پرداخت‌کننده",
+              "type": "select",
+              "def": "shared",
+              "options": {
+                "dynamicSource": "() => [['shared', 'صندوق مشترک کارگاه']].concat(masterUsers().map(u => [u.id, 'شخصی: ' + u.name]))"
+              }
+            },
+            {
+              "k": "active",
+              "label": "فعال در محاسبات",
+              "type": "check",
+              "def": true,
+              "full": true
+            }
+          ],
+          "validate": null,
+          "build": {
+            "dynamicSource": "v => Object.assign(v, { categoryId: v.categoryId || null, payerId: v.payerId || 'shared' })"
+          }
+        },
+        "payouts": {
+          "line": 2095,
+          "title": "پرداختی‌های شاگردها",
+          "single": "پرداختی",
+          "intro": "پول نقدی که به شاگرد یا پرسنل داده‌اید. این مبلغ از طلب او کم می‌شود؛ مانده حساب هر نفر در داشبورد دیده می‌شود.",
+          "fields": [
+            {
+              "k": "date",
+              "label": "تاریخ",
+              "type": "date",
+              "required": true,
+              "def": {
+                "dynamicSource": "jTodayStr()"
+              }
+            },
+            {
+              "k": "userId",
+              "label": "دریافت‌کننده",
+              "type": "select",
+              "required": true,
+              "options": {
+                "dynamicSource": "() => optUsers(staffUsers())"
+              }
+            },
+            {
+              "k": "amount",
+              "label": "مبلغ (تومان)",
+              "type": "money",
+              "required": true,
+              "full": true
+            },
+            {
+              "k": "description",
+              "label": "توضیحات",
+              "type": "text",
+              "full": true,
+              "max": 200
+            },
+            {
+              "k": "active",
+              "label": "فعال در محاسبات",
+              "type": "check",
+              "def": true,
+              "full": true
+            }
+          ],
+          "validate": {
+            "dynamicSource": "v => (!v.userId ? 'ابتدا یک شاگرد یا پرسنل تعریف کنید' : '')"
+          },
+          "build": null
+        },
+        "transfers": {
+          "line": 2105,
+          "title": "انتقال بین اوستاها",
+          "single": "انتقال",
+          "intro": "پرداخت مستقیم یک اوستا به اوستای دیگر (تسویه داخلی) از درآمد کارگاه جداست. «پیش‌برداشت» یعنی اوستا پیش از تقسیم سود از صندوق پول برداشته است.",
+          "fields": [
+            {
+              "k": "date",
+              "label": "تاریخ",
+              "type": "date",
+              "required": true,
+              "def": {
+                "dynamicSource": "jTodayStr()"
+              }
+            },
+            {
+              "k": "kind",
+              "label": "نوع",
+              "type": "select",
+              "def": "peer",
+              "options": [
+                [
+                  "peer",
+                  "انتقال بین دو اوستا"
+                ],
+                [
+                  "advance",
+                  "پیش‌برداشت از کار (صندوق)"
+                ]
+              ]
+            },
+            {
+              "k": "fromId",
+              "label": "پرداخت‌کننده (اوستا)",
+              "type": "select",
+              "options": {
+                "dynamicSource": "() => optUsers(masterUsers())"
+              },
+              "showIf": {
+                "k": "kind",
+                "v": "peer"
+              }
+            },
+            {
+              "k": "toId",
+              "label": "دریافت‌کننده (اوستا)",
+              "type": "select",
+              "options": {
+                "dynamicSource": "() => optUsers(masterUsers())"
+              }
+            },
+            {
+              "k": "amount",
+              "label": "مبلغ (تومان)",
+              "type": "money",
+              "required": true,
+              "full": true
+            },
+            {
+              "k": "description",
+              "label": "توضیحات",
+              "type": "text",
+              "full": true,
+              "max": 200
+            },
+            {
+              "k": "active",
+              "label": "فعال در محاسبات",
+              "type": "check",
+              "def": true,
+              "full": true
+            }
+          ],
+          "validate": {
+            "dynamicSource": "v => (!v.toId ? 'دریافت‌کننده را انتخاب کنید' : v.kind === 'peer' && (!v.fromId || v.fromId === v.toId) ? 'پرداخت‌کننده و دریافت‌کننده باید دو اوستای متفاوت باشند' : '')"
+          },
+          "build": {
+            "dynamicSource": "v => Object.assign(v, v.kind === 'advance' ? { fromId: null } : {})"
+          }
+        },
+        "adjustments": {
+          "line": 2120,
+          "title": "پاداش، جریمه و مساعده",
+          "single": "تعدیل",
+          "intro": "اقلام مستقل از حضور و غیاب: پاداش و جریمه تراز فرد را کم و زیاد می‌کند؛ مساعده پول نقد فوری از صندوق است؛ «تسویه نقدی» پولی است که اوستای بدهکار به صندوق برمی‌گرداند.",
+          "fields": [
+            {
+              "k": "date",
+              "label": "تاریخ",
+              "type": "date",
+              "required": true,
+              "def": {
+                "dynamicSource": "jTodayStr()"
+              }
+            },
+            {
+              "k": "userId",
+              "label": "شخص",
+              "type": "select",
+              "required": true,
+              "options": {
+                "dynamicSource": "() => optUsers(liveUsers())"
+              }
+            },
+            {
+              "k": "kind",
+              "label": "نوع",
+              "type": "select",
+              "def": "bonus",
+              "options": [
+                [
+                  "bonus",
+                  "پاداش"
+                ],
+                [
+                  "penalty",
+                  "جریمه"
+                ],
+                [
+                  "assistance",
+                  "مساعده (نقد فوری)"
+                ],
+                [
+                  "settle",
+                  "تسویه نقدی (فقط اوستا)"
+                ]
+              ]
+            },
+            {
+              "k": "amount",
+              "label": "مبلغ (تومان)",
+              "type": "money",
+              "required": true
+            },
+            {
+              "k": "description",
+              "label": "توضیحات",
+              "type": "text",
+              "full": true,
+              "max": 200
+            },
+            {
+              "k": "active",
+              "label": "فعال در محاسبات",
+              "type": "check",
+              "def": true,
+              "full": true
+            }
+          ],
+          "validate": {
+            "dynamicSource": "v => { const u = P().users.find(x => x.id === v.userId); return !u ? 'شخص را انتخاب کنید' : v.kind === 'settle' && u.type !== 'master' ? 'تسویه نقدی فقط برای اوستا ثبت می‌شود' : ''; }"
+          },
+          "build": null
+        },
+        "wages": {
+          "line": 2131,
+          "title": "دستمزدها",
+          "single": "نرخ دستمزد",
+          "intro": "نرخ روزانه هر شاگرد یا پرسنل با تاریخ اعتبار. حساب هر روز کارکرد با نزدیک‌ترین نرخ قبل از همان روز انجام می‌شود؛ اگر پیش از اولین نرخ کار کرده باشد، اولین نرخ ثبت‌شده مبنا قرار می‌گیرد.",
+          "fields": [
+            {
+              "k": "userId",
+              "label": "شاگرد / پرسنل",
+              "type": "select",
+              "required": true,
+              "options": {
+                "dynamicSource": "() => optUsers(staffUsers())"
+              },
+              "full": true
+            },
+            {
+              "k": "rate",
+              "label": "دستمزد روزانه (تومان)",
+              "type": "money",
+              "required": true
+            },
+            {
+              "k": "effectiveDate",
+              "label": "تاریخ شروع اعتبار",
+              "type": "date",
+              "required": true,
+              "def": {
+                "dynamicSource": "jTodayStr()"
+              }
+            }
+          ],
+          "validate": {
+            "dynamicSource": "v => (!v.userId ? 'ابتدا یک شاگرد یا پرسنل در بخش کاربران تعریف کنید' : '')"
+          },
+          "build": null
+        },
+        "users": {
+          "line": 2140,
+          "title": "کاربران",
+          "single": "کاربر",
+          "intro": "اوستا در سود کارگاه سهیم است (به نسبت کارکرد × ضریب). شاگرد و پرسنل سایر دستمزد روزانه می‌گیرند. کاربر غیرفعال در حضور و غیاب دیده نمی‌شود اما سوابقش می‌ماند؛ به‌جای حذف، غیرفعال‌کردن را ترجیح دهید.",
+          "fields": [
+            {
+              "k": "name",
+              "label": "نام",
+              "type": "text",
+              "required": true,
+              "full": true,
+              "max": 60
+            },
+            {
+              "k": "type",
+              "label": "نوع",
+              "type": "select",
+              "def": "apprentice",
+              "options": [
+                [
+                  "master",
+                  "اوستا (شریک در سود)"
+                ],
+                [
+                  "apprentice",
+                  "شاگرد"
+                ],
+                [
+                  "custom",
+                  "پرسنل سایر"
+                ]
+              ]
+            },
+            {
+              "k": "role",
+              "label": "عنوان / نقش",
+              "type": "text",
+              "max": 40,
+              "ph": "مثلاً کارگر ساده"
+            },
+            {
+              "k": "workFactor",
+              "label": "ضریب کارکرد اوستا",
+              "type": "number",
+              "def": 1,
+              "min": 0,
+              "max": 100,
+              "showIf": {
+                "k": "type",
+                "v": "master"
+              }
+            },
+            {
+              "k": "active",
+              "label": "فعال",
+              "type": "check",
+              "def": true,
+              "full": true
+            }
+          ],
+          "validate": {
+            "dynamicSource": "v => userCheck(v, null)"
+          },
+          "build": {
+            "dynamicSource": "(v, old) => { const t = old && old.main ? 'master' : v.type; return Object.assign(v, { type: t, role: v.role || TYPE_FA[t], workFactor: t === 'master' ? (isFinite(v.workFactor) ? v.workFactor : 1) : 1 }); }"
+          }
+        }
+      }
+    },
+    "TUTOR_STEPS": {
+      "line": 3329,
+      "value": [
+        {
+          "id": "att",
+          "icon": "calendar",
+          "title": "ثبت حضور روزانه",
+          "say": "علی (شاگرد) امروز سر کار آمده. در صفحهٔ «حضور و غیاب»، زیر نام علی دکمهٔ سبز «کامل» را بزنید.",
+          "enter": {
+            "dynamicSource": "() { tutorGo('attendance'); }"
+          },
+          "aim": {
+            "dynamicSource": "() { return tutorAttAim(TUTOR_ALI, 'full'); }"
+          },
+          "done": {
+            "dynamicSource": "() { return getAtt(jTodayStr(), TUTOR_ALI) === 1; }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const a = tutorAcc(TUTOR_ALI);\n      return `ثبت شد. «کامل» یعنی یک روز ۸ ساعته. علی تا امروز ${fmtDays(a.days)} روز کار کرده و ${fmt(a.entitled)} تومان دستمزد دارد.`;\n    }"
+          }
+        },
+        {
+          "id": "att-fix-past",
+          "icon": "pen",
+          "title": "اصلاح حضور روز قبل",
+          "say": "یادتان آمد دیروز علی فقط نصفه‌روز کار کرده، نه کامل. به تاریخ دیروز بروید و درستش کنید.",
+          "enter": {
+            "dynamicSource": "() { tutorGo('attendance'); tutorPrepAtt(tutorYesterday()); }"
+          },
+          "aim": {
+            "dynamicSource": "() { return tutorAttAim(TUTOR_ALI, 'half', tutorYesterday()); }"
+          },
+          "done": {
+            "dynamicSource": "() { return getAtt(tutorYesterday(), TUTOR_ALI) === 0.5; }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const a = tutorAcc(TUTOR_ALI);\n      return `درست شد. دیروز علی نصفه‌روز حساب شد و کل کارکردش الان ${fmtDays(a.days)} روز و دستمزدش ${fmt(a.entitled)} تومان است. هر روزِ قدیمی را می‌شود برگشت و اصلاح کرد؛ حساب همان لحظه به‌روز می‌شود.`;\n    }"
+          }
+        },
+        {
+          "id": "overtime",
+          "icon": "bolt",
+          "title": "ساعتی و اضافه‌کار",
+          "say": "در واقع علی امروز ۱۰ ساعت کار کرده. دکمهٔ «ساعتی» او را بزنید، کشو را روی ۱۰ بگذارید و «ثبت» را بزنید.",
+          "enter": {
+            "dynamicSource": "() { tutorGo('attendance'); tutorPrepAtt(); }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      const slider = $('[data-hour-slider]');\n      if (slider) {\n        return Number(slider.value) > BASE_HOURS\n          ? { sel: '[data-hour-confirm]', mh: 'خوب است! حالا دکمهٔ «ثبت» را بزنید.' }\n          : { sel: '[data-hour-slider]', mh: 'کشوی ساعت را بکشید تا عدد از ۸ بیشتر شود (مثلاً ۱۰).' };\n      }\n      return tutorAttAim(TUTOR_ALI, 'hour');\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { const v = getAtt(jTodayStr(), TUTOR_ALI); return !!(v && v.t === 'h' && v.h > BASE_HOURS); }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const v = getAtt(jTodayStr(), TUTOR_ALI), f = attFraction(v), ot = otFactor();\n      const rate = wageRateFor(TUTOR_ALI, jTodayStr(), null, P());\n      return `${v.h} ساعت = ${fmtDays(f)} روز (۸ ساعت عادی + ${v.h - BASE_HOURS} ساعت اضافه‌کار با ضریب ×${fa2en(ot)}). دستمزد امروز علی: ${fmt(Math.round(f * rate))} تومان. `\n        + (ot === 1 ? 'ضریب اضافه‌کار الان ×۱ است؛ یعنی ساعت اضافه هم مثل ساعت عادی حساب می‌شود. اگر اضافه‌کار گران‌تر است، از «تنظیمات» ضریب را (مثلاً ۱٫۵) بگذارید.' : 'این ضریب را از «تنظیمات» انتخاب کرده‌اید.');\n    }"
+          }
+        },
+        {
+          "id": "absence",
+          "icon": "alert",
+          "title": "غیبت اوستا",
+          "say": "کاظم امروز سر کار نیامده، مرخصی است. برای او هم وضعیت امروز را ثبت کنید: «غایب».",
+          "enter": {
+            "dynamicSource": "() { tutorGo('attendance'); tutorPrepAtt(); }"
+          },
+          "aim": {
+            "dynamicSource": "() { return tutorAttAim(TUTOR_KAZEM, 'abs'); }"
+          },
+          "done": {
+            "dynamicSource": "() { return getAtt(jTodayStr(), TUTOR_KAZEM) === 0; }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const k = tutorAcc(TUTOR_KAZEM);\n      return `ثبت شد. غایب ${absPenalty() > 0 ? fmtDays(absPenalty()) + ' روز از کارکرد کم می‌کند (از «تنظیمات» قابل تغییر است)؛ کارکرد کاظم الان ' + fmtDays(k.days) + ' روز است' : 'یعنی صفر روز؛ کارکرد کاظم همان ' + fmtDays(k.days) + ' روز ماند'}. چون اوستا دستمزد روزانه نمی‌گیرد، غیبتش از جیب کسی کم نمی‌شود؛ فقط روزهای کارکردش (و در نتیجه سهمش از سود، الان ${pctText(k.percent)}٪) را تحت تأثیر می‌گذارد.`;\n    }"
+          }
+        },
+        {
+          "id": "hire",
+          "icon": "users",
+          "title": "اضافه‌کردن شاگرد جدید",
+          "say": "یک شاگرد جدید آمده: رضا. از بخش «کاربران» او را اضافه کنید.",
+          "enter": {
+            "dynamicSource": "() { tutorGo('users'); }"
+          },
+          "preset": {
+            "dynamicSource": "(key) { return key === 'users' ? { name: 'رضا (شاگرد دوم)', type: 'apprentice' } : null; }"
+          },
+          "guard": {
+            "dynamicSource": "(key, v) {\n      if (key !== 'users') return '';\n      if (v.type !== 'apprentice') return 'در این تمرین رضا «شاگرد» است؛ نوع را روی «شاگرد» بگذارید.';\n      if (normFa(v.name).indexOf('رضا') < 0) return 'اسم را «رضا» نگه دارید تا گام‌های بعد با هم جور باشد.';\n      return '';\n    }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      return tutorCrudAim('users', {\n        okMh: 'اسم «رضا» و نوع «شاگرد» آماده است. دکمهٔ «ذخیره» را بزنید.',\n        check: () => tutorSel('f_type', 'apprentice', 'نوع را روی «شاگرد» بگذارید؛ شاگرد دستمزد روزانه می‌گیرد، اوستا سهم از سود.'),\n        open: () => tutorOnPage('users') || { sel: '#crudAdd', hint: 'دکمهٔ «کاربر جدید» را بزنید.' }\n      });\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { return !!tutorReza(); }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const r = tutorReza();\n      return `${r ? r.name : 'رضا'} اضافه شد. شاگرد سهمی از سود ندارد؛ دستمزد روزانه می‌گیرد و حسابش جدا نگه داشته می‌شود. قدم بعد: نرخ دستمزدش.`;\n    }"
+          }
+        },
+        {
+          "id": "hire-wage",
+          "icon": "layers",
+          "title": "نرخ دستمزد رضا",
+          "say": "برای رضا هم یک نرخ روزانه بگذارید، مثلاً ۸۰۰ هزار تومان.",
+          "enter": {
+            "dynamicSource": "() { tutorEnsureReza(); tutorGo('wages'); }"
+          },
+          "preset": {
+            "dynamicSource": "(key) { const r = tutorReza(); return key === 'wages' && r ? { userId: r.id, rate: 800000 } : null; }"
+          },
+          "guard": {
+            "dynamicSource": "(key, v) {   // the narration says \"for example 800 thousand\", so any positive rate is accepted on purpose\n      if (key !== 'wages') return '';\n      const r = tutorReza();\n      if (!r || v.userId !== r.id) return 'در این گام نرخ برای رضا ثبت می‌شود.';\n      if (!(num(v.rate) > 0)) return 'نرخ روزانه باید بیشتر از صفر باشد.';\n      return '';\n    }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      const r = tutorReza();\n      return tutorCrudAim('wages', {\n        okMh: 'شاگرد رضا و نرخ آماده است. دکمهٔ «ذخیره» را بزنید.',\n        check: () => r && tutorSel('f_userId', r.id, 'گیرنده را روی «رضا» بگذارید.'),\n        open: () => tutorOnPage('wages') || { sel: '#crudAdd', hint: 'دکمهٔ «نرخ جدید» را بزنید.' }\n      });\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { const r = tutorReza(); return !!(r && P().wages.some(w => w.userId === r.id)); }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const r = tutorReza(), rate = r ? wageRateFor(r.id, jTodayStr(), null, P()) : 0;\n      return `نرخ رضا ${fmt(rate)} تومان در روز ثبت شد. اگر یک روز نرخ عوض شد، نرخ جدید را با تاریخ جدید اضافه کنید؛ نرخ قدیمی پاک نمی‌شود و دستمزد روزهای گذشته خراب نمی‌شود.`;\n    }"
+          }
+        },
+        {
+          "id": "hire-att",
+          "icon": "calendar",
+          "title": "حضور رضا",
+          "say": "رضا هم امروز آمده. حضورش را هم «کامل» بزنید.",
+          "enter": {
+            "dynamicSource": "() { tutorEnsureReza({ wage: true }); tutorGo('attendance'); tutorPrepAtt(); }"
+          },
+          "aim": {
+            "dynamicSource": "() { const r = tutorReza(); return r ? tutorAttAim(r.id, 'full') : { sel: tutorNav('users'), hint: 'اول رضا را در «کاربران» اضافه کنید.' }; }"
+          },
+          "done": {
+            "dynamicSource": "() { const r = tutorReza(); return !!(r && getAtt(jTodayStr(), r.id) === 1); }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const r = tutorReza(), a = tutorAcc(r && r.id);\n      return `حضور رضا ثبت شد. تا الان ${fmtDays(a.days)} روز کار کرده و ${fmt(a.entitled)} تومان دستمزد دارد. همین کار را که برای علی کردید، حالا برای یک نفر تازه تکرار کردید.`;\n    }"
+          }
+        },
+        {
+          "id": "expense-personal",
+          "icon": "cart",
+          "title": "هزینهٔ شخصی اوستا",
+          "say": "اوستا کاظم ۵۰۰٬۰۰۰ تومان ناهار کارگران را از جیب خودش داده. دکمهٔ «+» را بزنید، «ثبت هزینه جدید» را انتخاب کنید و فرم را ذخیره کنید.",
+          "preset": {
+            "dynamicSource": "(key) { return key === 'expenses' ? { amount: 500000, description: 'ناهار کارگران', categoryId: tutorCat('غذا'), payerId: TUTOR_KAZEM } : null; }"
+          },
+          "guard": {
+            "dynamicSource": "(key, v) {\n      if (key !== 'expenses') return '';\n      if (v.payerId !== TUTOR_KAZEM) return 'در این تمرین ناهار را اوستا کاظم از جیب خودش داده؛ «پرداخت‌کننده» را روی «شخصی: اوستا کاظم» بگذارید.';\n      return tutorExact(v, 500000);\n    }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      return tutorCrudAim('expenses', {\n        okMh: '«پرداخت‌کننده» روی «شخصی: اوستا کاظم» است؛ یعنی این پول از جیب کاظم رفته، نه از صندوق. دکمهٔ «ذخیره» را بزنید.',\n        check: () => tutorSel('f_payerId', TUTOR_KAZEM, '«پرداخت‌کننده» را روی «شخصی: اوستا کاظم» بگذارید؛ این پول از جیب کاظم رفته، نه از صندوق.') || tutorAmt(500000, 'مبلغ این گام ۵۰۰٬۰۰۰ تومان است.'),\n        open: () => tutorFab('expense', 'ثبت هزینه جدید')\n      });\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { return P().expenses.some(e => e.payerId === TUTOR_KAZEM && e.active !== false); }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const m = tutorAcc(TUTOR_ME);\n      return `ثبت شد. چون کاظم از جیب خودش پرداخته، ۵۰۰٬۰۰۰ تومان به او برمی‌گردد و ${fmt(m.sharedPersonalExp)} تومانش از سهم هر اوستا کم می‌شود. اگر از صندوق پرداخت می‌شد، «صندوق مشترک» را انتخاب می‌کردید و مستقیم از سود کم می‌شد.`;\n    }"
+          }
+        },
+        {
+          "id": "expense-shared",
+          "icon": "cart",
+          "title": "هزینهٔ صندوق مشترک",
+          "say": "۲٬۰۰۰٬۰۰۰ تومان مصالح خریدید؛ این بار از صندوق مشترک، نه از جیب کسی. «+» ← «ثبت هزینه جدید».",
+          "preset": {
+            "dynamicSource": "(key) { return key === 'expenses' ? { amount: 2000000, description: 'خرید مصالح', categoryId: tutorCat('مصالح'), payerId: 'shared' } : null; }"
+          },
+          "guard": {
+            "dynamicSource": "(key, v) {\n      if (key !== 'expenses') return '';\n      if (v.payerId !== 'shared') return 'این بار پول از صندوق رفته؛ «پرداخت‌کننده» را روی «صندوق مشترک کارگاه» بگذارید.';\n      return tutorExact(v, 2000000);\n    }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      return tutorCrudAim('expenses', {\n        okMh: 'این بار «پرداخت‌کننده» صندوق مشترک است. دکمهٔ «ذخیره» را بزنید.',\n        check: () => tutorSel('f_payerId', 'shared', '«پرداخت‌کننده» را روی «صندوق مشترک کارگاه» بگذارید.') || tutorAmt(2000000, 'مبلغ این گام ۲٬۰۰۰٬۰۰۰ تومان است.'),\n        open: () => tutorFab('expense', 'ثبت هزینه جدید')\n      });\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { return P().expenses.some(e => e.payerId === 'shared' && e.active !== false && num(e.amount) === 2000000); }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const R = compute();\n      return `فرقش با گام قبل را ببینید: این مبلغ به کسی برنمی‌گردد و مستقیم از سود کم می‌شود. هزینه‌های مشترک الان ${fmt(R.sharedExpenses)} تومان است و مانده قابل تقسیم ${fmt(R.profit)} تومان.`;\n    }"
+          }
+        },
+        {
+          "id": "payout",
+          "icon": "receipt",
+          "title": "پرداخت نقد به شاگرد",
+          "say": "امروز ۳٬۰۰۰٬۰۰۰ تومان نقد به علی دادید. دکمهٔ «+» را بزنید، «پرداخت به شاگرد» را انتخاب کنید و ذخیره کنید.",
+          "preset": {
+            "dynamicSource": "(key) { return key === 'payouts' ? { userId: TUTOR_ALI, amount: 3000000, description: 'علی‌الحساب' } : null; }"
+          },
+          "guard": {
+            "dynamicSource": "(key, v) {\n      if (key !== 'payouts') return '';\n      if (v.userId !== TUTOR_ALI) return 'در این تمرین پرداخت به علی است.';\n      return tutorExact(v, 3000000);\n    }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      return tutorCrudAim('payouts', {\n        okMh: 'گیرنده علی و مبلغ ۳٬۰۰۰٬۰۰۰ است. دکمهٔ «ذخیره» را بزنید.',\n        check: () => tutorSel('f_userId', TUTOR_ALI, 'گیرنده را روی «علی» بگذارید.') || tutorAmt(3000000, 'مبلغ این گام ۳٬۰۰۰٬۰۰۰ تومان است.'),\n        open: () => tutorFab('payout', 'پرداخت به شاگرد')\n      });\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { return P().payouts.some(x => x.userId === TUTOR_ALI && x.active !== false); }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const a = tutorAcc(TUTOR_ALI);\n      return `ثبت شد. پولِ نقدِ پرداخت‌شده از طلب علی کم می‌شود: طلب او از ${fmt(a.debt + a.paid)} به ${fmt(a.debt)} تومان رسید.`;\n    }"
+          }
+        },
+        {
+          "id": "assistance",
+          "icon": "bolt",
+          "title": "مساعده به شاگرد",
+          "say": "رضا امروز نیاز فوری داشت؛ ۵۰۰٬۰۰۰ تومان مساعده از صندوق بهش بدهید (نه پرداختیِ عادی). از «پاداش، جریمه و مساعده» ثبت کنید.",
+          "enter": {
+            "dynamicSource": "() { tutorEnsureReza({ wage: true }); tutorGo('adjustments'); }"
+          },
+          "preset": {
+            "dynamicSource": "(key) { const r = tutorReza(); return key === 'adjustments' && r ? { userId: r.id, kind: 'assistance', amount: 500000, description: 'مساعده فوری' } : null; }"
+          },
+          "guard": {
+            "dynamicSource": "(key, v) {\n      if (key !== 'adjustments') return '';\n      const r = tutorReza();\n      if (!r || v.userId !== r.id) return 'در این گام مساعده برای رضاست.';\n      if (v.kind !== 'assistance') return 'نوع را روی «مساعده (نقد فوری)» بگذارید.';\n      return tutorExact(v, 500000);\n    }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      const r = tutorReza();\n      return tutorCrudAim('adjustments', {\n        okMh: 'شخص رضا، نوع «مساعده» و مبلغ ۵۰۰٬۰۰۰ است. دکمهٔ «ذخیره» را بزنید.',\n        check: () => (r && tutorSel('f_userId', r.id, 'شخص را روی «رضا» بگذارید.')) || tutorSel('f_kind', 'assistance', 'نوع را روی «مساعده (نقد فوری)» بگذارید.') || tutorAmt(500000, 'مبلغ این گام ۵۰۰٬۰۰۰ تومان است.'),\n        open: () => tutorOnPage('adjustments') || { sel: '#crudAdd', hint: 'دکمهٔ «تعدیل جدید» را بزنید.' }\n      });\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { const r = tutorReza(); return !!(r && P().adjustments.some(a => a.userId === r.id && a.kind === 'assistance' && a.active !== false)); }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const a = tutorAcc((tutorReza() || {}).id);\n      return `ثبت شد. فرقش با «پرداختی» (گام ۱۰): هر دو پول نقدی‌اند که از طلب شاگرد کم می‌شوند، ولی «پرداختی» دستمزد عادی است و «مساعده» کمک فوری خارج از نوبت؛ در برگهٔ حساب هرکدام در سطر جدا می‌آید. طلب رضا الان ${fmt(a.debt)} تومان است.`;\n    }"
+          }
+        },
+        {
+          "id": "advance",
+          "icon": "transfer",
+          "title": "پیش‌برداشت اوستا",
+          "say": "کاظم ۱٬۵۰۰٬۰۰۰ تومان از صندوق مشترک پیش‌برداشت کرد. از «انتقال بین اوستاها» نوع «پیش‌برداشت» را ثبت کنید.",
+          "enter": {
+            "dynamicSource": "() { tutorGo('transfers'); }"
+          },
+          "preset": {
+            "dynamicSource": "(key) { return key === 'transfers' ? { kind: 'advance', toId: TUTOR_KAZEM, amount: 1500000, description: 'پیش‌برداشت از صندوق' } : null; }"
+          },
+          "guard": {
+            "dynamicSource": "(key, v) {   // the real engine only accepts an advance for a master, so the guard names Kazem (a master)\n      if (key !== 'transfers') return '';\n      if (v.kind !== 'advance') return 'نوع را روی «پیش‌برداشت از کار (صندوق)» بگذارید.';\n      if (v.toId !== TUTOR_KAZEM) return 'در این گام پیش‌برداشت برای اوستا کاظم است.';\n      return tutorExact(v, 1500000);\n    }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      return tutorCrudAim('transfers', {\n        okMh: 'نوع «پیش‌برداشت»، دریافت‌کننده کاظم و مبلغ ۱٬۵۰۰٬۰۰۰ است. دکمهٔ «ذخیره» را بزنید.',\n        check: () => tutorSel('f_kind', 'advance', 'نوع را روی «پیش‌برداشت از کار (صندوق)» بگذارید.') || tutorSel('f_toId', TUTOR_KAZEM, 'دریافت‌کننده را روی «اوستا کاظم» بگذارید.') || tutorAmt(1500000, 'مبلغ این گام ۱٬۵۰۰٬۰۰۰ تومان است.'),\n        open: () => tutorOnPage('transfers') || { sel: '#crudAdd', hint: 'دکمهٔ «انتقال جدید» را بزنید.' }\n      });\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { return P().transfers.some(t => t.kind === 'advance' && t.toId === TUTOR_KAZEM && t.active !== false); }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const k = tutorAcc(TUTOR_KAZEM);\n      return `ثبت شد. پیش‌برداشت ${fmt(k.advance)} تومانی کاظم از تراز نهایی خودش کم می‌شود، نه از سود بقیه؛ تراز نهایی کاظم الان ${fmt(k.finalBalance)} تومان است.`;\n    }"
+          }
+        },
+        {
+          "id": "result",
+          "icon": "chart",
+          "title": "حساب نهایی",
+          "say": "حالا با دو شاگرد، دو نوع هزینه، مساعده و پیش‌برداشت ببینید پول چطور تقسیم شد. در داشبورد روی کارت بزرگ «مانده قابل تقسیم بین اوستاها» بزنید.",
+          "enter": {
+            "dynamicSource": "() { tutorState.rulerSeen = false; tutorGo('dashboard'); }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      if ($('[data-ruler-ok]')) return { sel: '[data-ruler-ok]', mh: 'جمع‌بندی را بخوانید؛ بعد «فهمیدم، ادامه» را بزنید.' };\n      const sm = tutorStrayModal(); if (sm) return sm;\n      const pg = tutorOnPage('dashboard'); if (pg) return pg;\n      return { sel: '[data-kpi=\"profit\"]' };\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { return tutorState.rulerSeen; }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const b = tutorBalance(compute());\n      return b.ok\n        ? 'حساب روشن شد: دستمزد شاگردها از واریزی کم می‌شود، بقیه بین اوستاها به نسبت کارکرد تقسیم می‌شود و جمع همه‌چیز دقیقاً با واریزی کارفرما برابر است.'\n        : 'جمع اجزا با واریزی کارفرما برابر نیست؛ پیش از تسویهٔ واقعی «سنجش سلامت» را بزنید و ببینید کدام ثبت مشکل دارد.';\n    }"
+          }
+        },
+        {
+          "id": "statement",
+          "icon": "share",
+          "title": "برگهٔ حساب رضا",
+          "say": "برگهٔ حساب رضا را هم ببینید، چون تازه استخدام شده و می‌خواهید مطمئن شوید حسابش درست است. در جدول پایین داشبورد روی ردیف «رضا» بزنید.",
+          "enter": {
+            "dynamicSource": "() { tutorEnsureReza({ wage: true }); tutorState.stmtSeen = false; tutorGo('dashboard'); }"
+          },
+          "observe": {
+            "dynamicSource": "() { const r = tutorReza(); if (r && tutorStmtOf(r.id)) tutorState.stmtSeen = true; }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      const r = tutorReza();\n      if ($('.stmt')) {\n        return r && tutorStmtOf(r.id)\n          ? { sel: '[data-copy]', mh: 'این برگه را می‌توانید کپی کنید یا به‌صورت تصویر برای رضا بفرستید. بعد از دیدن، آن را ببندید.' }\n          : { sel: '[data-x]', mh: 'این برگهٔ رضا نیست؛ ببندیدش و ردیف «رضا» را بزنید.' };\n      }\n      const sm = tutorStrayModal(); if (sm) return sm;\n      const pg = tutorOnPage('dashboard'); if (pg) return pg;\n      return { sel: `tr[data-sid=\"${r ? r.id : ''}\"]` };\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { return tutorState.stmtSeen && !$('.stmt'); }"
+          },
+          "result": {
+            "dynamicSource": "() { return 'این برگه روزها، ساعت‌ها، پرداختی‌ها و مساعدهٔ رضا را روشن نشان می‌دهد و جای بحث و حدس باقی نمی‌گذارد.'; }"
+          }
+        },
+        {
+          "id": "health",
+          "icon": "shield",
+          "title": "سنجش سلامت داده",
+          "say": "قبل از هر تسویه‌ای، همیشه اینجا را چک کنید. در داشبورد دکمهٔ «سنجش سلامت» را بزنید.",
+          "enter": {
+            "dynamicSource": "() { tutorGo('dashboard'); }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      if (currentPage() === 'health') return { sel: null };\n      const sm = tutorStrayModal(); if (sm) return sm;\n      const pg = tutorOnPage('dashboard'); if (pg) return pg;\n      return { sel: `button[onclick*=\"go('health')\"]` };\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { return currentPage() === 'health'; }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      let s = { error: 0, warn: 0 };\n      try { s = sanityCheck().stats; } catch (e) { /* ignore */ }\n      return s.error || s.warn\n        ? `این صفحه ${s.error} خطا و ${s.warn} هشدار نشان می‌دهد. پیش از تسویهٔ واقعی همه را رسیدگی کنید.`\n        : 'همه‌چیز سبز است؛ یعنی حساب آمادهٔ تسویه است. هر خطا یا هشدار را قبل از تسویه رفع کنید.';\n    }"
+          }
+        }
+      ]
+    },
+    "TUTOR_STEPS_CH2": {
+      "line": 3643,
+      "value": [
+        {
+          "id": "receipt",
+          "icon": "wallet",
+          "title": "ثبت واریزی کارفرما",
+          "say": "کارفرما یک واریزی تازه کرده: ۴٬۰۰۰٬۰۰۰ تومان. از «واریزی‌های کارفرما» ثبتش کنید.",
+          "enter": {
+            "dynamicSource": "() { tutorGo('receipts'); }"
+          },
+          "preset": {
+            "dynamicSource": "(key) { return key === 'receipts' ? { amount: 4000000, dateFrom: jTodayStr(), dateTo: jTodayStr(), description: 'واریزی دوم کارفرما' } : null; }"
+          },
+          "guard": {
+            "dynamicSource": "(key, v) { return key === 'receipts' ? tutorExact(v, 4000000) : ''; }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      return tutorCrudAim('receipts', {\n        okMh: 'زیر کادر مبلغ، عدد به حروف خوانده می‌شود («چهار میلیون تومان»). همیشه همان را چک کنید، بعد «ذخیره» را بزنید.',\n        check: () => tutorAmt(4000000, 'مبلغ این گام ۴٬۰۰۰٬۰۰۰ تومان است.'),\n        open: () => tutorOnPage('receipts') || { sel: '#crudAdd', hint: 'دکمهٔ «واریزی جدید» را بزنید.' }\n      });\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { return P().receipts.some(r => r.active !== false && num(r.amount) === 4000000); }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const R = compute();\n      return `ثبت شد. مجموع واریزی‌ها الان ${fmt(R.totalReceipts)} تومان است. هر واریزی یک بازهٔ تاریخ دارد و مبلغش بین روزهای همان بازه پخش می‌شود؛ این‌جا فقط امروز بود.`;\n    }"
+          }
+        },
+        {
+          "id": "new-category",
+          "icon": "layers",
+          "title": "ساختن دستهٔ هزینه",
+          "say": "یک دستهٔ جدید برای «ابزار» بسازید. در «هزینه‌ها» دکمهٔ «دسته‌ها» را بزنید، اسم را بنویسید و «افزودن» را بزنید.",
+          "enter": {
+            "dynamicSource": "() { tutorGo('expenses'); }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      const sh = tutorTopSheet(), inp = sh && $('#catNew', sh);\n      if (inp) return normFa(inp.value).indexOf('ابزار') >= 0 ? { sel: '#catAdd', mh: 'حالا «افزودن» را بزنید.' } : { sel: '#catNew', mh: 'اسم دسته را بنویسید: «ابزار».' };\n      const pg = tutorOnPage('expenses'); if (pg) return pg;\n      const sm = tutorStrayModal(); if (sm) return sm;\n      return { sel: 'button[onclick*=\"openCategoryManager\"]', hint: 'دکمهٔ «دسته‌ها» بالای صفحه را بزنید.' };\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { return P().categories.some(c => normFa(c.name).indexOf('ابزار') >= 0); }"
+          },
+          "result": {
+            "dynamicSource": "() { return 'دستهٔ «ابزار» ساخته شد. دسته‌ها فقط گزارش هزینه‌ها را مرتب می‌کنند و روی سود و تراز اثری ندارند؛ ولی با دستهٔ درست، آخر کار می‌فهمید پول کجا رفته.'; }"
+          }
+        },
+        {
+          "id": "expense-new-cat",
+          "icon": "cart",
+          "title": "هزینه با دستهٔ تازه",
+          "say": "یک بیل نو خریدید، ۳۵۰٬۰۰۰ تومان، از صندوق، و دسته‌اش «ابزار» باشد. (برای تمرین اصلاح، فرم عمداً با یک اشتباه پر می‌شود؛ همان را ذخیره کنید، گام ۵ درستش می‌کند.)",
+          "enter": {
+            "dynamicSource": "() { tutorEnsureCat('ابزار'); }"
+          },
+          "preset": {
+            "dynamicSource": "(key) { return key === 'expenses' ? { amount: 350, description: 'خرید بیل نو', categoryId: tutorCat('ابزار'), payerId: 'shared' } : null; }"
+          },
+          "guard": {
+            "dynamicSource": "(key, v) {   // the typo (350 instead of 350000) is planted on purpose: step 5 is the \"fix a financial record\" lesson\n      if (key !== 'expenses') return '';\n      if (v.payerId !== 'shared') return 'این بیل از صندوق خریده شد؛ «پرداخت‌کننده» را روی «صندوق مشترک کارگاه» بگذارید.';\n      if (v.categoryId !== tutorCat('ابزار')) return 'دسته را روی «ابزار» بگذارید.';\n      return num(v.amount) === 350 ? '' : 'در این گام همان مبلغ آماده (۳۵۰ تومان، با اشتباه عمدی) را ذخیره کنید؛ گام ۵ درستش می‌کند.';\n    }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      return tutorCrudAim('expenses', {\n        okMh: 'مبلغ را عمداً ۳۵۰ تومان گذاشته‌ایم؛ سه صفر کم دارد! زیر کادر «سیصد و پنجاه تومان» نوشته شده. همین را ذخیره کنید، در گام ۵ اصلاحش می‌کنید.',\n        check: () => tutorSel('f_payerId', 'shared', '«پرداخت‌کننده» را روی «صندوق مشترک کارگاه» بگذارید.') || tutorSel('f_categoryId', tutorCat('ابزار'), 'دسته را روی «ابزار» بگذارید.'),\n        open: () => tutorFab('expense', 'ثبت هزینه جدید')\n      });\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { const c = tutorCat('ابزار'); return !!c && P().expenses.some(e => e.active !== false && e.payerId === 'shared' && e.categoryId === c); }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const e = tutorToolExpense();\n      return `ثبت شد؛ ولی دقت کنید: مبلغ ثبت‌شده ${e ? fmt(e.amount) : '۳۵۰'} تومان است، نه ۳۵۰ هزار! اپ همین را از سود کم کرد. چنین اشتباهی در عمل هم پیش می‌آید؛ در گام ۵ یاد می‌گیرید چطور درستش کنید.`;\n    }"
+          }
+        },
+        {
+          "id": "bonus",
+          "icon": "bolt",
+          "title": "پاداش به شاگرد",
+          "say": "رضا کارش خوب بوده؛ ۲۰۰٬۰۰۰ تومان پاداش بدهید. از «پاداش، جریمه و مساعده» ثبت کنید.",
+          "enter": {
+            "dynamicSource": "() { tutorEnsureReza({ wage: true }); tutorGo('adjustments'); }"
+          },
+          "preset": {
+            "dynamicSource": "(key) { const r = tutorReza(); return key === 'adjustments' && r ? { userId: r.id, kind: 'bonus', amount: 200000, description: 'پاداش کار تمیز' } : null; }"
+          },
+          "guard": {
+            "dynamicSource": "(key, v) {\n      if (key !== 'adjustments') return '';\n      const r = tutorReza();\n      if (!r || v.userId !== r.id) return 'در این گام پاداش برای رضاست.';\n      if (v.kind !== 'bonus') return 'نوع را روی «پاداش» بگذارید.';\n      return tutorExact(v, 200000);\n    }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      const r = tutorReza();\n      return tutorCrudAim('adjustments', {\n        okMh: 'شخص رضا، نوع «پاداش» و مبلغ ۲۰۰٬۰۰۰ است. دکمهٔ «ذخیره» را بزنید.',\n        check: () => (r && tutorSel('f_userId', r.id, 'شخص را روی «رضا» بگذارید.')) || tutorSel('f_kind', 'bonus', 'نوع را روی «پاداش» بگذارید.') || tutorAmt(200000, 'مبلغ این گام ۲۰۰٬۰۰۰ تومان است.'),\n        open: () => tutorOnPage('adjustments') || { sel: '#crudAdd', hint: 'دکمهٔ «تعدیل جدید» را بزنید.' }\n      });\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { const r = tutorReza(); return !!(r && P().adjustments.some(a => a.userId === r.id && a.kind === 'bonus' && a.active !== false)); }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const a = tutorAcc((tutorReza() || {}).id);\n      return `ثبت شد. تفاوتش با «مساعده»ی فصل ۱: پاداش تراز رضا را واقعاً زیاد می‌کند (دستمزد استحقاقی‌اش الان ${fmt(a.entitled)} تومان است)، ولی مساعده فقط پیش‌پرداخت از طلب خودش بود و چیزی به طلبش اضافه نکرد.`;\n    }"
+          }
+        },
+        {
+          "id": "fix-expense",
+          "icon": "pen",
+          "title": "اصلاح یک ثبت اشتباه",
+          "say": "در گام ۳ اشتباهی ۳۵۰ تومان زدید، نه ۳۵۰٬۰۰۰. بروید در «هزینه‌ها» همان ردیف را ویرایش کنید (دکمهٔ مداد).",
+          "enter": {
+            "dynamicSource": "() { tutorEnsureToolExpense(); tutorGo('expenses'); }"
+          },
+          "guardEdit": {
+            "dynamicSource": "(key, v, rec) {\n      const e = tutorToolExpense();\n      if (key !== 'expenses' || !e || !rec || rec.id !== e.id) return '';\n      return num(v.amount) === 350000 ? '' : 'مبلغ درست ۳۵۰٬۰۰۰ تومان است؛ سه صفر جا افتاده بود.';\n    }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      if (tutorFormKind() === 'expenses' && tutorFormIsEdit()) {\n        const amt = $('#frm #f_amount');\n        return amt && moneyVal(amt) !== 350000\n          ? { sel: '#f_amount', mh: 'مبلغ را از ۳۵۰ به ۳۵۰٬۰۰۰ تومان درست کنید؛ زیر کادر باید «سیصد و پنجاه هزار تومان» را بخوانید.' }\n          : tutorSubmit('مبلغ درست شد. دکمهٔ «ذخیره» را بزنید.');\n      }\n      const sm = tutorStrayModal(); if (sm) return sm;\n      const pg = tutorOnPage('expenses'); if (pg) return pg;\n      const e = tutorToolExpense();\n      return { sel: `button[data-edit=\"${e ? e.id : ''}\"]`, hint: `ردیف «${e ? e.description : 'بیل نو'}» را پیدا کنید (مبلغ فعلی ${e ? fmt(e.amount) : '۳۵۰'} تومان) و دکمهٔ مداد کنارش را بزنید.` };\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { const e = tutorToolExpense(); return !!e && num(e.amount) === 350000; }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const R = compute();\n      return `درست شد. هر ویرایش فوراً در همهٔ حساب‌ها می‌نشیند: هزینه‌های مشترک الان ${fmt(R.sharedExpenses)} و مانده قابل تقسیم ${fmt(R.profit)} تومان است. برای همین بعد از تسویه باید دوره را قفل کنید (فصل ۳).`;\n    }"
+          }
+        },
+        {
+          "id": "export-pdf",
+          "icon": "file",
+          "title": "خروجی PDF",
+          "say": "از «گزارش‌ها» یک PDF بگیرید تا بتوانید حساب رضا و بقیه را برایشان بفرستید. دکمهٔ «گزارش PDF کامل» را بزنید.",
+          "enter": {
+            "dynamicSource": "() { tutorEnsureReza({ wage: true }); tutorGo('reports'); }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      const sm = tutorStrayModal(); if (sm) return sm;\n      const pg = tutorOnPage('reports'); if (pg) return pg;\n      return { sel: 'button[onclick*=\"exportPdf\"]', hint: 'کارت «گزارش PDF کامل» را بزنید و چند ثانیه صبر کنید تا فایل ساخته شود.' };\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { return (tutorState.exported.pdf || 0) >= tutorState.stepStartedAt && tutorState.stepStartedAt > 0; }"
+          },
+          "result": {
+            "dynamicSource": "() { return 'PDF ساخته شد. صفحه‌بندی A4 است و هیچ سطری وسط صفحه بریده نمی‌شود؛ سطر رضا هم در جدول شاگردها هست. این فایل را می‌توانید همان‌جا برای کارفرما یا خودش بفرستید.'; }"
+          }
+        },
+        {
+          "id": "export-csv",
+          "icon": "download",
+          "title": "خروجی CSV برای حسابدار",
+          "say": "از همان صفحهٔ «گزارش‌ها»، «CSV گزارش جامع مالی» را بگیرید؛ همان چیزی که می‌توانید به حسابدار بدهید.",
+          "enter": {
+            "dynamicSource": "() { tutorGo('reports'); }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      const sm = tutorStrayModal(); if (sm) return sm;\n      const pg = tutorOnPage('reports'); if (pg) return pg;\n      return { sel: 'button[onclick*=\"exportFinancialReportCSV\"]', hint: 'کارت «CSV گزارش جامع مالی» را بزنید.' };\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { return (tutorState.exported.csv || 0) >= tutorState.stepStartedAt && tutorState.stepStartedAt > 0; }"
+          },
+          "result": {
+            "dynamicSource": "() { return 'CSV ساخته شد؛ با اکسل راحت باز می‌شود و فارسی‌اش خراب نمی‌شود. حالا می‌دانید خروجی فقط PDF نیست: PDF برای خواندن و فرستادن، CSV برای حسابدار.'; }"
+          }
+        }
+      ]
+    },
+    "TUTOR_STEPS_CH3": {
+      "line": 3767,
+      "value": [
+        {
+          "id": "settle",
+          "icon": "wallet",
+          "title": "تسویهٔ نقدی اوستا",
+          "say": "فرض کنید کاظم بابت پیش‌برداشت‌هایش بدهکار است؛ ۱٬۵۰۰٬۰۰۰ تومان نقد به صندوق برگرداند. در «پاداش، جریمه و مساعده» با «تسویه نقدی» ثبتش کنید.",
+          "enter": {
+            "dynamicSource": "() { tutorGo('adjustments'); }"
+          },
+          "preset": {
+            "dynamicSource": "(key) { return key === 'adjustments' ? { userId: TUTOR_KAZEM, kind: 'settle', amount: 1500000, description: 'تسویهٔ پیش‌برداشت' } : null; }"
+          },
+          "guard": {
+            "dynamicSource": "(key, v) {\n      if (key !== 'adjustments') return '';\n      const u = P().users.find(x => x.id === v.userId);\n      if (v.kind === 'settle' && (!u || u.type !== 'master')) return 'تسویه نقدی فقط برای اوستا ثبت می‌شود.';   // same rule and wording as the real validator\n      if (v.kind !== 'settle') return 'نوع را روی «تسویه نقدی (فقط اوستا)» بگذارید.';\n      if (v.userId !== TUTOR_KAZEM) return 'در این گام تسویه برای اوستا کاظم است.';\n      return tutorExact(v, 1500000);\n    }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      return tutorCrudAim('adjustments', {\n        okMh: 'شخص کاظم، نوع «تسویه نقدی» و مبلغ ۱٬۵۰۰٬۰۰۰ است. دکمهٔ «ذخیره» را بزنید.',\n        check: () => tutorSel('f_userId', TUTOR_KAZEM, 'شخص را روی «اوستا کاظم» بگذارید.') || tutorSel('f_kind', 'settle', 'نوع را روی «تسویه نقدی (فقط اوستا)» بگذارید.') || tutorAmt(1500000, 'مبلغ این گام ۱٬۵۰۰٬۰۰۰ تومان است.'),\n        open: () => tutorOnPage('adjustments') || { sel: '#crudAdd', hint: 'دکمهٔ «تعدیل جدید» را بزنید.' }\n      });\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { return P().adjustments.some(a => a.userId === TUTOR_KAZEM && a.kind === 'settle' && a.active !== false); }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const k = tutorAcc(TUTOR_KAZEM);\n      return `ثبت شد. کاظم ${fmt(k.advance)} تومان پیش‌برداشت کرده بود و ${fmt(k.settle)} تومان نقد برگرداند؛ تراز نهایی‌اش الان ${fmt(k.finalBalance)} تومان است. تسویه نقدی فقط برای اوستا معنی دارد، چون شاگرد پیش‌برداشت ندارد.`;\n    }"
+          }
+        },
+        {
+          "id": "plant-error",
+          "icon": "alert",
+          "title": "یک اشتباه عمدی",
+          "say": "یک نیروی تازه به اسم «حسن» اضافه کنید (نوع شاگرد) و امروز حضورش را «کامل» بزنید؛ ولی فعلاً برایش نرخ دستمزد نگذارید. (عمدی است!)",
+          "enter": {
+            "dynamicSource": "() { tutorUnlock(); tutorGo('users'); }"
+          },
+          "preset": {
+            "dynamicSource": "(key) { return key === 'users' ? { name: 'حسن', type: 'apprentice' } : null; }"
+          },
+          "guard": {
+            "dynamicSource": "(key, v) {\n      if (key !== 'users') return '';\n      if (v.type !== 'apprentice') return 'حسن در این تمرین «شاگرد» است؛ نوع را روی «شاگرد» بگذارید.';\n      if (normFa(v.name).indexOf('حسن') < 0) return 'اسم را «حسن» نگه دارید تا گام‌های بعد با هم جور باشد.';\n      return '';\n    }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      const h = tutorHassan();\n      if (!h) {\n        return tutorCrudAim('users', {\n          okMh: 'اسم «حسن» و نوع «شاگرد» آماده است. «ذخیره» را بزنید؛ برای او نرخ دستمزد نمی‌گذاریم.',\n          check: () => tutorSel('f_type', 'apprentice', 'نوع را روی «شاگرد» بگذارید.'),\n          open: () => tutorOnPage('users') || { sel: '#crudAdd', hint: 'دکمهٔ «کاربر جدید» را بزنید.' }\n        });\n      }\n      if (P().wages.some(w => w.userId === h.id)) return { sel: tutorNav('wages'), hint: 'برای حسن نرخ ثبت شده، ولی این گام می‌خواهد نرخ نداشته باشد. از «دستمزدها» نرخ حسن را پاک کنید.' };\n      return tutorAttAim(h.id, 'full');\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { const h = tutorHassan(); return !!(h && getAtt(jTodayStr(), h.id) !== undefined && !P().wages.some(w => w.userId === h.id)); }"
+          },
+          "result": {
+            "dynamicSource": "() { return 'حالا یک تناقض در حساب است: حسن حضور دارد ولی نرخ دستمزد ندارد، یعنی دستمزدش صفر حساب می‌شود! اپ هنوز چیزی نگفته؛ بروید ببینید «سنجش سلامت» خودش این اشتباه را پیدا می‌کند یا نه.'; }"
+          }
+        },
+        {
+          "id": "see-real-error",
+          "icon": "shield",
+          "title": "اپ اشتباه را پیدا می‌کند",
+          "say": "حالا بروید «سنجش سلامت» و ببینید اپ خودش این اشتباه را چطور پیدا می‌کند.",
+          "enter": {
+            "dynamicSource": "() { tutorEnsureHassan(); tutorGo('dashboard'); }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      if (currentPage() === 'health') return { sel: '[data-qa=\"error\"]', hint: 'روی «خطا» بزنید تا اپ شما را به اولین مورد ببرد.' };\n      const sm = tutorStrayModal(); if (sm) return sm;\n      const pg = tutorOnPage('dashboard'); if (pg) return pg;\n      return { sel: `button[onclick*=\"go('health')\"]`, hint: 'در داشبورد دکمهٔ «سنجش سلامت» (یا «بررسی» کنار خطای قرمز) را بزنید.' };\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { return currentPage() === 'health' && sanityCheck().stats.error > 0; }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      let msg = '';\n      try { const it = sanityCheck().items.find(x => x.sev === 'error'); msg = it ? it.msg : ''; } catch (e) { /* ignore */ }\n      return `قرمز شد، دقیقاً همان‌جا که انتظار داشتید: «${msg || 'حضور ثبت شده اما هیچ نرخ دستمزدی تعریف نشده'}». برخلاف گام سلامت فصل ۱ که همه‌چیز سبز بود، این‌جا اپ جلوی یک اشتباه واقعی را قبل از تسویه گرفت.`;\n    }"
+          }
+        },
+        {
+          "id": "fix-error",
+          "icon": "layers",
+          "title": "رفع خطا",
+          "say": "برگردید و برای حسن یک نرخ دستمزد بگذارید تا خطا برطرف شود. از «دستمزدها» نرخ جدید را ثبت کنید.",
+          "enter": {
+            "dynamicSource": "() { tutorEnsureHassan(); tutorGo('wages'); }"
+          },
+          "preset": {
+            "dynamicSource": "(key) { const h = tutorHassan(); return key === 'wages' && h ? { userId: h.id, rate: 700000 } : null; }"
+          },
+          "guard": {
+            "dynamicSource": "(key, v) {   // no amount is narrated here, so any positive rate is accepted on purpose; the person is what matters\n      if (key !== 'wages') return '';\n      const h = tutorHassan();\n      if (!h || v.userId !== h.id) return 'در این گام نرخ برای حسن ثبت می‌شود.';\n      if (!(num(v.rate) > 0)) return 'نرخ روزانه باید بیشتر از صفر باشد.';\n      return '';\n    }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      const h = tutorHassan();\n      return tutorCrudAim('wages', {\n        okMh: 'شاگرد حسن و نرخ آماده است. دکمهٔ «ذخیره» را بزنید.',\n        check: () => h && tutorSel('f_userId', h.id, 'گیرنده را روی «حسن» بگذارید.'),\n        open: () => tutorOnPage('wages') || { sel: '#crudAdd', hint: 'دکمهٔ «نرخ جدید» را بزنید.' }\n      });\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { const h = tutorHassan(); return !!h && P().wages.some(w => w.userId === h.id) && sanityCheck().stats.error === 0; }"
+          },
+          "result": {
+            "dynamicSource": "() {\n      const h = tutorHassan(), a = tutorAcc(h && h.id);\n      return `خطا برطرف شد: «سنجش سلامت» الان ${sanityCheck().stats.error} خطا نشان می‌دهد و دستمزد حسن ${fmt(a.entitled)} تومان حساب شده. حالا با چشم خودتان دیدید قرمز چطور سبز می‌شود.`;\n    }"
+          }
+        },
+        {
+          "id": "full-backup",
+          "icon": "download",
+          "title": "پشتیبان کامل",
+          "say": "قبل از قفل‌کردن، یک پشتیبان کامل از همهٔ پروژه‌ها بگیرید. در «تنظیمات» دکمهٔ «پشتیبان کامل» را بزنید.",
+          "enter": {
+            "dynamicSource": "() { tutorGo('settings'); }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      const sm = tutorStrayModal(); if (sm) return sm;\n      const pg = tutorOnPage('settings'); if (pg) return pg;\n      return { sel: 'button[onclick*=\"exportFullDatabaseJson\"]', hint: 'دکمهٔ «پشتیبان کامل (همه پروژه‌ها)» را بزنید.' };\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { return tutorState.stepStartedAt > 0 && (ENV.lastExport || 0) >= tutorState.stepStartedAt; }"
+          },
+          "result": {
+            "dynamicSource": "() { return 'پشتیبان کامل گرفته شد و اپ زمانش را یادداشت کرد (هشدار «پشتیبان نگرفته‌اید» هم خاموش می‌شود). فایل را بیرون از گوشی هم نگه دارید: ایمیل، فضای ابری یا رایانه.'; }"
+          }
+        },
+        {
+          "id": "lock-and-try",
+          "icon": "lock",
+          "title": "قفل دورهٔ مالی",
+          "say": "حالا دوره را قفل کنید: در «تنظیمات»، «قفل کردن دوره مالی». بعد امتحان کنید یک هزینهٔ جدید اضافه کنید و ببینید اپ چه می‌گوید.",
+          "enter": {
+            "dynamicSource": "() { tutorState.lockTried = false; tutorGo('settings'); }"
+          },
+          "aim": {
+            "dynamicSource": "() {\n      const locked = !!P().settings.locked, sh = tutorTopSheet();\n      if (!locked) {\n        if (sh && $('[data-x=\"1\"]', sh)) return { sel: '[data-x=\"1\"]', mh: 'اپ پیش از قفل دوباره می‌پرسد. «قفل کن» را بزنید.' };\n        const pg = tutorOnPage('settings'); if (pg) return pg;\n        const sm = tutorStrayModal(); if (sm) return sm;\n        return { sel: 'button[onclick*=\"togglePeriodLock\"]', hint: 'دکمهٔ «قفل کردن دوره مالی» را بزنید.' };\n      }\n      if (sh && $('[data-x=\"1\"]', sh)) return { sel: '[data-x=\"0\"]', mh: 'این پنجره قفل را باز می‌کند؛ فعلاً «انصراف» را بزنید.' };\n      const sm = tutorStrayModal(); if (sm) return sm;\n      return Object.assign(tutorFab('expense', 'ثبت هزینه جدید'), { hint: tutorFab('expense', 'ثبت هزینه جدید').hint.replace(/^/, 'قفل فعال است. حالا امتحان کنید هزینه اضافه کنید: ') });\n    }"
+          },
+          "done": {
+            "dynamicSource": "() { return P().settings.locked === true && tutorState.lockTried; }"
+          },
+          "result": {
+            "dynamicSource": "() { return 'قفل کار کرد: اپ جلوی هزینهٔ جدید را گرفت و گفت «دورهٔ مالی قفل است». قفل را بعد از تسویهٔ نهایی روشن کنید تا هیچ عددی تصادفی عوض نشود؛ هر وقت لازم شد از «تنظیمات» بازش کنید. فقط این‌جا عمداً به قفل خوردید.'; }"
+          }
+        }
+      ]
+    },
+    "TUTOR_CHAPTERS": {
+      "line": 3885,
+      "value": [
+        {
+          "id": 1,
+          "name": "شروع کار",
+          "blurb": "حضور و غیاب، نیروی انسانی، پول و حساب نهایی",
+          "steps": {
+            "dynamicSource": "TUTOR_STEPS"
+          },
+          "prepare": {
+            "dynamicSource": "() { tutorUnlock(); }"
+          }
+        },
+        {
+          "id": 2,
+          "name": "واریزی، گزارش و اصلاح اشتباه",
+          "blurb": "واریزی، دسته، اصلاح ثبت اشتباه، پاداش، PDF و CSV",
+          "steps": {
+            "dynamicSource": "TUTOR_STEPS_CH2"
+          },
+          "prepare": {
+            "dynamicSource": "() { tutorUnlock(); tutorEnsureReza({ wage: true }); }"
+          }
+        },
+        {
+          "id": 3,
+          "name": "بستن حساب‌ها",
+          "blurb": "تسویه، پیدا و رفع خطا، پشتیبان و قفل مالی",
+          "steps": {
+            "dynamicSource": "TUTOR_STEPS_CH3"
+          },
+          "prepare": {
+            "dynamicSource": "() { tutorUnlock(); }"
+          }
+        }
+      ]
+    },
+    "OB_STEPS": {
+      "line": 4447,
+      "value": [
+        {
+          "t": "پروژه‌ها",
+          "i": "folder",
+          "a": "هر ساختمان یا کار ساختمانی مستقل، یک «پروژه» است.",
+          "b": "از بخش پروژه‌ها، پروژه جدید بسازید یا با «تکثیر ساختار» همان اوستاها و شاگردها را به پروژه بعدی ببرید. با یک لمس بین پروژه‌ها جابه‌جا می‌شوید.",
+          "c": "حساب‌ها هرگز با هم قاطی نمی‌شوند؛ سود و تراز هر پروژه جداگانه محاسبه می‌شود."
+        },
+        {
+          "t": "راهنما و داشبورد",
+          "i": "home",
+          "a": "داشبورد نمای کلی اوضاع کار است: واریزی، هزینه، دستمزد و مانده قابل تقسیم.",
+          "b": "کارت‌ها را لمس کنید تا فرمول هر عدد باز شود. نمودارها سهم هر نفر و روند نقدینگی را نشان می‌دهند.",
+          "c": "فقط نمایش است و چیزی را تغییر نمی‌دهد؛ اما جمع‌بندی همه بخش‌هاست."
+        },
+        {
+          "t": "کاربران",
+          "i": "users",
+          "a": "اینجا اوستاها، شاگردها و پرسنل سایر (مثل کارگر ساده) را تعریف می‌کنید.",
+          "b": "برای اوستا «ضریب کارکرد» می‌گذارید (پیش‌فرض ۱). شاگرد و پرسنل دستمزد روزانه می‌گیرند.",
+          "c": "اوستاها به نسبت کارکرد × ضریب در سود شریک می‌شوند؛ شاگردها فقط طلب دستمزد دارند."
+        },
+        {
+          "t": "دستمزدها",
+          "i": "layers",
+          "a": "نرخ روزانه هر شاگرد یا پرسنل را با «تاریخ شروع اعتبار» ثبت می‌کنید.",
+          "b": "اگر نرخ عوض شد، نرخ جدید را با تاریخ جدید اضافه کنید؛ نرخ قدیمی پاک نمی‌شود.",
+          "c": "هر روز کارکرد با نزدیک‌ترین نرخ قبل از همان روز حساب می‌شود؛ پس دستمزد گذشته خراب نمی‌شود."
+        },
+        {
+          "t": "حضور و غیاب",
+          "i": "calendar",
+          "a": "ثبت دقیق کارکرد هر روز: کامل (۸ ساعت)، نصفه (۴ ساعت)، ساعتی یا غایب.",
+          "b": "در موبایل با دکمه‌های بزرگ، در ماتریس با یک لمس (چرخش وضعیت) یا نگه‌داشتن برای ساعت دقیق. ساعت بیشتر از ۸ اضافه‌کار است.",
+          "c": "پایه محاسبه دستمزد شاگردان و سهم اوستاهاست. اضافه‌کار با ضریب تنظیمات (پیش‌فرض ۱؛ از تنظیمات قابل تغییر است) حساب می‌شود."
+        },
+        {
+          "t": "واریزی‌ها",
+          "i": "wallet",
+          "a": "پولی که از کارفرما دریافت می‌کنید.",
+          "b": "هر واریزی یک بازه تاریخ و مبلغ دارد؛ مبلغ زیر فیلد به حروف نوشته می‌شود تا اشتباه نشود.",
+          "c": "مجموع واریزی‌ها نقطه شروع سود قابل تقسیم است."
+        },
+        {
+          "t": "هزینه‌ها و دسته‌ها",
+          "i": "cart",
+          "a": "هر خرجی که برای کار شده؛ با دسته‌بندی مثل مصالح، حمل و ابزار.",
+          "b": "اگر از صندوق پرداخت شده «مشترک» بزنید؛ اگر اوستا از جیبش داده، نام او را به‌عنوان پرداخت‌کننده انتخاب کنید.",
+          "c": "هزینه مشترک از سود کم می‌شود. هزینه شخصی اوستا به خودش برمی‌گردد و بین اوستاها تقسیم می‌شود."
+        },
+        {
+          "t": "پرداختی شاگردها",
+          "i": "receipt",
+          "a": "پول نقدی که به شاگرد یا پرسنل داده‌اید.",
+          "b": "هر بار پرداخت را با تاریخ و مبلغ ثبت کنید.",
+          "c": "از طلب همان نفر کم می‌شود و مانده حسابش در داشبورد به‌روز است. اگر بیشتر بدهید، «اضافه‌پرداخت» هشدار می‌گیرد."
+        },
+        {
+          "t": "انتقال بین اوستاها",
+          "i": "transfer",
+          "a": "پرداخت مستقیم یک اوستا به اوستای دیگر، یا پیش‌برداشت اوستا از صندوق.",
+          "b": "نوع «انتقال» را با پرداخت‌کننده و دریافت‌کننده ثبت کنید؛ برای برداشت از صندوق نوع «پیش‌برداشت» را بزنید.",
+          "c": "تسویه داخلی است و درآمد کارگاه را تغییر نمی‌دهد؛ فقط تراز دو اوستا را جابه‌جا می‌کند."
+        },
+        {
+          "t": "پاداش، جریمه و مساعده",
+          "i": "bolt",
+          "a": "اقلام مستقل از حضور و غیاب.",
+          "b": "پاداش و جریمه تراز فرد را زیاد و کم می‌کند؛ مساعده پول نقد فوری از صندوق است؛ «تسویه نقدی» برای اوستای بدهکار است.",
+          "c": "بدون دست زدن به حضور و غیاب، دستمزد یا سهم فرد را تعدیل می‌کند."
+        },
+        {
+          "t": "گزارش‌ها و سنجش سلامت",
+          "i": "shield",
+          "a": "خروجی PDF، اکسل و تصویر صورت‌حساب هر نفر، به‌علاوه بررسی خودکار خطاها.",
+          "b": "قبل از تسویه، «سنجش سلامت داده» را اجرا کنید تا نرخ‌های جاافتاده، رکوردهای یتیم و مبالغ غلط پیدا شوند.",
+          "c": "اشتباه‌ها قبل از تقسیم پول پیدا می‌شوند، نه بعد از آن."
+        },
+        {
+          "t": "تنظیمات و امنیت",
+          "i": "settings",
+          "a": "مبنای سود، ضریب اضافه‌کار، پوسته، پشتیبان‌گیری و قفل مالی.",
+          "b": "حتماً پشتیبان کامل را خارج از گوشی نگه دارید. بعد از تسویه نهایی، «قفل دوره مالی» را روشن کنید.",
+          "c": "قفل مالی جلوی هر تغییر تصادفی را می‌گیرد و پشتیبان‌ها از دست رفتن اطلاعات را جبران می‌کنند."
+        }
+      ]
+    },
+    "BASIS_INFO": {
+      "line": 4576,
+      "value": {
+        "commitment": "تعهدی: دستمزد از همان روز کار از سود کم می‌شود، حتی اگر هنوز پرداخت نشده. برای تسویه نهایی مناسب است.",
+        "cash": "نقدی: دستمزد شاگردان وقتی به آن‌ها پرداخت شود از سود کم می‌شود. برای کار روزمره مناسب است."
+      }
+    },
+    "BASIS_WARN": {
+      "line": 4577,
+      "value": {
+        "commitment": "",
+        "cash": "⚠ توجه: دستمزدِ کارکرده ولی هنوز پرداخت‌نشده در این مبنا از «مانده قابل تقسیم» کم نمی‌شود؛ پس این مانده بیشتر از پولِ واقعاً آزاد نشان داده می‌شود. اگر همه را بین اوستاها تقسیم کنید، ممکن است برای تسویه شاگردان پول نماند. پیش از تقسیم، «مانده» شاگردان را در داشبورد ببینید یا مبنای تعهدی را انتخاب کنید."
+      }
+    }
+  }
+}

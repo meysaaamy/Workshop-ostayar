@@ -1,0 +1,39 @@
+{
+ "app": "stayar",
+ "kind": "full",
+ "version": 2,
+ "exportedAt": "1403/01/01 12:00",
+ "state": {
+  "version": 3,
+  "activeProjectId": "p",
+  "projects": [
+   {
+    "id": "p",
+    "name": "کارگاه نمونه",
+    "settings": {},
+    "users": [
+     {
+      "id": "u",
+      "name": "استاد",
+      "type": "master"
+     }
+    ],
+    "wages": [],
+    "attendance": {
+     "1403/01/01": {
+      "u": {
+       "t": "h",
+       "h": 1.25
+      }
+     }
+    },
+    "expenses": [],
+    "receipts": [],
+    "payouts": [],
+    "transfers": [],
+    "adjustments": [],
+    "categories": []
+   }
+  ]
+ }
+}

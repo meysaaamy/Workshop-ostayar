@@ -1,0 +1,21 @@
+{
+  "name": "stayar-parity-tools",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Analysis tools for the legacy APK",
+  "scripts": {
+    "golden": "node tools/generate.js",
+    "inventory": "node tools/inventory.js",
+    "test": "node tools/check-golden.js && node tools/check-properties.js && node tools/check-calendar.js && node tools/check-ui-spec.js && node tools/check-csv.js && node tools/check-calendar-golden.js && node tools/check-backup-safety.js && node tools/check-matrix.js && node tools/check-reports.js && node tools/generate-backups.js --check && node tools/generate-number-format.js --check && node tools/generate-field-raw.js --check",
+    "ui-spec": "node tools/extract-ui-spec.js",
+    "calendar-golden": "node tools/generate-calendar.js",
+    "matrix": "node tools/inventory.js && node tools/build-matrix.js",
+    "reports-golden": "node tools/generate-reports.js",
+    "backups-golden": "node tools/generate-backups.js",
+    "number-format-golden": "node tools/generate-number-format.js",
+    "field-raw-golden": "node tools/generate-field-raw.js"
+  },
+  "devDependencies": {
+    "acorn": "8.15.0"
+  }
+}

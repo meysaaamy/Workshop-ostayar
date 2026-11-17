@@ -1,0 +1,68 @@
+# Raw DEX instructions; static evidence, not proof of runtime DataStore behavior.
+# APK SHA-256: 1fe8867aa04ee0fb2d0b4e7bdd5e0a502d1a4b264c93dc1f644e672192b1402b
+
+## Lcom/workshop/ledger/data/LedgerPreferenceKeys;-><clinit> ()V
+new-instance v0, Lcom/workshop/ledger/data/LedgerPreferenceKeys;
+invoke-direct v0, Lcom/workshop/ledger/data/LedgerPreferenceKeys;-><init>()V
+sput-object v0, Lcom/workshop/ledger/data/LedgerPreferenceKeys;->INSTANCE Lcom/workshop/ledger/data/LedgerPreferenceKeys;
+const-string v0, "active_project_id"
+invoke-static v0, Lx/g;->b(Ljava/lang/String;)Lx/d;
+move-result-object v0
+sput-object v0, Lcom/workshop/ledger/data/LedgerPreferenceKeys;->ACTIVE_PROJECT_ID Lx/d;
+new-instance v0, Lx/d;
+const-string v1, "attendance_coach_dismissed"
+invoke-direct v0, v1, Lx/d;-><init>(Ljava/lang/String;)V
+sput-object v0, Lcom/workshop/ledger/data/LedgerPreferenceKeys;->ATTENDANCE_COACH_DISMISSED Lx/d;
+const-string v0, "auto_backup_envelope"
+invoke-static v0, Lx/g;->b(Ljava/lang/String;)Lx/d;
+move-result-object v0
+sput-object v0, Lcom/workshop/ledger/data/LedgerPreferenceKeys;->AUTO_BACKUP_ENVELOPE Lx/d;
+const-string v0, "onboarding_decision"
+invoke-static v0, Lx/g;->b(Ljava/lang/String;)Lx/d;
+move-result-object v0
+sput-object v0, Lcom/workshop/ledger/data/LedgerPreferenceKeys;->ONBOARDING_STATE Lx/d;
+return-void
+
+## Lcom/workshop/ledger/data/LedgerPreferenceKeys;->projectIdFromKeyName (Ljava/lang/String;)Ljava/lang/String;
+const-string v0, "keyName"
+invoke-static v4, v0, Lkotlin/jvm/internal/i;->e(Ljava/lang/Object; Ljava/lang/String;)V
+const-string v0, "project_"
+invoke-static v4, v0, Lg0/m;->d0(Ljava/lang/String; Ljava/lang/String;)Z
+move-result v0
+const/4 v1, 0
+if-eqz v0, +025h
+const/4 v0, 0
+const-string v2, "_settings"
+invoke-static v4, v2, v0, Lg0/m;->S(Ljava/lang/String; Ljava/lang/String; Z)Z
+move-result v0
+if-nez v0, +003h
+goto +1ah
+invoke-virtual v4, Ljava/lang/String;->length()I
+move-result v0
+add-int/lit8 v0, v0, -9
+const/16 v2, 8
+invoke-virtual v4, v2, v0, Ljava/lang/String;->substring(I I)Ljava/lang/String;
+move-result-object v4
+const-string v0, "substring(...)"
+invoke-static v4, v0, Lkotlin/jvm/internal/i;->d(Ljava/lang/Object; Ljava/lang/String;)V
+invoke-virtual v4, Ljava/lang/String;->length()I
+move-result v0
+if-nez v0, +003h
+goto +2h
+move-object v1, v4
+return-object v1
+
+## Lcom/workshop/ledger/data/LedgerPreferenceKeys;->projectSettings (Ljava/lang/String;)Lx/d;
+const-string v0, "projectId"
+invoke-static v3, v0, Lkotlin/jvm/internal/i;->e(Ljava/lang/Object; Ljava/lang/String;)V
+new-instance v0, Ljava/lang/StringBuilder;
+const-string v1, "project_"
+invoke-direct v0, v1, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+invoke-virtual v0, v3, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+const-string v3, "_settings"
+invoke-virtual v0, v3, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+invoke-virtual v0, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+move-result-object v3
+invoke-static v3, Lx/g;->b(Ljava/lang/String;)Lx/d;
+move-result-object v3
+return-object v3
